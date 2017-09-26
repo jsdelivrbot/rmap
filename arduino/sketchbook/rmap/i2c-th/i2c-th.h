@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c-th-config.h"
 #include <debug.h>
 #include <hardware_config.h>
-#include <rmap_util.h>
+#include <i2c_utility.h>
+#include <rmap_utility.h>
 #include <sleep_utility.h>
 #include <eeprom_utility.h>
 #include <Wire.h>
@@ -51,7 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  typedef struct {
    uint16_t med[OBSERVATION_COUNT];
-   uint8_t count;
+   uint16_t count;
+   uint16_t *read_ptr;
+   uint16_t *write_ptr;
  } observation_t;
 
 /*!
@@ -94,16 +97,6 @@ typedef struct {
   uint8_t i2c_humidity_address;
 } writable_data_t;
 
-/*!
-  \typedef
-  \struct wdt_timer_t
-  Watchdog running parameter.
-*/
-typedef struct {
-  uint16_t value;               //!< current value of watchdog timer
-  uint8_t interrupt_count;      //!< watchdog elapsed timer counter
-} wdt_timer_t;
-
 /**********************************************************************
  * ENUMERATION
  *********************************************************************/
@@ -142,10 +135,10 @@ typedef enum {
 configuration_t configuration;
 
 /*!
-  \var wdt_timer
-  Watchdog timer variable.
+  \var timer_counter
+  timer counter variable.
 */
-volatile wdt_timer_t wdt_timer;
+volatile uint8_t timer_counter;
 
 /*!
   \var readable_data_1
@@ -266,6 +259,7 @@ sensors_reading_state_t sensors_reading_state;
 /**********************************************************************
  * FUNCTIONS
  *********************************************************************/
+void init_wdt(uint8_t wdt_timer);
 void init_systems(void);
 void init_buffers(void);
 void init_tasks(void);
@@ -298,11 +292,17 @@ void init_sensors(void);
 
 void commands(void);
 
-void reset_buffers(void);
+void start_timer(void);
+void stop_timer(void);
+
+void reset_samples_buffer(void);
+void reset_observations_buffer(void);
 void exchange_buffers(void);
 
-void samples_processing(void);
+void samples_processing(bool is_force_processing);
 void observations_processing(void);
+bool make_observation_from_samples(bool is_force_processing, sample_t *sample, observation_t *observation);
+bool make_value_from_samples_and_observations(sample_t *sample, observation_t *observation, volatile value_t *value);
 
 /**********************************************************************
  * TASKS
@@ -323,16 +323,6 @@ volatile bool is_event_command_task;
  *  \return void.
  */
 void command_task(void);
-
-#if (USE_WDT_TASK)
-volatile bool is_event_wdt;
-
-/*! \fn void wdt_task(void)
- *  \brief Temporized task.
- *  \return void.
- */
-void wdt_task(void);
-#endif
 
 /**********************************************************************
  * INTERRUPT HANDLER
