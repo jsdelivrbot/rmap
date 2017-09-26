@@ -13,8 +13,8 @@
 
 #define MQTT_DEFAULT_SERVER            ("rmap.cc")
 #define MQTT_DEFAULT_PORT              (1883)
-#define MQTT_DEFAULT_ROOT_TOPIC        ("test/digiteco/1132822,4450078/fixed/")
-#define MQTT_DEFAULT_SUBSCRIBE_TOPIC   ("test/digiteco/1132822,4450078/rx")
+#define MQTT_DEFAULT_ROOT_TOPIC        ("report/digiteco/1162336,4465346/fixed/")   // report/digiteco/1132822,4450078/fixed/
+#define MQTT_DEFAULT_SUBSCRIBE_TOPIC   ("report/digiteco/1162336,4465346/rx")
 #define MQTT_DEFAULT_USERNAME          ("digiteco")
 #define MQTT_DEFAULT_PASSWORD          ("dgt6943")
 

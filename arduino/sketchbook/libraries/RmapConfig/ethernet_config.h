@@ -11,6 +11,10 @@
 #define ETHERNET_DEFAULT_LOCAL_UDP_PORT   (8000)
 
 #define ETHERNET_ATTEMPT_MS               (2000)
+
+#define ETHERNET_RETRY_TIME_MS            (2000)
+#define ETHERNET_RETRY_COUNT              (2)
+
 #define ETHERNET_MAC_LENGTH               (6)
 #define ETHERNET_IP_LENGTH                (4)
 

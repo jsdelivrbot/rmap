@@ -38,5 +38,6 @@
 
 // rmap
 #define RMAP_SERIAL_TRACE_LEVEL           (SERIAL_TRACE_LEVEL_INFO)
+#define RMAP_LCD_TRACE_LEVEL              (LCD_TRACE_LEVEL_INFO)
 
 #endif
