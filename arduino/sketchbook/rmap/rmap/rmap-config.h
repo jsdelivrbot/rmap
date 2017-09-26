@@ -51,6 +51,12 @@ Enable or disable power down.
 #define USE_POWER_DOWN                                (false)
 
 /*!
+\def DEBOUNCING_POWER_DOWN_TIME_MS
+Debounce power down ms.
+*/
+#define DEBOUNCING_POWER_DOWN_TIME_MS                 (100)
+
+/*!
 \def DATA_PROCESSING_RETRY_COUNT_MAX
 Retry count for data savings
 */
@@ -153,12 +159,6 @@ Retry count for management GSM
 Delay for retry in GSM management
 */
 #define GSM_RETRY_DELAY_MS                            (GSM_ATTEMPT_MS)
-
-/*!
-\def GSM_MQTT_TIMEOUT_MS
-Timeout for mqtt connection on gsm.
-*/
-#define GSM_MQTT_TIMEOUT_MS                           (GSM_TIMEOUT_MS)
 
 /*!
 \def GSM_ON_OFF_PIN
@@ -338,12 +338,6 @@ PCF8563_TIMER_FREQUENCY_SECONDS and PCF8563_TIMER_FREQUENCY_MINUTES
 Interrupt pin for rtc awake.
 */
 #define RTC_INTERRUPT_PIN                             (6)
-
-/*!
-\def USE_RTC_TASK
-Enable or disable timed tasks by RTC.
-*/
-#define USE_RTC_TASK                                  (true)
 
 /**********************************************************************
 * SENSORS

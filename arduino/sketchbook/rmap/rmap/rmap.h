@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <hardware_config.h>
 #include <json_config.h>
 #include <ntp_config.h>
+#include <lcd_config.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <SdFat.h>
@@ -72,6 +73,7 @@ typedef struct {
    char ntp_server[NTP_SERVER_LENGTH];
 
    sensor_t sensors[USE_SENSORS_COUNT];
+   uint16_t report_seconds;
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
    bool is_dhcp_enable;
@@ -114,6 +116,7 @@ typedef struct {
    char ntp_server[NTP_SERVER_LENGTH];
 
    sensor_t sensors[USE_SENSORS_COUNT];
+   uint16_t report_seconds;
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
    bool is_dhcp_enable;
@@ -252,31 +255,6 @@ typedef enum {
    MQTT_WAIT_STATE
 } mqtt_state_t;
 
-// typedef enum {
-//    DATA_PROCESSING_INIT,
-//    INIT_SDCARD_SERVICE,
-//    OPEN_SDCARD_PTR_DATA_FILES,
-//    OPEN_SDCARD_WRITE_DATA_FILE,
-//    OPEN_SDCARD_READ_DATA_FILE,
-//    READ_PTR_DATA,
-//    FIND_PTR_DATA,
-//    FOUND_PTR_DATA,
-//    END_FIND_PTR,
-//    END_SDCARD_SERVICE,
-//    INIT_MQTT_SERVICE,
-//    CHECK_CLIENT_CONNECTION_STATUS,
-//    CONNECT_MQTT_SERVICE,
-//    SUBSCRIBE_MQTT_SERVICE,
-//    END_MQTT_SERVICE,
-//    LOOP_JSON_TO_MQTT,
-//    LOOP_SD_TO_MQTT,
-//    LOOP_MQTT_TO_X,
-//    WRITE_DATA_TO_X,
-//    UPDATE_PTR_DATA,
-//    DATA_PROCESSING_END,
-//    DATA_PROCESSING_WAIT_STATE
-// } data_processing_state_t;
-
 /**********************************************************************
 * GLOBAL VARIABLE
 *********************************************************************/
@@ -360,11 +338,17 @@ IPStack ipstack(s800);
 
 MQTT::Client<IPStack, Countdown, MQTT_ROOT_TOPIC_LENGTH+MQTT_SENSOR_TOPIC_LENGTH+MQTT_MESSAGE_LENGTH, 1> mqtt_client = MQTT::Client<IPStack, Countdown, MQTT_ROOT_TOPIC_LENGTH+MQTT_SENSOR_TOPIC_LENGTH+MQTT_MESSAGE_LENGTH, 1>(ipstack, IP_STACK_TIMEOUT_MS);
 
+LiquidCrystal_I2C lcd(LCD_I2C_ADDRESS, LCD_COLUMNS, LCD_ROWS);
+
 SensorDriver *sensors[USE_SENSORS_COUNT];
 uint8_t sensors_count;
 
+char stima_name[20];
+
 bool is_first_run;
 bool is_time_set;
+
+bool is_time_for_sensors_reading_updated;
 
 bool is_client_connected;
 bool is_client_udp_socket_open;
@@ -418,10 +402,8 @@ void init_pins(void);
 void init_wire(void);
 void init_spi(void);
 void init_rtc(void);
+void init_timer1(void);
 void init_sensors(void);
-void init_wdt(void);
-
-void check_tasks();
 
 /*! \fn void print_configuration(void)
 *  \brief Print configuration.
@@ -470,7 +452,6 @@ void sensors_reading_task(void);
 
 volatile bool is_event_sensors_reading;
 
-#if (USE_RTC_TASK)
 volatile bool is_event_rtc;
 
 /*! \fn void rtc_task(void)
@@ -478,7 +459,6 @@ volatile bool is_event_rtc;
 *  \return void.
 */
 void rtc_task(void);
-#endif
 
 /*! \fn void time_task(void)
 *  \brief manage ntp and rtc time.
@@ -533,6 +513,4 @@ bool is_event_mqtt;
 *  \brief Real time clock interrupt handler.
 *  \return void.
 */
-#if (USE_RTC_TASK)
 void rtc_interrupt_handler(void);
-#endif

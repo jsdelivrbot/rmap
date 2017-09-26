@@ -31,20 +31,24 @@ debug_config include file
 \def SERIAL_TRACE_LEVEL
 Debug level for this sketch.
 */
-#define SERIAL_TRACE_LEVEL RMAP_SERIAL_TRACE_LEVEL
+#define SERIAL_TRACE_LEVEL    (RMAP_SERIAL_TRACE_LEVEL)
+#define LCD_TRACE_LEVEL       (RMAP_LCD_TRACE_LEVEL)
 
 #include "rmap.h"
 
 void setup() {
-   init_wdt();
-   TRACE_BEGIN(230400);
+   init_wdt(WDT_TIMER);
+   SERIAL_BEGIN(115200);
    init_pins();
    load_configuration();
    init_buffers();
    init_wire();
    init_spi();
    init_rtc();
+   init_timer1();
    init_system();
+   LCD_BEGIN(&lcd, LCD_COLUMNS, LCD_ROWS);
+   wdt_reset();
 }
 
 void loop() {
@@ -52,7 +56,6 @@ void loop() {
       case INIT:
          init_tasks();
          init_sensors();
-
          state = TASKS_EXECUTION;
          wdt_reset();
       break;
@@ -60,19 +63,17 @@ void loop() {
       #if (USE_POWER_DOWN)
       case ENTER_POWER_DOWN:
          wdt_disable();
-         power_down(&awakened_event_occurred_time_ms);
+         power_down(&awakened_event_occurred_time_ms, DEBOUNCING_POWER_DOWN_TIME_MS);
          state = TASKS_EXECUTION;
-         init_wdt();
+         init_wdt(WDT_TIMER);
       break;
       #endif
 
       case TASKS_EXECUTION:
-         #if (USE_RTC_TASK)
          if (is_event_rtc) {
             rtc_task();
             wdt_reset();
          }
-         #endif
 
          if (is_event_supervisor) {
             supervisor_task();
@@ -153,9 +154,7 @@ void init_tasks() {
    is_event_data_saving = false;
    is_event_mqtt = false;
 
-   #if (USE_RTC_TASK)
    is_event_rtc = false;
-   #endif
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
    is_event_ethernet = false;
@@ -179,6 +178,8 @@ void init_tasks() {
    do_ntp_sync = false;
    is_time_set = false;
    last_ntp_sync = -NTP_TIME_FOR_RESYNC_S;
+
+   is_time_for_sensors_reading_updated = false;
 
    is_sdcard_error = false;
    is_sdcard_open = false;
@@ -216,26 +217,25 @@ void init_wire() {
 
    if (i2c_bus_state) {
       SERIAL_ERROR("I2C bus error: Could not clear!!!\r\n");
+      while(1);
    }
 
    switch (i2c_bus_state) {
       case 1:
-      SERIAL_ERROR("SCL clock line held low\r\n");
+         SERIAL_ERROR("SCL clock line held low\r\n");
       break;
 
       case 2:
-      SERIAL_ERROR("SCL clock line held low by slave clock stretch\r\n");
+         SERIAL_ERROR("SCL clock line held low by slave clock stretch\r\n");
       break;
 
       case 3:
-      SERIAL_ERROR("SDA data line held low\r\n");
-      break;
-
-      default:
-      Wire.begin();
-      Wire.setClock(I2C_BUS_CLOCK);
+         SERIAL_ERROR("SDA data line held low\r\n");
       break;
    }
+
+   Wire.begin();
+   Wire.setClock(I2C_BUS_CLOCK);
 }
 
 void init_spi() {
@@ -259,21 +259,37 @@ void init_system() {
    state = INIT;
 }
 
-void init_wdt() {
+void init_wdt(uint8_t wdt_timer) {
    wdt_disable();
    wdt_reset();
-   wdt_enable(WDT_TIMER);
+   wdt_enable(wdt_timer);
+}
+
+void init_timer1() {
 }
 
 void init_sensors () {
    is_first_run = true;
    sensors_count = 0;
+   uint8_t sensors_name_length = 20;
+   char sensors_name[20];
+   sensors_name[0] = 0;
+
+   LCD_INFO(&lcd, false, "--- www.rmap.cc ---");
+   LCD_INFO(&lcd, false, "%s v. %u", stima_name, configuration.module_version);
 
    SERIAL_INFO("Sensors...\r\n");
 
    for (uint8_t i=0; i<USE_SENSORS_COUNT; i++) {
       SensorDriver::createAndSetup(configuration.sensors[i].driver, configuration.sensors[i].type, configuration.sensors[i].address, sensors, &sensors_count);
       SERIAL_INFO("--> %u: %s-%s: %s\t [ %s ]\r\n", sensors_count, configuration.sensors[i].driver, configuration.sensors[i].type, configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
+      sensors_name_length -= snprintf(sensors_name + strlen(sensors_name), sensors_name_length, "%s ", configuration.sensors[i].type);
+
+      if (sensors_name_length < 3) {
+         LCD_INFO(&lcd, false, "%s", sensors_name);
+         sensors_name[0] = 0;
+         sensors_name_length = 20;
+      }
    }
 
    SERIAL_INFO("\r\n");
@@ -286,11 +302,11 @@ void setNextTimeForSensorReading (uint8_t *next_hour, uint8_t *next_minute, uint
 
    if (*next_minute == 255) {
       *next_minute = minute();
-      *next_minute = *next_minute - (*next_minute % REPORT_MINUTES) + REPORT_MINUTES;
+      *next_minute = *next_minute - (*next_minute % (uint8_t)(configuration.report_seconds / 60)) + (uint8_t)(configuration.report_seconds / 60);
       is_update = true;
    }
    else if (minute() == *next_minute) {
-      *next_minute += REPORT_MINUTES;
+      *next_minute += (uint8_t)(configuration.report_seconds / 60);
       is_update = true;
    }
 
@@ -308,12 +324,12 @@ void setNextTimeForSensorReading (uint8_t *next_hour, uint8_t *next_minute, uint
 bool mqttConnect(char *username, char *password) {
    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
    data.MQTTVersion = 3;
-   data.clientID.cstring = (char*)"proviamoci123";
+   data.clientID.cstring = (char*)"rmapclient";
    data.username.cstring = (char*)username;
    data.password.cstring = (char*)password;
    data.cleansession = false;
 
-   return !mqtt_client.connect(data);
+   return (mqtt_client.connect(data) == 0);
 }
 
 bool mqttPublish(const char *topic, const char *message) {
@@ -324,7 +340,7 @@ bool mqttPublish(const char *topic, const char *message) {
    tx_message.payload = (void*)message;
    tx_message.payloadlen = strlen(message) + 1;
 
-   return !mqtt_client.publish(topic, tx_message);
+   return (mqtt_client.publish(topic, tx_message) == 0);
 }
 
 void mqttRxCallback(MQTT::MessageData &md) {
@@ -337,31 +353,13 @@ void mqttRxCallback(MQTT::MessageData &md) {
 }
 
 void print_configuration() {
-   char stima_name[20];
    getStimaNameByType(stima_name, configuration.module_type);
    SERIAL_INFO("--> type: %s\r\n", stima_name);
    SERIAL_INFO("--> version: %d\r\n", configuration.module_version);
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
    SERIAL_INFO("--> dhcp: %s\r\n", configuration.is_dhcp_enable ? "on" : "off");
-   SERIAL_INFO("--> ethernet mac: ");
-   SERIAL_INFO_ARRAY(configuration.ethernet_mac, ETHERNET_MAC_LENGTH, UINT8, "%02X:");
-   SERIAL_INFO("\r\n");
-
-   if (!configuration.is_dhcp_enable) {
-      SERIAL_INFO("--> ip: ");
-      SERIAL_INFO_ARRAY(configuration.ip, ETHERNET_IP_LENGTH, UINT8, "%u.");
-      SERIAL_INFO("\r\n");
-      SERIAL_INFO("--> netmask: ");
-      SERIAL_INFO_ARRAY(configuration.netmask, ETHERNET_IP_LENGTH, UINT8, "%u.");
-      SERIAL_INFO("\r\n");
-      SERIAL_INFO("--> gateway: ");
-      SERIAL_INFO_ARRAY(configuration.gateway, ETHERNET_IP_LENGTH, UINT8, "%u.");
-      SERIAL_INFO("\r\n");
-      SERIAL_INFO("--> primary dns: ");
-      SERIAL_INFO_ARRAY(configuration.primary_dns, ETHERNET_IP_LENGTH, UINT8, "%u.");
-      SERIAL_INFO("\r\n");
-   }
+   SERIAL_INFO("--> ethernet mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", configuration.ethernet_mac[0], configuration.ethernet_mac[1], configuration.ethernet_mac[2], configuration.ethernet_mac[3], configuration.ethernet_mac[4], configuration.ethernet_mac[5]);
 
    #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
    SERIAL_INFO("--> gsm apn: %s\r\n", configuration.gsm_apn);
@@ -389,6 +387,7 @@ void save_configuration(bool is_default) {
       configuration.module_version = MODULE_VERSION;
 
       // DEBUG
+      configuration.report_seconds = 900;
       uint8_t i=0;
 
       strcpy(configuration.sensors[i].driver, SENSOR_DRIVER_I2C);
@@ -486,11 +485,10 @@ void load_configuration() {
 }
 
 void rtc_interrupt_handler() {
-   #if (USE_RTC_TASK)
-
    if (second() == next_second_for_sensor_reading && minute() == next_minute_for_sensor_reading) {
       setNextTimeForSensorReading(&next_hour_for_sensor_reading, &next_minute_for_sensor_reading, &next_second_for_sensor_reading);
-      SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+      is_time_for_sensors_reading_updated = true;
+
       sensor_reading_time.Day = day();
       sensor_reading_time.Month = month();
       sensor_reading_time.Year = CalendarYrToTm(year());
@@ -512,8 +510,6 @@ void rtc_interrupt_handler() {
       ready_tasks_count++;
    }
    interrupts();
-
-   #endif
 }
 
 void supervisor_task() {
@@ -658,8 +654,9 @@ void supervisor_task() {
 
             SERIAL_INFO("Acquisition scheduling...\r\n");
             SERIAL_INFO("--> observations every %u minutes\r\n", OBSERVATIONS_MINUTES);
-            SERIAL_INFO("--> report every %u minutes\r\n", REPORT_MINUTES);
+            SERIAL_INFO("--> report every %u minutes\r\n", (uint8_t)(configuration.report_seconds / 60));
             SERIAL_INFO("--> starting at: %02u:%02u:%02u\r\n\r\n", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+            LCD_INFO(&lcd, false, "start acq %02u:%02u:%02u", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
          }
 
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
@@ -712,15 +709,24 @@ void supervisor_task() {
    }
 }
 
-#if (USE_RTC_TASK)
 void rtc_task() {
-   setTime(Pcf8563::getTime());
+   uint32_t current_time = Pcf8563::getTime();
+
+   if (current_time > now()) {
+      setTime(Pcf8563::getTime());
+   }
+
+   if (is_time_for_sensors_reading_updated) {
+      is_time_for_sensors_reading_updated = false;
+      SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+      LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+   }
+
    noInterrupts();
    is_event_rtc = false;
    ready_tasks_count--;
    interrupts();
 }
-#endif
 
 void time_task() {
    static uint8_t retry;
@@ -782,11 +788,13 @@ void time_task() {
 
          #endif
 
-         // success
-         if (seconds_since_1900) {
+         // success: 946684800 seconds for 01/01/2000 00:00:00
+         if (seconds_since_1900 > 946684800) {
             setTime(seconds_since_1900);
+            Pcf8563::disable();
             Pcf8563::setDate(day(), month(), year()-2000, weekday()-1, 0);
             Pcf8563::setTime(hour(), minute(), second());
+            Pcf8563::enable();
             SERIAL_TRACE("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
          }
@@ -841,41 +849,36 @@ void ethernet_task() {
          is_client_udp_socket_open = false;
          state_after_wait = ETHERNET_INIT;
          ethernet_state = ETHERNET_CONNECT;
+         SERIAL_TRACE("ETHERNET_INIT --> ETHERNET_CONNECT\r\n");
       break;
 
       case ETHERNET_CONNECT:
          if (configuration.is_dhcp_enable) {
             if (Ethernet.begin(configuration.ethernet_mac)) {
                is_client_connected = true;
-               SERIAL_INFO("Ethernet: DHCP [ OK ]\r\n");
-            }
-            else {
-               SERIAL_ERROR("Ethernet: DHCP [ FAIL ]\r\n");
+               SERIAL_INFO("Ethernet: DHCP [ %s ]\r\n", OK_STRING);
             }
          }
          else {
             Ethernet.begin(configuration.ethernet_mac, IPAddress(configuration.ip), IPAddress(configuration.primary_dns), IPAddress(configuration.gateway), IPAddress(configuration.netmask));
             is_client_connected = true;
-            SERIAL_INFO("Ethernet: Static [ OK ]\r\n");
+            SERIAL_INFO("Ethernet: Static [ %s ]\r\n", OK_STRING);
          }
 
          // success
          if (is_client_connected) {
-            w5500.setRetransmissionTime(2000);
-            w5500.setRetransmissionCount(2);
-            SERIAL_INFO("--> ip: ");
-            SERIAL_INFO_ARRAY((void *)(&Ethernet.localIP()[0]), ETHERNET_IP_LENGTH, UINT8, "%u.");
-            SERIAL_INFO("\r\n");
-            SERIAL_INFO("--> netmask: ");
-            SERIAL_INFO_ARRAY((void *)(&Ethernet.subnetMask()[0]), ETHERNET_IP_LENGTH, UINT8, "%u.");
-            SERIAL_INFO("\r\n");
-            SERIAL_INFO("--> gateway: ");
-            SERIAL_INFO_ARRAY((void *)(&Ethernet.gatewayIP()[0]), ETHERNET_IP_LENGTH, UINT8, "%u.");
-            SERIAL_INFO("\r\n");
-            SERIAL_INFO("--> primary dns: ");
-            SERIAL_INFO_ARRAY((void *)(&Ethernet.dnsServerIP()[0]), ETHERNET_IP_LENGTH, UINT8, "%u.");
-            SERIAL_INFO("\r\n");
+            w5500.setRetransmissionTime(ETHERNET_RETRY_TIME_MS);
+            w5500.setRetransmissionCount(ETHERNET_RETRY_COUNT);
+
+            SERIAL_INFO("--> ip: %u.%u.%u.%u\r\n", Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
+            SERIAL_INFO("--> netmask: %u.%u.%u.%u\r\n", Ethernet.subnetMask()[0], Ethernet.subnetMask()[1], Ethernet.subnetMask()[2], Ethernet.subnetMask()[3]);
+            SERIAL_INFO("--> gateway: %u.%u.%u.%u\r\n", Ethernet.gatewayIP()[0], Ethernet.gatewayIP()[1], Ethernet.gatewayIP()[2], Ethernet.gatewayIP()[3]);
+            SERIAL_INFO("--> primary dns: %u.%u.%u.%u\r\n", Ethernet.dnsServerIP()[0], Ethernet.dnsServerIP()[1], Ethernet.dnsServerIP()[2], Ethernet.dnsServerIP()[3]);
+
+            LCD_INFO(&lcd, false, "ip: %u.%u.%u.%u", Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
+
             ethernet_state = ETHERNET_OPEN_UDP_SOCKET;
+            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_OPEN_UDP_SOCKET\r\n");
          }
          // retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
@@ -883,11 +886,15 @@ void ethernet_task() {
             start_time_ms = millis();
             state_after_wait = ETHERNET_CONNECT;
             ethernet_state = ETHERNET_WAIT_STATE;
+            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_WAIT_STATE\r\n");
          }
          // fail
          else {
             retry = 0;
             ethernet_state = ETHERNET_END;
+            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_END\r\n");
+            SERIAL_ERROR("Ethernet %s: [ %s ]\r\n", ERROR_STRING, configuration.is_dhcp_enable ? "DHCP" : "Static");
+            LCD_INFO(&lcd, false, "ethernet %s", ERROR_STRING);
          }
       break;
 
@@ -896,6 +903,7 @@ void ethernet_task() {
             SERIAL_TRACE("--> udp socket local port: %u [ OK ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             is_client_udp_socket_open = true;
             ethernet_state = ETHERNET_END;
+            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_END\r\n");
          }
          // retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
@@ -903,12 +911,14 @@ void ethernet_task() {
             start_time_ms = millis();
             state_after_wait = ETHERNET_OPEN_UDP_SOCKET;
             ethernet_state = ETHERNET_WAIT_STATE;
+            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_WAIT_STATE\r\n");
          }
          // fail
          else {
             SERIAL_ERROR("--> udp socket on local port: %u [ FAIL ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             retry = 0;
             ethernet_state = ETHERNET_INIT;
+            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_INIT\r\n");
          }
       break;
 
@@ -920,6 +930,7 @@ void ethernet_task() {
          ready_tasks_count--;
          interrupts();
          ethernet_state = ETHERNET_INIT;
+         SERIAL_TRACE("ETHERNET_END --> ETHERNET_INIT\r\n");
       break;
 
       case ETHERNET_WAIT_STATE:
@@ -1017,6 +1028,7 @@ void gsm_task() {
          }
          // wait for mqtt send terminate
          else {
+            // LCD_INFO(&lcd, false, "ip: %u.%u.%u.%u", Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
             is_client_connected = true;
             is_event_client_executed = true;
             gsm_state = GSM_SUSPEND;
@@ -1095,6 +1107,8 @@ void gsm_task() {
       break;
 
       case GSM_END:
+         if (is_error) {
+         }
          is_event_client_executed = false;
          is_client_connected = false;
          is_client_udp_socket_open = false;
@@ -1125,7 +1139,7 @@ void sensors_reading_task () {
 
    switch (sensors_reading_state) {
       case SENSORS_READING_INIT:
-         SERIAL_INFO("sensors reading...\r\n");
+         SERIAL_INFO("Sensors reading...\r\n");
          for (i=0; i<sensors_count; i++) {
             sensors[i]->resetPrepared();
          }
@@ -1156,6 +1170,7 @@ void sensors_reading_task () {
       case SENSORS_READING_IS_PREPARED:
          // success
          if (sensors[i]->isPrepared()) {
+            retry = 0;
             sensors_reading_state = SENSORS_READING_GET;
             SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n");
          }
@@ -1169,8 +1184,9 @@ void sensors_reading_task () {
          }
          // fail
          else {
-            sensors_reading_state = SENSORS_READING_NEXT;
-            SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_NEXT\r\n");
+            retry = 0;
+            sensors_reading_state = SENSORS_READING_GET;
+            SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n");
          }
       break;
 
@@ -1192,28 +1208,33 @@ void sensors_reading_task () {
       break;
 
       case SENSORS_READING_IS_GETTED:
-         // success and end
-         if (sensors[i]->isEnd() && !sensors[i]->isReaded() && sensors[i]->isSuccess()) {
-            sensors_reading_state = SENSORS_READING_READ;
-            SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
+         // end
+         if (sensors[i]->isEnd() && !sensors[i]->isReaded()) {
+            // success
+            if (sensors[i]->isSuccess()) {
+               retry = 0;
+               sensors_reading_state = SENSORS_READING_READ;
+               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
+            }
+            // retry
+            else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
+               delay_ms = SENSORS_RETRY_DELAY_MS;
+               start_time_ms = millis();
+               state_after_wait = SENSORS_READING_GET;
+               sensors_reading_state = SENSORS_READING_WAIT_STATE;
+               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_WAIT_STATE\r\n");
+            }
+            // fail
+            else {
+               retry = 0;
+               sensors_reading_state = SENSORS_READING_READ;
+               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
+            }
          }
-         // success and not end
-         else if (sensors[i]->isSuccess()) {
+         // not end
+         else {
             sensors_reading_state = SENSORS_READING_GET;
             SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_GET\r\n");
-         }
-         // retry
-         else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
-            delay_ms = SENSORS_RETRY_DELAY_MS;
-            start_time_ms = millis();
-            state_after_wait = SENSORS_READING_GET;
-            sensors_reading_state = SENSORS_READING_WAIT_STATE;
-            SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_WAIT_STATE\r\n");
-         }
-         // fail
-         else {
-            sensors_reading_state = SENSORS_READING_NEXT;
-            SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_NEXT\r\n");
          }
       break;
 
@@ -1414,6 +1435,7 @@ void data_saving_task() {
 
       case DATA_SAVING_END:
          SERIAL_INFO("[ %u ] data stored in sdcard... [ %s ]\r\n", sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
+         LCD_INFO(&lcd, false, "sdcard %u data %s", sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
 
          noInterrupts();
          if (!is_event_supervisor) {
@@ -1587,13 +1609,13 @@ void mqtt_task() {
                ptr_date_time += SECS_PER_DAY;
             }
          }
-         // ptr not found: set ptr to yesterday at 23:60-REPORT_MINUTES:00 time.
+         // ptr not found: set ptr to yesterday at 23:60-(uint8_t)(configuration.report_seconds / 60):00 time.
          else if (!is_ptr_found && ptr_date_time >= now()) {
             datetime.Year = CalendarYrToTm(year());
             datetime.Month = month();
             datetime.Day = day();
             // datetime.Hour = 23;
-            // datetime.Minute = 60 - REPORT_MINUTES;
+            // datetime.Minute = 60 - (uint8_t)(configuration.report_seconds / 60);
             datetime.Hour = 0;
             datetime.Minute = 0;
             datetime.Second = 0;
@@ -1620,7 +1642,7 @@ void mqtt_task() {
             datetime.Month = month(ptr_date_time);
             datetime.Day = day(ptr_date_time);
             datetime.Hour = 23;
-            datetime.Minute = 60 - REPORT_MINUTES;
+            datetime.Minute = 60 - (uint8_t)(configuration.report_seconds / 60);
             datetime.Second = 0;
             ptr_date_time = makeTime(datetime);
             is_ptr_updated = true;
@@ -1644,14 +1666,16 @@ void mqtt_task() {
          // ptr data is found: send data saved on sdcard
          if (is_ptr_found && is_sdcard_open && !is_sdcard_error) {
             SERIAL_INFO("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n", day(ptr_date_time), month(ptr_date_time), year(ptr_date_time), hour(ptr_date_time), minute(ptr_date_time), second(ptr_date_time), OK_STRING);
+            mqtt_state = MQTT_OPEN;
+            SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
          }
          // ptr data is NOT found: sd card fault fallback: send last acquired sensor data
          else {
             SERIAL_INFO("Data pointer... [ --/--/---- --:--:-- ] [ %s ]\r\n", ERROR_STRING);
+            is_sdcard_error = true;
+            mqtt_state = MQTT_OPEN;
+            SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
          }
-
-         mqtt_state = MQTT_OPEN;
-         SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
       break;
 
       case MQTT_OPEN:
@@ -1663,7 +1687,9 @@ void mqtt_task() {
             mqtt_state = MQTT_CONNECT;
             SERIAL_TRACE("MQTT_OPEN ---> MQTT_CONNECT\r\n");
          }
+         // error: client not connected!
          else {
+            is_mqtt_error = true;
             mqtt_state = MQTT_END;
             SERIAL_TRACE("MQTT_OPEN ---> MQTT_END\r\n");
          }
@@ -1784,8 +1810,8 @@ void mqtt_task() {
             retry = 0;
             k++;
             mqtt_data_count++;
-            mqtt_state = MQTT_SENSORS_LOOP;
-            SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_SENSORS_LOOP\r\n");
+            mqtt_state = MQTT_DATA_LOOP;
+            SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_DATA_LOOP\r\n");
          }
          // mqtt sdcard success
          else if (is_mqtt_processing_sdcard && mqttPublish(full_topic_buffer, &message_buffer[0][0])) {
@@ -1824,7 +1850,7 @@ void mqtt_task() {
 
       case MQTT_OPEN_DATA_FILE:
          // open the file that corresponds to the next data to send
-         next_ptr_time_data = ptr_date_time + REPORT_MINUTES * 60;
+         next_ptr_time_data = ptr_date_time + (uint8_t)(configuration.report_seconds / 60) * 60;
          sdcard_make_filename(next_ptr_time_data, file_name);
 
          // open file for read data
@@ -1858,12 +1884,19 @@ void mqtt_task() {
          if (is_mqtt_processing_sdcard) {
             is_sdcard_error = !read_data_file.close();
             mqtt_state = MQTT_DISCONNECT;
-            SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_DISCONNECT\r\n");
+            SERIAL_TRACE("MQTT_CLOSE_DATA_FILE ---> MQTT_DISCONNECT\r\n");
          }
          break;
 
       case MQTT_DISCONNECT:
-         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         // if (is_mqtt_error) {
+         mqtt_client.disconnect();
+         ipstack.disconnect();
+         SERIAL_DEBUG("MQTT Disconnect... [ %s ]\r\n", OK_STRING);
+         // }
+
+         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
          mqtt_client.disconnect();
          ipstack.disconnect();
          SERIAL_DEBUG("MQTT Disconnect... [ %s ]\r\n", OK_STRING);
@@ -1875,6 +1908,7 @@ void mqtt_task() {
             ready_tasks_count++;
          }
          interrupts();
+
          #endif
 
          mqtt_state = MQTT_PTR_UPDATE;
@@ -1916,18 +1950,19 @@ void mqtt_task() {
       case MQTT_CLOSE_PTR_FILE:
          mqtt_ptr_file.close();
          mqtt_state = MQTT_CLOSE_SDCARD;
-         SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_CLOSE_SDCARD\r\n");
+         SERIAL_TRACE("MQTT_CLOSE_PTR_FILE ---> MQTT_CLOSE_SDCARD\r\n");
          break;
 
       case MQTT_CLOSE_SDCARD:
          is_sdcard_error = false;
          is_sdcard_open = false;
          mqtt_state = MQTT_END;
-         SERIAL_TRACE("MQTT_PTR_UPDATE ---> DATA_PROCESSING_END\r\n");
+         SERIAL_TRACE("MQTT_CLOSE_SDCARD ---> DATA_PROCESSING_END\r\n");
          break;
 
       case MQTT_END:
-         SERIAL_INFO("[ %u ] data send through mqtt... [ %s ]\r\n", mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
+         SERIAL_INFO("[ %u ] data published through mqtt... [ %s ]\r\n", mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
+         LCD_INFO(&lcd, false, "mqtt %u data %s", mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
 
          noInterrupts();
          is_event_mqtt = false;
