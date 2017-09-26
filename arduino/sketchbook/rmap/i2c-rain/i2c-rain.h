@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c-rain-config.h"
 #include <debug.h>
 #include <hardware_config.h>
-#include <rmap_util.h>
+#include <i2c_utility.h>
+#include <rmap_utility.h>
 #include <sleep_utility.h>
 #include <eeprom_utility.h>
 #include <Wire.h>
@@ -91,6 +92,13 @@ enum {
   TASKS_EXECUTION,
   END
 } state;
+
+typedef enum {
+  TIPPING_BUCKET_INIT,
+  TIPPING_BUCKET_READ,
+  TIPPING_BUCKET_END,
+  TIPPING_BUCKET_WAIT_STATE
+} tipping_bucket_state_t;
 
 /**********************************************************************
  * GLOBAL VARIABLE
@@ -192,9 +200,12 @@ bool is_continuous;
 
 rain_t rain;
 
+tipping_bucket_state_t tipping_bucket_state;
+
 /**********************************************************************
  * FUNCTIONS
  *********************************************************************/
+ void init_wdt(uint8_t wdt_timer);
  void init_systems(void);
  void init_buffers(void);
  void init_tasks(void);
@@ -202,8 +213,8 @@ rain_t rain;
  void init_wire(void);
  void init_spi(void);
  void init_rtc(void);
+ void init_timer1(void);
  void init_sensors(void);
- void init_wdt(void);
 
 /*! \fn void print_configuration(void)
  *  \brief Print configuration.
