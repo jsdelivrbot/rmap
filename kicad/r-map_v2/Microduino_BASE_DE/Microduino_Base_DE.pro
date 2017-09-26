@@ -1,4 +1,4 @@
-update=08/04/2017 12.18.53
+update=10/08/2017 12:00:14
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,7 +37,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=../../Programmi/KiCad/share/kicad/library;../Libreria_PCB_mia.pretty;../Libreria_SCH_mia
+LibDir=../../Libreria_SCH_mia
 [eeschema/libraries]
 LibName1=Libreria_SCH_mia
 LibName2=power

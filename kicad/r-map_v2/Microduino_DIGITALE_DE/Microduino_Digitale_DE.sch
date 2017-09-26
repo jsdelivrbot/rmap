@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Microduino Digitale DE"
-Date "10 aprile 2017"
+Date "30 luglio 2017"
 Rev "0.0"
 Comp ""
 Comment1 ""
@@ -111,7 +111,7 @@ NoConn ~ 4100 3800
 NoConn ~ 4100 3700
 NoConn ~ 4100 3600
 Text Label 4650 3050 3    60   ~ 0
-REF
+AREF
 Text Label 4750 3050 3    60   ~ 0
 A0
 Text Label 4850 3050 3    60   ~ 0
@@ -179,7 +179,7 @@ NoConn ~ 5150 3050
 Text Label 6100 3600 2    60   ~ 0
 RX0
 Text Label 6100 3700 2    60   ~ 0
-TX1
+TX0
 Text Label 6100 3800 2    60   ~ 0
 D2
 Text Label 6100 3900 2    60   ~ 0
@@ -195,8 +195,6 @@ RESET
 Wire Wire Line
 	5750 3600 6100 3600
 Wire Wire Line
-	5750 3800 7150 3800
-Wire Wire Line
 	5750 4000 6100 4000
 Wire Wire Line
 	5750 4200 6500 4200
@@ -207,7 +205,7 @@ L CONN_1x27 P1
 U 1 1 58E8C7EF
 P 4550 4400
 F 0 "P1" H 4550 4300 50  0000 C CNN
-F 1 "CONN_1x27" V 5450 4800 50  0000 C CNN
+F 1 "CONN_1x27" V 5450 4800 50  0001 C CNN
 F 2 "Libreria_PCB_mia:Upin_27" H 5550 4800 50  0001 C CNN
 F 3 "" H 5550 4800 50  0000 C CNN
 	1    4550 4400
@@ -220,8 +218,8 @@ L CONN_01X04 P2
 U 1 1 58E8CD07
 P 7350 3950
 F 0 "P2" H 7350 4200 50  0000 C CNN
-F 1 "CONN_01X04" H 7350 3650 50  0000 C CNN
-F 2 "Libreria_PCB_mia:AMPMODUII_4pin_90°" H 7350 3950 50  0001 C CNN
+F 1 "CONN_01X04" H 7350 3650 50  0001 C CNN
+F 2 "Libreria_PCB_mia:WHURT_4pin_90°_61900411021" H 7350 3950 50  0001 C CNN
 F 3 "280378-1" H 7350 3950 50  0001 C CNN
 	1    7350 3950
 	1    0    0    -1  
@@ -246,5 +244,5 @@ D3
 Text Notes 7550 3850 0    60   ~ 0
 D2
 Wire Wire Line
-	6350 3800 6350 3800
+	5750 3800 7150 3800
 $EndSCHEMATC

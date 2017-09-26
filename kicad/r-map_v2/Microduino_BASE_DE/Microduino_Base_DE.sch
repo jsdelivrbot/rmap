@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Microduino Base DE"
-Date "10 aprile 2017"
+Date "30 luglio 2017"
 Rev "0.0"
 Comp ""
 Comment1 ""
@@ -104,13 +104,12 @@ D12
 Text Label 6050 3500 0    60   ~ 0
 D13
 NoConn ~ 6050 4100
-NoConn ~ 6050 3900
 NoConn ~ 6050 3800
 NoConn ~ 6050 3700
 NoConn ~ 6050 3600
 NoConn ~ 6050 3500
 Text Label 6600 2950 3    60   ~ 0
-REF
+AREF
 Text Label 6700 2950 3    60   ~ 0
 A0
 Text Label 6800 2950 3    60   ~ 0
@@ -130,7 +129,7 @@ A7
 Text Label 8050 3500 2    60   ~ 0
 RX0
 Text Label 8050 3600 2    60   ~ 0
-TX1
+TX0
 Text Label 8050 3700 2    60   ~ 0
 D2
 Text Label 8050 3800 2    60   ~ 0
@@ -150,7 +149,7 @@ L CONN_1x27 P3
 U 1 1 58E8C7EF
 P 6500 4300
 F 0 "P3" H 6500 4200 50  0000 C CNN
-F 1 "CONN_1x27" V 7400 4700 50  0000 C CNN
+F 1 "CONN_1x27" V 7400 4700 50  0001 C CNN
 F 2 "Libreria_PCB_mia:Upin_27" H 7500 4700 50  0001 C CNN
 F 3 "" H 7500 4700 50  0000 C CNN
 	1    6500 4300
@@ -163,8 +162,8 @@ L CONN_01X04 P2
 U 1 1 58E8CD07
 P 4000 4350
 F 0 "P2" H 4000 4600 50  0000 C CNN
-F 1 "CONN_01X04" H 4000 4050 50  0000 C CNN
-F 2 "Libreria_PCB_mia:AMPMODUII_4pin_90°" H 4000 4350 50  0001 C CNN
+F 1 "CONN_01X04" H 4000 4050 50  0001 C CNN
+F 2 "Libreria_PCB_mia:WHURT_4pin_90°_61900411021" H 4000 4350 50  0001 C CNN
 F 3 "280378-1" H 4000 4350 50  0001 C CNN
 	1    4000 4350
 	-1   0    0    -1  
@@ -186,17 +185,6 @@ Text Label 4550 4400 2    60   ~ 0
 SDA
 Text Label 4550 4300 2    60   ~ 0
 SCL
-$Comp
-L GS3 GS1
-U 1 1 58E8EC84
-P 5100 4200
-F 0 "GS1" H 5150 4400 50  0000 C CNN
-F 1 "GS3" H 5150 4001 50  0000 C CNN
-F 2 "Connectors:GS3" V 5188 4126 50  0000 C CNN
-F 3 "" H 5100 4200 50  0000 C CNN
-	1    5100 4200
-	-1   0    0    1   
-$EndComp
 $Comp
 L GND #PWR04
 U 1 1 58E8ED4C
@@ -233,7 +221,7 @@ Wire Wire Line
 Wire Wire Line
 	6300 3700 6050 3700
 Wire Wire Line
-	6300 3900 6050 3900
+	5250 3900 6300 3900
 Wire Wire Line
 	7400 3200 7400 2950
 Wire Wire Line
@@ -285,7 +273,7 @@ L CONN_01X02 P1
 U 1 1 58E8EE76
 P 4000 3350
 F 0 "P1" H 4000 3500 50  0000 C CNN
-F 1 "CONN_01X02" H 4000 3150 50  0000 C CNN
+F 1 "CONN_01X02" H 4000 3150 50  0001 C CNN
 F 2 "Pin_Headers:Pin_Header_Angled_1x02_Pitch2.54mm" H 4000 3350 50  0001 C CNN
 F 3 "" H 4000 3350 50  0000 C CNN
 	1    4000 3350
@@ -314,4 +302,17 @@ Text Notes 3800 3350 2    60   ~ 0
 Cortocircuitare per
 Text Notes 3800 3450 2    60   ~ 0
 caricare il firmware
+$Comp
+L GS4 GS1
+U 1 1 597AF362
+P 5100 4200
+F 0 "GS1" H 5150 4400 50  0000 C CNN
+F 1 "GS4" H 5100 3900 50  0001 C CNN
+F 2 "Libreria_PCB_mia:GS4" V 5200 4100 50  0001 C CNN
+F 3 "" H 5100 4200 50  0000 C CNN
+	1    5100 4200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5250 4000 5250 3900
 $EndSCHEMATC

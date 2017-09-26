@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Microduino RTC DE"
-Date "10 aprile 2017"
+Date "30 luglio 2017"
 Rev "0.0"
 Comp ""
 Comment1 ""
@@ -246,7 +246,7 @@ NoConn ~ 8150 3600
 NoConn ~ 8150 3500
 NoConn ~ 8150 3400
 Text Label 8700 2850 3    60   ~ 0
-REF
+AREF
 Text Label 8800 2850 3    60   ~ 0
 A0
 Text Label 8900 2850 3    60   ~ 0
@@ -397,7 +397,7 @@ $EndComp
 Text Label 10150 3400 2    60   ~ 0
 RX0
 Text Label 10150 3500 2    60   ~ 0
-TX1
+TX0
 Text Label 10150 3600 2    60   ~ 0
 D2
 Text Label 10150 3700 2    60   ~ 0
@@ -523,7 +523,7 @@ L CONN_1x27 P1
 U 1 1 58E8E495
 P 8600 4200
 F 0 "P1" H 8600 4100 50  0000 C CNN
-F 1 "CONN_1x27" V 9500 4600 50  0000 C CNN
+F 1 "CONN_1x27" V 9500 4600 50  0001 C CNN
 F 2 "Libreria_PCB_mia:Upin_27" H 9600 4600 50  0001 C CNN
 F 3 "" H 9600 4600 50  0000 C CNN
 	1    8600 4200

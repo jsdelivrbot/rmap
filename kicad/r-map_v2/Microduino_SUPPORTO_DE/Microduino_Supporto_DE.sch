@@ -35,8 +35,8 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title "Microduino Supporto DE"
-Date "10 aprile 2017"
+Title "Microduino SUPPORTO DE"
+Date "02 agosto 2017"
 Rev "0.0"
 Comp ""
 Comment1 ""
@@ -88,7 +88,7 @@ NoConn ~ 4450 3400
 NoConn ~ 4450 3300
 NoConn ~ 4450 3200
 Text Label 5000 2650 3    60   ~ 0
-REF
+AREF
 Text Label 5100 2650 3    60   ~ 0
 A0
 Text Label 5200 2650 3    60   ~ 0
@@ -108,7 +108,7 @@ A7
 Text Label 6450 3200 2    60   ~ 0
 RX0
 Text Label 6450 3300 2    60   ~ 0
-TX1
+TX0
 Text Label 6450 3400 2    60   ~ 0
 D2
 Text Label 6450 3500 2    60   ~ 0
