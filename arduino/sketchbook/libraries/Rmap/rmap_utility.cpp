@@ -58,6 +58,8 @@ void stringToArray(uint8_t *array, char *string, const char *delimiter, uint8_t 
    }
 }
 
+#include <Arduino.h>
+
 #if (USE_JSON)
 uint8_t jsonToMqtt(const char *json, const char *mqtt_sensor, char topic[][MQTT_SENSOR_TOPIC_LENGTH], char message[][MQTT_MESSAGE_LENGTH], tmElements_t *sensor_reading_time) {
    uint8_t i = 0;
@@ -69,8 +71,15 @@ uint8_t jsonToMqtt(const char *json, const char *mqtt_sensor, char topic[][MQTT_
 
    for (JsonObject::iterator it=root.begin(); it!=root.end(); ++it) {
       snprintf(&topic[i][0], MQTT_SENSOR_TOPIC_LENGTH, "%s%s", mqtt_sensor, it->key);
-      snprintf(&message[i][0], MQTT_MESSAGE_LENGTH, "{\"v\":%ld,\"t\":\"", it->value.as<int32_t>());
-      snprintf(&message[i][0] + strlen(&message[i][0]), MQTT_MESSAGE_LENGTH - strlen(&message[i][0]), "%04u-%02u-%02uT%02u:%02u:00\"}", tmYearToCalendar(sensor_reading_time->Year), sensor_reading_time->Month, sensor_reading_time->Day, sensor_reading_time->Hour, sensor_reading_time->Minute);
+
+      if (it->value.as<char*>() == NULL) {
+         snprintf(&message[i][0], MQTT_MESSAGE_LENGTH, "{\"v\":null,\"t\":\"");
+      }
+      else {
+         snprintf(&message[i][0], MQTT_MESSAGE_LENGTH, "{\"v\":%ld,\"t\":\"", it->value.as<int32_t>());
+      }
+
+      snprintf(&message[i][0] + strlen(&message[i][0]), MQTT_MESSAGE_LENGTH - strlen(&message[i][0]), "%04u-%02u-%02uT%02u:%02u:%02u\"}", tmYearToCalendar(sensor_reading_time->Year), sensor_reading_time->Month, sensor_reading_time->Day, sensor_reading_time->Hour, sensor_reading_time->Minute, sensor_reading_time->Second);
       i++;
    }
 
@@ -105,7 +114,6 @@ time_t getDateFromMessage(char *message) {
 
    return makeTime(_datetime);
 }
-#endif
 
 void mqttToSd(const char *topic, const char *message, char *sd) {
    memset(sd, 0, sizeof(sd[0]) * (MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH));
@@ -128,3 +136,4 @@ void getFullTopic(char *full_topic, const char *root_topic, const char *sensor_t
    strncpy(full_topic, root_topic, MQTT_ROOT_TOPIC_LENGTH);
    strncpy(full_topic + strlen(root_topic), sensor_topic, MQTT_SENSOR_TOPIC_LENGTH);
 }
+#endif

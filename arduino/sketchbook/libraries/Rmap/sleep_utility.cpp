@@ -20,37 +20,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 #include "sleep_utility.h"
 
-void wdt_init(uint8_t timer) {
-	// Don't replace "WDTCSR = timer" with "WDTCSR = ((timer & 0x08) << 2) | (timer & 0x07)"
-	// because the assignement in WTCSR MUST terminate in under 4 cycle of clock
-	// and in the case it is replaced this doesn't happen.
-	timer = ((timer & 0x08) << 2) | (timer & 0x07);
-
-	// clear various "reset" flags
-	MCUSR = 0;
-	// allow changes, disable reset
-	WDTCSR = (1 << WDCE) | (1 << WDE);
-	// set interrupt mode and an interval
-	WDTCSR = timer | (1 << WDIE);
-	wdt_reset();
-}
+// void wdt_init(uint8_t timer) {
+// 	// Don't replace "WDTCSR = timer" with "WDTCSR = ((timer & 0x08) << 2) | (timer & 0x07)"
+// 	// because the assignement in WTCSR MUST terminate in under 4 cycle of clock
+// 	// and in the case it is replaced this doesn't happen.
+// 	timer = ((timer & 0x08) << 2) | (timer & 0x07);
+//
+// 	// clear various "reset" flags
+// 	MCUSR = 0;
+// 	// allow changes, disable reset
+// 	WDTCSR = (1 << WDCE) | (1 << WDE);
+// 	// set interrupt mode and an interval
+// 	WDTCSR = timer | (1 << WDIE);
+// 	wdt_reset();
+// }
 
 /*! \fn void power_down(void)
- *  \brief Enter in power down state if DEBOUNCING_POWER_DOWN_TIME_MS was elapsed from awakened_event_occurred_time_ms.
- *  \return void.
- */
-void power_down(uint32_t *awakened_event_occurred_time_ms) {
-  if (millis() - *awakened_event_occurred_time_ms > DEBOUNCING_POWER_DOWN_TIME_MS) {
+*  \brief Enter in power down state if DEBOUNCING_POWER_DOWN_TIME_MS was elapsed from awakened_event_occurred_time_ms.
+*  \return void.
+*/
+void power_down(uint32_t *awakened_event_occurred_time_ms, uint32_t debouncing_ms) {
+	if (millis() - *awakened_event_occurred_time_ms > debouncing_ms) {
 		*awakened_event_occurred_time_ms = millis();
-    adc_disable();
-    noInterrupts ();
-    sleep_enable();
 
-    // turn off brown-out enable in software
-    MCUCR = bit (BODS) | bit (BODSE);
-    MCUCR = bit (BODS);
-    interrupts ();  // guarantees next instruction executed
-    sleep_cpu();
-    sleep_disable();
-  }
+		power_adc_disable();
+		power_spi_disable();
+		power_timer0_disable();
+		power_timer2_disable();
+
+		wdt_disable();
+
+		noInterrupts ();
+		sleep_enable();
+
+		// turn off brown-out enable in software
+		MCUCR = bit (BODS) | bit (BODSE);
+		MCUCR = bit (BODS);
+		interrupts ();  // guarantees next instruction executed
+		sleep_cpu();
+		sleep_disable();
+
+		power_adc_enable();
+		power_spi_enable();
+		power_timer0_enable();
+		power_timer2_enable();
+	}
 }
