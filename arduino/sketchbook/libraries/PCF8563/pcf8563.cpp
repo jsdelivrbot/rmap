@@ -52,6 +52,60 @@ namespace Pcf8563 {
     return true;
   }
 
+  bool enable() {
+    uint8_t control_status_1;
+
+    if (!getControlStatus1(&control_status_1))
+      return false;
+
+    // reset STOP bit (RTC stop)
+    control_status_1 &= ~PCF8563_CONTROL_STATUS_1_STOP_BIT;
+
+    if (!setControlStatus1(control_status_1))
+      return false;
+
+    return true;
+  }
+
+  bool disable() {
+    uint8_t control_status_1;
+
+    if (!getControlStatus1(&control_status_1))
+      return false;
+
+    // set STOP bit (RTC start)
+    control_status_1 |= PCF8563_CONTROL_STATUS_1_STOP_BIT;
+
+    if (!setControlStatus1(control_status_1))
+      return false;
+
+    return true;
+  }
+
+  bool getControlStatus1(uint8_t *control_status_1) {
+    Wire.beginTransmission(PCF8563_READ_ADDRESS);
+    Wire.write(PCF8563_CONTROL_STATUS_1_ADDRESS);
+    if (Wire.endTransmission())
+      return false;
+
+    Wire.requestFrom(PCF8563_READ_ADDRESS, PCF8563_CONTROL_STATUS_1_LENGTH);
+    if (Wire.available() < PCF8563_CONTROL_STATUS_1_LENGTH)
+      return false;
+
+    *control_status_1 = Wire.read();
+    return true;
+  }
+
+  bool setControlStatus1(uint8_t control_status_1) {
+    Wire.beginTransmission(PCF8563_READ_ADDRESS);
+    Wire.write(PCF8563_CONTROL_STATUS_1_ADDRESS);
+    Wire.write(control_status_1);
+    if (Wire.endTransmission())
+      return false;
+
+    return true;
+  }
+
   bool getControlStatus2(uint8_t *control_status_2) {
     Wire.beginTransmission(PCF8563_READ_ADDRESS);
     Wire.write(PCF8563_CONTROL_STATUS_2_ADDRESS);
