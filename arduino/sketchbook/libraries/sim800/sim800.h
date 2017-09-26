@@ -173,8 +173,6 @@ class SIM800 {
   sim800_status_t getCgatt(bool *is_attached);
   sim800_status_t getCifsr(char *ip);
   sim800_status_t sendCpowd();
-  sim800_status_t getCclk(tmElements_t *tm);
-  sim800_status_t sendCclk(tmElements_t tm);
 
   sim800_status_t switchOn();
   sim800_status_t switchOff(uint8_t power_off_method = SIM800_POWER_OFF_BY_SWITCH);

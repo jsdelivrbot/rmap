@@ -61,7 +61,7 @@ sim800_status_t SIM800::switchOn() {
 // return true when switch off
 sim800_status_t SIM800::switchOff(uint8_t power_off_method) {
    bool is_switching_on = false;
-   sim800_status_t at_command_status;
+   sim800_status_t at_command_status = SIM800_OK;
 
    if (power_off_method == SIM800_POWER_OFF_BY_SWITCH) {
       at_command_status = switchModem(is_switching_on);
@@ -619,28 +619,6 @@ sim800_status_t SIM800::sendCpowd() {
       // state &= ~SIM800_STATE_INITIALIZED;
       // state &= ~SIM800_STATE_ON;
       state = SIM800_STATE_NONE;
-   }
-
-   return at_command_status;
-}
-
-sim800_status_t SIM800::getCclk(tmElements_t *tm) {
-   char buffer[SIM800_BUFFER_LENGTH];
-   sim800_status_t at_command_status;
-
-   if (!isInitialized())
-      return SIM800_ERROR;
-
-   at_command_status = sendAtCommand("AT+CCLK?\r\n", buffer);
-
-   if (at_command_status == SIM800_OK) {
-      // if (sscanf(buffer, "%s", imei) != 1) {
-      //    at_command_status = SIM800_ERROR;
-      // }
-   }
-
-   if (at_command_status != SIM800_BUSY) {
-      SERIAL_DEBUG("SIM800 CLTS [ %s ] [ %s ]\r\n", printStatus(at_command_status, OK_STRING, ERROR_STRING), buffer);
    }
 
    return at_command_status;
