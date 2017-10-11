@@ -1,4 +1,6 @@
-/**********************************************************************
+/**@file ntp.cpp */
+
+/*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
 Marco Baldinetti <m.baldinetti@digiteco.it>
@@ -45,6 +47,8 @@ bool Ntp::sendRequest(EthernetUDP *client, const char *server) {
    uint8_t ntp_buffer[NTP_PACKET_LENGTH];
    makePacket(ntp_buffer);
 
+   client->flush();
+
    if (!client->beginPacket(server, NTP_SERVER_PORT)) {
       return false;
    }
@@ -69,6 +73,8 @@ uint32_t Ntp::getResponse (EthernetUDP *client) {
    if (client->read(ntp_buffer, NTP_PACKET_LENGTH) <= 0) {
       return 0;
    }
+
+   client->flush();
 
    return extractTime(ntp_buffer);
 }

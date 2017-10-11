@@ -1,4 +1,6 @@
-/**********************************************************************
+/**@file ntp.h */
+
+/*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
 Marco Baldinetti <m.baldinetti@digiteco.it>
