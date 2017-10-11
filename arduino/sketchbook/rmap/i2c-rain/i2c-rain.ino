@@ -1,6 +1,9 @@
-/**********************************************************************
+/**@file i2c-rain.ino */
+
+/*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
+Paolo patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -17,24 +20,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-/**********************************************************************
-* DEBUG
-*********************************************************************/
-/*! \file i2c-rain2.h
-\brief i2c-rain include file
-
-i2c-rain include file
-*/
 #include <debug_config.h>
 
 /*!
 \def SERIAL_TRACE_LEVEL
-Debug level for sketch and library.
+\brief Serial debug level for this sketch.
 */
 #define SERIAL_TRACE_LEVEL I2C_RAIN_SERIAL_TRACE_LEVEL
 
 #include "i2c-rain.h"
 
+/*!
+\fn void setup()
+\brief Arduino setup function. Init watchdog, hardware, debug, buffer and load configuration stored in EEPROM.
+\return void.
+*/
 void setup() {
    init_wdt(WDT_TIMER);
    SERIAL_BEGIN(115200);
@@ -44,26 +44,38 @@ void setup() {
    init_wire();
    init_spi();
    init_rtc();
+   #if (USE_TIMER_1)
    init_timer1();
+   #endif
    init_system();
+   wdt_reset();
 }
 
+/*!
+\fn void loop()
+\brief Arduino loop function. First, initialize tasks and sensors, then execute the tasks and activates the power down if no task is running.
+\return void.
+*/
 void loop() {
    switch (state) {
       case INIT:
          init_tasks();
          init_sensors();
-
          state = TASKS_EXECUTION;
-         wdt_reset();
       break;
 
       #if (USE_POWER_DOWN)
       case ENTER_POWER_DOWN:
+         //! disable watchdog: the next awakening is given by an interrupt of rain and I do not know how long it will take place
          wdt_disable();
-         power_down(&awakened_event_occurred_time_ms, DEBOUNCING_POWER_DOWN_TIME_MS);
-         state = TASKS_EXECUTION;
+
+         //! enter in power down mode only if DEBOUNCING_POWER_DOWN_TIME_MS milliseconds have passed since last time (awakened_event_occurred_time_ms)
+         init_power_down(&awakened_event_occurred_time_ms, DEBOUNCING_POWER_DOWN_TIME_MS);
+
+         //! enable watchdog
          init_wdt(WDT_TIMER);
+
+         state = TASKS_EXECUTION;
       break;
       #endif
 
@@ -78,10 +90,10 @@ void loop() {
             wdt_reset();
          }
 
-         wdt_reset();
-
-         if (ready_tasks_count == 0)
-         state = END;
+         if (ready_tasks_count == 0) {
+            wdt_reset();
+            state = END;
+         }
       break;
 
       case END:
@@ -90,9 +102,41 @@ void loop() {
          #else
          state = TASKS_EXECUTION;
          #endif
-         wdt_reset();
       break;
    }
+}
+
+void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
+	if (millis() - *time_ms > debouncing_ms) {
+		*time_ms = millis();
+
+		power_adc_disable();
+		power_spi_disable();
+		power_timer0_disable();
+      #if (USE_TIMER_1 == false)
+      power_timer1_disable();
+      #endif
+		power_timer2_disable();
+
+		noInterrupts ();
+		sleep_enable();
+
+		//! turn off brown-out
+		MCUCR = bit (BODS) | bit (BODSE);
+		MCUCR = bit (BODS);
+		interrupts ();
+
+		sleep_cpu();
+		sleep_disable();
+
+		power_adc_enable();
+		power_spi_enable();
+		power_timer0_enable();
+      #if (USE_TIMER_1 == false)
+      power_timer1_enable();
+      #endif
+		power_timer2_enable();
+	}
 }
 
 void init_wdt(uint8_t wdt_timer) {
@@ -109,11 +153,15 @@ void init_buffers() {
    readable_data_write_ptr->module_type = MODULE_TYPE;
    readable_data_write_ptr->module_version = MODULE_VERSION;
    reset_buffers();
+
+   //! copy readable_data_2 in readable_data_1
    memcpy((void *) readable_data_read_ptr, (const void*) readable_data_write_ptr, sizeof(readable_data_t));
 }
 
 void init_tasks() {
    noInterrupts();
+
+   //! no tasks ready
    ready_tasks_count = 0;
 
    is_event_command_task = false;
@@ -121,6 +169,7 @@ void init_tasks() {
 
    tipping_bucket_state = TIPPING_BUCKET_INIT;
 
+   //! reset tipping bucket debounce value
    rain_tips_event_occurred_time_ms = -DEBOUNCING_TIPPING_BUCKET_TIME_MS;
    interrupts();
 }
@@ -132,10 +181,12 @@ void init_pins() {
 }
 
 void init_wire() {
-   uint8_t i2c_bus_state = I2C_ClearBus(); // clear the I2C bus first before calling Wire.begin()
+   //! clear the I2C bus first before calling Wire.begin()
+   uint8_t i2c_bus_state = I2C_ClearBus();
 
    if (i2c_bus_state) {
       SERIAL_ERROR("I2C bus error: Could not clear!!!\r\n");
+      //! wait for watchdog reboot
       while(1);
    }
 
@@ -165,14 +216,18 @@ void init_spi() {
 void init_rtc() {
 }
 
+#if (USE_TIMER_1)
 void init_timer1() {
 }
+#endif
 
 void init_system() {
    #if (USE_POWER_DOWN)
    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
    awakened_event_occurred_time_ms = millis();
    #endif
+
+   //! main loop state
    state = INIT;
 }
 
@@ -205,12 +260,14 @@ void save_configuration(bool is_default) {
       configuration.is_continuous = writable_data.is_continuous;
    }
 
+   //! write configuration to eeprom
    ee_write(&configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration));
 
    print_configuration();
 }
 
 void load_configuration() {
+   //! read configuration from eeprom
    ee_read(&configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration));
 
    if (configuration.module_type != MODULE_TYPE || configuration.module_version != MODULE_VERSION || digitalRead(CONFIGURATION_RESET_PIN) == LOW) {
@@ -221,13 +278,16 @@ void load_configuration() {
       print_configuration();
    }
 
+   //! set configuration value to writable register
    writable_data.i2c_address = configuration.i2c_address;
    writable_data.is_oneshot = configuration.is_oneshot;
 }
 
 void tipping_bucket_interrupt_handler() {
+   //! reading TIPPING_BUCKET_PIN value to be sure the interrupt has occurred
    if (digitalRead(TIPPING_BUCKET_PIN) == LOW) {
       noInterrupts();
+      //! enable Tipping bucket task
       if (!is_event_tipping_bucket) {
          is_event_tipping_bucket = true;
          ready_tasks_count++;
@@ -237,29 +297,40 @@ void tipping_bucket_interrupt_handler() {
 }
 
 void i2c_request_interrupt_handler() {
+   //! write readable_data_length bytes of data stored in readable_data_read_ptr (base) + readable_data_address (offset) on i2c bus
    Wire.write((uint8_t *)readable_data_read_ptr+readable_data_address, readable_data_length);
 }
 
 void i2c_receive_interrupt_handler(int rx_data_length) {
+   //! read rx_data_length bytes of data from i2c bus
    for (uint8_t i=0; i<rx_data_length; i++) {
       i2c_rx_data[i] = Wire.read();
    }
 
+   //! it is a registers read?
    if (rx_data_length == 2 && is_readable_register(i2c_rx_data[0])) {
+      //! offset in readable_data_read_ptr buffer
       readable_data_address = i2c_rx_data[0];
+
+      //! length (in butes) of data to be read in readable_data_read_ptr
       readable_data_length = i2c_rx_data[1];
    }
+   //! it is a command?
    else if (rx_data_length == 2 && is_command(i2c_rx_data[0])) {
       noInterrupts();
+      //! enable Command task
       if (!is_event_command_task) {
          is_event_command_task = true;
          ready_tasks_count++;
       }
       interrupts();
    }
+   //! it is a registers write?
    else if (is_writable_register(i2c_rx_data[0])) {
-      for (uint8_t i=1; i<rx_data_length; i++)
-      ((uint8_t *)writable_data_ptr)[i2c_rx_data[0] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+      for (uint8_t i=1; i<rx_data_length; i++) {
+         //! write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
+         ((uint8_t *)writable_data_ptr)[i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+      }
    }
 }
 
@@ -270,6 +341,7 @@ void tipping_bucket_task () {
 
    switch (tipping_bucket_state) {
       case TIPPING_BUCKET_INIT:
+         //! check if last tipping bucket event has happened for more than DEBOUNCING_TIPPING_BUCKET_TIME_MS ms
          if (millis() - rain_tips_event_occurred_time_ms > DEBOUNCING_TIPPING_BUCKET_TIME_MS) {
             rain_tips_event_occurred_time_ms = millis();
             tipping_bucket_state = TIPPING_BUCKET_READ;
@@ -279,6 +351,7 @@ void tipping_bucket_task () {
       break;
 
       case TIPPING_BUCKET_READ:
+         //! increment rain tips if oneshot mode is on and oneshot start command It has been received
          if (configuration.is_oneshot && is_oneshot && is_start) {
             rain.tips_count++;
             SERIAL_INFO("Rain tips count: %u\r\n", rain.tips_count);

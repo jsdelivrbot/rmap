@@ -1,0 +1,404 @@
+\hypertarget{i2c-rain_8ino}{}\section{i2c-\/rain.ino File Reference}
+\label{i2c-rain_8ino}\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+{\ttfamily \#include $<$debug\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}i2c-\/rain.\+h\char`\"{}}\newline
+Include dependency graph for i2c-\/rain.ino\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{i2c-rain_8ino__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{i2c-rain_8ino_a31fa5c36fa17c66feec7a67b76c3e786}\label{i2c-rain_8ino_a31fa5c36fa17c66feec7a67b76c3e786}} 
+\#define \hyperlink{i2c-rain_8ino_a31fa5c36fa17c66feec7a67b76c3e786}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL}~I2\+C\+\_\+\+R\+A\+I\+N\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL
+\begin{DoxyCompactList}\small\item\em Serial debug level for this sketch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{i2c-rain_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup} ()
+\begin{DoxyCompactList}\small\item\em Arduino setup function. Init watchdog, hardware, debug, buffer and load configuration stored in E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_afe461d27b9c48d5921c00d521181f12f}{loop} ()
+\begin{DoxyCompactList}\small\item\em Arduino loop function. First, initialize tasks and sensors, then execute the tasks and activates the power down if no task is running. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_afb98a0f07c30784284f48271ffe02b97}{init\+\_\+power\+\_\+down} (uint32\+\_\+t $\ast$time\+\_\+ms, uint32\+\_\+t debouncing\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Enter power down mode. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a980e73df66b14b1190bc25da430a4f12}{init\+\_\+wdt} (uint8\+\_\+t wdt\+\_\+timer)
+\begin{DoxyCompactList}\small\item\em Init watchdog. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ad241cc00b1a92e6d85827df96778e442}{init\+\_\+buffers} ()
+\begin{DoxyCompactList}\small\item\em Init buffers. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}{init\+\_\+tasks} ()
+\begin{DoxyCompactList}\small\item\em Init tasks variable and state. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ad8b80a0c08f928106018edd6ea435b95}{init\+\_\+pins} ()
+\begin{DoxyCompactList}\small\item\em Init hardware pins. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a2441543100bf8421f56edd622a2c1d9a}{init\+\_\+wire} ()
+\begin{DoxyCompactList}\small\item\em Init wire (i2c) library and performs checks on the bus. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a8eb9780a3438ec02c70314744f91f3c7}{init\+\_\+spi} ()
+\begin{DoxyCompactList}\small\item\em Init S\+PI library. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ab985cc69f5f573113405b4f118c96d33}{init\+\_\+rtc} ()
+\begin{DoxyCompactList}\small\item\em Init R\+TC module. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_afceb890a6ab9be73cc5481369538c705}{init\+\_\+system} ()
+\begin{DoxyCompactList}\small\item\em Init system. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ac74850003fab6eb3269bfe043d0f939c}{init\+\_\+sensors} ()
+\begin{DoxyCompactList}\small\item\em Create and setup sensors. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}{print\+\_\+configuration} ()
+\begin{DoxyCompactList}\small\item\em Print current configuration. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_afa979a8cb238fe81bf20654dfd6096ef}{save\+\_\+configuration} (bool is\+\_\+default)
+\begin{DoxyCompactList}\small\item\em Save configuration to E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a32a64a2800c724fb28e10636f2ec20b9}{load\+\_\+configuration} ()
+\begin{DoxyCompactList}\small\item\em Load configuration from E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a368e45fb147aecb0fd1478d3cc76fba7}{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em Tipping bucket interrupt handler. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_ac816bd8aafe77e7a571574c8a26eead5}{i2c\+\_\+request\+\_\+interrupt\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em I2C request interrupt handler. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (int rx\+\_\+data\+\_\+length)
+\item 
+void \hyperlink{i2c-rain_8ino_a009edfb36e6432603ed0ede845e2c12d}{tipping\+\_\+bucket\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Tipping bucket task. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a46696a96b3118b5d8900703c054166c8}{exchange\+\_\+buffers} ()
+\begin{DoxyCompactList}\small\item\em Exchange reader and writer pointer to buffer. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a07daf3835b622d4d3451690f603845c1}{reset\+\_\+buffers} ()
+\begin{DoxyCompactList}\small\item\em Reset buffers to default value. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a42389aceb96a84573eb67e6d141cb594}{command\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Execute the command received on i2c bus by reading i2c received data buffer. \end{DoxyCompactList}\item 
+void \hyperlink{i2c-rain_8ino_a4981066e183f1432ffd6eddf55826585}{commands} ()
+\begin{DoxyCompactList}\small\item\em Performs specific operations based on the received command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{i2c-rain_8ino_a42389aceb96a84573eb67e6d141cb594}\label{i2c-rain_8ino_a42389aceb96a84573eb67e6d141cb594}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!command\+\_\+task@{command\+\_\+task}}
+\index{command\+\_\+task@{command\+\_\+task}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{command\+\_\+task()}{command\_task()}}
+{\footnotesize\ttfamily void command\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Execute the command received on i2c bus by reading i2c received data buffer. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a4981066e183f1432ffd6eddf55826585}\label{i2c-rain_8ino_a4981066e183f1432ffd6eddf55826585}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!commands@{commands}}
+\index{commands@{commands}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{commands()}{commands()}}
+{\footnotesize\ttfamily void commands (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Performs specific operations based on the received command. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a46696a96b3118b5d8900703c054166c8}\label{i2c-rain_8ino_a46696a96b3118b5d8900703c054166c8}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!exchange\+\_\+buffers@{exchange\+\_\+buffers}}
+\index{exchange\+\_\+buffers@{exchange\+\_\+buffers}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{exchange\+\_\+buffers()}{exchange\_buffers()}}
+{\footnotesize\ttfamily void exchange\+\_\+buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Exchange reader and writer pointer to buffer. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}\label{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}}
+\index{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler()}{i2c\_receive\_interrupt\_handler()}}
+{\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{rx\+\_\+data\+\_\+length }\end{DoxyParamCaption})}
+
+read rx\+\_\+data\+\_\+length bytes of data from i2c bus
+
+it is a registers read?
+
+offset in readable\+\_\+data\+\_\+read\+\_\+ptr buffer
+
+length (in butes) of data to be read in readable\+\_\+data\+\_\+read\+\_\+ptr
+
+it is a command?
+
+enable Command task
+
+it is a registers write?
+
+write rx\+\_\+data\+\_\+length bytes in writable\+\_\+data\+\_\+ptr (base) at (i2c\+\_\+rx\+\_\+data\mbox{[}i\mbox{]} -\/ I2\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS) (position in buffer) \mbox{\Hypertarget{i2c-rain_8ino_ac816bd8aafe77e7a571574c8a26eead5}\label{i2c-rain_8ino_ac816bd8aafe77e7a571574c8a26eead5}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!i2c\+\_\+request\+\_\+interrupt\+\_\+handler@{i2c\+\_\+request\+\_\+interrupt\+\_\+handler}}
+\index{i2c\+\_\+request\+\_\+interrupt\+\_\+handler@{i2c\+\_\+request\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{i2c\+\_\+request\+\_\+interrupt\+\_\+handler()}{i2c\_request\_interrupt\_handler()}}
+{\footnotesize\ttfamily void i2c\+\_\+request\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+I2C request interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+write readable\+\_\+data\+\_\+length bytes of data stored in readable\+\_\+data\+\_\+read\+\_\+ptr (base) + readable\+\_\+data\+\_\+address (offset) on i2c bus \mbox{\Hypertarget{i2c-rain_8ino_ad241cc00b1a92e6d85827df96778e442}\label{i2c-rain_8ino_ad241cc00b1a92e6d85827df96778e442}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+buffers@{init\+\_\+buffers}}
+\index{init\+\_\+buffers@{init\+\_\+buffers}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+buffers()}{init\_buffers()}}
+{\footnotesize\ttfamily void init\+\_\+buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init buffers. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{i2c-rain_8ino_ad8b80a0c08f928106018edd6ea435b95}\label{i2c-rain_8ino_ad8b80a0c08f928106018edd6ea435b95}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+pins@{init\+\_\+pins}}
+\index{init\+\_\+pins@{init\+\_\+pins}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+pins()}{init\_pins()}}
+{\footnotesize\ttfamily void init\+\_\+pins (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init hardware pins. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_afb98a0f07c30784284f48271ffe02b97}\label{i2c-rain_8ino_afb98a0f07c30784284f48271ffe02b97}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}}
+\index{init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+power\+\_\+down()}{init\_power\_down()}}
+{\footnotesize\ttfamily void init\+\_\+power\+\_\+down (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{time\+\_\+ms,  }\item[{uint32\+\_\+t}]{debouncing\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Enter power down mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+\_\+ms} & pointer to a variable to save the last instant you entered power down. \\
+\hline
+{\em debouncing\+\_\+ms} & delay to power down. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+turn off brown-\/out \mbox{\Hypertarget{i2c-rain_8ino_ab985cc69f5f573113405b4f118c96d33}\label{i2c-rain_8ino_ab985cc69f5f573113405b4f118c96d33}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+rtc@{init\+\_\+rtc}}
+\index{init\+\_\+rtc@{init\+\_\+rtc}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+rtc()}{init\_rtc()}}
+{\footnotesize\ttfamily void init\+\_\+rtc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init R\+TC module. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_ac74850003fab6eb3269bfe043d0f939c}\label{i2c-rain_8ino_ac74850003fab6eb3269bfe043d0f939c}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+sensors@{init\+\_\+sensors}}
+\index{init\+\_\+sensors@{init\+\_\+sensors}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+sensors()}{init\_sensors()}}
+{\footnotesize\ttfamily void init\+\_\+sensors (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Create and setup sensors. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a8eb9780a3438ec02c70314744f91f3c7}\label{i2c-rain_8ino_a8eb9780a3438ec02c70314744f91f3c7}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+spi@{init\+\_\+spi}}
+\index{init\+\_\+spi@{init\+\_\+spi}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+spi()}{init\_spi()}}
+{\footnotesize\ttfamily void init\+\_\+spi (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init S\+PI library. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_afceb890a6ab9be73cc5481369538c705}\label{i2c-rain_8ino_afceb890a6ab9be73cc5481369538c705}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+system@{init\+\_\+system}}
+\index{init\+\_\+system@{init\+\_\+system}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+system()}{init\_system()}}
+{\footnotesize\ttfamily void init\+\_\+system (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init system. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+main loop state \mbox{\Hypertarget{i2c-rain_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}\label{i2c-rain_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+tasks@{init\+\_\+tasks}}
+\index{init\+\_\+tasks@{init\+\_\+tasks}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+tasks()}{init\_tasks()}}
+{\footnotesize\ttfamily void init\+\_\+tasks (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init tasks variable and state. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+no tasks ready
+
+reset tipping bucket debounce value \mbox{\Hypertarget{i2c-rain_8ino_a980e73df66b14b1190bc25da430a4f12}\label{i2c-rain_8ino_a980e73df66b14b1190bc25da430a4f12}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+wdt@{init\+\_\+wdt}}
+\index{init\+\_\+wdt@{init\+\_\+wdt}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+wdt()}{init\_wdt()}}
+{\footnotesize\ttfamily void init\+\_\+wdt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{wdt\+\_\+timer }\end{DoxyParamCaption})}
+
+
+
+Init watchdog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wdt\+\_\+timer} & a time value for init watchdog (W\+D\+T\+O\+\_\+xxxx). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a2441543100bf8421f56edd622a2c1d9a}\label{i2c-rain_8ino_a2441543100bf8421f56edd622a2c1d9a}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!init\+\_\+wire@{init\+\_\+wire}}
+\index{init\+\_\+wire@{init\+\_\+wire}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+wire()}{init\_wire()}}
+{\footnotesize\ttfamily void init\+\_\+wire (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init wire (i2c) library and performs checks on the bus. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+clear the I2C bus first before calling Wire.\+begin()
+
+wait for watchdog reboot \mbox{\Hypertarget{i2c-rain_8ino_a32a64a2800c724fb28e10636f2ec20b9}\label{i2c-rain_8ino_a32a64a2800c724fb28e10636f2ec20b9}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!load\+\_\+configuration@{load\+\_\+configuration}}
+\index{load\+\_\+configuration@{load\+\_\+configuration}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{load\+\_\+configuration()}{load\_configuration()}}
+{\footnotesize\ttfamily void load\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Load configuration from E\+E\+P\+R\+OM. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+read configuration from eeprom
+
+set configuration value to writable register \mbox{\Hypertarget{i2c-rain_8ino_afe461d27b9c48d5921c00d521181f12f}\label{i2c-rain_8ino_afe461d27b9c48d5921c00d521181f12f}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!loop@{loop}}
+\index{loop@{loop}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Arduino loop function. First, initialize tasks and sensors, then execute the tasks and activates the power down if no task is running. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}\label{i2c-rain_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!print\+\_\+configuration@{print\+\_\+configuration}}
+\index{print\+\_\+configuration@{print\+\_\+configuration}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{print\+\_\+configuration()}{print\_configuration()}}
+{\footnotesize\ttfamily void print\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Print current configuration. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a07daf3835b622d4d3451690f603845c1}\label{i2c-rain_8ino_a07daf3835b622d4d3451690f603845c1}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!reset\+\_\+buffers@{reset\+\_\+buffers}}
+\index{reset\+\_\+buffers@{reset\+\_\+buffers}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{reset\+\_\+buffers()}{reset\_buffers()}}
+{\footnotesize\ttfamily void reset\+\_\+buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reset buffers to default value. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_afa979a8cb238fe81bf20654dfd6096ef}\label{i2c-rain_8ino_afa979a8cb238fe81bf20654dfd6096ef}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!save\+\_\+configuration@{save\+\_\+configuration}}
+\index{save\+\_\+configuration@{save\+\_\+configuration}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{save\+\_\+configuration()}{save\_configuration()}}
+{\footnotesize\ttfamily void save\+\_\+configuration (\begin{DoxyParamCaption}\item[{bool}]{is\+\_\+default }\end{DoxyParamCaption})}
+
+
+
+Save configuration to E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+\_\+default} & if true save default configuration; if false save current configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+write configuration to eeprom \mbox{\Hypertarget{i2c-rain_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{i2c-rain_8ino_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!setup@{setup}}
+\index{setup@{setup}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Arduino setup function. Init watchdog, hardware, debug, buffer and load configuration stored in E\+E\+P\+R\+OM. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a368e45fb147aecb0fd1478d3cc76fba7}\label{i2c-rain_8ino_a368e45fb147aecb0fd1478d3cc76fba7}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler@{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler}}
+\index{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler@{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler()}{tipping\_bucket\_interrupt\_handler()}}
+{\footnotesize\ttfamily void tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Tipping bucket interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+reading T\+I\+P\+P\+I\+N\+G\+\_\+\+B\+U\+C\+K\+E\+T\+\_\+\+P\+IN value to be sure the interrupt has occurred
+
+enable Tipping bucket task \mbox{\Hypertarget{i2c-rain_8ino_a009edfb36e6432603ed0ede845e2c12d}\label{i2c-rain_8ino_a009edfb36e6432603ed0ede845e2c12d}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!tipping\+\_\+bucket\+\_\+task@{tipping\+\_\+bucket\+\_\+task}}
+\index{tipping\+\_\+bucket\+\_\+task@{tipping\+\_\+bucket\+\_\+task}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{tipping\+\_\+bucket\+\_\+task()}{tipping\_bucket\_task()}}
+{\footnotesize\ttfamily void tipping\+\_\+bucket\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Tipping bucket task. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+check if last tipping bucket event has happened for more than D\+E\+B\+O\+U\+N\+C\+I\+N\+G\+\_\+\+T\+I\+P\+P\+I\+N\+G\+\_\+\+B\+U\+C\+K\+E\+T\+\_\+\+T\+I\+M\+E\+\_\+\+MS ms
+
+increment rain tips if oneshot mode is on and oneshot start command It has been received 
