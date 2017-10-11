@@ -1,3 +1,5 @@
+/**@file pcf8563.h */
+
 /**********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
