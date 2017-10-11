@@ -1,8 +1,10 @@
+/**@file sim800.cpp */
 
-/*
-Copyright (C) 2015  Paolo Paruno <p.patruno@iperbole.bologna.it>
+/*********************************************************************
+Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo Paruno <p.patruno@iperbole.bologna.it>
+Paolo patruno <p.patruno@iperbole.bologna.it>
+Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -16,7 +18,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+**********************************************************************/
 
 #include <debug_config.h>
 
@@ -830,7 +832,7 @@ sim800_status_t SIM800::setup() {
 
          // success
          if (at_command_status == SIM800_OK) {
-            sim800_setup_state = SIM800_SETUP_WAIT_NETWORK;
+            sim800_setup_state = SIM800_SETUP_GET_SIGNAL_QUALITY;
          }
          // fail
          else if (at_command_status == SIM800_ERROR) {
@@ -843,6 +845,21 @@ sim800_status_t SIM800::setup() {
          }
 
          // wait...
+         break;
+
+      case SIM800_SETUP_GET_SIGNAL_QUALITY:
+         at_command_status = getSignalQuality(&rssi, &ber);
+
+         // success or fail: dont care
+         if (at_command_status == SIM800_OK || at_command_status == SIM800_ERROR) {
+            sim800_setup_state = SIM800_SETUP_WAIT_NETWORK;
+         }
+
+         if (at_command_status != SIM800_BUSY) {
+            SERIAL_INFO("SIM800 signal [ %s ] [ rssi %hhu, ber %hhu ]\r\n", printStatus(at_command_status, OK_STRING, ERROR_STRING), rssi, ber);
+         }
+
+         // wait
          break;
 
       case SIM800_SETUP_WAIT_NETWORK:
@@ -888,7 +905,7 @@ sim800_status_t SIM800::setup() {
          // success
          if (at_command_status == SIM800_OK && is_registered) {
             retry = 0;
-            sim800_setup_state = SIM800_SETUP_GET_SIGNAL_QUALITY;
+            sim800_setup_state = SIM800_SETUP_END;
          }
          // retry
          else if (at_command_status == SIM800_OK && !is_registered && (++retry) < SIM800_WAIT_FOR_NETWORK_RETRY_COUNT_MAX) {
@@ -903,21 +920,6 @@ sim800_status_t SIM800::setup() {
             is_error = true;
             sim800_setup_state = SIM800_SETUP_END;
          }
-         // wait
-         break;
-
-      case SIM800_SETUP_GET_SIGNAL_QUALITY:
-         at_command_status = getSignalQuality(&rssi, &ber);
-
-         // success or fail: dont care
-         if (at_command_status == SIM800_OK || at_command_status == SIM800_ERROR) {
-            sim800_setup_state = SIM800_SETUP_END;
-         }
-
-         if (at_command_status != SIM800_BUSY) {
-            SERIAL_INFO("SIM800 signal [ %s ] [ rssi %hhu, ber %hhu ]\r\n", printStatus(at_command_status, OK_STRING, ERROR_STRING), rssi, ber);
-         }
-
          // wait
          break;
 
