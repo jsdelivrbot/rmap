@@ -1,3 +1,25 @@
+/**@file SensorDriverSensors.h */
+
+/*********************************************************************
+Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
+authors:
+Paolo patruno <p.patruno@iperbole.bologna.it>
+Marco Baldinetti <m.baldinetti@digiteco.it>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**********************************************************************/
+
 #ifndef SensorDriverSensors_h
 #define SensorDriverSensors_h
 
@@ -5,7 +27,7 @@
 
 #define SENSOR_TYPE_ADT           ("ADT")   // ADT7420
 #define SENSOR_TYPE_HIH           ("HIH")   // HIH6100
-#define SENSOR_TYPE_HYT           ("HYT")   // HYT271
+#define SENSOR_TYPE_HYT           ("HYT")   // HYT271 - HYT221
 #define SENSOR_TYPE_HI7           ("HI7")   // SI7021
 #define SENSOR_TYPE_BMP           ("BMP")   // Bmp085
 #define SENSOR_TYPE_DW1           ("DW1")   // DW1
@@ -27,84 +49,5 @@
 #define SENSOR_TYPE_NMI           ("NMI")   // MICS4514 report minium
 #define SENSOR_TYPE_XMI           ("XMI")   // MICS4514 report maximum
 #define SENSOR_TYPE_RF24          ("RF24")  // Radio RF24
-
-// add secondary to primary parameters to send in multiparameter sensors
-//#define SECONDARYPARAMETER
-
-//those ms after a prepare the measure will be too old to be considered valid
-
-// use RF24Network library for radio transport
-//#define RADIORF24
-
-// use AES library for radio transport
-//#define AES
-
-// retry number for multimaster I2C configuration
-//#define NTRY 3
-
-// include TMP driver
-//#define TMPDRIVER
-
-// include ADT driver
-// #define ADTDRIVER
-
-// include HIH driver
-// #define HIHDRIVER
-
-// include HYT driver
-//#define USE_SENSOR_HYT
-
-// include BMP driver
-// #define BMPDRIVER
-//#define BMP085_DEBUG 1
-
-// include DAVIS WIND driver
-// #define DAVISWIND1
-
-// include tipping bucket rain gauge driver
-//#define TIPPINGBUCKETRAINGAUGE
-
-// include TH temperature/humidity driver SAMPLE MODE
-//#define TEMPERATUREHUMIDITY_ONESHOT
-
-// include TH temperature/humidity driver REPORT MODE
-//#define TEMPERATUREHUMIDITY_REPORT
-
-// include sds011 pm 2.5 and pm 10 driver SAMPLE MODE
-//#define SDS011_ONESHOT
-
-// include sds011 pm 2.5 and pm 10 driver REPORT MODE
-// #define SDS011_REPORT
-
-// include mics4514 CO and NO2pm driver SAMPLE MODE
-// #define MICS4514_ONESHOT
-
-// include mics4514 CO and NO2pm driver REPORT MODE
-//#define MICS4514_REPORT
-
-
-// #if defined (TEMPERATUREHUMIDITY_ONESHOT)
-// #if defined (TEMPERATUREHUMIDITY_REPORT)
-// CANNOT DEFINE TEMPERATUREHUMIDITY_ONESHOT AND TEMPERATUREHUMIDITY_REPORT TOGETHER
-// #endif
-// #endif
-//
-// #if defined (SDS011_ONESHOT)
-// #if defined (SDS011_REPORT)
-// CANNOT DEFINE SDS011_ONESHOT AND SDS011_REPORT TOGETHER
-// #endif
-// #endif
-//
-// #if defined (MICS4514_ONESHOT)
-// #if defined (MICS4514_REPORT)
-// CANNOT DEFINE MICS4514_ONESHOT AND MICS4514_REPORT TOGETHER
-// #endif
-// #endif
-
-#if defined (TIPPINGBUCKETRAINGAUGE)
- // how many rain for one tick of the rain gauge (Hg/m^2)
- // 0.2 Kg/m^2 for tips
- #define RAINFORTIP 2
-#endif
 
 #endif

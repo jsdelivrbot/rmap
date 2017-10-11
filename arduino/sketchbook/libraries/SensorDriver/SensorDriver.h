@@ -1,8 +1,24 @@
-/*
-SensorDriver.h - Library for read sensor.
-Created by Paolo Patruno , November 30, 2013.
-Released into the GPL licenze.
-*/
+/**@file SensorDriver.h */
+
+/*********************************************************************
+Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
+authors:
+Paolo patruno <p.patruno@iperbole.bologna.it>
+Marco Baldinetti <m.baldinetti@digiteco.it>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**********************************************************************/
 
 #ifndef SensorDriver_h
 #define SensorDriver_h
@@ -65,30 +81,26 @@ protected:
   bool _is_success;
   bool _is_readed;
 
-  #if (SERIAL_TRACE_LEVEL == SERIAL_TRACE_LEVEL_DEBUG)
   static void printInfo(const char* driver, const char* type, const uint8_t address = 0, const uint8_t node = 0);
-  #endif
 };
 
 #if (USE_SENSOR_HYT)
-#include "hyt271.h"
-#define SENSOR_DRIVER_HYT271_HUMIDITY_MIN       (HYT271_HUMIDITY_MIN)
-#define SENSOR_DRIVER_HYT271_HUMIDITY_MAX       (HYT271_HUMIDITY_MAX)
-#define SENSOR_DRIVER_HYT271_TEMPERATURE_MIN    (SENSOR_DRIVER_C_TO_K + (HYT271_TEMPERATURE_MIN * 100))
-#define SENSOR_DRIVER_HYT271_TEMPERATURE_MAX    (SENSOR_DRIVER_C_TO_K + (HYT271_TEMPERATURE_MAX * 100))
-class SensorDriverHyt271 : public SensorDriver {
+#include <hyt2x1.h>
+#define SENSOR_DRIVER_HYT2X1_HUMIDITY_MIN       (HYT2X1_HUMIDITY_MIN)
+#define SENSOR_DRIVER_HYT2X1_HUMIDITY_MAX       (HYT2X1_HUMIDITY_MAX)
+#define SENSOR_DRIVER_HYT2X1_TEMPERATURE_MIN    (SENSOR_DRIVER_C_TO_K + (HYT2X1_TEMPERATURE_MIN * 100))
+#define SENSOR_DRIVER_HYT2X1_TEMPERATURE_MAX    (SENSOR_DRIVER_C_TO_K + (HYT2X1_TEMPERATURE_MAX * 100))
+class SensorDriverHyt2X1 : public SensorDriver {
 public:
-  SensorDriverHyt271(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
+  SensorDriverHyt2X1(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
     _is_setted = is_setted;
     _is_prepared = is_prepared;
 
     *_is_setted = false;
     *_is_prepared = false;
 
-    #if (SERIAL_TRACE_LEVEL == SERIAL_TRACE_LEVEL_DEBUG)
     SensorDriver::printInfo(driver, type);
     SERIAL_DEBUG(" create... [ OK ]\r\n");
-    #endif
   };
   void setup(const uint8_t address, const uint8_t node = 0);
   void prepare();
@@ -127,10 +139,8 @@ public:
     *_is_setted = false;
     *_is_prepared = false;
 
-    #if (SERIAL_TRACE_LEVEL == SERIAL_TRACE_LEVEL_DEBUG)
     SensorDriver::printInfo(driver, type);
     SERIAL_DEBUG(" create... [ OK ]\r\n");
-    #endif
   };
   void setup(const uint8_t address, const uint8_t node = 0);
   void prepare();
@@ -172,10 +182,8 @@ public:
     *_is_setted = false;
     *_is_prepared = false;
 
-    #if (SERIAL_TRACE_LEVEL == SERIAL_TRACE_LEVEL_DEBUG)
     SensorDriver::printInfo(driver, type);
     SERIAL_DEBUG(" create... [ OK ]\r\n");
-    #endif
   };
   void setup(const uint8_t address, const uint8_t node = 0);
   void prepare();
