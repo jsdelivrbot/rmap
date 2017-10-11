@@ -1,0 +1,536 @@
+\hypertarget{rmap_8ino}{}\section{rmap.\+ino File Reference}
+\label{rmap_8ino}\index{rmap.\+ino@{rmap.\+ino}}
+{\ttfamily \#include $<$debug\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}rmap.\+h\char`\"{}}\newline
+Include dependency graph for rmap.\+ino\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rmap_8ino__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rmap_8ino_a31fa5c36fa17c66feec7a67b76c3e786}\label{rmap_8ino_a31fa5c36fa17c66feec7a67b76c3e786}} 
+\#define \hyperlink{rmap_8ino_a31fa5c36fa17c66feec7a67b76c3e786}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL}~(R\+M\+A\+P\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL)
+\begin{DoxyCompactList}\small\item\em Serial debug level for this sketch. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8ino_acb771fe8deeaa2fee1ad327c0c1be34f}\label{rmap_8ino_acb771fe8deeaa2fee1ad327c0c1be34f}} 
+\#define \hyperlink{rmap_8ino_acb771fe8deeaa2fee1ad327c0c1be34f}{L\+C\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL}~(R\+M\+A\+P\+\_\+\+L\+C\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL)
+\begin{DoxyCompactList}\small\item\em L\+CD debug level for this sketch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rmap_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup} ()
+\begin{DoxyCompactList}\small\item\em Arduino setup function. Init watchdog, hardware, debug, buffer and load configuration stored in E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_afe461d27b9c48d5921c00d521181f12f}{loop} ()
+\begin{DoxyCompactList}\small\item\em Arduino loop function. First, initialize tasks and sensors, then execute the tasks and activates the power down if no task is running. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_afb98a0f07c30784284f48271ffe02b97}{init\+\_\+power\+\_\+down} (uint32\+\_\+t $\ast$time\+\_\+ms, uint32\+\_\+t debouncing\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Enter power down mode. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}{init\+\_\+buffers} ()
+\begin{DoxyCompactList}\small\item\em Init buffers. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}{init\+\_\+tasks} ()
+\begin{DoxyCompactList}\small\item\em Init tasks variable and state. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ad8b80a0c08f928106018edd6ea435b95}{init\+\_\+pins} ()
+\begin{DoxyCompactList}\small\item\em Init hardware pins. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a2441543100bf8421f56edd622a2c1d9a}{init\+\_\+wire} ()
+\begin{DoxyCompactList}\small\item\em Init wire (i2c) library and performs checks on the bus. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}{init\+\_\+spi} ()
+\begin{DoxyCompactList}\small\item\em Init S\+PI library. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}{init\+\_\+rtc} ()
+\begin{DoxyCompactList}\small\item\em Init R\+TC module. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_afceb890a6ab9be73cc5481369538c705}{init\+\_\+system} ()
+\begin{DoxyCompactList}\small\item\em Init system. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}{init\+\_\+wdt} (uint8\+\_\+t wdt\+\_\+timer)
+\begin{DoxyCompactList}\small\item\em Init watchdog. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ac74850003fab6eb3269bfe043d0f939c}{init\+\_\+sensors} ()
+\begin{DoxyCompactList}\small\item\em Create and setup sensors. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}{set\+Next\+Time\+For\+Sensor\+Reading} (uint8\+\_\+t $\ast$next\+\_\+hour, uint8\+\_\+t $\ast$next\+\_\+minute, uint8\+\_\+t $\ast$next\+\_\+second)
+\begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
+\begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}{mqtt\+Publish} (const char $\ast$topic, const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Publish message on topic. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}{mqtt\+Rx\+Callback} (M\+Q\+T\+T\+::\+Message\+Data \&md)
+\begin{DoxyCompactList}\small\item\em Register a receive callback for incoming mqtt message. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}{print\+\_\+configuration} ()
+\begin{DoxyCompactList}\small\item\em Print current configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}{set\+\_\+default\+\_\+configuration} ()
+\begin{DoxyCompactList}\small\item\em Set default configuration to global configuration variable. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_afa979a8cb238fe81bf20654dfd6096ef}{save\+\_\+configuration} (bool is\+\_\+default)
+\begin{DoxyCompactList}\small\item\em Save configuration to E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a32a64a2800c724fb28e10636f2ec20b9}{load\+\_\+configuration} ()
+\begin{DoxyCompactList}\small\item\em Load configuration from E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{rmap_8ino_a99f56f4c38f64be47b52818cbf57bb2d}{rpc\+\_\+process} (char $\ast$json)
+\begin{DoxyCompactList}\small\item\em Process and execute a received Remote Procedure Call (R\+PC). Useful for configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a17374e428acd4fc86f2b8a8ede54deca}{rtc\+\_\+interrupt\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em Real Time Clock interrupt handler. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a2f44f14407ed3f1ae93126c1533e697b}{supervisor\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Supervisor task. Manage R\+TC and N\+TP sync and open/close gsm and ethernet connection. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a52f7fb7ebbd710f2a06b3f6e47c7e7e3}{rtc\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Real Time Clock task. Read R\+TC time and sync system time with it. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}{time\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Time task. Get time from N\+TP and sync R\+TC with it. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_abac8959915b759aa6429243ab9599ee3}{ethernet\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Ethernet task. Manage Ethernet operation. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_ad3efe51e17cb8205a24267c2992a12d4}{sensors\+\_\+reading\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Sensors reading Task. Read data from sensors. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a1c6cee0cbd43bbe1215f13cab2434347}{data\+\_\+saving\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em Data Saving Task. Save acquired sensors data on S\+D-\/\+Card. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8ino_a161bca6629368a46242fec07a965966a}{mqtt\+\_\+task} ()
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT Task. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8ino_a21575354e8ec54fa31f581ed1838be79}{stream\+\_\+task} (Stream $\ast$stream, uint32\+\_\+t stream\+\_\+timeout, uint32\+\_\+t end\+\_\+task\+\_\+timeout)
+\begin{DoxyCompactList}\small\item\em Stream Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rmap_8ino_a1c6cee0cbd43bbe1215f13cab2434347}\label{rmap_8ino_a1c6cee0cbd43bbe1215f13cab2434347}} 
+\index{rmap.\+ino@{rmap.\+ino}!data\+\_\+saving\+\_\+task@{data\+\_\+saving\+\_\+task}}
+\index{data\+\_\+saving\+\_\+task@{data\+\_\+saving\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{data\+\_\+saving\+\_\+task()}{data\_saving\_task()}}
+{\footnotesize\ttfamily void data\+\_\+saving\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Data Saving Task. Save acquired sensors data on S\+D-\/\+Card. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_abac8959915b759aa6429243ab9599ee3}\label{rmap_8ino_abac8959915b759aa6429243ab9599ee3}} 
+\index{rmap.\+ino@{rmap.\+ino}!ethernet\+\_\+task@{ethernet\+\_\+task}}
+\index{ethernet\+\_\+task@{ethernet\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{ethernet\+\_\+task()}{ethernet\_task()}}
+{\footnotesize\ttfamily void ethernet\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Ethernet task. Manage Ethernet operation. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}\label{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+buffers@{init\+\_\+buffers}}
+\index{init\+\_\+buffers@{init\+\_\+buffers}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+buffers()}{init\_buffers()}}
+{\footnotesize\ttfamily void init\+\_\+buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init buffers. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ad8b80a0c08f928106018edd6ea435b95}\label{rmap_8ino_ad8b80a0c08f928106018edd6ea435b95}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+pins@{init\+\_\+pins}}
+\index{init\+\_\+pins@{init\+\_\+pins}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+pins()}{init\_pins()}}
+{\footnotesize\ttfamily void init\+\_\+pins (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init hardware pins. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_afb98a0f07c30784284f48271ffe02b97}\label{rmap_8ino_afb98a0f07c30784284f48271ffe02b97}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}}
+\index{init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+power\+\_\+down()}{init\_power\_down()}}
+{\footnotesize\ttfamily void init\+\_\+power\+\_\+down (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{time\+\_\+ms,  }\item[{uint32\+\_\+t}]{debouncing\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Enter power down mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+\_\+ms} & pointer to a variable to save the last instant you entered power down. \\
+\hline
+{\em debouncing\+\_\+ms} & delay to power down. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}\label{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+rtc@{init\+\_\+rtc}}
+\index{init\+\_\+rtc@{init\+\_\+rtc}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+rtc()}{init\_rtc()}}
+{\footnotesize\ttfamily void init\+\_\+rtc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init R\+TC module. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ac74850003fab6eb3269bfe043d0f939c}\label{rmap_8ino_ac74850003fab6eb3269bfe043d0f939c}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+sensors@{init\+\_\+sensors}}
+\index{init\+\_\+sensors@{init\+\_\+sensors}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+sensors()}{init\_sensors()}}
+{\footnotesize\ttfamily void init\+\_\+sensors (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Create and setup sensors. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}\label{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+spi@{init\+\_\+spi}}
+\index{init\+\_\+spi@{init\+\_\+spi}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+spi()}{init\_spi()}}
+{\footnotesize\ttfamily void init\+\_\+spi (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init S\+PI library. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_afceb890a6ab9be73cc5481369538c705}\label{rmap_8ino_afceb890a6ab9be73cc5481369538c705}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+system@{init\+\_\+system}}
+\index{init\+\_\+system@{init\+\_\+system}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+system()}{init\_system()}}
+{\footnotesize\ttfamily void init\+\_\+system (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init system. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+main loop state \mbox{\Hypertarget{rmap_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}\label{rmap_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+tasks@{init\+\_\+tasks}}
+\index{init\+\_\+tasks@{init\+\_\+tasks}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+tasks()}{init\_tasks()}}
+{\footnotesize\ttfamily void init\+\_\+tasks (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init tasks variable and state. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}\label{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+wdt@{init\+\_\+wdt}}
+\index{init\+\_\+wdt@{init\+\_\+wdt}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+wdt()}{init\_wdt()}}
+{\footnotesize\ttfamily void init\+\_\+wdt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{wdt\+\_\+timer }\end{DoxyParamCaption})}
+
+
+
+Init watchdog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wdt\+\_\+timer} & a time value for init watchdog (W\+D\+T\+O\+\_\+xxxx). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a2441543100bf8421f56edd622a2c1d9a}\label{rmap_8ino_a2441543100bf8421f56edd622a2c1d9a}} 
+\index{rmap.\+ino@{rmap.\+ino}!init\+\_\+wire@{init\+\_\+wire}}
+\index{init\+\_\+wire@{init\+\_\+wire}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{init\+\_\+wire()}{init\_wire()}}
+{\footnotesize\ttfamily void init\+\_\+wire (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init wire (i2c) library and performs checks on the bus. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a32a64a2800c724fb28e10636f2ec20b9}\label{rmap_8ino_a32a64a2800c724fb28e10636f2ec20b9}} 
+\index{rmap.\+ino@{rmap.\+ino}!load\+\_\+configuration@{load\+\_\+configuration}}
+\index{load\+\_\+configuration@{load\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{load\+\_\+configuration()}{load\_configuration()}}
+{\footnotesize\ttfamily void load\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Load configuration from E\+E\+P\+R\+OM. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_afe461d27b9c48d5921c00d521181f12f}\label{rmap_8ino_afe461d27b9c48d5921c00d521181f12f}} 
+\index{rmap.\+ino@{rmap.\+ino}!loop@{loop}}
+\index{loop@{loop}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Arduino loop function. First, initialize tasks and sensors, then execute the tasks and activates the power down if no task is running. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a161bca6629368a46242fec07a965966a}\label{rmap_8ino_a161bca6629368a46242fec07a965966a}} 
+\index{rmap.\+ino@{rmap.\+ino}!mqtt\+\_\+task@{mqtt\+\_\+task}}
+\index{mqtt\+\_\+task@{mqtt\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{mqtt\+\_\+task()}{mqtt\_task()}}
+{\footnotesize\ttfamily void mqtt\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+M\+Q\+TT Task. 
+
+\begin{DoxyReturn}{Returns}
+void. Read data stored on S\+D-\/\+Card and send it over M\+Q\+TT. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}\label{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}} 
+\index{rmap.\+ino@{rmap.\+ino}!mqtt\+Connect@{mqtt\+Connect}}
+\index{mqtt\+Connect@{mqtt\+Connect}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{mqtt\+Connect()}{mqttConnect()}}
+{\footnotesize\ttfamily bool mqtt\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{username,  }\item[{char $\ast$}]{password }\end{DoxyParamCaption})}
+
+
+
+Use a open tcp socket to connect to the mqtt server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$username} & Username of mqtt server \\
+\hline
+{\em $\ast$password} & Password of mqtt server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if connection was succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}\label{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}} 
+\index{rmap.\+ino@{rmap.\+ino}!mqtt\+Publish@{mqtt\+Publish}}
+\index{mqtt\+Publish@{mqtt\+Publish}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
+{\footnotesize\ttfamily bool mqtt\+Publish (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Publish message on topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$topic} & Topic for mqtt publish \\
+\hline
+{\em $\ast$message} & Message to be publish \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if publish was succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}\label{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}} 
+\index{rmap.\+ino@{rmap.\+ino}!mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}}
+\index{mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{mqtt\+Rx\+Callback()}{mqttRxCallback()}}
+{\footnotesize\ttfamily void mqtt\+Rx\+Callback (\begin{DoxyParamCaption}\item[{M\+Q\+T\+T\+::\+Message\+Data \&}]{md }\end{DoxyParamCaption})}
+
+
+
+Register a receive callback for incoming mqtt message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&md} & Received data structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}\label{rmap_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}} 
+\index{rmap.\+ino@{rmap.\+ino}!print\+\_\+configuration@{print\+\_\+configuration}}
+\index{print\+\_\+configuration@{print\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{print\+\_\+configuration()}{print\_configuration()}}
+{\footnotesize\ttfamily void print\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Print current configuration. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a99f56f4c38f64be47b52818cbf57bb2d}\label{rmap_8ino_a99f56f4c38f64be47b52818cbf57bb2d}} 
+\index{rmap.\+ino@{rmap.\+ino}!rpc\+\_\+process@{rpc\+\_\+process}}
+\index{rpc\+\_\+process@{rpc\+\_\+process}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{rpc\+\_\+process()}{rpc\_process()}}
+{\footnotesize\ttfamily char$\ast$ rpc\+\_\+process (\begin{DoxyParamCaption}\item[{char $\ast$}]{json }\end{DoxyParamCaption})}
+
+
+
+Process and execute a received Remote Procedure Call (R\+PC). Useful for configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$json} & message in json text format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to R\+PC response. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a17374e428acd4fc86f2b8a8ede54deca}\label{rmap_8ino_a17374e428acd4fc86f2b8a8ede54deca}} 
+\index{rmap.\+ino@{rmap.\+ino}!rtc\+\_\+interrupt\+\_\+handler@{rtc\+\_\+interrupt\+\_\+handler}}
+\index{rtc\+\_\+interrupt\+\_\+handler@{rtc\+\_\+interrupt\+\_\+handler}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{rtc\+\_\+interrupt\+\_\+handler()}{rtc\_interrupt\_handler()}}
+{\footnotesize\ttfamily void rtc\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Real Time Clock interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a52f7fb7ebbd710f2a06b3f6e47c7e7e3}\label{rmap_8ino_a52f7fb7ebbd710f2a06b3f6e47c7e7e3}} 
+\index{rmap.\+ino@{rmap.\+ino}!rtc\+\_\+task@{rtc\+\_\+task}}
+\index{rtc\+\_\+task@{rtc\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{rtc\+\_\+task()}{rtc\_task()}}
+{\footnotesize\ttfamily void rtc\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Real Time Clock task. Read R\+TC time and sync system time with it. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_afa979a8cb238fe81bf20654dfd6096ef}\label{rmap_8ino_afa979a8cb238fe81bf20654dfd6096ef}} 
+\index{rmap.\+ino@{rmap.\+ino}!save\+\_\+configuration@{save\+\_\+configuration}}
+\index{save\+\_\+configuration@{save\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{save\+\_\+configuration()}{save\_configuration()}}
+{\footnotesize\ttfamily void save\+\_\+configuration (\begin{DoxyParamCaption}\item[{bool}]{is\+\_\+default }\end{DoxyParamCaption})}
+
+
+
+Save configuration to E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+\_\+default} & if true save default configuration; if false save current configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ad3efe51e17cb8205a24267c2992a12d4}\label{rmap_8ino_ad3efe51e17cb8205a24267c2992a12d4}} 
+\index{rmap.\+ino@{rmap.\+ino}!sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}}
+\index{sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{sensors\+\_\+reading\+\_\+task()}{sensors\_reading\_task()}}
+{\footnotesize\ttfamily void sensors\+\_\+reading\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Sensors reading Task. Read data from sensors. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}\label{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}} 
+\index{rmap.\+ino@{rmap.\+ino}!set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}}
+\index{set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{set\+\_\+default\+\_\+configuration()}{set\_default\_configuration()}}
+{\footnotesize\ttfamily void set\+\_\+default\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set default configuration to global configuration variable. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}\label{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}} 
+\index{rmap.\+ino@{rmap.\+ino}!set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}}
+\index{set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{set\+Next\+Time\+For\+Sensor\+Reading()}{setNextTimeForSensorReading()}}
+{\footnotesize\ttfamily void set\+Next\+Time\+For\+Sensor\+Reading (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{next\+\_\+hour,  }\item[{uint8\+\_\+t $\ast$}]{next\+\_\+minute,  }\item[{uint8\+\_\+t $\ast$}]{next\+\_\+second }\end{DoxyParamCaption})}
+
+
+
+Calculate next hour, minute and second for sensors reading. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$next\+\_\+hour} & Pointer to next scheduled hour for sensors reading \\
+\hline
+{\em $\ast$next\+\_\+minute} & Pointer to next scheduled minute for sensors reading \\
+\hline
+{\em $\ast$next\+\_\+second} & Pointer to next scheduled second for sensors reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{rmap_8ino_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{rmap.\+ino@{rmap.\+ino}!setup@{setup}}
+\index{setup@{setup}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Arduino setup function. Init watchdog, hardware, debug, buffer and load configuration stored in E\+E\+P\+R\+OM. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a21575354e8ec54fa31f581ed1838be79}\label{rmap_8ino_a21575354e8ec54fa31f581ed1838be79}} 
+\index{rmap.\+ino@{rmap.\+ino}!stream\+\_\+task@{stream\+\_\+task}}
+\index{stream\+\_\+task@{stream\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{stream\+\_\+task()}{stream\_task()}}
+{\footnotesize\ttfamily bool stream\+\_\+task (\begin{DoxyParamCaption}\item[{Stream $\ast$}]{stream,  }\item[{uint32\+\_\+t}]{stream\+\_\+timeout,  }\item[{uint32\+\_\+t}]{end\+\_\+task\+\_\+timeout }\end{DoxyParamCaption})}
+
+
+
+Stream Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$stream} & Pointer to stream \\
+\hline
+{\em stream\+\_\+timeout} & Timeout for stream \\
+\hline
+{\em end\+\_\+task\+\_\+timeout} & Timeout for deactivate task after last received bytes Read a stream and process Remote Procedure Call data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if end\+\_\+task\+\_\+timeout was elapsed, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a2f44f14407ed3f1ae93126c1533e697b}\label{rmap_8ino_a2f44f14407ed3f1ae93126c1533e697b}} 
+\index{rmap.\+ino@{rmap.\+ino}!supervisor\+\_\+task@{supervisor\+\_\+task}}
+\index{supervisor\+\_\+task@{supervisor\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{supervisor\+\_\+task()}{supervisor\_task()}}
+{\footnotesize\ttfamily void supervisor\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Supervisor task. Manage R\+TC and N\+TP sync and open/close gsm and ethernet connection. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}\label{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}} 
+\index{rmap.\+ino@{rmap.\+ino}!time\+\_\+task@{time\+\_\+task}}
+\index{time\+\_\+task@{time\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
+\subsubsection{\texorpdfstring{time\+\_\+task()}{time\_task()}}
+{\footnotesize\ttfamily void time\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Time task. Get time from N\+TP and sync R\+TC with it. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
