@@ -1,6 +1,9 @@
-/**********************************************************************
+/**@file i2c_utility.cpp */
+
+/*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
+Paolo patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -19,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "i2c_utility.h"
 
+// http://www.forward.com.au/pfod/ArduinoProgramming/I2C_ClearBus/index.html
 /**
 * This routine turns off the I2C bus and clears it
 * on return SCA and SCL pins are tri-state inputs.

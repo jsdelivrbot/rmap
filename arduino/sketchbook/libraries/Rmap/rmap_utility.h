@@ -1,6 +1,9 @@
-/**********************************************************************
+/**@file rmap_utility.h */
+
+/*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
+Paolo patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -32,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <json_config.h>
 #include <ArduinoJson.h>
 #endif
+
+#define executeTimerTaskEach(current, desidered, offset) (desidered % offset == 0 ? (current % desidered == 0 ? 1 : 0) : 0)
 
 #if (USE_JSON)
 uint8_t jsonToMqtt(const char *json, const char *mqtt_sensor, char topic[][MQTT_SENSOR_TOPIC_LENGTH], char message[][MQTT_MESSAGE_LENGTH], tmElements_t *sensor_reading_time);
