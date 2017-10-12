@@ -23,6 +23,12 @@ K I2C Hub
 F http://www.nxp.com/documents/data_sheet/PCA9518.pdf
 $ENDCMP
 #
+$CMP PIC16F88
+D 8 bit microcontroller
+K PIC
+F http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf
+$ENDCMP
+#
 $CMP SIM-CARD
 D SIM-CARD telefonica
 $ENDCMP

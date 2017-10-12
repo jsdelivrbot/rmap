@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:Libreria_SCH_mia
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -51,7 +52,7 @@ NoConn ~ 2150 2050
 NoConn ~ 2050 2050
 NoConn ~ 1950 2050
 NoConn ~ 3400 3000
-NoConn ~ 3400 3200
+NoConn ~ 3400 3100
 NoConn ~ 3400 3300
 $Comp
 L GND #PWR01
@@ -380,7 +381,7 @@ NoConn ~ 6600 2000
 NoConn ~ 7000 2000
 Text Label 6800 1850 1    60   ~ 0
 PWRKEY
-Text Label 3550 3100 0    60   ~ 0
+Text Label 3550 3200 0    60   ~ 0
 PWRKEY
 $Comp
 L LED_ALT D1
@@ -433,7 +434,7 @@ Wire Wire Line
 Wire Wire Line
 	1650 3300 1200 3300
 Wire Wire Line
-	3550 3100 3050 3100
+	3400 3100 3050 3100
 Wire Wire Line
 	3400 3300 3050 3300
 Wire Wire Line
@@ -471,7 +472,7 @@ Wire Wire Line
 Wire Wire Line
 	2450 2050 2450 2300
 Wire Wire Line
-	3050 3200 3400 3200
+	3050 3200 3550 3200
 Wire Wire Line
 	3150 3400 3050 3400
 Wire Wire Line

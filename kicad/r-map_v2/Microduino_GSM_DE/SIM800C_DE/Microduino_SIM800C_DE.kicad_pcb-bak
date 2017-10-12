@@ -15,8 +15,8 @@
   (page A4)
   (title_block
     (title "Microduino SIM800C DE")
-    (date "30 luglio 2017")
-    (rev 0.0)
+    (date "13 agosto 2017")
+    (rev 0.1)
   )
 
   (layers
