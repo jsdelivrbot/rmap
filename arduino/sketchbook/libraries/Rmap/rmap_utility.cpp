@@ -104,7 +104,13 @@ time_t getDateFromMessage(char *message) {
    str_buffer[delimiter] = '\0';
    dateStringToArray(dt, str_buffer);
 
-   _datetime.Year = CalendarYrToTm(dt[0]+2000);
+   if (dt[0] <= year()-2000) {
+      _datetime.Year = CalendarYrToTm(dt[0]+2000);
+   }
+   else {
+      _datetime.Year = CalendarYrToTm(dt[0]+1900);
+   }
+
    _datetime.Month = dt[1];
    _datetime.Day = dt[2];
 

@@ -27,14 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <LiquidCrystal_I2C.h>
 
-// Debug level definitions
-// #define SERIAL_TRACE_LEVEL_OFF          (0)
-// #define SERIAL_TRACE_LEVEL_ERROR        (1)
-// #define SERIAL_TRACE_LEVEL_WARNING      (2)
-// #define SERIAL_TRACE_LEVEL_INFO         (3)
-// #define SERIAL_TRACE_LEVEL_DEBUG        (4)
-// #define SERIAL_TRACE_LEVEL_TRACE        (5)
-
 #define INT8    (1)
 #define INT16   (2)
 #define INT32   (3)
