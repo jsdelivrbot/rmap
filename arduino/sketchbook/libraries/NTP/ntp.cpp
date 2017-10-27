@@ -23,10 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void Ntp::makePacket(uint8_t *ntp_packet) {
    memset(ntp_packet, 0, NTP_PACKET_LENGTH);
-   ntp_packet[0] = 0b11100011;   // LI, Version, Mode
-   ntp_packet[1] = 0;            // Stratum, or type of clock
-   ntp_packet[2] = 6;            // Polling Interval
-   ntp_packet[3] = 0xEC;         // Peer Clock Precision
+   ntp_packet[0] = 0b11100011;
+   ntp_packet[1] = 0;
+   ntp_packet[2] = 6;
+   ntp_packet[3] = 0xEC;
    ntp_packet[12]  = 49;
    ntp_packet[13]  = 0x4E;
    ntp_packet[14]  = 49;

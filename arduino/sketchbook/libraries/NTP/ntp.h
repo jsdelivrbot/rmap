@@ -22,29 +22,101 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _NTP_H
 #define _NTP_H
 
+/*!
+\def NTP_SERVER_PORT
+\brief NTP server port.
+*/
 #define NTP_SERVER_PORT               (123)
+
+/*!
+\def NTP_PACKET_LENGTH
+\brief NTP packet length.
+*/
 #define NTP_PACKET_LENGTH             (48)
+
+/*!
+\def NTP_RECEIVE_TIMESTAMP_OFFSET
+\brief NTP received timestamp offset.
+*/
 #define NTP_RECEIVE_TIMESTAMP_OFFSET  (40)
+
+/*!
+\def NTP_1_HOUR_SECONDS
+\brief seconds in one hour.
+*/
 #define NTP_1_HOUR_SECONDS            (3600UL)
+
+/*!
+\def NTP_70_YEARS_SECONDS
+\brief seconds in 70 years.
+*/
 #define NTP_70_YEARS_SECONDS          (2208988800UL)
 
-#define NTP_TIMEZONE                  (1) // Europe
+/*!
+\def NTP_TIMEZONE
+\brief NTP timezone.
+*/
+#define NTP_TIMEZONE                  (1)
 
 #include <stdint.h>
 #include <string.h>
 #include <EthernetUdp2.h>
 #include <sim800Client.h>
 
+/*!
+\class Ntp
+\brief Ntp class.
+*/
 class Ntp {
 public:
+   /*!
+   \fn bool sendRequest(EthernetUDP *client, const char *server)
+   \brief Send ntp request over ethernet client.
+   \param *client ethernet client pointer.
+   \param *server ntp server.
+   \return true if request was sent.
+   */
    static bool sendRequest(EthernetUDP *client, const char *server);
+
+   /*!
+   \fn uint32_t getResponse(EthernetUDP *client)
+   \brief Get ntp response.
+   \param *client ethernet client pointer.
+   \return ntp time in seconds since 01/01/1970 00:0:00.
+   */
    static uint32_t getResponse(EthernetUDP *client);
 
+   /*!
+   \fn bool sendRequest(sim800Client *client)
+   \brief Send ntp request over sim800 client.
+   \param *client sim800 client pointer.
+   \return true if request was sent.
+   */
    static bool sendRequest(sim800Client *client);
+
+   /*!
+   \fn uint32_t getResponse(sim800Client *client)
+   \brief Get ntp response.
+   \param *client sim800 client pointer.
+   \return ntp time in seconds since 01/01/1970 00:0:00.
+   */
    static uint32_t getResponse(sim800Client *client);
 
 private:
+   /*!
+   \fn void makePacket(uint8_t *ntp_packet)
+   \brief Make ntp packet.
+   \param *ntp_packet buffer.
+   \return buffer filled.
+   */
    static void makePacket(uint8_t *ntp_packet);
+
+   /*!
+   \fn uint32_t extractTime(uint8_t *ntp_packet)
+   \brief Extract time from ntp packet response.
+   \param *ntp_packet ntp packet response.
+   \return ntp time in seconds since 01/01/1970 00:0:00.
+   */
    static uint32_t extractTime(uint8_t *ntp_packet);
 };
 
