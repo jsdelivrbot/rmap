@@ -155,10 +155,10 @@ void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
 		noInterrupts ();
 		sleep_enable();
 
-		// turn off brown-out enable in software
+		//! turn off brown-out enable in software
 		MCUCR = bit (BODS) | bit (BODSE);
 		MCUCR = bit (BODS);
-		interrupts ();  // guarantees next instruction executed
+		interrupts ();
 
 		sleep_cpu();
 		sleep_disable();
@@ -213,6 +213,8 @@ void init_tasks() {
    is_time_set = false;
    last_ntp_sync = -NTP_TIME_FOR_RESYNC_S;
 
+   last_lcd_begin = 0;
+
    is_time_for_sensors_reading_updated = false;
 
    is_sdcard_error = false;
@@ -232,9 +234,6 @@ void init_pins() {
    digitalWrite(SDCARD_CHIP_SELECT_PIN, HIGH);
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-   pinMode(W5500_CHIP_SELECT_PIN, OUTPUT);
-   digitalWrite(W5500_CHIP_SELECT_PIN, HIGH);
-
    Ethernet.w5500_cspin = W5500_CHIP_SELECT_PIN;
 
    #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
@@ -319,9 +318,10 @@ void init_sensors () {
       LCD_INFO(&lcd, false, "Sensors not found!");
    }
 
+   //! read sensors configuration, create and setup
    for (uint8_t i=0; i<readable_configuration.sensors_count; i++) {
       SensorDriver::createAndSetup(readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, sensors, &sensors_count);
-      SERIAL_INFO("--> %u: %s-%s: %s\t [ %s ]\r\n", sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
+      SERIAL_INFO("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n", sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
       sensors_name_length -= snprintf(sensors_name + strlen(sensors_name), sensors_name_length, "%s ", readable_configuration.sensors[i].type);
 
       if (sensors_name_length < 3) {
@@ -334,30 +334,9 @@ void init_sensors () {
    SERIAL_INFO("\r\n");
 }
 
-void setNextTimeForSensorReading (uint8_t *next_hour, uint8_t *next_minute, uint8_t *next_second) {
-   bool is_update = false;
-   *next_hour = hour();
-   *next_second = 0;
-
-   if (*next_minute == 255) {
-      *next_minute = minute();
-      *next_minute = *next_minute - (*next_minute % (uint8_t)(readable_configuration.report_seconds / 60)) + (uint8_t)(readable_configuration.report_seconds / 60);
-      is_update = true;
-   }
-   else if (minute() == *next_minute) {
-      *next_minute += (uint8_t)(readable_configuration.report_seconds / 60);
-      is_update = true;
-   }
-
-   if (is_update) {
-      if (*next_minute > 59) {
-         *next_minute -= 60;
-         (*next_hour)++;
-      }
-
-      if (*next_hour > 23)
-      *next_hour = *next_hour - 24;
-   }
+void setNextTimeForSensorReading (time_t *next_time) {
+   time_t counter = (now() / readable_configuration.report_seconds);
+   *next_time = (time_t) ((++counter) * readable_configuration.report_seconds);
 }
 
 bool mqttConnect(char *username, char *password) {
@@ -376,7 +355,7 @@ bool mqttPublish(const char *topic, const char *message) {
    tx_message.qos = MQTT::QOS1;
    tx_message.retained = false;
    tx_message.dup = false;
-   tx_message.payload = (void*)message;
+   tx_message.payload = (void*) message;
    tx_message.payloadlen = strlen(message) + 1;
 
    return (mqtt_client.publish(topic, tx_message) == 0);
@@ -595,16 +574,17 @@ char *rpc_process(char *json) {
 }
 
 void rtc_interrupt_handler() {
-   if (second() >= next_second_for_sensor_reading && minute() == next_minute_for_sensor_reading) {
-      setNextTimeForSensorReading(&next_hour_for_sensor_reading, &next_minute_for_sensor_reading, &next_second_for_sensor_reading);
-      is_time_for_sensors_reading_updated = true;
+   if (is_time_set && now() >= next_ptr_time_for_sensors_reading) {
 
-      sensor_reading_time.Day = day();
-      sensor_reading_time.Month = month();
-      sensor_reading_time.Year = CalendarYrToTm(year());
-      sensor_reading_time.Hour = hour();
-      sensor_reading_time.Minute = minute();
-      sensor_reading_time.Second = next_second_for_sensor_reading;
+      sensor_reading_time.Day = day(next_ptr_time_for_sensors_reading);
+      sensor_reading_time.Month = month(next_ptr_time_for_sensors_reading);
+      sensor_reading_time.Year = CalendarYrToTm(year(next_ptr_time_for_sensors_reading));
+      sensor_reading_time.Hour = hour(next_ptr_time_for_sensors_reading);
+      sensor_reading_time.Minute = minute(next_ptr_time_for_sensors_reading);
+      sensor_reading_time.Second = second(next_ptr_time_for_sensors_reading);
+
+      setNextTimeForSensorReading((time_t *) &next_ptr_time_for_sensors_reading);
+      is_time_for_sensors_reading_updated = true;
 
       noInterrupts();
       if (!is_event_sensors_reading) {
@@ -644,38 +624,8 @@ void supervisor_task() {
          is_time_updated = false;
          is_event_time_executed = false;
          is_event_client_executed = false;
-
-         if (is_supervisor_first_run) {
-            supervisor_state = SUPERVISOR_RTC_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_RTC_LEVEL_TASK\r\n");
-         }
-         else {
-            supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
-         }
-      break;
-
-      case SUPERVISOR_RTC_LEVEL_TASK:
-         // first time
-         noInterrupts();
-         if (!is_event_time && !is_event_time_executed && !is_time_set) {
-            is_event_time = true;
-            ready_tasks_count++;
-         }
-         interrupts();
-
-         // success
-         if (!is_event_time && is_event_time_executed && is_time_set) {
-            is_time_updated = true;
-            supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_RTC_LEVEL_TASK ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
-         }
-
-         // error: BLOCK !!!!
-         if (!is_event_time && is_event_time_executed && !is_time_set) {
-            supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_RTC_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
-         }
+         supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
+         SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
       break;
 
       case SUPERVISOR_CONNECTION_LEVEL_TASK:
@@ -683,11 +633,13 @@ void supervisor_task() {
             start_time_ms = millis();
          }
 
-         if (!do_ntp_sync && (now() - last_ntp_sync > NTP_TIME_FOR_RESYNC_S)) {
+         //! need ntp sync ?
+         if (!do_ntp_sync && ((now() - last_ntp_sync > NTP_TIME_FOR_RESYNC_S) || !is_time_set)) {
             do_ntp_sync = true;
+            SERIAL_DEBUG("Requested NTP time sync...\r\n");
          }
 
-         // first time
+         //! enable hardware related tasks for connect
          noInterrupts();
          if (!*is_event_client && !is_event_client_executed && !is_client_connected) {
             *is_event_client = true;
@@ -695,15 +647,15 @@ void supervisor_task() {
          }
          interrupts();
 
-         // success
+         //! success
          if (!*is_event_client && is_client_connected) {
-            // do ntp sync
+            //! reset time task for doing ntp sync
             if (is_client_udp_socket_open && do_ntp_sync) {
                is_event_time_executed = false;
                supervisor_state = SUPERVISOR_NTP_LEVEL_TASK;
                SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_NTP_LEVEL_TASK\r\n");
             }
-            // other operation
+            //! doing other operations...
             else {
                do_ntp_sync = false;
                supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
@@ -711,13 +663,13 @@ void supervisor_task() {
             }
          }
 
-         // error
+         //! error
          if (!*is_event_client && is_event_client_executed && !is_client_connected) {
-            // retry
+            //! retry
             if ((++retry < SUPERVISOR_CONNECTION_LEVEL_RETRY_COUNT_MAX) || (millis() - start_time_ms < SUPERVISOR_CONNECTION_TIMEOUT_MS)) {
                is_event_client_executed = false;
             }
-            // fail
+            //! fail
             else {
                supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
                SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
@@ -726,21 +678,21 @@ void supervisor_task() {
       break;
 
       case SUPERVISOR_NTP_LEVEL_TASK:
-         // first time
+         //! enable time task
          noInterrupts();
-         if (!is_event_time && !is_event_time_executed && is_time_set && is_client_connected) {
+         if (!is_event_time && !is_event_time_executed && is_client_connected) {
             is_event_time = true;
             ready_tasks_count++;
          }
          interrupts();
 
-         // success
-         if (!is_event_time && is_event_time_executed && is_time_set && is_client_connected) {
+         //! success
+         if (!is_event_time && is_event_time_executed && is_client_connected) {
             last_ntp_sync = now();
             is_time_updated = true;
          }
 
-         // success or error
+         //! success or error
          if (!is_event_time && is_event_time_executed && is_client_connected) {
             do_ntp_sync = false;
 
@@ -765,15 +717,36 @@ void supervisor_task() {
          }
 
          if (is_supervisor_first_run && is_time_set) {
-            next_second_for_sensor_reading = 0;
-            next_minute_for_sensor_reading = 255;
-            setNextTimeForSensorReading(&next_hour_for_sensor_reading, &next_minute_for_sensor_reading, &next_second_for_sensor_reading);
+            setNextTimeForSensorReading((time_t *) &next_ptr_time_for_sensors_reading);
 
             SERIAL_INFO("Acquisition scheduling...\r\n");
             SERIAL_INFO("--> observations every %u minutes\r\n", OBSERVATIONS_MINUTES);
-            SERIAL_INFO("--> report every %u minutes\r\n", (uint8_t)(readable_configuration.report_seconds / 60));
-            SERIAL_INFO("--> starting at: %02u:%02u:%02u\r\n\r\n", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
-            LCD_INFO(&lcd, false, "start acq %02u:%02u:%02u", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+
+            if (readable_configuration.report_seconds >= 60) {
+               uint8_t mm = readable_configuration.report_seconds / 60;
+               uint8_t ss = readable_configuration.report_seconds - mm * 60;
+               if (ss) {
+                  SERIAL_INFO("--> report every %u minutes and %u seconds\r\n", mm, ss);
+               }
+               else {
+                  SERIAL_INFO("--> report every %u minutes\r\n", mm);
+               }
+            }
+            else {
+               SERIAL_INFO("--> report every %u seconds\r\n", readable_configuration.report_seconds);
+            }
+
+            SERIAL_INFO("--> starting at: %02u:%02u:%02u\r\n\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+            LCD_INFO(&lcd, false, "start acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+         }
+
+         //! reinit lcd display
+         if (last_lcd_begin == 0) {
+            last_lcd_begin = now();
+         }
+         else if ((now() - last_lcd_begin > LCD_TIME_FOR_REINITIALIZE_S)) {
+            last_lcd_begin = now();
+            LCD_BEGIN(&lcd, LCD_COLUMNS, LCD_ROWS);
          }
 
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
@@ -835,8 +808,8 @@ void rtc_task() {
 
    if (is_time_for_sensors_reading_updated) {
       is_time_for_sensors_reading_updated = false;
-      SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
-      LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", next_hour_for_sensor_reading, next_minute_for_sensor_reading, next_second_for_sensor_reading);
+      SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+      LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
    }
 
    noInterrupts();
@@ -870,7 +843,6 @@ void time_task() {
 
       case TIME_SEND_ONLINE_REQUEST:
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-         // while (eth_udp_client.parsePacket() > 0);
          is_ntp_request_ok = Ntp::sendRequest(&eth_udp_client, readable_configuration.ntp_server);
 
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
@@ -878,19 +850,19 @@ void time_task() {
 
          #endif
 
-         // success
+         //! success
          if (is_ntp_request_ok) {
             retry = 0;
             time_state = TIME_WAIT_ONLINE_RESPONSE;
          }
-         // retry
+         //! retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
             delay_ms = NTP_RETRY_DELAY_MS;
             start_time_ms = millis();
             state_after_wait = TIME_SEND_ONLINE_REQUEST;
             time_state = TIME_WAIT_STATE;
          }
-         // fail: use old rtc time
+         //! fail: use old rtc time
          else {
             SERIAL_ERROR("NTP request... [ %s ]\r\n", FAIL_STRING);
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
@@ -906,21 +878,21 @@ void time_task() {
 
          #endif
 
-         // success: 946684800 seconds for 01/01/2000 00:00:00
+         //! success: 946684800 seconds for 01/01/2000 00:00:00
          if (seconds_since_1900 > 946684800) {
             retry = 0;
             setTime(seconds_since_1900);
-            SERIAL_TRACE("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
+            SERIAL_DEBUG("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
             time_state = TIME_SET_SYNC_NTP_PROVIDER;
          }
-         // retry
+         //! retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
             delay_ms = NTP_RETRY_DELAY_MS;
             start_time_ms = millis();
             state_after_wait = TIME_WAIT_ONLINE_RESPONSE;
             time_state = TIME_WAIT_STATE;
          }
-         // fail
+         //! fail
          else {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
@@ -933,11 +905,11 @@ void time_task() {
          is_set_rtc_ok &= Pcf8563::setTime(hour(), minute(), second());
          is_set_rtc_ok &= Pcf8563::enable();
 
-         if (is_set_rtc_ok) {
+         if (is_set_rtc_ok && now() >= seconds_since_1900) {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
          }
-         // retry
+         //! retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
             is_set_rtc_ok = true;
             delay_ms = NTP_RETRY_DELAY_MS;
@@ -945,7 +917,7 @@ void time_task() {
             state_after_wait = TIME_SET_SYNC_NTP_PROVIDER;
             time_state = TIME_WAIT_STATE;
          }
-         // fail
+         //! fail
          else {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
@@ -953,8 +925,9 @@ void time_task() {
       break;
 
       case TIME_SET_SYNC_RTC_PROVIDER:
+         setSyncInterval(TIME_RESYNC_INTERVALS_S);
          setSyncProvider(Pcf8563::getTime);
-         SERIAL_TRACE("Current RTC date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
+         SERIAL_DEBUG("Current RTC date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
          time_state = TIME_END;
       break;
 
@@ -990,8 +963,6 @@ void ethernet_task() {
          is_client_udp_socket_open = false;
          state_after_wait = ETHERNET_INIT;
          ethernet_state = ETHERNET_CONNECT;
-         eth_udp_client.setTimeout(ETHERNET_TIMEOUT_MS);
-         // eth_tcp_client.setTimeout(ETHERNET_TIMEOUT_MS);
          SERIAL_TRACE("ETHERNET_INIT --> ETHERNET_CONNECT\r\n");
       break;
 
@@ -1008,7 +979,7 @@ void ethernet_task() {
             SERIAL_INFO("Ethernet: Static [ %s ]\r\n", OK_STRING);
          }
 
-         // success
+         //! success
          if (is_client_connected) {
             w5500.setRetransmissionTime(ETHERNET_RETRY_TIME_MS);
             w5500.setRetransmissionCount(ETHERNET_RETRY_COUNT);
@@ -1023,7 +994,7 @@ void ethernet_task() {
             ethernet_state = ETHERNET_OPEN_UDP_SOCKET;
             SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_OPEN_UDP_SOCKET\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
             delay_ms = ETHERNET_RETRY_DELAY_MS;
             start_time_ms = millis();
@@ -1031,7 +1002,7 @@ void ethernet_task() {
             ethernet_state = ETHERNET_WAIT_STATE;
             SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             retry = 0;
             ethernet_state = ETHERNET_END;
@@ -1042,13 +1013,14 @@ void ethernet_task() {
       break;
 
       case ETHERNET_OPEN_UDP_SOCKET:
+         //! success
          if (eth_udp_client.begin(ETHERNET_DEFAULT_LOCAL_UDP_PORT)) {
             SERIAL_TRACE("--> udp socket local port: %u [ OK ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             is_client_udp_socket_open = true;
             ethernet_state = ETHERNET_END;
             SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_END\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
             delay_ms = ETHERNET_RETRY_DELAY_MS;
             start_time_ms = millis();
@@ -1056,7 +1028,7 @@ void ethernet_task() {
             ethernet_state = ETHERNET_WAIT_STATE;
             SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             SERIAL_ERROR("--> udp socket on local port: %u [ FAIL ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             retry = 0;
@@ -1106,20 +1078,20 @@ void gsm_task() {
       case GSM_SWITCH_ON:
          sim800_status = s800.switchOn();
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             gsm_state = GSM_AUTOBAUD;
          }
          else if (sim800_status == SIM800_ERROR) {
             gsm_state = GSM_END;
          }
-         // wait...
+         //! wait...
       break;
 
       case GSM_AUTOBAUD:
          sim800_status = s800.initAutobaud();
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             delay_ms = SIM800_WAIT_FOR_AUTOBAUD_DELAY_MS;
             start_time_ms = millis();
@@ -1127,49 +1099,49 @@ void gsm_task() {
             gsm_state = GSM_WAIT_STATE;
 
          }
-         // fail
+         //! fail
          else if (sim800_status == SIM800_ERROR) {
             gsm_state = GSM_WAIT_FOR_SWITCH_OFF;
          }
-         // wait...
+         //! wait...
       break;
 
       case GSM_SETUP:
          sim800_status = s800.setup();
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             gsm_state = GSM_START_CONNECTION;
          }
-         // fail
+         //! fail
          else if (sim800_status == SIM800_ERROR) {
             is_error = true;
             gsm_state = GSM_WAIT_FOR_SWITCH_OFF;
          }
-         // wait...
+         //! wait...
       break;
 
       case GSM_START_CONNECTION:
          sim800_status = s800.startConnection(readable_configuration.gsm_apn, readable_configuration.gsm_username, readable_configuration.gsm_password);
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             gsm_state = GSM_CHECK_OPERATION;
          }
-         // fail
+         //! fail
          else if (sim800_status == SIM800_ERROR) {
             is_error = true;
             gsm_state = GSM_WAIT_FOR_SWITCH_OFF;
          }
-         // wait...
+         //! wait...
       break;
 
       case GSM_CHECK_OPERATION:
-         // open udp socket for query NTP
+         //! open udp socket for query NTP
          if (do_ntp_sync) {
             gsm_state = GSM_OPEN_UDP_SOCKET;
          }
-         // wait for mqtt send terminate
+         //! wait for mqtt send terminate
          else {
             gsm_state = GSM_SUSPEND;
             state_after_wait = GSM_STOP_CONNECTION;
@@ -1179,7 +1151,7 @@ void gsm_task() {
       case GSM_OPEN_UDP_SOCKET:
          sim800_connection_status = s800.connection("UDP", readable_configuration.ntp_server, NTP_SERVER_PORT);
 
-         // success
+         //! success
          if (sim800_connection_status == 1) {
             is_client_udp_socket_open = true;
             is_client_connected = true;
@@ -1187,29 +1159,29 @@ void gsm_task() {
             state_after_wait = GSM_STOP_CONNECTION;
             gsm_state = GSM_SUSPEND;
          }
-         // fail
+         //! fail
          else if (sim800_connection_status == 2) {
             is_client_connected = false;
             is_event_client_executed = true;
             is_error = true;
             gsm_state = GSM_WAIT_FOR_SWITCH_OFF;
          }
-         // wait
+         //! wait
       break;
 
       case GSM_STOP_CONNECTION:
          sim800_status = s800.stopConnection();
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             gsm_state = GSM_SWITCH_OFF;
          }
-         // fail
+         //! fail
          else if (sim800_status == SIM800_ERROR) {
             is_error = true;
             gsm_state = GSM_SWITCH_OFF;
          }
-         // wait
+         //! wait
       break;
 
       case GSM_SUSPEND:
@@ -1232,11 +1204,11 @@ void gsm_task() {
       case GSM_SWITCH_OFF:
          sim800_status = s800.switchOff(power_off_mode);
 
-         // success
+         //! success
          if (sim800_status == SIM800_OK) {
             gsm_state = GSM_END;
          }
-         // fail
+         //! fail
          else if (sim800_status == SIM800_ERROR) {
             if (power_off_mode == SIM800_POWER_OFF_BY_AT_COMMAND) {
                power_off_mode = SIM800_POWER_OFF_BY_SWITCH;
@@ -1245,7 +1217,7 @@ void gsm_task() {
                gsm_state = GSM_END;
             }
          }
-         // wait...
+         //! wait...
       break;
 
       case GSM_END:
@@ -1277,7 +1249,7 @@ void sensors_reading_task () {
    static sensors_reading_state_t state_after_wait;
    static uint32_t delay_ms;
    static uint32_t start_time_ms;
-   static int32_t values_readed_from_sensor[2];
+   static int32_t values_readed_from_sensor[VALUES_TO_READ_FROM_SENSOR_COUNT];
 
    switch (sensors_reading_state) {
       case SENSORS_READING_INIT:
@@ -1311,13 +1283,13 @@ void sensors_reading_task () {
       break;
 
       case SENSORS_READING_IS_PREPARED:
-         // success
+         //! success
          if (sensors[i]->isPrepared()) {
             retry = 0;
             sensors_reading_state = SENSORS_READING_GET;
             SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
             delay_ms = SENSORS_RETRY_DELAY_MS;
             start_time_ms = millis();
@@ -1325,7 +1297,7 @@ void sensors_reading_task () {
             sensors_reading_state = SENSORS_READING_WAIT_STATE;
             SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             retry = 0;
             sensors_reading_state = SENSORS_READING_GET;
@@ -1350,15 +1322,15 @@ void sensors_reading_task () {
       break;
 
       case SENSORS_READING_IS_GETTED:
-         // end
+         //! end
          if (sensors[i]->isEnd() && !sensors[i]->isReaded()) {
-            // success
+            //! success
             if (sensors[i]->isSuccess()) {
                retry = 0;
                sensors_reading_state = SENSORS_READING_READ;
                SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
             }
-            // retry
+            //! retry
             else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
                delay_ms = SENSORS_RETRY_DELAY_MS;
                start_time_ms = millis();
@@ -1366,14 +1338,14 @@ void sensors_reading_task () {
                sensors_reading_state = SENSORS_READING_WAIT_STATE;
                SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_WAIT_STATE\r\n");
             }
-            // fail
+            //! fail
             else {
                retry = 0;
                sensors_reading_state = SENSORS_READING_READ;
                SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
             }
          }
-         // not end
+         //! not end
          else {
             sensors_reading_state = SENSORS_READING_GET;
             SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_GET\r\n");
@@ -1386,19 +1358,19 @@ void sensors_reading_task () {
       break;
 
       case SENSORS_READING_NEXT:
-         // next sensor
+         //! next sensor
          if ((++i) < readable_configuration.sensors_count) {
             retry = 0;
             sensors_reading_state = SENSORS_READING_PREPARE;
             SERIAL_TRACE("SENSORS_READING_NEXT ---> SENSORS_READING_PREPARE\r\n");
          }
-         // end
+         //! end
          else {
-            // first time: read ptr data from sdcard
+            //! first time: read ptr data from sdcard
             if (is_first_run) {
                is_first_run = false;
             }
-            // other time: save data to sdcard
+            //! other time: save data to sdcard
             else {
                noInterrupts();
                if (!is_event_data_saving) {
@@ -1466,7 +1438,7 @@ void data_saving_task() {
             data_saving_state = DATA_SAVING_OPEN_FILE;
             SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_OPEN_FILE\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
             delay_ms = DATA_SAVING_DELAY_MS;
             start_time_ms = millis();
@@ -1474,7 +1446,7 @@ void data_saving_task() {
             data_saving_state = DATA_SAVING_WAIT_STATE;
             SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             is_sdcard_error = true;
             is_sdcard_open = false;
@@ -1486,17 +1458,17 @@ void data_saving_task() {
       break;
 
       case DATA_SAVING_OPEN_FILE:
-         // open sdcard file: today!
+         //! open sdcard file: today!
          sdcard_make_filename(now(), file_name);
 
-         // try to open file. if ok, write sensors data on it.
+         //! try to open file. if ok, write sensors data on it.
          if (sdcard_open_file(&SD, &write_data_file, file_name, O_RDWR | O_CREAT | O_APPEND)) {
             retry = 0;
             i = 0;
             data_saving_state = DATA_SAVING_SENSORS_LOOP;
             SERIAL_TRACE("DATA_SAVING_OPEN_FILE ---> DATA_SAVING_SENSORS_LOOP\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
             delay_ms = DATA_SAVING_DELAY_MS;
             start_time_ms = millis();
@@ -1504,7 +1476,7 @@ void data_saving_task() {
             data_saving_state = DATA_SAVING_WAIT_STATE;
             SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", file_name);
             is_sdcard_error = true;
@@ -1541,7 +1513,7 @@ void data_saving_task() {
       break;
 
       case DATA_SAVING_WRITE_FILE:
-         // sdcard success
+         //! sdcard success
          if (write_data_file.write(sd_buffer, MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH) == (MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH)) {
             SERIAL_DEBUG("SD <-- %s %s\r\n", &topic_buffer[k][0], &message_buffer[k][0]);
             write_data_file.flush();
@@ -1551,7 +1523,7 @@ void data_saving_task() {
             data_saving_state = DATA_SAVING_DATA_LOOP;
             SERIAL_TRACE("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_DATA_LOOP\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
             delay_ms = DATA_SAVING_DELAY_MS;
             start_time_ms = millis();
@@ -1559,7 +1531,7 @@ void data_saving_task() {
             data_saving_state = DATA_SAVING_WAIT_STATE;
             SERIAL_TRACE("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             SERIAL_ERROR("SD Card writing data on file %s... [ FAIL ]\r\n", file_name);
             is_sdcard_error = true;
@@ -1615,15 +1587,17 @@ void mqtt_task() {
    static char message_buffer[VALUES_TO_READ_FROM_SENSOR_COUNT][MQTT_MESSAGE_LENGTH];
    static char full_topic_buffer[MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH];
    static bool is_mqtt_error;
-   static bool is_mqtt_processing_sdcard;    // send data saved on sdcard
-   static bool is_mqtt_processing_json;      // sd card fault fallback: send last acquired sensor data
+   static bool is_mqtt_processing_sdcard;
+   static bool is_mqtt_processing_json;
    static bool is_mqtt_published_data;
    static bool is_ptr_found;
    static bool is_ptr_updated;
    static bool is_eof_data_read;
    static tmElements_t datetime;
    static time_t current_ptr_time_data;
+   static time_t last_correct_ptr_time_data;
    static time_t next_ptr_time_data;
+   static uint32_t ipstack_timeout_ms;
    uint8_t ipstack_status;
    char file_name[SDCARD_FILES_NAME_MAX_LENGTH];
    int read_bytes_count;
@@ -1660,7 +1634,7 @@ void mqtt_task() {
             mqtt_state = MQTT_OPEN_PTR_FILE;
             SERIAL_TRACE("MQTT_OPEN_SDCARD ---> MQTT_OPEN_PTR_FILE\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
             delay_ms = MQTT_DELAY_MS;
             start_time_ms = millis();
@@ -1668,7 +1642,7 @@ void mqtt_task() {
             mqtt_state = MQTT_WAIT_STATE;
             SERIAL_TRACE("MQTT_OPEN_SDCARD ---> MQTT_PTR_DATA_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             is_sdcard_error = true;
             is_sdcard_open = false;
@@ -1680,13 +1654,13 @@ void mqtt_task() {
          break;
 
       case MQTT_OPEN_PTR_FILE:
-         // try to open file. if ok, read ptr data.
+         //! try to open file. if ok, read ptr data.
          if (sdcard_open_file(&SD, &mqtt_ptr_file, SDCARD_MQTT_PTR_FILE_NAME, O_RDWR | O_CREAT)) {
             retry = 0;
             mqtt_state = MQTT_PTR_READ;
             SERIAL_TRACE("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_READ\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
             delay_ms = MQTT_DELAY_MS;
             start_time_ms = millis();
@@ -1694,7 +1668,7 @@ void mqtt_task() {
             mqtt_state = MQTT_WAIT_STATE;
             SERIAL_TRACE("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_DATA_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", SDCARD_MQTT_PTR_FILE_NAME);
             is_sdcard_error = true;
@@ -1708,13 +1682,13 @@ void mqtt_task() {
          mqtt_ptr_file.seekSet(0);
          read_bytes_count = mqtt_ptr_file.read(&ptr_time_data, sizeof(time_t));
 
-         // found
+         //! found
          if (read_bytes_count == sizeof(time_t) && ptr_time_data < now()) {
             is_ptr_found = true;
             mqtt_state = MQTT_PTR_FOUND;
             SERIAL_TRACE("MQTT_PTR_READ ---> MQTT_PTR_FOUND\r\n");
          }
-         // not found (no sdcard error): find it by starting from 1th January of this year
+         //! not found (no sdcard error): find it by starting from 1th January of this year
          else if (read_bytes_count >= 0) {
             SERIAL_INFO("Data pointer... [ FIND ]\r\n");
             datetime.Year = CalendarYrToTm(year(now()));
@@ -1728,7 +1702,7 @@ void mqtt_task() {
             mqtt_state = MQTT_PTR_FIND;
             SERIAL_TRACE("MQTT_PTR_READ ---> MQTT_PTR_FIND\r\n");
          }
-         // not found (sdcard error)
+         //! not found (sdcard error)
          else {
             is_ptr_found = false;
             is_sdcard_error = true;
@@ -1738,8 +1712,8 @@ void mqtt_task() {
       break;
 
       case MQTT_PTR_FIND:
-         // ptr not found. find it by searching in file name until today is reach.
-         // if there isn't file, ptr_time_data is set to current date at 00:00:00 time.
+         //! ptr not found. find it by searching in file name until today is reach.
+         //! if there isn't file, ptr_time_data is set to current date at 00:00:00 time.
          if (!is_ptr_found && ptr_time_data < now()) {
             sdcard_make_filename(ptr_time_data, file_name);
 
@@ -1756,13 +1730,11 @@ void mqtt_task() {
                ptr_time_data += SECS_PER_DAY;
             }
          }
-         // ptr not found: set ptr to yesterday at 23:60-(uint8_t)(readable_configuration.report_seconds / 60):00 time.
+         //! ptr not found: set ptr to yesterday at 23:60-(uint8_t)(readable_configuration.report_seconds / 60):00 time.
          else if (!is_ptr_found && ptr_time_data >= now()) {
             datetime.Year = CalendarYrToTm(year());
             datetime.Month = month();
             datetime.Day = day();
-            // datetime.Hour = 23;
-            // datetime.Minute = 60 - (uint8_t)(readable_configuration.report_seconds / 60);
             datetime.Hour = 0;
             datetime.Minute = 0;
             datetime.Second = 0;
@@ -1770,7 +1742,7 @@ void mqtt_task() {
             is_ptr_found = true;
             is_ptr_updated = true;
          }
-         // ptr found: sooner or later the ptr will be set in any case
+         //! ptr found: sooner or later the ptr will be set in any case
          else if (is_ptr_found) {
             mqtt_state = MQTT_PTR_FOUND;
             SERIAL_TRACE("MQTT_PTR_FIND ---> MQTT_PTR_FOUND\r\n");
@@ -1778,20 +1750,21 @@ void mqtt_task() {
       break;
 
       case MQTT_PTR_FOUND:
-         // datafile read, reach eof and is today. END.
+         //! datafile read, reach eof and is today. END.
          if (is_eof_data_read && year() == year(ptr_time_data) && month() == month(ptr_time_data) && day() == day(ptr_time_data)) {
             mqtt_state = MQTT_CLOSE_DATA_FILE;
             SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_CLOSE_DATA_FILE\r\n");
          }
-         // datafile read, reach eof and NOT is today. go to end of this day.
+         //! datafile read, reach eof and NOT is today. go to end of this day.
          else if (is_eof_data_read) {
             datetime.Year = CalendarYrToTm(year(ptr_time_data));
             datetime.Month = month(ptr_time_data);
-            datetime.Day = day(ptr_time_data);
-            datetime.Hour = 23;
-            datetime.Minute = 60 - (uint8_t)(readable_configuration.report_seconds / 60);
+            datetime.Day = day(ptr_time_data) + 1;
+            datetime.Hour = 0;
+            datetime.Minute = 0;
             datetime.Second = 0;
             ptr_time_data = makeTime(datetime);
+            ptr_time_data -= readable_configuration.report_seconds;
             is_ptr_updated = true;
             mqtt_state = MQTT_PTR_END;
             SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n");
@@ -1804,13 +1777,13 @@ void mqtt_task() {
       break;
 
       case MQTT_PTR_END:
-         // ptr data is found: send data saved on sdcard
+         //! ptr data is found: send data saved on sdcard
          if (is_ptr_found && is_sdcard_open && !is_sdcard_error) {
             SERIAL_INFO("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n", day(ptr_time_data), month(ptr_time_data), year(ptr_time_data), hour(ptr_time_data), minute(ptr_time_data), second(ptr_time_data), OK_STRING);
             mqtt_state = MQTT_OPEN;
             SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
          }
-         // ptr data is NOT found: sd card fault fallback: send last acquired sensor data
+         //! ptr data is NOT found: sd card fault fallback: send last acquired sensor data
          else {
             SERIAL_INFO("Data pointer... [ --/--/---- --:--:-- ] [ %s ]\r\n", ERROR_STRING);
             is_sdcard_error = true;
@@ -1825,10 +1798,11 @@ void mqtt_task() {
             SERIAL_TRACE("MQTT_OPEN ---> MQTT_CHECK\r\n");
          }
          else if (is_client_connected) {
+            ipstack_timeout_ms = 0;
             mqtt_state = MQTT_CONNECT;
             SERIAL_TRACE("MQTT_OPEN ---> MQTT_CONNECT\r\n");
          }
-         // error: client not connected!
+         //! error: client not connected!
          else {
             is_mqtt_error = true;
             mqtt_state = MQTT_END;
@@ -1837,17 +1811,20 @@ void mqtt_task() {
          break;
 
       case MQTT_CONNECT:
+         if (ipstack_timeout_ms == 0) {
+            ipstack_timeout_ms = millis();
+         }
+
          ipstack_status = ipstack.connect(readable_configuration.mqtt_server, readable_configuration.mqtt_port);
 
-         // success
+         //! success
          if (ipstack_status == 1 && mqttConnect(readable_configuration.mqtt_username, readable_configuration.mqtt_password)) {
             retry = 0;
             SERIAL_DEBUG("MQTT Connection... [ %s ]\r\n", OK_STRING);
             mqtt_state = MQTT_SUBSCRIBE;
             SERIAL_TRACE("MQTT_CONNECT ---> MQTT_SUBSCRIBE\r\n");
          }
-         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-         // retry
+         //! retry
          else if (ipstack_status == 2 && (++retry) < MQTT_RETRY_COUNT_MAX) {
             delay_ms = MQTT_DELAY_MS;
             start_time_ms = millis();
@@ -1855,10 +1832,9 @@ void mqtt_task() {
             mqtt_state = MQTT_WAIT_STATE;
             SERIAL_TRACE("MQTT_CONNECT ---> MQTT_WAIT_STATE\r\n");
          }
-         #endif
-         // fail
+         //! fail
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-         else if (ipstack_status == 0) {
+         else if (ipstack_status == 2 || (millis() - ipstack_timeout_ms >= ETHERNET_MQTT_TIMEOUT_MS)) {
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
          else if (ipstack_status == 2) {
          #endif
@@ -1867,7 +1843,7 @@ void mqtt_task() {
             mqtt_state = MQTT_DISCONNECT;
             SERIAL_TRACE("MQTT_CONNECT ---> MQTT_DISCONNECT\r\n");
          }
-         // wait
+         //! wait
       break;
 
       case MQTT_SUBSCRIBE:
@@ -1882,7 +1858,7 @@ void mqtt_task() {
       break;
 
       case MQTT_CHECK:
-         // ptr data is found: send data saved on sdcard
+         //! ptr data is found: send data saved on sdcard
          if (!is_sdcard_error) {
             is_mqtt_processing_json = false;
             is_mqtt_processing_sdcard = true;
@@ -1890,7 +1866,7 @@ void mqtt_task() {
             mqtt_state = MQTT_OPEN_DATA_FILE;
             SERIAL_TRACE("MQTT_CHECK ---> MQTT_OPEN_DATA_FILE\r\n");
          }
-         // ptr data is NOT found: sd card fault fallback: send last acquired sensor data
+         //! ptr data is NOT found: sd card fault fallback: send last acquired sensor data
          else {
             is_mqtt_processing_json = true;
             is_mqtt_processing_sdcard = false;
@@ -1925,14 +1901,15 @@ void mqtt_task() {
             current_ptr_time_data = getDateFromMessage(&message_buffer[0][0]);
 
             if (current_ptr_time_data >= ptr_time_data) {
+               last_correct_ptr_time_data = current_ptr_time_data;
                mqtt_state = MQTT_DATA_LOOP;
                SERIAL_TRACE("MQTT_SD_LOOP ---> MQTT_DATA_LOOP\r\n");
             }
          }
-         // EOF: End of File
+         //! EOF: End of File
          else {
-            if (current_ptr_time_data > ptr_time_data) {
-               ptr_time_data = current_ptr_time_data;
+            if (last_correct_ptr_time_data > ptr_time_data) {
+               ptr_time_data = last_correct_ptr_time_data;
                is_ptr_updated = true;
             }
             is_eof_data_read = true;
@@ -1957,7 +1934,7 @@ void mqtt_task() {
       case MQTT_PUBLISH:
          is_mqtt_published_data = true;
 
-         // mqtt json success
+         //! mqtt json success
          if (is_mqtt_processing_json && mqttPublish(full_topic_buffer, &message_buffer[k][0])) {
             SERIAL_DEBUG("MQTT <-- %s %s\r\n", &topic_buffer[k][0], &message_buffer[k][0]);
             retry = 0;
@@ -1966,7 +1943,7 @@ void mqtt_task() {
             mqtt_state = MQTT_DATA_LOOP;
             SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_DATA_LOOP\r\n");
          }
-         // mqtt sdcard success
+         //! mqtt sdcard success
          else if (is_mqtt_processing_sdcard && mqttPublish(full_topic_buffer, &message_buffer[0][0])) {
             SERIAL_DEBUG("MQTT <-- %s %s\r\n", &topic_buffer[0][0], &message_buffer[0][0]);
             retry = 0;
@@ -1974,7 +1951,7 @@ void mqtt_task() {
             mqtt_state = MQTT_SD_LOOP;
             SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_SD_LOOP\r\n");
          }
-         // retry
+         //! retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
             delay_ms = MQTT_DELAY_MS;
             start_time_ms = millis();
@@ -1982,7 +1959,7 @@ void mqtt_task() {
             mqtt_state = MQTT_WAIT_STATE;
             SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_WAIT_STATE\r\n");
          }
-         // fail
+         //! fail
          else {
             ptr_time_data = current_ptr_time_data - readable_configuration.report_seconds;
             is_ptr_updated = true;
@@ -2003,29 +1980,29 @@ void mqtt_task() {
       break;
 
       case MQTT_OPEN_DATA_FILE:
-         // open the file that corresponds to the next data to send
+         //! open the file that corresponds to the next data to send
          next_ptr_time_data = ptr_time_data + (uint8_t)(readable_configuration.report_seconds / 60) * 60;
          sdcard_make_filename(next_ptr_time_data, file_name);
 
-         // open file for read data
+         //! open file for read data
          if (sdcard_open_file(&SD, &read_data_file, file_name, O_READ)) {
             retry = 0;
             mqtt_state = MQTT_SD_LOOP;
             SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_SD_LOOP\r\n");
          }
-         // error: file doesn't exist but if is today, end.
+         //! error: file doesn't exist but if is today, end.
          else if (!is_sdcard_error && year(next_ptr_time_data) == year() && month(next_ptr_time_data) == month() && day(next_ptr_time_data) == day()) {
             mqtt_state = MQTT_PTR_UPDATE;
             SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_UPDATE\r\n");
          }
-         // error: file doesn't exist and if it isn't today, jump to next day and search in it
+         //! error: file doesn't exist and if it isn't today, jump to next day and search in it
          else if (!is_sdcard_error) {
             is_ptr_found = false;
             ptr_time_data = next_ptr_time_data;
             mqtt_state = MQTT_PTR_FIND;
             SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_FIND\r\n");
          }
-         // fail
+         //! fail
          else {
             SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", file_name);
             is_sdcard_error = true;
@@ -2055,7 +2032,7 @@ void mqtt_task() {
          ipstack.disconnect();
          SERIAL_DEBUG("MQTT Disconnect... [ %s ]\r\n", OK_STRING);
 
-         // resume GSM task for closing connection
+         //! resume GSM task for closing connection
          noInterrupts();
          if (!is_event_gsm) {
             is_event_gsm = true;
@@ -2071,10 +2048,10 @@ void mqtt_task() {
 
       case MQTT_PTR_UPDATE:
          if (is_ptr_updated) {
-            // set ptr 1 second more for send next data to current ptr
+            //! set ptr 1 second more for send next data to current ptr
             ptr_time_data++;
 
-            // success
+            //! success
             if (mqtt_ptr_file.seekSet(0) && mqtt_ptr_file.write(&ptr_time_data, sizeof(time_t)) == sizeof(time_t)) {
                mqtt_ptr_file.flush();
                breakTime(ptr_time_data, datetime);
@@ -2082,7 +2059,7 @@ void mqtt_task() {
                mqtt_state = MQTT_CLOSE_PTR_FILE;
                SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n");
             }
-            // retry
+            //! retry
             else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
                delay_ms = MQTT_DELAY_MS;
                start_time_ms = millis();
@@ -2090,7 +2067,7 @@ void mqtt_task() {
                mqtt_state = MQTT_WAIT_STATE;
                SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_WAIT_STATE\r\n");
             }
-            // fail
+            //! fail
             else {
                SERIAL_ERROR("SD Card writing ptr data on file %s... [ %s ]\r\n", SDCARD_MQTT_PTR_FILE_NAME, FAIL_STRING);
                mqtt_state = MQTT_CLOSE_PTR_FILE;

@@ -127,9 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac74850003fab6eb3269bfe043d0f939c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#ac74850003fab6eb3269bfe043d0f939c">init_sensors</a> ()</td></tr>
 <tr class="memdesc:ac74850003fab6eb3269bfe043d0f939c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and setup sensors.  <a href="#ac74850003fab6eb3269bfe043d0f939c">More...</a><br /></td></tr>
 <tr class="separator:ac74850003fab6eb3269bfe043d0f939c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab79cac18f01c6dbc3ab4c8364c57ddcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#ab79cac18f01c6dbc3ab4c8364c57ddcd">setNextTimeForSensorReading</a> (uint8_t *next_hour, uint8_t *next_minute, uint8_t *next_second)</td></tr>
-<tr class="memdesc:ab79cac18f01c6dbc3ab4c8364c57ddcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate next hour, minute and second for sensors reading.  <a href="#ab79cac18f01c6dbc3ab4c8364c57ddcd">More...</a><br /></td></tr>
-<tr class="separator:ab79cac18f01c6dbc3ab4c8364c57ddcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1686e2719fa4a37ef933458673973d28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#a1686e2719fa4a37ef933458673973d28">setNextTimeForSensorReading</a> (time_t *next_time)</td></tr>
+<tr class="memdesc:a1686e2719fa4a37ef933458673973d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate next hour, minute and second for sensors reading.  <a href="#a1686e2719fa4a37ef933458673973d28">More...</a><br /></td></tr>
+<tr class="separator:a1686e2719fa4a37ef933458673973d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#a9f5e5ca8c47d4536dd1805e89fbb7db2">mqttConnect</a> (char *username, char *password)</td></tr>
 <tr class="memdesc:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a open tcp socket to connect to the mqtt server.  <a href="#a9f5e5ca8c47d4536dd1805e89fbb7db2">More...</a><br /></td></tr>
 <tr class="separator:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,6 +201,15 @@ Functions</h2></td></tr>
 
 <p>Data Saving Task. Save acquired sensors data on SD-Card. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>retry</p>
+<p>fail</p>
+<p>open sdcard file: today!</p>
+<p>try to open file. if ok, write sensors data on it.</p>
+<p>retry</p>
+<p>fail</p>
+<p>sdcard success</p>
+<p>retry</p>
+<p>fail </p>
 
 </div>
 </div>
@@ -222,6 +231,12 @@ Functions</h2></td></tr>
 
 <p>Ethernet task. Manage Ethernet operation. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>success</p>
+<p>retry</p>
+<p>fail</p>
+<p>success</p>
+<p>retry</p>
+<p>fail </p>
 
 </div>
 </div>
@@ -302,6 +317,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>turn off brown-out enable in software </p>
 
 </div>
 </div>
@@ -344,6 +360,7 @@ Functions</h2></td></tr>
 
 <p>Create and setup sensors. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>read sensors configuration, create and setup </p>
 
 </div>
 </div>
@@ -518,6 +535,42 @@ Functions</h2></td></tr>
 
 <p>MQTT Task. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. Read data stored on SD-Card and send it over MQTT. </dd></dl>
+<p>retry</p>
+<p>fail</p>
+<p>try to open file. if ok, read ptr data.</p>
+<p>retry</p>
+<p>fail</p>
+<p>found</p>
+<p>not found (no sdcard error): find it by starting from 1th January of this year</p>
+<p>not found (sdcard error)</p>
+<p>ptr not found. find it by searching in file name until today is reach. if there isn't file, ptr_time_data is set to current date at 00:00:00 time.</p>
+<p>ptr not found: set ptr to yesterday at 23:60-(uint8_t)(readable_configuration.report_seconds / 60):00 time.</p>
+<p>ptr found: sooner or later the ptr will be set in any case</p>
+<p>datafile read, reach eof and is today. END.</p>
+<p>datafile read, reach eof and NOT is today. go to end of this day.</p>
+<p>ptr data is found: send data saved on sdcard</p>
+<p>ptr data is NOT found: sd card fault fallback: send last acquired sensor data</p>
+<p>error: client not connected!</p>
+<p>success</p>
+<p>retry</p>
+<p>fail</p>
+<p>wait</p>
+<p>ptr data is found: send data saved on sdcard</p>
+<p>ptr data is NOT found: sd card fault fallback: send last acquired sensor data</p>
+<p>EOF: End of File</p>
+<p>mqtt json success</p>
+<p>mqtt sdcard success</p>
+<p>retry</p>
+<p>fail</p>
+<p>open the file that corresponds to the next data to send</p>
+<p>open file for read data</p>
+<p>error: file doesn't exist but if is today, end.</p>
+<p>error: file doesn't exist and if it isn't today, jump to next day and search in it</p>
+<p>fail</p>
+<p>set ptr 1 second more for send next data to current ptr</p>
+<p>success</p>
+<p>retry</p>
+<p>fail </p>
 
 </div>
 </div>
@@ -759,6 +812,18 @@ Functions</h2></td></tr>
 
 <p>Sensors reading Task. Read data from sensors. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>success</p>
+<p>retry</p>
+<p>fail</p>
+<p>end</p>
+<p>success</p>
+<p>retry</p>
+<p>fail</p>
+<p>not end</p>
+<p>next sensor</p>
+<p>end</p>
+<p>first time: read ptr data from sdcard</p>
+<p>other time: save data to sdcard </p>
 
 </div>
 </div>
@@ -783,8 +848,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab79cac18f01c6dbc3ab4c8364c57ddcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab79cac18f01c6dbc3ab4c8364c57ddcd">&#9670;&nbsp;</a></span>setNextTimeForSensorReading()</h2>
+<a id="a1686e2719fa4a37ef933458673973d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1686e2719fa4a37ef933458673973d28">&#9670;&nbsp;</a></span>setNextTimeForSensorReading()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -792,25 +857,9 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void setNextTimeForSensorReading </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>next_hour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">time_t *&#160;</td>
+          <td class="paramname"><em>next_time</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>next_minute</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>next_second</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -818,9 +867,7 @@ Functions</h2></td></tr>
 <p>Calculate next hour, minute and second for sensors reading. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*next_hour</td><td>Pointer to next scheduled hour for sensors reading </td></tr>
-    <tr><td class="paramname">*next_minute</td><td>Pointer to next scheduled minute for sensors reading </td></tr>
-    <tr><td class="paramname">*next_second</td><td>Pointer to next scheduled second for sensors reading </td></tr>
+    <tr><td class="paramname">*next_time</td><td>Pointer to next scheduled time for sensors reading </td></tr>
   </table>
   </dd>
 </dl>
@@ -911,6 +958,18 @@ Functions</h2></td></tr>
 
 <p>Supervisor task. Manage RTC and NTP sync and open/close gsm and ethernet connection. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>need ntp sync ?</p>
+<p>enable hardware related tasks for connect</p>
+<p>success</p>
+<p>reset time task for doing ntp sync</p>
+<p>doing other operations...</p>
+<p>error</p>
+<p>retry</p>
+<p>fail</p>
+<p>enable time task</p>
+<p>success</p>
+<p>success or error</p>
+<p>reinit lcd display </p>
 
 </div>
 </div>
@@ -932,6 +991,14 @@ Functions</h2></td></tr>
 
 <p>Time task. Get time from NTP and sync RTC with it. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>success</p>
+<p>retry</p>
+<p>fail: use old rtc time</p>
+<p>success: 946684800 seconds for 01/01/2000 00:00:00</p>
+<p>retry</p>
+<p>fail</p>
+<p>retry</p>
+<p>fail </p>
 
 </div>
 </div>

@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def MODULE_TYPE
 \brief Type of module. It is defined in registers.h.
 */
-#define MODULE_TYPE                                   (STIMA_MODULE_TYPE_REPORT_ETH)
+#define MODULE_TYPE                                   (STIMA_MODULE_TYPE_REPORT_GSM)
 
 /*********************************************************************
 * CONFIGURATION
@@ -198,7 +198,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def W5500_CHIP_SELECT_PIN
 \brief Chip select pin for Wiznet W5500 ethernet module.
 */
-#define W5500_CHIP_SELECT_PIN                         (8)
+#define W5500_CHIP_SELECT_PIN                         (10)
 
 #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
 /*!
@@ -258,7 +258,7 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 \def USE_SENSORS_COUNT
 \brief Sensors count.
 */
-#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR)
+#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DEP)
 
 #if (USE_SENSORS_COUNT == 0)
 #error No sensor used. Are you sure? If not, enable it in RmapConfig/sensors_config.h
@@ -374,6 +374,18 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 \brief Maximum seconds for resync time over ntp.
 */
 #define NTP_TIME_FOR_RESYNC_S                         (SECS_PER_DAY)
+
+/*!
+\def LCD_TIME_FOR_REINITIALIZE_S
+\brief Maximum seconds for reinitialize LCD.
+*/
+#define LCD_TIME_FOR_REINITIALIZE_S                   (SECS_PER_HOUR)
+
+/*!
+\def TIME_RESYNC_INTERVALS_S
+\brief Interval in seconds for resync time.
+*/
+#define TIME_RESYNC_INTERVALS_S                       (SECS_PER_WEEK)
 
 #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
 /*!

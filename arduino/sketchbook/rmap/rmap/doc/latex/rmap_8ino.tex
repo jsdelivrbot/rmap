@@ -46,7 +46,7 @@ void \hyperlink{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}{init\+\_\+wdt} (uin
 \begin{DoxyCompactList}\small\item\em Init watchdog. \end{DoxyCompactList}\item 
 void \hyperlink{rmap_8ino_ac74850003fab6eb3269bfe043d0f939c}{init\+\_\+sensors} ()
 \begin{DoxyCompactList}\small\item\em Create and setup sensors. \end{DoxyCompactList}\item 
-void \hyperlink{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}{set\+Next\+Time\+For\+Sensor\+Reading} (uint8\+\_\+t $\ast$next\+\_\+hour, uint8\+\_\+t $\ast$next\+\_\+minute, uint8\+\_\+t $\ast$next\+\_\+second)
+void \hyperlink{rmap_8ino_a1686e2719fa4a37ef933458673973d28}{set\+Next\+Time\+For\+Sensor\+Reading} (time\+\_\+t $\ast$next\+\_\+time)
 \begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
 bool \hyperlink{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
 \begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
@@ -98,7 +98,23 @@ Data Saving Task. Save acquired sensors data on S\+D-\/\+Card.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_abac8959915b759aa6429243ab9599ee3}\label{rmap_8ino_abac8959915b759aa6429243ab9599ee3}} 
+retry
+
+fail
+
+open sdcard file\+: today!
+
+try to open file. if ok, write sensors data on it.
+
+retry
+
+fail
+
+sdcard success
+
+retry
+
+fail \mbox{\Hypertarget{rmap_8ino_abac8959915b759aa6429243ab9599ee3}\label{rmap_8ino_abac8959915b759aa6429243ab9599ee3}} 
 \index{rmap.\+ino@{rmap.\+ino}!ethernet\+\_\+task@{ethernet\+\_\+task}}
 \index{ethernet\+\_\+task@{ethernet\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{ethernet\+\_\+task()}{ethernet\_task()}}
@@ -111,7 +127,17 @@ Ethernet task. Manage Ethernet operation.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}\label{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}} 
+success
+
+retry
+
+fail
+
+success
+
+retry
+
+fail \mbox{\Hypertarget{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}\label{rmap_8ino_ad241cc00b1a92e6d85827df96778e442}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+buffers@{init\+\_\+buffers}}
 \index{init\+\_\+buffers@{init\+\_\+buffers}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{init\+\_\+buffers()}{init\_buffers()}}
@@ -157,7 +183,7 @@ Enter power down mode.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}\label{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}} 
+turn off brown-\/out enable in software \mbox{\Hypertarget{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}\label{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+rtc@{init\+\_\+rtc}}
 \index{init\+\_\+rtc@{init\+\_\+rtc}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{init\+\_\+rtc()}{init\_rtc()}}
@@ -183,7 +209,7 @@ Create and setup sensors.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}\label{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}} 
+read sensors configuration, create and setup \mbox{\Hypertarget{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}\label{rmap_8ino_a8eb9780a3438ec02c70314744f91f3c7}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+spi@{init\+\_\+spi}}
 \index{init\+\_\+spi@{init\+\_\+spi}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{init\+\_\+spi()}{init\_spi()}}
@@ -292,7 +318,77 @@ M\+Q\+TT Task.
 \begin{DoxyReturn}{Returns}
 void. Read data stored on S\+D-\/\+Card and send it over M\+Q\+TT. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}\label{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}} 
+retry
+
+fail
+
+try to open file. if ok, read ptr data.
+
+retry
+
+fail
+
+found
+
+not found (no sdcard error)\+: find it by starting from 1th January of this year
+
+not found (sdcard error)
+
+ptr not found. find it by searching in file name until today is reach. if there isn\textquotesingle{}t file, ptr\+\_\+time\+\_\+data is set to current date at 00\+:00\+:00 time.
+
+ptr not found\+: set ptr to yesterday at 23\+:60-\/(uint8\+\_\+t)(readable\+\_\+configuration.\+report\+\_\+seconds / 60)\+:00 time.
+
+ptr found\+: sooner or later the ptr will be set in any case
+
+datafile read, reach eof and is today. E\+ND.
+
+datafile read, reach eof and N\+OT is today. go to end of this day.
+
+ptr data is found\+: send data saved on sdcard
+
+ptr data is N\+OT found\+: sd card fault fallback\+: send last acquired sensor data
+
+error\+: client not connected!
+
+success
+
+retry
+
+fail
+
+wait
+
+ptr data is found\+: send data saved on sdcard
+
+ptr data is N\+OT found\+: sd card fault fallback\+: send last acquired sensor data
+
+E\+OF\+: End of File
+
+mqtt json success
+
+mqtt sdcard success
+
+retry
+
+fail
+
+open the file that corresponds to the next data to send
+
+open file for read data
+
+error\+: file doesn\textquotesingle{}t exist but if is today, end.
+
+error\+: file doesn\textquotesingle{}t exist and if it isn\textquotesingle{}t today, jump to next day and search in it
+
+fail
+
+set ptr 1 second more for send next data to current ptr
+
+success
+
+retry
+
+fail \mbox{\Hypertarget{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}\label{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}} 
 \index{rmap.\+ino@{rmap.\+ino}!mqtt\+Connect@{mqtt\+Connect}}
 \index{mqtt\+Connect@{mqtt\+Connect}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{mqtt\+Connect()}{mqttConnect()}}
@@ -438,7 +534,29 @@ Sensors reading Task. Read data from sensors.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}\label{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}} 
+success
+
+retry
+
+fail
+
+end
+
+success
+
+retry
+
+fail
+
+not end
+
+next sensor
+
+end
+
+first time\+: read ptr data from sdcard
+
+other time\+: save data to sdcard \mbox{\Hypertarget{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}\label{rmap_8ino_a951e4934b8add405b8fe45417fc380f5}} 
 \index{rmap.\+ino@{rmap.\+ino}!set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}}
 \index{set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{set\+\_\+default\+\_\+configuration()}{set\_default\_configuration()}}
@@ -451,11 +569,11 @@ Set default configuration to global configuration variable.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}\label{rmap_8ino_ab79cac18f01c6dbc3ab4c8364c57ddcd}} 
+\mbox{\Hypertarget{rmap_8ino_a1686e2719fa4a37ef933458673973d28}\label{rmap_8ino_a1686e2719fa4a37ef933458673973d28}} 
 \index{rmap.\+ino@{rmap.\+ino}!set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}}
 \index{set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{set\+Next\+Time\+For\+Sensor\+Reading()}{setNextTimeForSensorReading()}}
-{\footnotesize\ttfamily void set\+Next\+Time\+For\+Sensor\+Reading (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{next\+\_\+hour,  }\item[{uint8\+\_\+t $\ast$}]{next\+\_\+minute,  }\item[{uint8\+\_\+t $\ast$}]{next\+\_\+second }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void set\+Next\+Time\+For\+Sensor\+Reading (\begin{DoxyParamCaption}\item[{time\+\_\+t $\ast$}]{next\+\_\+time }\end{DoxyParamCaption})}
 
 
 
@@ -463,11 +581,7 @@ Calculate next hour, minute and second for sensors reading.
 
 
 \begin{DoxyParams}{Parameters}
-{\em $\ast$next\+\_\+hour} & Pointer to next scheduled hour for sensors reading \\
-\hline
-{\em $\ast$next\+\_\+minute} & Pointer to next scheduled minute for sensors reading \\
-\hline
-{\em $\ast$next\+\_\+second} & Pointer to next scheduled second for sensors reading \\
+{\em $\ast$next\+\_\+time} & Pointer to next scheduled time for sensors reading \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -521,7 +635,29 @@ Supervisor task. Manage R\+TC and N\+TP sync and open/close gsm and ethernet con
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}\label{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}} 
+need ntp sync ?
+
+enable hardware related tasks for connect
+
+success
+
+reset time task for doing ntp sync
+
+doing other operations...
+
+error
+
+retry
+
+fail
+
+enable time task
+
+success
+
+success or error
+
+reinit lcd display \mbox{\Hypertarget{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}\label{rmap_8ino_a35c29025c5ef3d135b8c2b038be3f8df}} 
 \index{rmap.\+ino@{rmap.\+ino}!time\+\_\+task@{time\+\_\+task}}
 \index{time\+\_\+task@{time\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
 \subsubsection{\texorpdfstring{time\+\_\+task()}{time\_task()}}
@@ -534,3 +670,18 @@ Time task. Get time from N\+TP and sync R\+TC with it.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
+success
+
+retry
+
+fail\+: use old rtc time
+
+success\+: 946684800 seconds for 01/01/2000 00\+:00\+:00
+
+retry
+
+fail
+
+retry
+
+fail 

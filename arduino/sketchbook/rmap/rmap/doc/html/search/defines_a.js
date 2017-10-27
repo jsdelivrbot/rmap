@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['w5500_5fchip_5fselect_5fpin',['W5500_CHIP_SELECT_PIN',['../rmap-config_8h.html#a487cf0916151ca6772bc10ad17de96f8',1,'rmap-config.h']]],
-  ['wdt_5ftimer',['WDT_TIMER',['../rmap-config_8h.html#a983c9777673ee873f12ec9f489215321',1,'rmap-config.h']]]
+  ['use_5fpower_5fdown',['USE_POWER_DOWN',['../rmap-config_8h.html#a9ace81994cbeb6153f9dd5adf0e6dbee',1,'rmap-config.h']]],
+  ['use_5fsensors_5fcount',['USE_SENSORS_COUNT',['../rmap-config_8h.html#af18dc3de744722cb308451b7a705611b',1,'rmap-config.h']]],
+  ['use_5ftimer_5f1',['USE_TIMER_1',['../rmap-config_8h.html#a8051c2a569a9f9c488af89bce47ec306',1,'rmap-config.h']]]
 ];

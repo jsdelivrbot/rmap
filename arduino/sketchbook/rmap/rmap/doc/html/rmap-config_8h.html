@@ -93,7 +93,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:aa8639a8d4e83d9cc4187d7a751228464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module version. <br /></td></tr>
 <tr class="separator:aa8639a8d4e83d9cc4187d7a751228464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="memItemLeft" align="right" valign="top"><a id="a8c815d03b3fd3e18ca06f920a1eb4e8e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8c815d03b3fd3e18ca06f920a1eb4e8e">MODULE_TYPE</a>&#160;&#160;&#160;(STIMA_MODULE_TYPE_REPORT_ETH)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8c815d03b3fd3e18ca06f920a1eb4e8e">MODULE_TYPE</a>&#160;&#160;&#160;(STIMA_MODULE_TYPE_REPORT_GSM)</td></tr>
 <tr class="memdesc:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of module. It is defined in registers.h. <br /></td></tr>
 <tr class="separator:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a413cd84e34db40559ab834cc89408cdb"><td class="memItemLeft" align="right" valign="top"><a id="a413cd84e34db40559ab834cc89408cdb"></a>
@@ -173,7 +173,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a8051c2a569a9f9c488af89bce47ec306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable timer1. <br /></td></tr>
 <tr class="separator:a8051c2a569a9f9c488af89bce47ec306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a487cf0916151ca6772bc10ad17de96f8"><td class="memItemLeft" align="right" valign="top"><a id="a487cf0916151ca6772bc10ad17de96f8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a487cf0916151ca6772bc10ad17de96f8">W5500_CHIP_SELECT_PIN</a>&#160;&#160;&#160;(8)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a487cf0916151ca6772bc10ad17de96f8">W5500_CHIP_SELECT_PIN</a>&#160;&#160;&#160;(10)</td></tr>
 <tr class="memdesc:a487cf0916151ca6772bc10ad17de96f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chip select pin for Wiznet W5500 ethernet module. <br /></td></tr>
 <tr class="separator:a487cf0916151ca6772bc10ad17de96f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52845a6b315de684e7eda2ffe7863b55"><td class="memItemLeft" align="right" valign="top"><a id="a52845a6b315de684e7eda2ffe7863b55"></a>
@@ -192,7 +192,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a1efb928882c9a9d83d78e499091a8319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt pin for rtc. <br /></td></tr>
 <tr class="separator:a1efb928882c9a9d83d78e499091a8319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af18dc3de744722cb308451b7a705611b"><td class="memItemLeft" align="right" valign="top"><a id="af18dc3de744722cb308451b7a705611b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>&#160;&#160;&#160;(USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>&#160;&#160;&#160;(USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DEP)</td></tr>
 <tr class="memdesc:af18dc3de744722cb308451b7a705611b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sensors count. <br /></td></tr>
 <tr class="separator:af18dc3de744722cb308451b7a705611b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16fa5577ef44bb1146f17a3bc43194b1"><td class="memItemLeft" align="right" valign="top"><a id="a16fa5577ef44bb1146f17a3bc43194b1"></a>
@@ -267,6 +267,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ac26c9e27fc41a5f7c43968b47b2d8cfc">NTP_TIME_FOR_RESYNC_S</a>&#160;&#160;&#160;(SECS_PER_DAY)</td></tr>
 <tr class="memdesc:ac26c9e27fc41a5f7c43968b47b2d8cfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum seconds for resync time over ntp. <br /></td></tr>
 <tr class="separator:ac26c9e27fc41a5f7c43968b47b2d8cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af546d356bff5c682bba4aeeed199d5df"><td class="memItemLeft" align="right" valign="top"><a id="af546d356bff5c682bba4aeeed199d5df"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#af546d356bff5c682bba4aeeed199d5df">LCD_TIME_FOR_REINITIALIZE_S</a>&#160;&#160;&#160;(SECS_PER_HOUR)</td></tr>
+<tr class="memdesc:af546d356bff5c682bba4aeeed199d5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum seconds for reinitialize LCD. <br /></td></tr>
+<tr class="separator:af546d356bff5c682bba4aeeed199d5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d88aab471d5cac3392cae63b8684cf"><td class="memItemLeft" align="right" valign="top"><a id="ab5d88aab471d5cac3392cae63b8684cf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ab5d88aab471d5cac3392cae63b8684cf">TIME_RESYNC_INTERVALS_S</a>&#160;&#160;&#160;(SECS_PER_WEEK)</td></tr>
+<tr class="memdesc:ab5d88aab471d5cac3392cae63b8684cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval in seconds for resync time. <br /></td></tr>
+<tr class="separator:ab5d88aab471d5cac3392cae63b8684cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a743e7905c81f2b5b6bb32fc55a3c5494"><td class="memItemLeft" align="right" valign="top"><a id="a743e7905c81f2b5b6bb32fc55a3c5494"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a743e7905c81f2b5b6bb32fc55a3c5494">ETHERNET_RETRY_COUNT_MAX</a>&#160;&#160;&#160;(5)</td></tr>
 <tr class="memdesc:a743e7905c81f2b5b6bb32fc55a3c5494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of retry for doing ethernet operations. <br /></td></tr>

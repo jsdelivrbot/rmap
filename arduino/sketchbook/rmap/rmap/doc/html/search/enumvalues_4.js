@@ -9,5 +9,14 @@ var searchData=
   ['sensors_5freading_5fprepare',['SENSORS_READING_PREPARE',['../rmap_8h.html#a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724',1,'rmap.h']]],
   ['sensors_5freading_5fread',['SENSORS_READING_READ',['../rmap_8h.html#a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa',1,'rmap.h']]],
   ['sensors_5freading_5fwait_5fstate',['SENSORS_READING_WAIT_STATE',['../rmap_8h.html#a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399',1,'rmap.h']]],
-  ['supervisor_5finit',['SUPERVISOR_INIT',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961',1,'rmap.h']]]
+  ['stream_5favailable',['STREAM_AVAILABLE',['../rmap_8h.html#a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed',1,'rmap.h']]],
+  ['stream_5fend',['STREAM_END',['../rmap_8h.html#a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487',1,'rmap.h']]],
+  ['stream_5finit',['STREAM_INIT',['../rmap_8h.html#a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a',1,'rmap.h']]],
+  ['stream_5fprocess',['STREAM_PROCESS',['../rmap_8h.html#a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd',1,'rmap.h']]],
+  ['supervisor_5fconnection_5flevel_5ftask',['SUPERVISOR_CONNECTION_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19',1,'rmap.h']]],
+  ['supervisor_5fend',['SUPERVISOR_END',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279',1,'rmap.h']]],
+  ['supervisor_5finit',['SUPERVISOR_INIT',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961',1,'rmap.h']]],
+  ['supervisor_5fmanage_5flevel_5ftask',['SUPERVISOR_MANAGE_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1',1,'rmap.h']]],
+  ['supervisor_5fntp_5flevel_5ftask',['SUPERVISOR_NTP_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30',1,'rmap.h']]],
+  ['supervisor_5fwait_5fstate',['SUPERVISOR_WAIT_STATE',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838',1,'rmap.h']]]
 ];

@@ -121,12 +121,11 @@ typedef enum {
 */
 typedef enum {
    SUPERVISOR_INIT,                    //!< init task variables
-   SUPERVISOR_RTC_LEVEL_TASK,          //!<
-   SUPERVISOR_CONNECTION_LEVEL_TASK,   //!<
-   SUPERVISOR_NTP_LEVEL_TASK,          //!<
-   SUPERVISOR_MANAGE_LEVEL_TASK,       //!<
-   SUPERVISOR_END,                     //!<
-   SUPERVISOR_WAIT_STATE               //!<
+   SUPERVISOR_CONNECTION_LEVEL_TASK,   //!< enable hardware related tasks for doing connection
+   SUPERVISOR_NTP_LEVEL_TASK,          //!< enable time task for sync time with ntp server
+   SUPERVISOR_MANAGE_LEVEL_TASK,       //!< enable tasks for manage data (mqtt)
+   SUPERVISOR_END,                     //!< performs end operations and deactivate task
+   SUPERVISOR_WAIT_STATE               //!< non-blocking waiting time
 } supervisor_state_t;
 
 #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
@@ -135,11 +134,11 @@ typedef enum {
 \brief Ethernet task finite state machine.
 */
 typedef enum {
-   ETHERNET_INIT,             //!<
-   ETHERNET_CONNECT,          //!<
-   ETHERNET_OPEN_UDP_SOCKET,  //!<
-   ETHERNET_END,              //!<
-   ETHERNET_WAIT_STATE        //!<
+   ETHERNET_INIT,             //!< init task variables
+   ETHERNET_CONNECT,          //!< begin ethernet operations
+   ETHERNET_OPEN_UDP_SOCKET,  //!< open udp socket
+   ETHERNET_END,              //!< performs end operations and deactivate task
+   ETHERNET_WAIT_STATE        //!< non-blocking waiting time
 } ethernet_state_t;
 
 #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
@@ -148,19 +147,19 @@ typedef enum {
 \brief GSM task finite state machine.
 */
 typedef enum {
-   GSM_INIT,                  //!<
-   GSM_SWITCH_ON,             //!<
-   GSM_AUTOBAUD,              //!<
-   GSM_SETUP,                 //!<
-   GSM_START_CONNECTION,      //!<
-   GSM_CHECK_OPERATION,       //!<
-   GSM_OPEN_UDP_SOCKET,       //!<
-   GSM_STOP_CONNECTION,       //!<
-   GSM_SUSPEND,               //!<
-   GSM_WAIT_FOR_SWITCH_OFF,   //!<
-   GSM_SWITCH_OFF,            //!<
-   GSM_END,                   //!<
-   GSM_WAIT_STATE             //!<
+   GSM_INIT,                  //!< init task variables
+   GSM_SWITCH_ON,             //!< gsm power on
+   GSM_AUTOBAUD,              //!< gsm autobaud procedure
+   GSM_SETUP,                 //!< gsm setup
+   GSM_START_CONNECTION,      //!< gsm open connection
+   GSM_CHECK_OPERATION,       //!< check operations (ntp or mqtt)
+   GSM_OPEN_UDP_SOCKET,       //!< open udp socket for ntp sync
+   GSM_STOP_CONNECTION,       //!< gsm close connection
+   GSM_SUSPEND,               //!< wait other tasks for complete its operations with gsm
+   GSM_WAIT_FOR_SWITCH_OFF,   //!< wait gsm for power off
+   GSM_SWITCH_OFF,            //!< gsm power off
+   GSM_END,                   //!< performs end operations and deactivate task
+   GSM_WAIT_STATE             //!< non-blocking waiting time
 } gsm_state_t;
 
 #endif
@@ -186,13 +185,13 @@ typedef enum {
 \brief Time task finite state machine.
 */
 typedef enum {
-   TIME_INIT,                    //!<
-   TIME_SEND_ONLINE_REQUEST,     //!<
-   TIME_WAIT_ONLINE_RESPONSE,    //!<
-   TIME_SET_SYNC_NTP_PROVIDER,   //!<
-   TIME_SET_SYNC_RTC_PROVIDER,   //!<
-   TIME_END,                     //!<
-   TIME_WAIT_STATE               //!<
+   TIME_INIT,                    //!< init task variables
+   TIME_SEND_ONLINE_REQUEST,     //!< send ntp request
+   TIME_WAIT_ONLINE_RESPONSE,    //!< wait ntp response
+   TIME_SET_SYNC_NTP_PROVIDER,   //!< set ntp time
+   TIME_SET_SYNC_RTC_PROVIDER,   //!< set rtc time
+   TIME_END,                     //!< performs end operations and deactivate task
+   TIME_WAIT_STATE               //!< non-blocking waiting time
 } time_state_t;
 
 /*!
@@ -200,15 +199,15 @@ typedef enum {
 \brief Data saving task finite state machine.
 */
 typedef enum {
-   DATA_SAVING_INIT,          //!<
-   DATA_SAVING_OPEN_SDCARD,   //!<  if not already open
-   DATA_SAVING_OPEN_FILE,     //!<
-   DATA_SAVING_SENSORS_LOOP,  //!<  loop from 0 to readable_configuration->sensors_count
-   DATA_SAVING_DATA_LOOP,     //!< loop from 0 to data_count
-   DATA_SAVING_WRITE_FILE,    //!<
-   DATA_SAVING_CLOSE_FILE,    //!<
-   DATA_SAVING_END,           //!<
-   DATA_SAVING_WAIT_STATE     //!<
+   DATA_SAVING_INIT,          //!< init task variables
+   DATA_SAVING_OPEN_SDCARD,   //!< if not already open
+   DATA_SAVING_OPEN_FILE,     //!< open sdcard file for saving new data
+   DATA_SAVING_SENSORS_LOOP,  //!< loop on the sensors
+   DATA_SAVING_DATA_LOOP,     //!< loop on the sensors data
+   DATA_SAVING_WRITE_FILE,    //!< write data on sdcard file
+   DATA_SAVING_CLOSE_FILE,    //!< close sdcard file
+   DATA_SAVING_END,           //!< performs end operations and deactivate task
+   DATA_SAVING_WAIT_STATE     //!< non-blocking waiting time
 } data_saving_state_t;
 
 /*!
@@ -216,37 +215,37 @@ typedef enum {
 \brief MQTT task finite state machine.
 */
 typedef enum {
-   MQTT_INIT,              //!<
+   MQTT_INIT,              //!< init task variables
 
-   MQTT_OPEN_SDCARD,       //!<  if not already open
-   MQTT_OPEN_PTR_FILE,     //!<
-   MQTT_PTR_READ,          //!<
-   MQTT_PTR_FIND,          //!<
-   MQTT_PTR_FOUND,         //!<
-   MQTT_PTR_END,           //!<
+   MQTT_OPEN_SDCARD,       //!< if not already open
+   MQTT_OPEN_PTR_FILE,     //!< open mqtt data pointer sdcard file
+   MQTT_PTR_READ,          //!< read mqtt data pointer
+   MQTT_PTR_FIND,          //!< if not exists, find mqtt data pointer
+   MQTT_PTR_FOUND,         //!< check if there is data to be send over mqtt
+   MQTT_PTR_END,           //!< performs end operations with mqtt data pointer
 
-   MQTT_OPEN,              //!<
-   MQTT_CHECK,             //!<
-   MQTT_CONNECT,           //!<
-   MQTT_SUBSCRIBE,         //!<
+   MQTT_OPEN,              //!< check mqtt client status
+   MQTT_CHECK,             //!< check what kind of data to send: sdcard o current (sdcard fallback)
+   MQTT_CONNECT,           //!< connect to mqtt server
+   MQTT_SUBSCRIBE,         //!< subscribe to mqtt topic
 
-   MQTT_OPEN_DATA_FILE,    //!<
+   MQTT_OPEN_DATA_FILE,    //!< open sdcard read data file
 
-   MQTT_SENSORS_LOOP,      //!<  loop from 0 to readable_configuration->sensors_count
-   MQTT_DATA_LOOP,         //!<  loop from 0 to data_count
-   MQTT_SD_LOOP,           //!<  loop from first row to last row of data file
-   MQTT_PUBLISH,
+   MQTT_SENSORS_LOOP,      //!< loop on the sensors
+   MQTT_DATA_LOOP,         //!< loop on the sensors data
+   MQTT_SD_LOOP,           //!< loop from first row to last row of read data file
+   MQTT_PUBLISH,           //!< mqtt publish data
 
-   MQTT_CLOSE_DATA_FILE,   //!<
+   MQTT_CLOSE_DATA_FILE,   //!< close sdcard read data file
 
-   MQTT_DISCONNECT,        //!<
+   MQTT_DISCONNECT,        //!< disconnect from mqtt server
 
-   MQTT_PTR_UPDATE,        //!<
-   MQTT_CLOSE_PTR_FILE,    //!<
-   MQTT_CLOSE_SDCARD,      //!<
+   MQTT_PTR_UPDATE,        //!< update mqtt data file pointer
+   MQTT_CLOSE_PTR_FILE,    //!< close mqtt data file pointer
+   MQTT_CLOSE_SDCARD,      //!< close sdcard
 
-   MQTT_END,               //!<
-   MQTT_WAIT_STATE         //!<
+   MQTT_END,               //!< performs end operations and deactivate task
+   MQTT_WAIT_STATE         //!< non-blocking waiting time
 } mqtt_state_t;
 
 /*!
@@ -254,10 +253,10 @@ typedef enum {
 \brief Stream task finite state machine.
 */
 typedef enum {
-   STREAM_INIT,      //!<
-   STREAM_AVAILABLE, //!<
-   STREAM_PROCESS,   //!<
-   STREAM_END        //!<
+   STREAM_INIT,      //!< init task variables
+   STREAM_AVAILABLE, //!< check if there are data available in the stream
+   STREAM_PROCESS,   //!< process data
+   STREAM_END        //!< performs end operations and deactivate task
 } stream_state_t;
 
 /*********************************************************************
@@ -420,6 +419,12 @@ bool do_ntp_sync;
 time_t last_ntp_sync;
 
 /*!
+\var last_lcd_begin
+\brief Last date and time when LCD was initializated.
+*/
+time_t last_lcd_begin;
+
+/*!
 \var is_sdcard_open
 \brief If true, the SD-Card is ready.
 */
@@ -444,22 +449,10 @@ bool is_mqtt_subscribed;
 char json_sensors_data[USE_SENSORS_COUNT][JSON_BUFFER_LENGTH];
 
 /*!
-\var next_hour_for_sensor_reading
-\brief Next scheduled hour for sensors reading.
+\var next_ptr_time_for_sensors_reading
+\brief Next scheduled time (in seconds since 01/01/1970 00:0:00) for sensors reading.
 */
-uint8_t next_hour_for_sensor_reading;
-
-/*!
-\var next_minute_for_sensor_reading
-\brief Next scheduled minute for sensors reading.
-*/
-uint8_t next_minute_for_sensor_reading;
-
-/*!
-\var next_second_for_sensor_reading
-\brief Next scheduled second for sensors reading.
-*/
-uint8_t next_second_for_sensor_reading;
+volatile time_t next_ptr_time_for_sensors_reading;
 
 /*!
 \var sensor_reading_time
@@ -652,14 +645,12 @@ void save_configuration(bool);
 void set_default_configuration(void);
 
 /*!
-\fn void setNextTimeForSensorReading(uint8_t *next_hour, uint8_t *next_minute, uint8_t *next_second)
+\fn void setNextTimeForSensorReading(time_t *next_time)
 \brief Calculate next hour, minute and second for sensors reading.
-\param *next_hour: Pointer to next scheduled hour for sensors reading
-\param *next_minute: Pointer to next scheduled minute for sensors reading
-\param *next_second: Pointer to next scheduled second for sensors reading
+\param *next_time: Pointer to next scheduled time for sensors reading
 \return void.
 */
-void setNextTimeForSensorReading(uint8_t *next_hour, uint8_t *next_minute, uint8_t *next_second);
+void setNextTimeForSensorReading(time_t *next_time);
 
 /*!
 \fn bool mqttConnect(char *username, char *password)
