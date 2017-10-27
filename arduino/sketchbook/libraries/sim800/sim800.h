@@ -20,8 +20,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#ifndef sim800_h
-#define sim800_h
+#ifndef _SIM800_H
+#define _SIM800_H
 
 #include "Arduino.h"
 #include <Time.h>
@@ -215,14 +215,6 @@ class SIM800 {
   uint8_t RTCwrite(tmElements_t &tm);
 
   uint8_t state;
-
-  // bool init_fixbaud();
-  // bool startNetwork(const char *apn, const char *user, const char *pwd );
-  // bool stopNetwork();
-  // bool checkNetwork();
-  // bool httpGET(const char* server, int port, const char* path, char* result, int resultlength);
-  // bool resetModem();
-  // bool receivelen(char *buf, uint32_t timeout_ms, unsigned int datalen);
 
  protected:
     HardwareSerial *modem = &Serial1;
