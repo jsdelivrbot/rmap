@@ -23,73 +23,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Hyt2X1 {
 
-  uint32_t initRead(uint8_t address) {
-    Wire.beginTransmission(address);
-    return HYT2X1_CONVERSION_TIME_MS;
-  }
-
-  /*
-  * Function:  read
-  * ----------------------------
-  *   Returns the humidty and temperature from hyt2X1 sensor at address
-  *
-  *   raw_data: 4 byte raw data readed from the sensor: msb humidity | lsb humidity | msb temperature | lsb temperature
-  *   humidity: pointer to humidity variable
-  *   temperature: pointer to temperature variable
-  *
-  *   returns: value of humidity and temperature
-  */
-  bool read(int8_t address, float *humidity, float *temperature) {
-    unsigned long raw_data = 0xFFFF;
-
-    // Request 4 bytes: 2 bytes for Humidity and 2 bytes for Temperature
-    Wire.requestFrom(address, HYT2X1_READ_HT_DATA_LENGTH);
-
-	 if (Wire.available() < HYT2X1_READ_HT_DATA_LENGTH) {
-		 return false;
-    }
-
-    // read 4 bytes of raw data
-    raw_data = (unsigned long) Wire.read() << 24 | (unsigned long) Wire.read() << 16 | (unsigned long) Wire.read() << 8 | (unsigned long) Wire.read();
-
-    // extract 14 bit humidity right adjusted (bit 0-14)
-    *humidity = 100.0 / 0x3FFF * (raw_data >> 16 & 0x3FFF);
-
-	 // extract 14 bit temperature left adjusted (bit 2-16)
-    *temperature = 165.0 / 0x3FFF * (((unsigned int) raw_data) >> 2) - 40;
-
-    if (Wire.endTransmission()) {
-		return false;
+   uint32_t initRead(uint8_t address) {
+      Wire.beginTransmission(address);
+      return HYT2X1_CONVERSION_TIME_MS;
    }
 
-	 return true;
-  }
+   bool read(int8_t address, float *humidity, float *temperature) {
+      unsigned long raw_data = 0xFFFF;
 
-  void send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2) {
-    Wire.beginTransmission(address);
-    Wire.write(data_0);
-    Wire.write(data_1);
-    Wire.write(data_2);
-    Wire.endTransmission();
-  }
+      //! Request 4 bytes: 2 bytes for Humidity and 2 bytes for Temperature
+      Wire.requestFrom(address, HYT2X1_READ_HT_DATA_LENGTH);
 
-  void changeAddress(uint8_t power_pin, int8_t address, int8_t new_address) {
-    off(power_pin);
-    on(power_pin);
-    send(address, HYT2X1_ENTER_COMMAND_MODE, 0x00, 0x00);
-    send(address, HYT2X1_WRITE_ADDRESS, 0x00, new_address);
-    send(address, HYT2X1_EXIT_COMMAND_MODE, 0x00, 0x00);
-  }
+      if (Wire.available() < HYT2X1_READ_HT_DATA_LENGTH) {
+         return false;
+      }
 
-  void init(uint8_t power_pin) {
-    pinMode(power_pin, OUTPUT);
-  }
+      //! read 4 bytes of raw data
+      raw_data = (unsigned long) Wire.read() << 24 | (unsigned long) Wire.read() << 16 | (unsigned long) Wire.read() << 8 | (unsigned long) Wire.read();
 
-  void on(uint8_t power_pin) {
-    digitalWrite(power_pin, HIGH);
-  }
+      //! extract 14 bit humidity right adjusted (bit 0-14)
+      *humidity = 100.0 / 0x3FFF * (raw_data >> 16 & 0x3FFF);
 
-  void off(uint8_t power_pin) {
-    digitalWrite(power_pin, LOW);
-  }
+      //! extract 14 bit temperature left adjusted (bit 2-16)
+      *temperature = 165.0 / 0x3FFF * (((unsigned int) raw_data) >> 2) - 40;
+
+      if (Wire.endTransmission()) {
+         return false;
+      }
+
+      return true;
+   }
+
+   void send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2) {
+      Wire.beginTransmission(address);
+      Wire.write(data_0);
+      Wire.write(data_1);
+      Wire.write(data_2);
+      Wire.endTransmission();
+   }
+
+   void changeAddress(uint8_t power_pin, int8_t address, int8_t new_address) {
+      off(power_pin);
+      on(power_pin);
+      send(address, HYT2X1_ENTER_COMMAND_MODE, 0x00, 0x00);
+      send(address, HYT2X1_WRITE_ADDRESS, 0x00, new_address);
+      send(address, HYT2X1_EXIT_COMMAND_MODE, 0x00, 0x00);
+   }
+
+   void init(uint8_t power_pin) {
+      pinMode(power_pin, OUTPUT);
+   }
+
+   void on(uint8_t power_pin) {
+      digitalWrite(power_pin, HIGH);
+   }
+
+   void off(uint8_t power_pin) {
+      digitalWrite(power_pin, LOW);
+   }
 }
