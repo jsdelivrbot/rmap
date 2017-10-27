@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SENSOR_TYPE_ADT           ("ADT")   // ADT7420
 #define SENSOR_TYPE_HIH           ("HIH")   // HIH6100
 #define SENSOR_TYPE_HYT           ("HYT")   // HYT271 - HYT221
+#define SENSOR_TYPE_DEP           ("DEP")   // DigitEco Power
 #define SENSOR_TYPE_HI7           ("HI7")   // SI7021
 #define SENSOR_TYPE_BMP           ("BMP")   // Bmp085
 #define SENSOR_TYPE_DW1           ("DW1")   // DW1

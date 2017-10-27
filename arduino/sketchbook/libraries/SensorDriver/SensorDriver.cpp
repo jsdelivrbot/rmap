@@ -41,6 +41,11 @@ namespace _SensorDriver {
    bool _is_th_setted;
    bool _is_th_prepared;
    #endif
+
+   #if (USE_SENSOR_DEP)
+   bool _is_dep_setted;
+   bool _is_dep_prepared;
+   #endif
 }
 
 //------------------------------------------------------------------------------
@@ -121,6 +126,11 @@ SensorDriver *SensorDriver::create(const char* driver, const char* type) {
    #if (USE_SENSOR_XSD)
    else if (strcmp(type, SENSOR_TYPE_XSD) == 0)
    return new SensorDriverHyt2X1(driver, type, &_SensorDriver::_is_hyt_setted, &_SensorDriver::_is_hyt_prepared);
+   #endif
+
+   #if (USE_SENSOR_DEP)
+   else if (strcmp(type, SENSOR_TYPE_DEP) == 0)
+   return new SensorDriverDigitecoPower(driver, type, &_SensorDriver::_is_dep_setted, &_SensorDriver::_is_dep_prepared);
    #endif
 
    else {
@@ -327,15 +337,19 @@ void SensorDriverHyt2X1::getJson(int32_t *values, uint8_t length, char *json_buf
       StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
       JsonObject &json = buffer.createObject();
 
-      if (_is_success && length >= 1) {
-         json["B13003"] = values[0];
+      if (length >= 1) {
+         if (_is_success) {
+            json["B13003"] = values[0];
+         }
+         else json["B13003"] = RawJson("null");
       }
-      else json["B13003"] = RawJson("null");
 
-      if (_is_success && length >= 2) {
-         json["B12101"] = values[1];
+      if (length >= 2) {
+         if (_is_success) {
+            json["B12101"] = values[1];
+         }
+         else json["B12101"] = RawJson("null");
       }
-      else json["B12101"] = RawJson("null");
 
       json.printTo(json_buffer, json_buffer_length);
    }
@@ -527,10 +541,12 @@ void SensorDriverRain::getJson(int32_t *values, uint8_t length, char *json_buffe
       StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
       JsonObject &json = buffer.createObject();
 
-      if (_is_success && length >= 1) {
-         json["B13011"] = values[0];
+      if (length >= 1) {
+         if (_is_success) {
+            json["B13011"] = values[0];
+         }
+         else json["B13011"] = RawJson("null");
       }
-      else json["B13011"] = RawJson("null");
 
       json.printTo(json_buffer, json_buffer_length);
    }
@@ -869,15 +885,407 @@ void SensorDriverTh::getJson(int32_t *values, uint8_t length, char *json_buffer,
       StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
       JsonObject &json = buffer.createObject();
 
-      if (_is_success && length >= 1) {
-         json["B12101"] = values[0];
+      if (length >= 1) {
+         if (_is_success) {
+            json["B12101"] = values[0];
+         }
+         else json["B12101"] = RawJson("null");
       }
-      else json["B12101"] = RawJson("null");
 
-      if (_is_success && length >= 2) {
-         json["B13003"] = values[1];
+      if (length >= 2) {
+         if (_is_success) {
+            json["B13003"] = values[1];
+         }
+         else json["B13003"] = RawJson("null");
       }
-      else json["B13003"] = RawJson("null");
+
+      json.printTo(json_buffer, json_buffer_length);
+   }
+}
+#endif
+
+#endif
+
+//------------------------------------------------------------------------------
+// DigitEco Power
+//------------------------------------------------------------------------------
+
+#if (USE_SENSOR_DEP)
+bool SensorDriverDigitecoPower::isSetted() {
+   return *_is_setted;
+}
+
+bool SensorDriverDigitecoPower::isPrepared() {
+   return *_is_prepared;
+}
+
+void SensorDriverDigitecoPower::resetPrepared() {
+   _get_state = INIT;
+   *_is_prepared = false;
+}
+
+void SensorDriverDigitecoPower::setup(const uint8_t address, const uint8_t node) {
+   SensorDriver::setup(address, node);
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+   *_is_setted = true;
+   SERIAL_DEBUG(" setup... [ OK ]\r\n");
+}
+
+void SensorDriverDigitecoPower::prepare() {
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+   _delay_ms = 0;
+   *_is_prepared = true;
+   _start_time_ms = millis();
+   SERIAL_DEBUG(" prepare... [ OK ]\r\n");
+}
+
+void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
+   static float battery_percentage;
+   static float battery_voltage;
+   static float battery_current;
+   static float input_voltage;
+   static float input_current;
+   static float output_voltage;
+
+   switch (_get_state) {
+      case INIT:
+         memset(values, UINT16_MAX, length);
+
+         _is_readed = false;
+         _is_end = false;
+
+         if (*_is_prepared && length >= 1) {
+            _is_success = true;
+            _get_state = SET_BATTERY_PERCENTAGE_ADDRESS;
+         }
+         else {
+            _is_success = false;
+            _get_state = END;
+         }
+
+         _delay_ms = 0;
+         _start_time_ms = millis();
+      break;
+
+      case SET_BATTERY_PERCENTAGE_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_BATTERY_PERCENTAGE;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_BATTERY_PERCENTAGE:
+         _is_success = DigitecoPower::de_read(_address, &battery_percentage);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 2) {
+            _get_state = SET_BATTERY_VOLTAGE_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_BATTERY_VOLTAGE_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_VOLTAGE_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_BATTERY_VOLTAGE;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_BATTERY_VOLTAGE:
+         _is_success = DigitecoPower::de_read(_address, &battery_voltage);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 3) {
+            _get_state = SET_BATTERY_CURRENT_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_BATTERY_CURRENT_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CURRENT_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_BATTERY_CURRENT;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_BATTERY_CURRENT:
+         _is_success = DigitecoPower::de_read(_address, &battery_current);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 4) {
+            _get_state = SET_INPUT_VOLTAGE_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_INPUT_VOLTAGE_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_INPUT_VOLTAGE;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_INPUT_VOLTAGE:
+         _is_success = DigitecoPower::de_read(_address, &input_voltage);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 5) {
+            _get_state = SET_INPUT_CURRENT_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_INPUT_CURRENT_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_CURRENT_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_INPUT_CURRENT;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_INPUT_CURRENT:
+         _is_success = DigitecoPower::de_read(_address, &input_current);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 6) {
+            _get_state = SET_OUTPUT_VOLTAGE_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_OUTPUT_VOLTAGE_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_OUTPUT_VOLTAGE;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_OUTPUT_VOLTAGE:
+         _is_success = DigitecoPower::de_read(_address, &output_voltage);
+         _delay_ms = 0;
+         _start_time_ms = millis();
+         _get_state = END;
+      break;
+
+      case END:
+         if (length >= 1) {
+            values[0] = battery_percentage;
+
+            if (!_is_success || values[0] < SENSOR_DRIVER_BATTERY_PERCENTAGE_MIN || values[0] > SENSOR_DRIVER_BATTERY_PERCENTAGE_MAX) {
+               _is_success = false;
+               values[0] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 2) {
+            values[1] = battery_voltage * 100;
+
+            if (!_is_success || values[1] < SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V || values[1] > SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V) {
+               _is_success = false;
+               values[1] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 3) {
+            values[2] = battery_current * 1000;
+
+            if (!_is_success || values[2] < SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA || values[2] > SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA) {
+               _is_success = false;
+               values[2] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 4) {
+            values[3] = input_voltage * 100;
+
+            if (!_is_success || values[3] < SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V || values[3] > SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V) {
+               _is_success = false;
+               values[3] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 5) {
+            values[4] = input_current * 1000;
+
+            if (!_is_success || values[4] < SENSOR_DRIVER_INPUT_CURRENT_MIN_mA || values[4] > SENSOR_DRIVER_INPUT_CURRENT_MAX_mA) {
+               _is_success = false;
+               values[4] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 6) {
+            values[5] = output_voltage * 100;
+
+            if (!_is_success || values[5] < SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V || values[5] > SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V) {
+               _is_success = false;
+               values[5] = UINT16_MAX;
+            }
+         }
+
+         SensorDriver::printInfo(_driver, _type, _address, _node);
+
+         if (_is_success) {
+            SERIAL_DEBUG(" get... [ %s ]\r\n", OK_STRING);
+
+            if (length >= 1) {
+               SERIAL_DEBUG("--> battery percentage: %ld %%\r\n", values[0]);
+            }
+
+            if (length >= 2) {
+               SERIAL_DEBUG("--> battery voltage: %ld V\r\n", values[1]);
+            }
+
+            if (length >= 3) {
+               SERIAL_DEBUG("--> battery current: %ld mA\r\n", values[2]);
+            }
+
+            if (length >= 4) {
+               SERIAL_DEBUG("--> input voltage: %ld V\r\n", values[3]);
+            }
+
+            if (length >= 5) {
+               SERIAL_DEBUG("--> input current: %ld mA\r\n", values[4]);
+            }
+
+            if (length >= 6) {
+               SERIAL_DEBUG("--> output voltage: %ld V\r\n", values[5]);
+            }
+         }
+         else {
+            SERIAL_DEBUG(" get... [ %s ]\r\n", FAIL_STRING);
+            if (length >= 1) {
+               SERIAL_DEBUG("--> battery percentage: ---\r\n");
+            }
+
+            if (length >= 2) {
+               SERIAL_DEBUG("--> battery voltage: ---\r\n");
+            }
+
+            if (length >= 3) {
+               SERIAL_DEBUG("--> battery current: ---\r\n");
+            }
+
+            if (length >= 4) {
+               SERIAL_DEBUG("--> input voltage: ---\r\n");
+            }
+
+            if (length >= 5) {
+               SERIAL_DEBUG("--> input current: ---\r\n");
+            }
+
+            if (length >= 6) {
+               SERIAL_DEBUG("--> output voltage: ---\r\n");
+            }
+         }
+
+         _start_time_ms = millis();
+         _delay_ms = 0;
+         _is_end = true;
+         _is_readed = false;
+         _get_state = INIT;
+      break;
+   }
+}
+
+#if (USE_JSON)
+void SensorDriverDigitecoPower::getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length) {
+   SensorDriverDigitecoPower::get(values, length);
+
+   if (_is_end && !_is_readed) {
+      StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
+      JsonObject &json = buffer.createObject();
+
+      if (length >= 1) {
+         if (_is_success) {
+            json["B00001"] = values[0];
+         }
+         else json["B00001"] = RawJson("null");
+      }
+
+      if (length >= 2) {
+         if (_is_success) {
+            json["B00002"] = values[1];
+         }
+         else json["B00002"] = RawJson("null");
+      }
+
+      if (length >= 3) {
+         if (_is_success) {
+            json["B00003"] = values[2];
+         }
+         else json["B00003"] = RawJson("null");
+      }
+
+      if (length >= 4) {
+         if (_is_success) {
+            json["B00004"] = values[3];
+         }
+         else json["B00004"] = RawJson("null");
+      }
+
+      if (length >= 5) {
+         if (_is_success) {
+            json["B00005"] = values[4];
+         }
+         else json["B00005"] = RawJson("null");
+      }
+
+      if (length >= 6) {
+         if (_is_success) {
+            json["B00006"] = values[5];
+         }
+         else json["B00006"] = RawJson("null");
+      }
 
       json.printTo(json_buffer, json_buffer_length);
    }

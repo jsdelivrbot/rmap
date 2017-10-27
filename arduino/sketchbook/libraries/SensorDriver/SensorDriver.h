@@ -212,4 +212,66 @@ protected:
 };
 #endif
 
+#if (USE_SENSOR_DEP)
+#include "digiteco_power.h"
+#define SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V       (0 * 100)
+#define SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V       (30 * 100)
+#define SENSOR_DRIVER_INPUT_CURRENT_MIN_mA      (0)
+#define SENSOR_DRIVER_INPUT_CURRENT_MAX_mA      (3000)
+#define SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V     (0 * 100)
+#define SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V     (16 * 100)
+#define SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA    (-3000)
+#define SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA    (3000)
+#define SENSOR_DRIVER_BATTERY_PERCENTAGE_MIN    (0)
+#define SENSOR_DRIVER_BATTERY_PERCENTAGE_MAX    (100)
+#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V      (0 * 100)
+#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V      (6 * 100)
+
+class SensorDriverDigitecoPower : public SensorDriver {
+public:
+  SensorDriverDigitecoPower(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
+    _is_setted = is_setted;
+    _is_prepared = is_prepared;
+
+    *_is_setted = false;
+    *_is_prepared = false;
+
+    SensorDriver::printInfo(driver, type);
+    SERIAL_DEBUG(" create... [ OK ]\r\n");
+  };
+  void setup(const uint8_t address, const uint8_t node = 0);
+  void prepare();
+  void get(int32_t *values, uint8_t length);
+
+  #if (USE_JSON)
+  void getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length = JSON_BUFFER_LENGTH);
+  #endif
+
+  bool isSetted();
+  bool isPrepared();
+  void resetPrepared();
+
+protected:
+  bool *_is_setted;
+  bool *_is_prepared;
+
+  enum {
+    INIT,
+    SET_BATTERY_PERCENTAGE_ADDRESS,
+    READ_BATTERY_PERCENTAGE,
+    SET_BATTERY_VOLTAGE_ADDRESS,
+    READ_BATTERY_VOLTAGE,
+    SET_BATTERY_CURRENT_ADDRESS,
+    READ_BATTERY_CURRENT,
+    SET_INPUT_VOLTAGE_ADDRESS,
+    READ_INPUT_VOLTAGE,
+    SET_INPUT_CURRENT_ADDRESS,
+    READ_INPUT_CURRENT,
+    SET_OUTPUT_VOLTAGE_ADDRESS,
+    READ_OUTPUT_VOLTAGE,
+    END
+  } _get_state;
+};
+#endif
+
 #endif
