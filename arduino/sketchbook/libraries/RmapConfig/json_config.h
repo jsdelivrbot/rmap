@@ -23,6 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _JSON_CONFIG_H
 #define _JSON_CONFIG_H
 
-#define JSON_BUFFER_LENGTH        (50)
+#define JSON_BUFFER_LENGTH        (70)
 
 #endif

@@ -23,23 +23,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _ETHERNET_CONFIG_H
 #define _ETHERNET_CONFIG_H
 
-#define ETHERNET_DEFAULT_DHCP_ENABLE      (true)
-#define ETHERNET_DEFAULT_MAC              ("E2:21:B6:44:EB:29")
-#define ETHERNET_DEFAULT_IP               ("192.168.0.99")
-#define ETHERNET_DEFAULT_NETMASK          ("255.255.255.0")
-#define ETHERNET_DEFAULT_GATEWAY          ("192.168.0.2")
-#define ETHERNET_DEFAULT_PRIMARY_DNS      ("192.168.0.1")
+#define ETHERNET_DEFAULT_DHCP_ENABLE            (true)
+#define ETHERNET_DEFAULT_MAC                    ("E2:21:B6:44:EB:29")
+#define ETHERNET_DEFAULT_IP                     ("192.168.0.99")
+#define ETHERNET_DEFAULT_NETMASK                ("255.255.255.0")
+#define ETHERNET_DEFAULT_GATEWAY                ("192.168.0.2")
+#define ETHERNET_DEFAULT_PRIMARY_DNS            ("192.168.0.1")
 
-#define ETHERNET_DEFAULT_LOCAL_UDP_PORT   (8000)
+#define ETHERNET_DEFAULT_LOCAL_UDP_PORT         (8000)
 
-#define ETHERNET_ATTEMPT_MS               (2000)
+#define ETHERNET_ATTEMPT_MS                     (2000)
 
-#define ETHERNET_RETRY_TIME_MS            (2000)
-#define ETHERNET_RETRY_COUNT              (2)
+#define ETHERNET_RETRY_TIME_MS                  (4000)
+#define ETHERNET_RETRY_COUNT                    (3)
 
-#define ETHERNET_TIMEOUT_MS               (2000)
+// #define ETHERNET_MQTT_DELAY_FOR_PUBLISH_MS      (500)
+#define ETHERNET_MQTT_TIMEOUT_MS                (5000)
 
-#define ETHERNET_MAC_LENGTH               (6)
-#define ETHERNET_IP_LENGTH                (4)
+#define ETHERNET_MAC_LENGTH                     (6)
+#define ETHERNET_IP_LENGTH                      (4)
 
 #endif

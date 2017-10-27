@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SENSOR_ADT              (false)   // ADT7420
 #define USE_SENSOR_HIH              (false)   // HIH6100
 #define USE_SENSOR_HYT              (false)   // HYT271 - HYT221
+#define USE_SENSOR_DEP              (false)   // DigitEco Power
 #define USE_SENSOR_HI7              (false)   // SI7021
 #define USE_SENSOR_BMP              (false)   // Bmp085
 #define USE_SENSOR_DW1              (false)   // DW1
@@ -52,6 +53,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RAIN_FOR_TIP                (2)
 
+/*!
+\def VALUES_TO_READ_FROM_SENSOR_COUNT
+Maximum number of values to be read by the sensors.
+*/
+#define VALUES_TO_READ_FROM_SENSOR_COUNT     (3)
+
 // sampling every 3-15 seconds --> watchdog timer (SENSORS_SAMPLE_TIME_S in relative modules)
 // observations with processing every 1-10 minutes (minutes for processing sampling)
 // report every 5-60 minutes (> OBSERVATIONS_MINUTES)
@@ -68,11 +75,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (OBSERVATION_COUNT < STATISTICAL_DATA_COUNT)
 #error OBSERVATION_COUNT must be major of STATISTICAL_DATA_COUNT !!!
 #endif
-
-/*!
-\def VALUES_TO_READ_FROM_SENSOR_COUNT
-Maximum number of values to be read by the sensors.
-*/
-#define VALUES_TO_READ_FROM_SENSOR_COUNT              (2)
 
 #endif
