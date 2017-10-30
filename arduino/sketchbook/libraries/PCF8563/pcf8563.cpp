@@ -23,11 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Pcf8563 {
   uint8_t bcdToDec(uint8_t val) {
-    return ((val / 16 * 10) + (val % 16));
+    return (((val / 16) * 10) + (val % 16));
   }
 
   uint8_t decToBcd(uint8_t val) {
-    return ((val / 10 * 16) + (val % 10));
+    return (((val / 10) << 4) + (val % 10));
   }
 
   bool reset() {
