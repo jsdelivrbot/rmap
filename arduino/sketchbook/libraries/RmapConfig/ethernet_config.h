@@ -37,8 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ETHERNET_RETRY_TIME_MS                  (4000)
 #define ETHERNET_RETRY_COUNT                    (3)
 
-// #define ETHERNET_MQTT_DELAY_FOR_PUBLISH_MS      (500)
-#define ETHERNET_MQTT_TIMEOUT_MS                (5000)
+#define ETHERNET_MQTT_TIMEOUT_MS                (6000)
 
 #define ETHERNET_MAC_LENGTH                     (6)
 #define ETHERNET_IP_LENGTH                      (4)

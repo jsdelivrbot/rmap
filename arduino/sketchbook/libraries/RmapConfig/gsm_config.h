@@ -25,9 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define GSM_APN_TIM                       ("ibox.tim.it")
 #define GSM_APN_WIND                      ("internet.wind")
-#define GSM_APN_VODAFONE                  ("m2mbis.vodafone.it")
+#define GSM_APN_VODAFONE                  ("web.omnitel.it")
 
-#define GSM_DEFAULT_APN                   (GSM_APN_WIND)
+#define GSM_DEFAULT_APN                   (GSM_APN_VODAFONE)
 #define GSM_DEFAULT_USERNAME              ("")
 #define GSM_DEFAULT_PASSWORD              ("")
 
