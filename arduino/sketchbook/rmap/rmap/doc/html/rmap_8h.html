@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Rmap
-   &#160;<span id="projectnumber">2</span>
+   &#160;<span id="projectnumber">3</span>
    </div>
   </td>
  </tr>
@@ -130,10 +130,11 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a3a75eeb98a0ff1f3689694fa76711296"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296">supervisor_state_t</a> { <br />
 &#160;&#160;<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961">SUPERVISOR_INIT</a>, 
 <a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19">SUPERVISOR_CONNECTION_LEVEL_TASK</a>, 
-<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30">SUPERVISOR_NTP_LEVEL_TASK</a>, 
-<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1">SUPERVISOR_MANAGE_LEVEL_TASK</a>, 
+<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610">SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK</a>, 
+<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd">SUPERVISOR_TIME_LEVEL_TASK</a>, 
 <br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279">SUPERVISOR_END</a>, 
+&#160;&#160;<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1">SUPERVISOR_MANAGE_LEVEL_TASK</a>, 
+<a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279">SUPERVISOR_END</a>, 
 <a class="el" href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838">SUPERVISOR_WAIT_STATE</a>
 <br />
  }<tr class="memdesc:a3a75eeb98a0ff1f3689694fa76711296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supervisor task finite state machine.  <a href="rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296">More...</a><br /></td></tr>
@@ -749,7 +750,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 </td></tr>
 <tr><td class="fieldname"><a id="a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19"></a>SUPERVISOR_CONNECTION_LEVEL_TASK&#160;</td><td class="fielddoc"><p>enable hardware related tasks for doing connection </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30"></a>SUPERVISOR_NTP_LEVEL_TASK&#160;</td><td class="fielddoc"><p>enable time task for sync time with ntp server </p>
+<tr><td class="fieldname"><a id="a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610"></a>SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK&#160;</td><td class="fielddoc"><p>enable hardware related tasks for doing connection </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd"></a>SUPERVISOR_TIME_LEVEL_TASK&#160;</td><td class="fielddoc"><p>enable time task for sync time with ntp server </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1"></a>SUPERVISOR_MANAGE_LEVEL_TASK&#160;</td><td class="fielddoc"><p>enable tasks for manage data (mqtt) </p>
 </td></tr>
@@ -1596,8 +1599,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 <p>retry</p>
 <p>fail</p>
 <p>enable time task</p>
-<p>success</p>
-<p>success or error</p>
 <p>reinit lcd display </p>
 
 </div>
@@ -1623,7 +1624,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 <p>success</p>
 <p>retry</p>
 <p>fail: use old rtc time</p>
-<p>success: 946684800 seconds for 01/01/2000 00:00:00</p>
+<p>success: 1483228800 seconds for 01/01/2017 00:00:00</p>
 <p>retry</p>
 <p>fail</p>
 <p>retry</p>

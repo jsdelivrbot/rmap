@@ -38,15 +38,16 @@ var searchData=
   ['stream_5ftask',['stream_task',['../rmap_8h.html#a21575354e8ec54fa31f581ed1838be79',1,'stream_task(Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout):&#160;rmap.ino'],['../rmap_8ino.html#a21575354e8ec54fa31f581ed1838be79',1,'stream_task(Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout):&#160;rmap.ino']]],
   ['stream_5fuart_5fstream_5fend_5ftimeout_5fms',['STREAM_UART_STREAM_END_TIMEOUT_MS',['../rmap-config_8h.html#a950ba415f1afc5bdc2d4ea52b51075df',1,'rmap-config.h']]],
   ['stream_5fuart_5fstream_5ftimeout_5fms',['STREAM_UART_STREAM_TIMEOUT_MS',['../rmap-config_8h.html#aa5742869009a8ff3a6e3dfcb700f3ab6',1,'rmap-config.h']]],
-  ['supervisor_5fconnection_5flevel_5fretry_5fcount_5fmax',['SUPERVISOR_CONNECTION_LEVEL_RETRY_COUNT_MAX',['../rmap-config_8h.html#a7ac76db6c397b6167fb6dc9f4c88d6f3',1,'rmap-config.h']]],
   ['supervisor_5fconnection_5flevel_5ftask',['SUPERVISOR_CONNECTION_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19',1,'rmap.h']]],
+  ['supervisor_5fconnection_5fretry_5fcount_5fmax',['SUPERVISOR_CONNECTION_RETRY_COUNT_MAX',['../rmap-config_8h.html#a8c44e74b589622bd3a3c69bfdc754a3b',1,'rmap-config.h']]],
   ['supervisor_5fconnection_5ftimeout_5fms',['SUPERVISOR_CONNECTION_TIMEOUT_MS',['../rmap-config_8h.html#a52ca4538c4f04d08d9b1f35329926912',1,'rmap-config.h']]],
   ['supervisor_5fend',['SUPERVISOR_END',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279',1,'rmap.h']]],
   ['supervisor_5finit',['SUPERVISOR_INIT',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961',1,'rmap.h']]],
   ['supervisor_5fmanage_5flevel_5ftask',['SUPERVISOR_MANAGE_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1',1,'rmap.h']]],
-  ['supervisor_5fntp_5flevel_5ftask',['SUPERVISOR_NTP_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30',1,'rmap.h']]],
   ['supervisor_5fstate',['supervisor_state',['../rmap_8h.html#a3e26cdd6ff02dd9530bb5fafeebf33bc',1,'rmap.h']]],
   ['supervisor_5fstate_5ft',['supervisor_state_t',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296',1,'rmap.h']]],
   ['supervisor_5ftask',['supervisor_task',['../rmap_8h.html#a1c0ac3dbd03144160dd35a3c8674d9b3',1,'supervisor_task(void):&#160;rmap.ino'],['../rmap_8ino.html#a2f44f14407ed3f1ae93126c1533e697b',1,'supervisor_task():&#160;rmap.ino']]],
+  ['supervisor_5ftime_5flevel_5ftask',['SUPERVISOR_TIME_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd',1,'rmap.h']]],
+  ['supervisor_5fwait_5fconnection_5flevel_5ftask',['SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610',1,'rmap.h']]],
   ['supervisor_5fwait_5fstate',['SUPERVISOR_WAIT_STATE',['../rmap_8h.html#a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838',1,'rmap.h']]]
 ];

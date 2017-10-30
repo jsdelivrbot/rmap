@@ -120,12 +120,13 @@ typedef enum {
 \brief Supervisor task finite state machine.
 */
 typedef enum {
-   SUPERVISOR_INIT,                    //!< init task variables
-   SUPERVISOR_CONNECTION_LEVEL_TASK,   //!< enable hardware related tasks for doing connection
-   SUPERVISOR_NTP_LEVEL_TASK,          //!< enable time task for sync time with ntp server
-   SUPERVISOR_MANAGE_LEVEL_TASK,       //!< enable tasks for manage data (mqtt)
-   SUPERVISOR_END,                     //!< performs end operations and deactivate task
-   SUPERVISOR_WAIT_STATE               //!< non-blocking waiting time
+   SUPERVISOR_INIT,                          //!< init task variables
+   SUPERVISOR_CONNECTION_LEVEL_TASK,         //!< enable hardware related tasks for doing connection
+   SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK,    //!< enable hardware related tasks for doing connection
+   SUPERVISOR_TIME_LEVEL_TASK,                //!< enable time task for sync time with ntp server
+   SUPERVISOR_MANAGE_LEVEL_TASK,             //!< enable tasks for manage data (mqtt)
+   SUPERVISOR_END,                           //!< performs end operations and deactivate task
+   SUPERVISOR_WAIT_STATE                     //!< non-blocking waiting time
 } supervisor_state_t;
 
 #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)

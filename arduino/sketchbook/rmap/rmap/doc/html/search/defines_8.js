@@ -8,6 +8,6 @@ var searchData=
   ['stream_5fbuffer_5flength',['STREAM_BUFFER_LENGTH',['../rmap-config_8h.html#ac5fc989b784c420be7db4f66417fc744',1,'rmap-config.h']]],
   ['stream_5fuart_5fstream_5fend_5ftimeout_5fms',['STREAM_UART_STREAM_END_TIMEOUT_MS',['../rmap-config_8h.html#a950ba415f1afc5bdc2d4ea52b51075df',1,'rmap-config.h']]],
   ['stream_5fuart_5fstream_5ftimeout_5fms',['STREAM_UART_STREAM_TIMEOUT_MS',['../rmap-config_8h.html#aa5742869009a8ff3a6e3dfcb700f3ab6',1,'rmap-config.h']]],
-  ['supervisor_5fconnection_5flevel_5fretry_5fcount_5fmax',['SUPERVISOR_CONNECTION_LEVEL_RETRY_COUNT_MAX',['../rmap-config_8h.html#a7ac76db6c397b6167fb6dc9f4c88d6f3',1,'rmap-config.h']]],
+  ['supervisor_5fconnection_5fretry_5fcount_5fmax',['SUPERVISOR_CONNECTION_RETRY_COUNT_MAX',['../rmap-config_8h.html#a8c44e74b589622bd3a3c69bfdc754a3b',1,'rmap-config.h']]],
   ['supervisor_5fconnection_5ftimeout_5fms',['SUPERVISOR_CONNECTION_TIMEOUT_MS',['../rmap-config_8h.html#a52ca4538c4f04d08d9b1f35329926912',1,'rmap-config.h']]]
 ];

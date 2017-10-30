@@ -624,14 +624,6 @@ void supervisor_task() {
          is_time_updated = false;
          is_event_time_executed = false;
          is_event_client_executed = false;
-         supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
-         SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
-      break;
-
-      case SUPERVISOR_CONNECTION_LEVEL_TASK:
-         if (start_time_ms == 0) {
-            start_time_ms = millis();
-         }
 
          //! need ntp sync ?
          if (!do_ntp_sync && ((now() - last_ntp_sync > NTP_TIME_FOR_RESYNC_S) || !is_time_set)) {
@@ -639,6 +631,13 @@ void supervisor_task() {
             SERIAL_DEBUG("Requested NTP time sync...\r\n");
          }
 
+         start_time_ms = millis();
+
+         supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
+         SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
+      break;
+
+      case SUPERVISOR_CONNECTION_LEVEL_TASK:
          //! enable hardware related tasks for connect
          noInterrupts();
          if (!*is_event_client && !is_event_client_executed && !is_client_connected) {
@@ -647,68 +646,71 @@ void supervisor_task() {
          }
          interrupts();
 
+         supervisor_state = SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK;
+         SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK\r\n");
+      break;
+
+      case SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK:
          //! success
-         if (!*is_event_client && is_client_connected) {
+         if (!*is_event_client && is_event_client_executed && is_client_connected) {
             //! reset time task for doing ntp sync
             if (is_client_udp_socket_open && do_ntp_sync) {
                is_event_time_executed = false;
-               supervisor_state = SUPERVISOR_NTP_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_NTP_LEVEL_TASK\r\n");
+               supervisor_state = SUPERVISOR_TIME_LEVEL_TASK;
+               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n");
             }
             //! doing other operations...
             else {
                do_ntp_sync = false;
                supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
+               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
             }
          }
 
          //! error
          if (!*is_event_client && is_event_client_executed && !is_client_connected) {
             //! retry
-            if ((++retry < SUPERVISOR_CONNECTION_LEVEL_RETRY_COUNT_MAX) || (millis() - start_time_ms < SUPERVISOR_CONNECTION_TIMEOUT_MS)) {
+            if ((++retry < SUPERVISOR_CONNECTION_RETRY_COUNT_MAX) || (millis() - start_time_ms < SUPERVISOR_CONNECTION_TIMEOUT_MS)) {
                is_event_client_executed = false;
+               supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
+               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
             }
             //! fail
             else {
-               supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
+               supervisor_state = SUPERVISOR_TIME_LEVEL_TASK;
+               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n");
             }
          }
       break;
 
-      case SUPERVISOR_NTP_LEVEL_TASK:
+      case SUPERVISOR_TIME_LEVEL_TASK:
          //! enable time task
          noInterrupts();
-         if (!is_event_time && !is_event_time_executed && is_client_connected) {
+         if (!is_event_time && !is_event_time_executed) {
             is_event_time = true;
             ready_tasks_count++;
          }
          interrupts();
 
-         //! success
-         if (!is_event_time && is_event_time_executed && is_client_connected) {
-            last_ntp_sync = now();
+         if (!is_event_time && is_event_time_executed) {
             is_time_updated = true;
-         }
 
-         //! success or error
-         if (!is_event_time && is_event_time_executed && is_client_connected) {
-            do_ntp_sync = false;
+            if (is_client_connected) {
+               do_ntp_sync = false;
 
-            #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-            noInterrupts();
-            if (!*is_event_client) {
-               *is_event_client = true;
-               ready_tasks_count++;
+               #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+               noInterrupts();
+               if (!*is_event_client) {
+                  *is_event_client = true;
+                  ready_tasks_count++;
+               }
+               interrupts();
+               #endif
             }
-            interrupts();
-            #endif
 
             supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_NTP_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
+            SERIAL_TRACE("SUPERVISOR_TIME_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
          }
-
       break;
 
       case SUPERVISOR_MANAGE_LEVEL_TASK:
@@ -800,22 +802,24 @@ void supervisor_task() {
 }
 
 void rtc_task() {
-   uint32_t current_time = Pcf8563::getTime();
+   if (is_time_set) {
+      uint32_t current_time = Pcf8563::getTime();
 
-   if (current_time > now()) {
-      setTime(Pcf8563::getTime());
+      if (current_time > now()) {
+         setTime(Pcf8563::getTime());
+      }
+
+      if (is_time_for_sensors_reading_updated) {
+         is_time_for_sensors_reading_updated = false;
+         SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+         LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+      }
+
+      noInterrupts();
+      is_event_rtc = false;
+      ready_tasks_count--;
+      interrupts();
    }
-
-   if (is_time_for_sensors_reading_updated) {
-      is_time_for_sensors_reading_updated = false;
-      SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
-      LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
-   }
-
-   noInterrupts();
-   is_event_rtc = false;
-   ready_tasks_count--;
-   interrupts();
 }
 
 void time_task() {
@@ -878,10 +882,11 @@ void time_task() {
 
          #endif
 
-         //! success: 946684800 seconds for 01/01/2000 00:00:00
-         if (seconds_since_1900 > 946684800) {
+         //! success: 1483228800 seconds for 01/01/2017 00:00:00
+         if (seconds_since_1900 > 1483228800UL) {
             retry = 0;
             setTime(seconds_since_1900);
+            last_ntp_sync = seconds_since_1900;
             SERIAL_DEBUG("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
             time_state = TIME_SET_SYNC_NTP_PROVIDER;
          }

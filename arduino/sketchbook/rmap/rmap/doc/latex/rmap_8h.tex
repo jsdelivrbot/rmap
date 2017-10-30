@@ -58,9 +58,10 @@ enum \hyperlink{rmap_8h_aa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t} \{ \hyp
 enum \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}{supervisor\+\_\+state\+\_\+t} \{ \newline
 \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT}, 
 \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
-\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
-\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
 \newline
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
 \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND}, 
 \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
  \}\begin{DoxyCompactList}\small\item\em Supervisor task finite state machine. \end{DoxyCompactList}
@@ -660,8 +661,12 @@ S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT&init task variables \\
 S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable hardware related tasks for doing connection \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae11edfd4357bfb64d761321f537f1a30}} 
-S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+N\+T\+P\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable time task for sync time with ntp server \\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable hardware related tasks for doing connection \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable time task for sync time with ntp server \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}} 
@@ -1288,10 +1293,6 @@ fail
 
 enable time task
 
-success
-
-success or error
-
 reinit lcd display \mbox{\Hypertarget{rmap_8h_a5069fdc64788136358f93a124624d05d}\label{rmap_8h_a5069fdc64788136358f93a124624d05d}} 
 \index{rmap.\+h@{rmap.\+h}!time\+\_\+task@{time\+\_\+task}}
 \index{time\+\_\+task@{time\+\_\+task}!rmap.\+h@{rmap.\+h}}
@@ -1311,7 +1312,7 @@ retry
 
 fail\+: use old rtc time
 
-success\+: 946684800 seconds for 01/01/2000 00\+:00\+:00
+success\+: 1483228800 seconds for 01/01/2017 00\+:00\+:00
 
 retry
 
