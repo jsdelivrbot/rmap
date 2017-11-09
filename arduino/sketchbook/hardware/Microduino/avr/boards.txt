@@ -176,22 +176,6 @@ menu.usb=UploadType
 1284p.menu.cpu.16MHzatmega1284.build.mcu=atmega1284p
 1284p.menu.cpu.16MHzatmega1284.build.f_cpu=16000000L
 
-## ATmega1284 16MHz with SD Bootloader
-## -------------------------------------------------
-1284p.menu.cpu.16MHzatmega1284SD=1284p@16MHz,5V with SD Bootloader
-
-1284p.menu.cpu.16MHzatmega1284SD.upload.maximum_size=130048
-1284p.menu.cpu.16MHzatmega1284SD.upload.maximum_data_size=16384
-1284p.menu.cpu.16MHzatmega1284SD.upload.speed=115200
-
-1284p.menu.cpu.16MHzatmega1284SD.bootloader.low_fuses=0xFF
-1284p.menu.cpu.16MHzatmega1284SD.bootloader.high_fuses=0xDE
-1284p.menu.cpu.16MHzatmega1284SD.bootloader.extended_fuses=0xFD
-1284p.menu.cpu.16MHzatmega1284SD.bootloader.file=avr_boot/builds/1284p_16.hex
-
-1284p.menu.cpu.16MHzatmega1284SD.build.mcu=atmega1284p
-1284p.menu.cpu.16MHzatmega1284SD.build.f_cpu=16000000L
-
 ## ATmega1284 8MHz
 ## --------------------------------------------------
 1284p.menu.cpu.8MHzatmega1284=1284p@8MHz,3.3V
