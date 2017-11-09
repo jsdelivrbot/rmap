@@ -2,9 +2,8 @@
 #include "aJSON.h"
 #include "JsonRPC.h"
 
-JsonRPC::JsonRPC(int capacity,bool radio)
+JsonRPC::JsonRPC(int capacity)
 {
-    myradio=radio;
     mymap = (FuncMap *)malloc(sizeof(FuncMap));
     mymap->capacity = capacity;
     mymap->used = 0;
@@ -25,7 +24,7 @@ void JsonRPC::registerMethod(String methodName, int(*callback)(aJsonObject*))
 
 int JsonRPC::processMessage(aJsonObject *msg)
 {
-  aJsonObject* method = aJson.getObjectItem(msg, myradio? "m" : "method");
+    aJsonObject* method = aJson.getObjectItem(msg, "method");
     if (!method)
     {
 	// not a valid Json-RPC message
@@ -33,7 +32,7 @@ int JsonRPC::processMessage(aJsonObject *msg)
         return E_PARSE_ERROR;
     }
     
-    aJsonObject* params = aJson.getObjectItem(msg, myradio? "p" : "params");
+    aJsonObject* params = aJson.getObjectItem(msg, "params");
     if (!params)
     {
 	Serial.flush();

@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MQTT_DEFAULT_SUBSCRIBE_TOPIC   ("")      // 1100000,4400000 eth 1100001,4400001 gsm
 #define MQTT_DEFAULT_USERNAME          ("")
 #define MQTT_DEFAULT_PASSWORD          ("")
+#define MQTT_STATUS_TOPIC              ("-,-,-/-,-,-,-/B01213")
 
 #if (MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH > 100)
 #error MQTT root/sensor topic is too big!

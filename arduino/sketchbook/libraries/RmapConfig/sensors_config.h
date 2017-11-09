@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SENSOR_ADT              (false)   // ADT7420
 #define USE_SENSOR_HIH              (false)   // HIH6100
 #define USE_SENSOR_HYT              (false)   // HYT271 - HYT221
-#define USE_SENSOR_DEP              (true)   // DigitEco Power
+#define USE_SENSOR_DEP              (false)   // DigitEco Power
 #define USE_SENSOR_HI7              (false)   // SI7021
 #define USE_SENSOR_BMP              (false)   // Bmp085
 #define USE_SENSOR_DW1              (false)   // DW1

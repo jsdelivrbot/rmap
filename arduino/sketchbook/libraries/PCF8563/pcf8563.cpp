@@ -27,6 +27,7 @@ namespace Pcf8563 {
   }
 
   uint8_t decToBcd(uint8_t val) {
+    // return ((val / 10 * 16) + (val % 10));
     return (((val / 10) << 4) + (val % 10));
   }
 
@@ -252,6 +253,9 @@ namespace Pcf8563 {
     if (century == 1)
       month &= ~PCF8563_CENTURY_MASK;
     else month |= PCF8563_CENTURY_MASK;
+
+   //  fai una getDateTime in sequenza più veloce ?
+   //  wire.xxx è sempre in sequenza ? start-stop
 
     Wire.beginTransmission(PCF8563_READ_ADDRESS);
     Wire.write(PCF8563_DAY_ADDRESS);

@@ -25,20 +25,76 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 #include <Wire.h>
 
+/*!
+\def DIGITECO_POWER_DEFAULT_ADDRESS
+\brief I2C address.
+*/
 #define DIGITECO_POWER_DEFAULT_ADDRESS             (0x30)
 
+/*!
+\def DIGITECO_POWER_READ_DATA_LENGTH
+\brief Read data length in numbers of bytes.
+*/
 #define DIGITECO_POWER_READ_DATA_LENGTH            (4)
 
+/*!
+\def DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS
+\brief I2C input voltage read address.
+*/
 #define DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS       (0)
+
+/*!
+\def DIGITECO_POWER_INPUT_CURRENT_ADDRESS
+\brief I2C input current read address.
+*/
 #define DIGITECO_POWER_INPUT_CURRENT_ADDRESS       (1)
+
+/*!
+\def DIGITECO_POWER_BATTERY_VOLTAGE_ADDRESS
+\brief I2C input battery voltage read address.
+*/
 #define DIGITECO_POWER_BATTERY_VOLTAGE_ADDRESS     (2)
+
+/*!
+\def DIGITECO_POWER_BATTERY_CURRENT_ADDRESS
+\brief I2C input battery current read address.
+*/
 #define DIGITECO_POWER_BATTERY_CURRENT_ADDRESS     (3)
+
+/*!
+\def DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS
+\brief I2C input battery percentage read address.
+*/
 #define DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS  (4)
+
+/*!
+\def DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS
+\brief I2C output voltage read address.
+*/
 #define DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS      (5)
 
+/*!
+\namespace DigitecoPower
+\brief DigitecoPower namespace.
+*/
 namespace DigitecoPower {
-  bool de_read(uint8_t address, float *value);
-  bool de_send(uint8_t address, uint8_t data);
+   /*!
+   \fn bool de_read(uint8_t address, float *value)
+   \brief Read value at specified i2c-address.
+   \param uint8_t address i2c-address.
+   \param float *value pointer to readed value.
+   \return true if success, false if not.
+   */
+   bool de_read(uint8_t address, float *value);
+
+   /*!
+   \fn bool de_send(uint8_t address, uint8_t data)
+   \brief Send data at specified i2c-address.
+   \param uint8_t address i2c-address.
+   \param uint8_t data value (0-5) relative to 6 measurement of voltage and current.
+   \return true if success, false if not.
+   */
+   bool de_send(uint8_t address, uint8_t data);
 };
 
 #endif

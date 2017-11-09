@@ -26,37 +26,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def NTP_SERVER_PORT
 \brief NTP server port.
 */
-#define NTP_SERVER_PORT               (123)
+#define NTP_SERVER_PORT                (123)
 
 /*!
 \def NTP_PACKET_LENGTH
 \brief NTP packet length.
 */
-#define NTP_PACKET_LENGTH             (48)
+#define NTP_PACKET_LENGTH              (48)
 
 /*!
 \def NTP_RECEIVE_TIMESTAMP_OFFSET
 \brief NTP received timestamp offset.
 */
-#define NTP_RECEIVE_TIMESTAMP_OFFSET  (40)
+#define NTP_RECEIVE_TIMESTAMP_OFFSET   (40)
 
 /*!
 \def NTP_1_HOUR_SECONDS
 \brief seconds in one hour.
 */
-#define NTP_1_HOUR_SECONDS            (3600UL)
+#define NTP_1_HOUR_SECONDS             (3600UL)
 
 /*!
 \def NTP_70_YEARS_SECONDS
 \brief seconds in 70 years.
 */
-#define NTP_70_YEARS_SECONDS          (2208988800UL)
+#define NTP_70_YEARS_SECONDS           (2208988800UL)
+
+/*!
+\def NTP_VALID_START_TIME_S
+\brief seconds for 00:00:00 01/01/2017 since 00:00:00 01/01/1970.
+*/
+#define NTP_VALID_START_TIME_S         (1483228800UL)
 
 /*!
 \def NTP_TIMEZONE
 \brief NTP timezone.
 */
-#define NTP_TIMEZONE                  (1)
+#define NTP_TIMEZONE                   (1)
 
 #include <stdint.h>
 #include <string.h>

@@ -1,0 +1,59 @@
+\hypertarget{digiteco__power_8h}{}\section{digiteco\+\_\+power.\+h File Reference}
+\label{digiteco__power_8h}\index{digiteco\+\_\+power.\+h@{digiteco\+\_\+power.\+h}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+Include dependency graph for digiteco\+\_\+power.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{digiteco__power_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{digiteco__power_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceDigitecoPower}{Digiteco\+Power}
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespaceDigitecoPower}{Digiteco\+Power} namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{digiteco__power_8h_aa8deb23e82d0f30f684e2cecbfc8b146}\label{digiteco__power_8h_aa8deb23e82d0f30f684e2cecbfc8b146}} 
+\#define \hyperlink{digiteco__power_8h_aa8deb23e82d0f30f684e2cecbfc8b146}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x30)
+\begin{DoxyCompactList}\small\item\em I2C address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a2f55faaba5cd777a035ef225338b7497}\label{digiteco__power_8h_a2f55faaba5cd777a035ef225338b7497}} 
+\#define \hyperlink{digiteco__power_8h_a2f55faaba5cd777a035ef225338b7497}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+R\+E\+A\+D\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N\+G\+TH}~(4)
+\begin{DoxyCompactList}\small\item\em Read data length in numbers of bytes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a253fda21968e718264608f907bbeac5b}\label{digiteco__power_8h_a253fda21968e718264608f907bbeac5b}} 
+\#define \hyperlink{digiteco__power_8h_a253fda21968e718264608f907bbeac5b}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+P\+U\+T\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(0)
+\begin{DoxyCompactList}\small\item\em I2C input voltage read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_ad018f5da715615cd840a6cf765d2d5bf}\label{digiteco__power_8h_ad018f5da715615cd840a6cf765d2d5bf}} 
+\#define \hyperlink{digiteco__power_8h_ad018f5da715615cd840a6cf765d2d5bf}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+U\+R\+R\+E\+N\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~(1)
+\begin{DoxyCompactList}\small\item\em I2C input current read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a7094a7cbca7a206e7f9b590ef002d501}\label{digiteco__power_8h_a7094a7cbca7a206e7f9b590ef002d501}} 
+\#define \hyperlink{digiteco__power_8h_a7094a7cbca7a206e7f9b590ef002d501}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(2)
+\begin{DoxyCompactList}\small\item\em I2C input battery voltage read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a1c83becacdace25fd429d805f9db0cc6}\label{digiteco__power_8h_a1c83becacdace25fd429d805f9db0cc6}} 
+\#define \hyperlink{digiteco__power_8h_a1c83becacdace25fd429d805f9db0cc6}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+U\+R\+R\+E\+N\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~(3)
+\begin{DoxyCompactList}\small\item\em I2C input battery current read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a1b33a39b39e30ebda94d5c3c1f21b93f}\label{digiteco__power_8h_a1b33a39b39e30ebda94d5c3c1f21b93f}} 
+\#define \hyperlink{digiteco__power_8h_a1b33a39b39e30ebda94d5c3c1f21b93f}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+B\+A\+T\+T\+E\+R\+Y\+\_\+\+P\+E\+R\+C\+E\+N\+T\+A\+G\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(4)
+\begin{DoxyCompactList}\small\item\em I2C input battery percentage read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{digiteco__power_8h_a5a99a63cee1474307f90a3ab572c4eb3}\label{digiteco__power_8h_a5a99a63cee1474307f90a3ab572c4eb3}} 
+\#define \hyperlink{digiteco__power_8h_a5a99a63cee1474307f90a3ab572c4eb3}{D\+I\+G\+I\+T\+E\+C\+O\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(5)
+\begin{DoxyCompactList}\small\item\em I2C output voltage read address. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceDigitecoPower_adb7461d6d597526eace685d0365732b7}{Digiteco\+Power\+::de\+\_\+read} (uint8\+\_\+t address, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em Read value at specified i2c-\/address. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceDigitecoPower_a2a1d64ce6df863e91fef034a496220fd}{Digiteco\+Power\+::de\+\_\+send} (uint8\+\_\+t address, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Send data at specified i2c-\/address. \end{DoxyCompactList}\end{DoxyCompactItemize}

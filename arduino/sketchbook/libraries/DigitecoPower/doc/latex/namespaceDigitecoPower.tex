@@ -1,0 +1,60 @@
+\hypertarget{namespaceDigitecoPower}{}\section{Digiteco\+Power Namespace Reference}
+\label{namespaceDigitecoPower}\index{Digiteco\+Power@{Digiteco\+Power}}
+
+
+\hyperlink{namespaceDigitecoPower}{Digiteco\+Power} namespace.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceDigitecoPower_adb7461d6d597526eace685d0365732b7}{de\+\_\+read} (uint8\+\_\+t address, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em Read value at specified i2c-\/address. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceDigitecoPower_a2a1d64ce6df863e91fef034a496220fd}{de\+\_\+send} (uint8\+\_\+t address, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Send data at specified i2c-\/address. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{namespaceDigitecoPower}{Digiteco\+Power} namespace. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceDigitecoPower_adb7461d6d597526eace685d0365732b7}\label{namespaceDigitecoPower_adb7461d6d597526eace685d0365732b7}} 
+\index{Digiteco\+Power@{Digiteco\+Power}!de\+\_\+read@{de\+\_\+read}}
+\index{de\+\_\+read@{de\+\_\+read}!Digiteco\+Power@{Digiteco\+Power}}
+\subsubsection{\texorpdfstring{de\+\_\+read()}{de\_read()}}
+{\footnotesize\ttfamily bool Digiteco\+Power\+::de\+\_\+read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address,  }\item[{float $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Read value at specified i2c-\/address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & i2c-\/address. \\
+\hline
+{\em float} & $\ast$value pointer to readed value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if success, false if not. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceDigitecoPower_a2a1d64ce6df863e91fef034a496220fd}\label{namespaceDigitecoPower_a2a1d64ce6df863e91fef034a496220fd}} 
+\index{Digiteco\+Power@{Digiteco\+Power}!de\+\_\+send@{de\+\_\+send}}
+\index{de\+\_\+send@{de\+\_\+send}!Digiteco\+Power@{Digiteco\+Power}}
+\subsubsection{\texorpdfstring{de\+\_\+send()}{de\_send()}}
+{\footnotesize\ttfamily bool Digiteco\+Power\+::de\+\_\+send (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Send data at specified i2c-\/address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uint8\+\_\+t} & address i2c-\/address. \\
+\hline
+{\em uint8\+\_\+t} & data value (0-\/5) relative to 6 measurement of voltage and current. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if success, false if not. 
+\end{DoxyReturn}

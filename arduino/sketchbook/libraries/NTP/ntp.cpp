@@ -40,6 +40,11 @@ uint32_t Ntp::extractTime(uint8_t *ntp_packet) {
    seconds_since_1900 |= (uint32_t) ntp_packet[NTP_RECEIVE_TIMESTAMP_OFFSET+2] << 8;
    seconds_since_1900 |= (uint32_t) ntp_packet[NTP_RECEIVE_TIMESTAMP_OFFSET+3];
    seconds_since_1900 = seconds_since_1900 - NTP_70_YEARS_SECONDS + NTP_TIMEZONE * NTP_1_HOUR_SECONDS;
+
+   if (seconds_since_1900 < NTP_VALID_START_TIME_S) {
+      seconds_since_1900 = 0;
+   }
+
    return seconds_since_1900;
 }
 

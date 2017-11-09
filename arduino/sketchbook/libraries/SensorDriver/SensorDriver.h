@@ -29,9 +29,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 #include <Wire.h>
 
+/*!
+\def SENSOR_DRIVER_ERROR
+\brief Interval in seconds for resync time.
+*/
 #define SENSOR_DRIVER_ERROR       (1)
+
+/*!
+\def SENSOR_DRIVER_SUCCESS
+\brief Interval in seconds for resync time.
+*/
 #define SENSOR_DRIVER_SUCCESS     (0)
 
+/*!
+\def SENSOR_DRIVER_C_TO_K
+\brief Interval in seconds for resync time.
+*/
 #define SENSOR_DRIVER_C_TO_K      (27315l)
 
 #if (USE_JSON)
