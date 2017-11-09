@@ -1,10 +1,11 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
 menu.cpu=Processor
+menu.usb=UploadType
 
 ##Microduino Core (328p)
 ##############################################################
-328p.name= Microduino Core (328p)
+328p.name= Microduino/mCookie-Core (328p)
 
 328p.upload.tool=avrdude
 328p.upload.protocol=arduino
@@ -51,7 +52,7 @@ menu.cpu=Processor
 
 ##Microduino Core (168pa)
 ##############################################################
-168p.name= Microduino Core (168pa)
+168p.name= Microduino/mCookie-Core (168pa)
 
 168p.upload.tool=avrdude
 168p.upload.protocol=arduino
@@ -98,7 +99,7 @@ menu.cpu=Processor
 
 ##Microduino Core+ (644pa)
 ##############################################################
-644p.name= Microduino Core+ (644pa)
+644p.name= Microduino/mCookie-Core+ (644pa)
 
 644p.upload.tool=avrdude
 644p.upload.protocol=arduino
@@ -123,6 +124,7 @@ menu.cpu=Processor
 644p.menu.cpu.16MHzatmega644.bootloader.high_fuses=0xDE
 644p.menu.cpu.16MHzatmega644.bootloader.extended_fuses=0xFD
 644p.menu.cpu.16MHzatmega644.bootloader.file=optiboot/optiboot_micro_644pa_16m.hex
+#644p.menu.cpu.16MHzatmega644.bootloader.file=avr_boot/avr_boot.hex
 
 644p.menu.cpu.16MHzatmega644.build.mcu=atmega644p
 644p.menu.cpu.16MHzatmega644.build.f_cpu=16000000L
@@ -145,7 +147,7 @@ menu.cpu=Processor
 
 ##Microduino Core+ (1284pa)
 ##############################################################
-1284p.name= Microduino Core+ (1284pa)
+1284p.name= Microduino/mCookie-Core+ (1284pa)
 
 1284p.upload.tool=avrdude
 1284p.upload.protocol=arduino
@@ -158,9 +160,9 @@ menu.cpu=Processor
 1284p.build.core=arduino
 1284p.build.variant=plus
 
-## ATmega1284 16M
+## ATmega1284 16MHz
 ## -------------------------------------------------
-1284p.menu.cpu.16MHzatmega1284=Atmega1284pa@16M,5V
+1284p.menu.cpu.16MHzatmega1284=1284p@16MHz,5V
 
 1284p.menu.cpu.16MHzatmega1284.upload.maximum_size=130048
 1284p.menu.cpu.16MHzatmega1284.upload.maximum_data_size=16384
@@ -174,9 +176,25 @@ menu.cpu=Processor
 1284p.menu.cpu.16MHzatmega1284.build.mcu=atmega1284p
 1284p.menu.cpu.16MHzatmega1284.build.f_cpu=16000000L
 
-## ATmega1284 8M
+## ATmega1284 16MHz with SD Bootloader
+## -------------------------------------------------
+1284p.menu.cpu.16MHzatmega1284SD=1284p@16MHz,5V with SD Bootloader
+
+1284p.menu.cpu.16MHzatmega1284SD.upload.maximum_size=130048
+1284p.menu.cpu.16MHzatmega1284SD.upload.maximum_data_size=16384
+1284p.menu.cpu.16MHzatmega1284SD.upload.speed=115200
+
+1284p.menu.cpu.16MHzatmega1284SD.bootloader.low_fuses=0xFF
+1284p.menu.cpu.16MHzatmega1284SD.bootloader.high_fuses=0xDE
+1284p.menu.cpu.16MHzatmega1284SD.bootloader.extended_fuses=0xFD
+1284p.menu.cpu.16MHzatmega1284SD.bootloader.file=avr_boot/builds/1284p_16.hex
+
+1284p.menu.cpu.16MHzatmega1284SD.build.mcu=atmega1284p
+1284p.menu.cpu.16MHzatmega1284SD.build.f_cpu=16000000L
+
+## ATmega1284 8MHz
 ## --------------------------------------------------
-1284p.menu.cpu.8MHzatmega1284=Atmega1284pa@8M,3.3V
+1284p.menu.cpu.8MHzatmega1284=1284p@8MHz,3.3V
 
 1284p.menu.cpu.8MHzatmega1284.upload.maximum_size=130048
 1284p.menu.cpu.8MHzatmega1284.upload.maximum_data_size=16384
@@ -193,8 +211,7 @@ menu.cpu=Processor
 
 ##Microduino Core USB
 ##############################################################
-
-32u416m.name=Microduino-Core USB
+32u416m.name=Microduino/mCookie-Core USB (32u4)
 32u416m.vid.0=0x2341
 32u416m.pid.0=0x0036
 32u416m.vid.1=0x2341
@@ -204,22 +221,31 @@ menu.cpu=Processor
 32u416m.vid.3=0x2A03
 32u416m.pid.3=0x8036
              
-32u416m.vid.0x2A03.warning=Uncertified
+32u416m.menu.cpu.usb32u416m=USB
+32u416m.menu.cpu.usb32u416m.upload.tool=avrdude
+32u416m.menu.cpu.usb32u416m.upload.protocol=avr109
+32u416m.menu.cpu.usb32u416m.upload.disable_flushing=true
+32u416m.menu.cpu.usb32u416m.upload.use_1200bps_touch=true
+32u416m.menu.cpu.usb32u416m.upload.wait_for_upload_port=true
 
-32u416m.upload.tool=avrdude
-32u416m.upload.protocol=avr109
-32u416m.upload.maximum_size=28860
+32u416m.menu.cpu.ttl32u416m=TTL
+32u416m.menu.cpu.ttl32u416m.upload.tool=avrdude
+32u416m.menu.cpu.ttl32u416m.upload.protocol=arduino
+32u416m.menu.cpu.ttl32u416m.upload.disable_flushing=true
+32u416m.menu.cpu.ttl32u416m.upload.use_1200bps_touch=true
+32u416m.menu.cpu.ttl32u416m.upload.wait_for_upload_port=false
+
+
+32u416m.upload.maximum_size=28672
 32u416m.upload.maximum_data_size=2560
 32u416m.upload.speed=57600
-32u416m.upload.disable_flushing=true
-32u416m.upload.use_1200bps_touch=true
-32u416m.upload.wait_for_upload_port=true
 
 32u416m.bootloader.tool=avrdude
 32u416m.bootloader.low_fuses=0xff
 32u416m.bootloader.high_fuses=0xd8
 32u416m.bootloader.extended_fuses=0xcb
-32u416m.bootloader.file=caterina/Caterina.hex
+32u416m.menu.cpu.usb32u416m.bootloader.file=caterina/Caterina.hex
+32u416m.menu.cpu.ttl32u416m.bootloader.file=caterina/Caterina_TTL.hex
 32u416m.bootloader.unlock_bits=0x3F
 32u416m.bootloader.lock_bits=0x2F
 
@@ -235,24 +261,24 @@ menu.cpu=Processor
 
 ##Microduino Core RF
 ##############################################################
-zigduino_r2.name=Microduino-Core RF
+128rfa116m.name=Microduino/mCookie-Core RF (128rfa1)
 
-zigduino_r2.upload.tool=avrdude
-zigduino_r2.upload.protocol=arduino
-zigduino_r2.upload.maximum_size=126976
-zigduino_r2.upload.maximum_data_size=16384
-zigduino_r2.upload.speed=57600
+128rfa116m.upload.tool=avrdude
+128rfa116m.upload.protocol=arduino
+128rfa116m.upload.maximum_size=126976
+128rfa116m.upload.maximum_data_size=16384
+128rfa116m.upload.speed=57600
 
-zigduino_r2.bootloader.tool=avrdude
-zigduino_r2.bootloader.low_fuses=0xff
-zigduino_r2.bootloader.high_fuses=0xda
-zigduino_r2.bootloader.extended_fuses=0xf5
-zigduino_r2.bootloader.unlock_bits=0x3F
-zigduino_r2.bootloader.lock_bits=0x0F
-zigduino_r2.bootloader.file=atmega/ATmegaBOOT_atmega128rfa1.hex
+128rfa116m.bootloader.tool=avrdude
+128rfa116m.bootloader.low_fuses=0xff
+128rfa116m.bootloader.high_fuses=0xda
+128rfa116m.bootloader.extended_fuses=0xf5
+128rfa116m.bootloader.unlock_bits=0x3F
+128rfa116m.bootloader.lock_bits=0x0F
+128rfa116m.bootloader.file=atmega/ATmegaBOOT_atmega128rfa1.hex
 
-zigduino_r2.build.mcu=atmega128rfa1
-zigduino_r2.build.f_cpu=16000000L
-zigduino_r2.build.board=AVR_RF
-zigduino_r2.build.core=RF
-zigduino_r2.build.variant=RF
+128rfa116m.build.mcu=atmega128rfa1
+128rfa116m.build.f_cpu=16000000L
+128rfa116m.build.board=AVR_RF
+128rfa116m.build.core=arduino
+128rfa116m.build.variant=RF
