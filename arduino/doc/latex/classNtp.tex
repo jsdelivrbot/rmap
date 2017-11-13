@@ -1,0 +1,108 @@
+\hypertarget{classNtp}{}\section{Ntp Class Reference}
+\label{classNtp}\index{Ntp@{Ntp}}
+
+
+\hyperlink{classNtp}{Ntp} class.  
+
+
+
+
+{\ttfamily \#include $<$ntp.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{classNtp_a439e0498ea9209f74d91d7cf4d8805b0}{send\+Request} (Ethernet\+U\+DP $\ast$client, const char $\ast$server)
+\begin{DoxyCompactList}\small\item\em Send ntp request over ethernet client. \end{DoxyCompactList}\item 
+static uint32\+\_\+t \hyperlink{classNtp_a6df9e799d7fb829ff163ea14a70f6999}{get\+Response} (Ethernet\+U\+DP $\ast$client)
+\begin{DoxyCompactList}\small\item\em Get ntp response. \end{DoxyCompactList}\item 
+static bool \hyperlink{classNtp_a98c5dfc44e09069f5ec607adba8177b2}{send\+Request} (\hyperlink{classsim800Client}{sim800\+Client} $\ast$client)
+\begin{DoxyCompactList}\small\item\em Send ntp request over sim800 client. \end{DoxyCompactList}\item 
+static uint32\+\_\+t \hyperlink{classNtp_a6456f082f6b3012f72c5064e45791ddd}{get\+Response} (\hyperlink{classsim800Client}{sim800\+Client} $\ast$client)
+\begin{DoxyCompactList}\small\item\em Get ntp response. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classNtp}{Ntp} class. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNtp_a6df9e799d7fb829ff163ea14a70f6999}\label{classNtp_a6df9e799d7fb829ff163ea14a70f6999}} 
+\index{Ntp@{Ntp}!get\+Response@{get\+Response}}
+\index{get\+Response@{get\+Response}!Ntp@{Ntp}}
+\subsubsection{\texorpdfstring{get\+Response()}{getResponse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint32\+\_\+t Ntp\+::get\+Response (\begin{DoxyParamCaption}\item[{Ethernet\+U\+DP $\ast$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get ntp response. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$client} & ethernet client pointer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ntp time in seconds since 01/01/1970 00\+:0\+:00. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNtp_a6456f082f6b3012f72c5064e45791ddd}\label{classNtp_a6456f082f6b3012f72c5064e45791ddd}} 
+\index{Ntp@{Ntp}!get\+Response@{get\+Response}}
+\index{get\+Response@{get\+Response}!Ntp@{Ntp}}
+\subsubsection{\texorpdfstring{get\+Response()}{getResponse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint32\+\_\+t Ntp\+::get\+Response (\begin{DoxyParamCaption}\item[{\hyperlink{classsim800Client}{sim800\+Client} $\ast$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get ntp response. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$client} & sim800 client pointer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ntp time in seconds since 01/01/1970 00\+:0\+:00. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNtp_a439e0498ea9209f74d91d7cf4d8805b0}\label{classNtp_a439e0498ea9209f74d91d7cf4d8805b0}} 
+\index{Ntp@{Ntp}!send\+Request@{send\+Request}}
+\index{send\+Request@{send\+Request}!Ntp@{Ntp}}
+\subsubsection{\texorpdfstring{send\+Request()}{sendRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Ntp\+::send\+Request (\begin{DoxyParamCaption}\item[{Ethernet\+U\+DP $\ast$}]{client,  }\item[{const char $\ast$}]{server }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Send ntp request over ethernet client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$client} & ethernet client pointer. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$server} & ntp server. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if request was sent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNtp_a98c5dfc44e09069f5ec607adba8177b2}\label{classNtp_a98c5dfc44e09069f5ec607adba8177b2}} 
+\index{Ntp@{Ntp}!send\+Request@{send\+Request}}
+\index{send\+Request@{send\+Request}!Ntp@{Ntp}}
+\subsubsection{\texorpdfstring{send\+Request()}{sendRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Ntp\+::send\+Request (\begin{DoxyParamCaption}\item[{\hyperlink{classsim800Client}{sim800\+Client} $\ast$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Send ntp request over sim800 client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$client} & sim800 client pointer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if request was sent. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+sketchbook/libraries/\+N\+T\+P/\hyperlink{ntp_8h}{ntp.\+h}\item 
+sketchbook/libraries/\+N\+T\+P/\hyperlink{ntp_8cpp}{ntp.\+cpp}\end{DoxyCompactItemize}

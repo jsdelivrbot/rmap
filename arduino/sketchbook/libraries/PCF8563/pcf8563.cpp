@@ -27,7 +27,6 @@ namespace Pcf8563 {
   }
 
   uint8_t decToBcd(uint8_t val) {
-    // return ((val / 10 * 16) + (val % 10));
     return (((val / 10) << 4) + (val % 10));
   }
 

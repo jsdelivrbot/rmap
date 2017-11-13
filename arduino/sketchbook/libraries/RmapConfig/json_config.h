@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _JSON_CONFIG_H
 #define _JSON_CONFIG_H
 
+/*!
+\def JSON_BUFFER_LENGTH
+\brief Length in bytes for JSON data buffer.
+*/
 #define JSON_BUFFER_LENGTH        (70)
 
 #endif

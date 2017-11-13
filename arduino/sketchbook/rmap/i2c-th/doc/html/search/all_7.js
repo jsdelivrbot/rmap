@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['make_5fobservation_5ffrom_5fsamples',['make_observation_from_samples',['../i2c-th_8h.html#a1c5769e114267b210fb3812064d01dd0',1,'make_observation_from_samples(bool is_force_processing, sample_t *sample, observation_t *observation):&#160;i2c-th.ino'],['../i2c-th_8ino.html#a1c5769e114267b210fb3812064d01dd0',1,'make_observation_from_samples(bool is_force_processing, sample_t *sample, observation_t *observation):&#160;i2c-th.ino']]],
-  ['make_5fvalue_5ffrom_5fsamples_5fand_5fobservations',['make_value_from_samples_and_observations',['../i2c-th_8h.html#ab301e4d552826ef91458f52963949a1d',1,'make_value_from_samples_and_observations(sample_t *sample, observation_t *observation, volatile value_t *value):&#160;i2c-th.ino'],['../i2c-th_8ino.html#ab301e4d552826ef91458f52963949a1d',1,'make_value_from_samples_and_observations(sample_t *sample, observation_t *observation, volatile value_t *value):&#160;i2c-th.ino']]],
-  ['med',['med',['../structobservation__t.html#aad8e1d07411a80498c8752203698d051',1,'observation_t']]],
-  ['module_5ftype',['module_type',['../structconfiguration__t.html#a7dab895a0a9aa44bb65d90ef8016127d',1,'configuration_t::module_type()'],['../structreadable__data__t.html#a650c71ad521e965abe34eafda7cf872d',1,'readable_data_t::module_type()'],['../i2c-th-config_8h.html#a8c815d03b3fd3e18ca06f920a1eb4e8e',1,'MODULE_TYPE():&#160;i2c-th-config.h']]],
-  ['module_5fversion',['module_version',['../structconfiguration__t.html#a32d4c4bb78b5b231704c8a9f8d1b9e87',1,'configuration_t::module_version()'],['../structreadable__data__t.html#a0b5fa5d2d89bef1b53036512525127f0',1,'readable_data_t::module_version()'],['../i2c-th-config_8h.html#aa8639a8d4e83d9cc4187d7a751228464',1,'MODULE_VERSION():&#160;i2c-th-config.h']]]
-];

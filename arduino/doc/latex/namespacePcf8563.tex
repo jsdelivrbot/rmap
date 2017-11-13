@@ -1,0 +1,669 @@
+\hypertarget{namespacePcf8563}{}\section{Pcf8563 Namespace Reference}
+\label{namespacePcf8563}\index{Pcf8563@{Pcf8563}}
+
+
+\hyperlink{namespacePcf8563}{Pcf8563} namespace.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_aae506e83df33a718bdd0dd184d42c19a}{bcd\+To\+Dec} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from B\+CD format into decimal format. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_a3519616ff3c2de84e2ea54442ef0ed0c}{dec\+To\+Bcd} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from decimal format into B\+CD format. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_abe54082b4f23e40ef4f5be845b5cf008}{reset} ()
+\begin{DoxyCompactList}\small\item\em Reset P\+C\+F8563. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a32420d263d406b766b21bc00dccdc333}{enable} ()
+\begin{DoxyCompactList}\small\item\em Enable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a1920171d3aec259327a124b712299a04}{disable} ()
+\begin{DoxyCompactList}\small\item\em Disable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a098f161f3396c8ed0c2f11c7193f5b0d}{get\+Control\+Status1} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Read control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a17680b8e68d064bb39007b4a6afc240e}{set\+Control\+Status1} (uint8\+\_\+t control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Write control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6cf47400c4e974b9d9a1bf1d1a9e463d}{get\+Control\+Status2} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Read control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac23ff9ec298a4ec5a777139d972b5e4b}{set\+Control\+Status2} (uint8\+\_\+t control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Write control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa6afef0bd9005fc8b8332c7cb82ec6ce}{get\+Clockout\+Control} (uint8\+\_\+t $\ast$clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a52b2a6f5b28f961e7e4bece212c7bdd6}{set\+Clockout\+Control} (uint8\+\_\+t clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a0aad62263917a9ceec3c12c88a29b835}{get\+Timer\+Control} (uint8\+\_\+t $\ast$timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a112b6debc61100cd3ab737af9d31e119}{set\+Timer\+Control} (uint8\+\_\+t timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}{get\+Date} (uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$month, uint8\+\_\+t $\ast$year, uint8\+\_\+t $\ast$weekday, uint8\+\_\+t $\ast$century)
+\begin{DoxyCompactList}\small\item\em Read date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}{set\+Date} (uint8\+\_\+t day, uint8\+\_\+t month, uint8\+\_\+t year, uint8\+\_\+t weekday, uint8\+\_\+t century)
+\begin{DoxyCompactList}\small\item\em Write date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}{get\+Time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds)
+\begin{DoxyCompactList}\small\item\em Read time register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a797213f5e675582765df0b42ab921999}{set\+Time} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t seconds)
+\begin{DoxyCompactList}\small\item\em Write time register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a03e4ea0f00fd48664537788ba491fa60}{enable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Enable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a76c81b3e0f59f5e4e80dd8807c199856}{disable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Disable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a4bc96bd7ccbd30db659536befb3da1fe}{set\+Clockout\+Frequency} (uint8\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Set clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ab8ff6484e7a5636187e0212a98f623bf}{is\+Clockout\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if clockout frequency is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6e196fe410c080e4f6e20aadbe279637}{enable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Enable Alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad9dd3fe9bf1ab196090357b717c7207d}{disable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Disable alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ae554435cc17a3e49d9d731b97e3fc0be}{reset\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Reset alarm. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a23086671303b630318e82e9bef662b44}{is\+Alarm\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if alarm interrupt is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a687f6854cf03080456bdd8596c1c60ff}{get\+Alarm} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$weekday)
+\begin{DoxyCompactList}\small\item\em Read alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad82df13e3625c1b975f2cc2e7e356f0e}{set\+Alarm} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t day, uint8\+\_\+t weekday)
+\begin{DoxyCompactList}\small\item\em Write alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_af4cc94d1ea73bbff5d44e1b716111cdb}{enable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Enable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac2c3ca7f3a13516c6549bfc0f6527c6a}{disable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Disable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6fd0509d12fd312b5dbed8506b9315c9}{reset\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Reset timer. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aab079fef811171abcba7e80b8595a8d1}{is\+Timer\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if timer is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a338898a456015e796d48b82738d5a8c4}{set\+Timer} (uint8\+\_\+t frequency, uint8\+\_\+t timer)
+\begin{DoxyCompactList}\small\item\em Write timer register. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{namespacePcf8563_a7ffd9819a4946feda4117a90ef176ab9}{get\+Days\+From\+Two\+Date} (int16\+\_\+t d1, int16\+\_\+t m1, int16\+\_\+t y1, int16\+\_\+t d2, int16\+\_\+t m2, int16\+\_\+t y2)
+\begin{DoxyCompactList}\small\item\em Calculate numbers of days from two date. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{namespacePcf8563_a2824a08aaed53b49a8fc1aa77cab629d}{get\+Time} ()
+\begin{DoxyCompactList}\small\item\em Read date and time and return they as seconds elapsed from 00\+:00\+:00 01/01/1970. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{namespacePcf8563}{Pcf8563} namespace. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacePcf8563_aae506e83df33a718bdd0dd184d42c19a}\label{namespacePcf8563_aae506e83df33a718bdd0dd184d42c19a}} 
+\index{Pcf8563@{Pcf8563}!bcd\+To\+Dec@{bcd\+To\+Dec}}
+\index{bcd\+To\+Dec@{bcd\+To\+Dec}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{bcd\+To\+Dec()}{bcdToDec()}}
+{\footnotesize\ttfamily uint8\+\_\+t Pcf8563\+::bcd\+To\+Dec (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+Convert a value from B\+CD format into decimal format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & B\+CD value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+decimal value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a3519616ff3c2de84e2ea54442ef0ed0c}\label{namespacePcf8563_a3519616ff3c2de84e2ea54442ef0ed0c}} 
+\index{Pcf8563@{Pcf8563}!dec\+To\+Bcd@{dec\+To\+Bcd}}
+\index{dec\+To\+Bcd@{dec\+To\+Bcd}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{dec\+To\+Bcd()}{decToBcd()}}
+{\footnotesize\ttfamily uint8\+\_\+t Pcf8563\+::dec\+To\+Bcd (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+Convert a value from decimal format into B\+CD format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & decimal value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+CD value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a1920171d3aec259327a124b712299a04}\label{namespacePcf8563_a1920171d3aec259327a124b712299a04}} 
+\index{Pcf8563@{Pcf8563}!disable@{disable}}
+\index{disable@{disable}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{disable()}{disable()}}
+{\footnotesize\ttfamily bool Pcf8563\+::disable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable P\+C\+F8563 counter. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ad9dd3fe9bf1ab196090357b717c7207d}\label{namespacePcf8563_ad9dd3fe9bf1ab196090357b717c7207d}} 
+\index{Pcf8563@{Pcf8563}!disable\+Alarm@{disable\+Alarm}}
+\index{disable\+Alarm@{disable\+Alarm}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{disable\+Alarm()}{disableAlarm()}}
+{\footnotesize\ttfamily bool Pcf8563\+::disable\+Alarm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable alarm interrupt. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a76c81b3e0f59f5e4e80dd8807c199856}\label{namespacePcf8563_a76c81b3e0f59f5e4e80dd8807c199856}} 
+\index{Pcf8563@{Pcf8563}!disable\+Clockout@{disable\+Clockout}}
+\index{disable\+Clockout@{disable\+Clockout}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{disable\+Clockout()}{disableClockout()}}
+{\footnotesize\ttfamily bool Pcf8563\+::disable\+Clockout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable clockout frequency. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ac2c3ca7f3a13516c6549bfc0f6527c6a}\label{namespacePcf8563_ac2c3ca7f3a13516c6549bfc0f6527c6a}} 
+\index{Pcf8563@{Pcf8563}!disable\+Timer@{disable\+Timer}}
+\index{disable\+Timer@{disable\+Timer}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{disable\+Timer()}{disableTimer()}}
+{\footnotesize\ttfamily bool Pcf8563\+::disable\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable timer interrupt. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a32420d263d406b766b21bc00dccdc333}\label{namespacePcf8563_a32420d263d406b766b21bc00dccdc333}} 
+\index{Pcf8563@{Pcf8563}!enable@{enable}}
+\index{enable@{enable}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily bool Pcf8563\+::enable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable P\+C\+F8563 counter. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a6e196fe410c080e4f6e20aadbe279637}\label{namespacePcf8563_a6e196fe410c080e4f6e20aadbe279637}} 
+\index{Pcf8563@{Pcf8563}!enable\+Alarm@{enable\+Alarm}}
+\index{enable\+Alarm@{enable\+Alarm}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{enable\+Alarm()}{enableAlarm()}}
+{\footnotesize\ttfamily bool Pcf8563\+::enable\+Alarm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable Alarm interrupt. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a03e4ea0f00fd48664537788ba491fa60}\label{namespacePcf8563_a03e4ea0f00fd48664537788ba491fa60}} 
+\index{Pcf8563@{Pcf8563}!enable\+Clockout@{enable\+Clockout}}
+\index{enable\+Clockout@{enable\+Clockout}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{enable\+Clockout()}{enableClockout()}}
+{\footnotesize\ttfamily bool Pcf8563\+::enable\+Clockout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable clockout frequency. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_af4cc94d1ea73bbff5d44e1b716111cdb}\label{namespacePcf8563_af4cc94d1ea73bbff5d44e1b716111cdb}} 
+\index{Pcf8563@{Pcf8563}!enable\+Timer@{enable\+Timer}}
+\index{enable\+Timer@{enable\+Timer}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{enable\+Timer()}{enableTimer()}}
+{\footnotesize\ttfamily bool Pcf8563\+::enable\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable timer interrupt. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a687f6854cf03080456bdd8596c1c60ff}\label{namespacePcf8563_a687f6854cf03080456bdd8596c1c60ff}} 
+\index{Pcf8563@{Pcf8563}!get\+Alarm@{get\+Alarm}}
+\index{get\+Alarm@{get\+Alarm}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Alarm()}{getAlarm()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Alarm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{hours,  }\item[{uint8\+\_\+t $\ast$}]{minutes,  }\item[{uint8\+\_\+t $\ast$}]{day,  }\item[{uint8\+\_\+t $\ast$}]{weekday }\end{DoxyParamCaption})}
+
+
+
+Read alarm register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$hours} & hours alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$minutes} & minutes alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$day} & day alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$weekday} & weekday alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aa6afef0bd9005fc8b8332c7cb82ec6ce}\label{namespacePcf8563_aa6afef0bd9005fc8b8332c7cb82ec6ce}} 
+\index{Pcf8563@{Pcf8563}!get\+Clockout\+Control@{get\+Clockout\+Control}}
+\index{get\+Clockout\+Control@{get\+Clockout\+Control}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Clockout\+Control()}{getClockoutControl()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Clockout\+Control (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{clockout\+\_\+control }\end{DoxyParamCaption})}
+
+
+
+Read clockout control register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$clockout\+\_\+control} & readed register value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a098f161f3396c8ed0c2f11c7193f5b0d}\label{namespacePcf8563_a098f161f3396c8ed0c2f11c7193f5b0d}} 
+\index{Pcf8563@{Pcf8563}!get\+Control\+Status1@{get\+Control\+Status1}}
+\index{get\+Control\+Status1@{get\+Control\+Status1}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Control\+Status1()}{getControlStatus1()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Control\+Status1 (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{control\+\_\+status\+\_\+1 }\end{DoxyParamCaption})}
+
+
+
+Read control status 1 register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$control\+\_\+status\+\_\+1} & readed register value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a6cf47400c4e974b9d9a1bf1d1a9e463d}\label{namespacePcf8563_a6cf47400c4e974b9d9a1bf1d1a9e463d}} 
+\index{Pcf8563@{Pcf8563}!get\+Control\+Status2@{get\+Control\+Status2}}
+\index{get\+Control\+Status2@{get\+Control\+Status2}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Control\+Status2()}{getControlStatus2()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Control\+Status2 (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{control\+\_\+status\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+Read control status 2 register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$control\+\_\+status\+\_\+2} & readed register value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}\label{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}} 
+\index{Pcf8563@{Pcf8563}!get\+Date@{get\+Date}}
+\index{get\+Date@{get\+Date}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Date()}{getDate()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Date (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{day,  }\item[{uint8\+\_\+t $\ast$}]{month,  }\item[{uint8\+\_\+t $\ast$}]{year,  }\item[{uint8\+\_\+t $\ast$}]{weekday,  }\item[{uint8\+\_\+t $\ast$}]{century }\end{DoxyParamCaption})}
+
+
+
+Read date register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$day} & hours alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$month} & minutes alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$year} & day alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$weekday} & weekday alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$century} & weekday alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a7ffd9819a4946feda4117a90ef176ab9}\label{namespacePcf8563_a7ffd9819a4946feda4117a90ef176ab9}} 
+\index{Pcf8563@{Pcf8563}!get\+Days\+From\+Two\+Date@{get\+Days\+From\+Two\+Date}}
+\index{get\+Days\+From\+Two\+Date@{get\+Days\+From\+Two\+Date}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Days\+From\+Two\+Date()}{getDaysFromTwoDate()}}
+{\footnotesize\ttfamily int16\+\_\+t Pcf8563\+::get\+Days\+From\+Two\+Date (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{d1,  }\item[{int16\+\_\+t}]{m1,  }\item[{int16\+\_\+t}]{y1,  }\item[{int16\+\_\+t}]{d2,  }\item[{int16\+\_\+t}]{m2,  }\item[{int16\+\_\+t}]{y2 }\end{DoxyParamCaption})}
+
+
+
+Calculate numbers of days from two date. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em d1} & day for first date. \\
+\hline
+\mbox{\tt in}  & {\em m1} & month for first date. \\
+\hline
+\mbox{\tt in}  & {\em y1} & year for first date. \\
+\hline
+\mbox{\tt in}  & {\em d2} & day for second date. \\
+\hline
+\mbox{\tt in}  & {\em m2} & month for second date. \\
+\hline
+\mbox{\tt in}  & {\em y2} & year for second date. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+numbers of days from first and second date. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}\label{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}} 
+\index{Pcf8563@{Pcf8563}!get\+Time@{get\+Time}}
+\index{get\+Time@{get\+Time}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Time()}{getTime()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Time (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{hours,  }\item[{uint8\+\_\+t $\ast$}]{minutes,  }\item[{uint8\+\_\+t $\ast$}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Read time register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$hours} & hours alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$minutes} & minutes alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$seconds} & day alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a2824a08aaed53b49a8fc1aa77cab629d}\label{namespacePcf8563_a2824a08aaed53b49a8fc1aa77cab629d}} 
+\index{Pcf8563@{Pcf8563}!get\+Time@{get\+Time}}
+\index{get\+Time@{get\+Time}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Time()}{getTime()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint32\+\_\+t Pcf8563\+::get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read date and time and return they as seconds elapsed from 00\+:00\+:00 01/01/1970. 
+
+\begin{DoxyReturn}{Returns}
+seconds elapsed from 00\+:00\+:00 01/01/1970. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a0aad62263917a9ceec3c12c88a29b835}\label{namespacePcf8563_a0aad62263917a9ceec3c12c88a29b835}} 
+\index{Pcf8563@{Pcf8563}!get\+Timer\+Control@{get\+Timer\+Control}}
+\index{get\+Timer\+Control@{get\+Timer\+Control}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Timer\+Control()}{getTimerControl()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Timer\+Control (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{timer\+\_\+control }\end{DoxyParamCaption})}
+
+
+
+Read timer control register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$timer\+\_\+control} & readed register value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a23086671303b630318e82e9bef662b44}\label{namespacePcf8563_a23086671303b630318e82e9bef662b44}} 
+\index{Pcf8563@{Pcf8563}!is\+Alarm\+Active@{is\+Alarm\+Active}}
+\index{is\+Alarm\+Active@{is\+Alarm\+Active}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{is\+Alarm\+Active()}{isAlarmActive()}}
+{\footnotesize\ttfamily bool Pcf8563\+::is\+Alarm\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if alarm interrupt is enabled. 
+
+\begin{DoxyReturn}{Returns}
+true if enabled, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ab8ff6484e7a5636187e0212a98f623bf}\label{namespacePcf8563_ab8ff6484e7a5636187e0212a98f623bf}} 
+\index{Pcf8563@{Pcf8563}!is\+Clockout\+Active@{is\+Clockout\+Active}}
+\index{is\+Clockout\+Active@{is\+Clockout\+Active}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{is\+Clockout\+Active()}{isClockoutActive()}}
+{\footnotesize\ttfamily bool Pcf8563\+::is\+Clockout\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if clockout frequency is enabled. 
+
+\begin{DoxyReturn}{Returns}
+true if enabled, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aab079fef811171abcba7e80b8595a8d1}\label{namespacePcf8563_aab079fef811171abcba7e80b8595a8d1}} 
+\index{Pcf8563@{Pcf8563}!is\+Timer\+Active@{is\+Timer\+Active}}
+\index{is\+Timer\+Active@{is\+Timer\+Active}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{is\+Timer\+Active()}{isTimerActive()}}
+{\footnotesize\ttfamily bool Pcf8563\+::is\+Timer\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if timer is enabled. 
+
+\begin{DoxyReturn}{Returns}
+true if enabled, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_abe54082b4f23e40ef4f5be845b5cf008}\label{namespacePcf8563_abe54082b4f23e40ef4f5be845b5cf008}} 
+\index{Pcf8563@{Pcf8563}!reset@{reset}}
+\index{reset@{reset}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily bool Pcf8563\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset P\+C\+F8563. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ae554435cc17a3e49d9d731b97e3fc0be}\label{namespacePcf8563_ae554435cc17a3e49d9d731b97e3fc0be}} 
+\index{Pcf8563@{Pcf8563}!reset\+Alarm@{reset\+Alarm}}
+\index{reset\+Alarm@{reset\+Alarm}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{reset\+Alarm()}{resetAlarm()}}
+{\footnotesize\ttfamily bool Pcf8563\+::reset\+Alarm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset alarm. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a6fd0509d12fd312b5dbed8506b9315c9}\label{namespacePcf8563_a6fd0509d12fd312b5dbed8506b9315c9}} 
+\index{Pcf8563@{Pcf8563}!reset\+Timer@{reset\+Timer}}
+\index{reset\+Timer@{reset\+Timer}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{reset\+Timer()}{resetTimer()}}
+{\footnotesize\ttfamily bool Pcf8563\+::reset\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset timer. 
+
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ad82df13e3625c1b975f2cc2e7e356f0e}\label{namespacePcf8563_ad82df13e3625c1b975f2cc2e7e356f0e}} 
+\index{Pcf8563@{Pcf8563}!set\+Alarm@{set\+Alarm}}
+\index{set\+Alarm@{set\+Alarm}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Alarm()}{setAlarm()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Alarm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{hours,  }\item[{uint8\+\_\+t}]{minutes,  }\item[{uint8\+\_\+t}]{day,  }\item[{uint8\+\_\+t}]{weekday }\end{DoxyParamCaption})}
+
+
+
+Write alarm register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hours} & hours alarm. \\
+\hline
+\mbox{\tt in}  & {\em minutes} & minutes alarm. \\
+\hline
+\mbox{\tt in}  & {\em day} & day alarm. \\
+\hline
+\mbox{\tt in}  & {\em weekday} & weekday alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a52b2a6f5b28f961e7e4bece212c7bdd6}\label{namespacePcf8563_a52b2a6f5b28f961e7e4bece212c7bdd6}} 
+\index{Pcf8563@{Pcf8563}!set\+Clockout\+Control@{set\+Clockout\+Control}}
+\index{set\+Clockout\+Control@{set\+Clockout\+Control}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Clockout\+Control()}{setClockoutControl()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Clockout\+Control (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{clockout\+\_\+control }\end{DoxyParamCaption})}
+
+
+
+Write clockout control register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em clockout\+\_\+control} & value to write on register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a4bc96bd7ccbd30db659536befb3da1fe}\label{namespacePcf8563_a4bc96bd7ccbd30db659536befb3da1fe}} 
+\index{Pcf8563@{Pcf8563}!set\+Clockout\+Frequency@{set\+Clockout\+Frequency}}
+\index{set\+Clockout\+Frequency@{set\+Clockout\+Frequency}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Clockout\+Frequency()}{setClockoutFrequency()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Clockout\+Frequency (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Set clockout frequency. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em frequency} & frequency value (see relative define). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a17680b8e68d064bb39007b4a6afc240e}\label{namespacePcf8563_a17680b8e68d064bb39007b4a6afc240e}} 
+\index{Pcf8563@{Pcf8563}!set\+Control\+Status1@{set\+Control\+Status1}}
+\index{set\+Control\+Status1@{set\+Control\+Status1}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Control\+Status1()}{setControlStatus1()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Control\+Status1 (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{control\+\_\+status\+\_\+1 }\end{DoxyParamCaption})}
+
+
+
+Write control status 1 register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$control\+\_\+status\+\_\+1} & value to write on register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_ac23ff9ec298a4ec5a777139d972b5e4b}\label{namespacePcf8563_ac23ff9ec298a4ec5a777139d972b5e4b}} 
+\index{Pcf8563@{Pcf8563}!set\+Control\+Status2@{set\+Control\+Status2}}
+\index{set\+Control\+Status2@{set\+Control\+Status2}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Control\+Status2()}{setControlStatus2()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Control\+Status2 (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{control\+\_\+status\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+Write control status 2 register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$control\+\_\+status\+\_\+2} & value to write on register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}\label{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}} 
+\index{Pcf8563@{Pcf8563}!set\+Date@{set\+Date}}
+\index{set\+Date@{set\+Date}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Date()}{setDate()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Date (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{day,  }\item[{uint8\+\_\+t}]{month,  }\item[{uint8\+\_\+t}]{year,  }\item[{uint8\+\_\+t}]{weekday,  }\item[{uint8\+\_\+t}]{century }\end{DoxyParamCaption})}
+
+
+
+Write date register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em day} & hours alarm. \\
+\hline
+\mbox{\tt in}  & {\em month} & minutes alarm. \\
+\hline
+\mbox{\tt in}  & {\em year} & day alarm. \\
+\hline
+\mbox{\tt in}  & {\em weekday} & weekday alarm. \\
+\hline
+\mbox{\tt in}  & {\em century} & weekday alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a797213f5e675582765df0b42ab921999}\label{namespacePcf8563_a797213f5e675582765df0b42ab921999}} 
+\index{Pcf8563@{Pcf8563}!set\+Time@{set\+Time}}
+\index{set\+Time@{set\+Time}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Time()}{setTime()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Time (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{hours,  }\item[{uint8\+\_\+t}]{minutes,  }\item[{uint8\+\_\+t}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Write time register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hours} & hours alarm. \\
+\hline
+\mbox{\tt in}  & {\em minutes} & minutes alarm. \\
+\hline
+\mbox{\tt in}  & {\em seconds} & day alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a338898a456015e796d48b82738d5a8c4}\label{namespacePcf8563_a338898a456015e796d48b82738d5a8c4}} 
+\index{Pcf8563@{Pcf8563}!set\+Timer@{set\+Timer}}
+\index{set\+Timer@{set\+Timer}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Timer()}{setTimer()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Timer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{frequency,  }\item[{uint8\+\_\+t}]{timer }\end{DoxyParamCaption})}
+
+
+
+Write timer register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em frequency} & frequency for timer. \\
+\hline
+\mbox{\tt in}  & {\em timer} & value for timer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_a112b6debc61100cd3ab737af9d31e119}\label{namespacePcf8563_a112b6debc61100cd3ab737af9d31e119}} 
+\index{Pcf8563@{Pcf8563}!set\+Timer\+Control@{set\+Timer\+Control}}
+\index{set\+Timer\+Control@{set\+Timer\+Control}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{set\+Timer\+Control()}{setTimerControl()}}
+{\footnotesize\ttfamily bool Pcf8563\+::set\+Timer\+Control (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{timer\+\_\+control }\end{DoxyParamCaption})}
+
+
+
+Write timer control register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$timer\+\_\+control} & value to write on register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}

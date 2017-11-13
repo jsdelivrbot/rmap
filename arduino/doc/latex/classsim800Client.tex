@@ -1,0 +1,272 @@
+\hypertarget{classsim800Client}{}\section{sim800\+Client Class Reference}
+\label{classsim800Client}\index{sim800\+Client@{sim800\+Client}}
+
+
+\hyperlink{classsim800Client}{sim800\+Client} class.  
+
+
+
+
+{\ttfamily \#include $<$sim800\+Client.\+h$>$}
+
+
+
+Inheritance diagram for sim800\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classsim800Client__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for sim800\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classsim800Client__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classsim800Client_a2c26282b71132af7f50becb62d9fe0f4}{connect} (I\+P\+Address ip, int port)
+\begin{DoxyCompactList}\small\item\em Connect to server at specified port. \end{DoxyCompactList}\item 
+int \hyperlink{classsim800Client_ae74b00f32682498c63b05dd615705ea7}{connect} (const char $\ast$host, int port)
+\begin{DoxyCompactList}\small\item\em Connect to server at specified port. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classsim800Client_ad3a5903a0f8c264ec445edafe167f4f0}{connected} ()
+\begin{DoxyCompactList}\small\item\em Check if connection was performed. \end{DoxyCompactList}\item 
+int \hyperlink{classsim800Client_ae6648c39586919bddcc5c1d24f395767}{available} ()
+\begin{DoxyCompactList}\small\item\em Return the number of bytes available in the stream. \end{DoxyCompactList}\item 
+int \hyperlink{classsim800Client_adafda98d2cc49e401053b3ba521d49b4}{read} ()
+\begin{DoxyCompactList}\small\item\em Reads one characters from an incoming stream. \end{DoxyCompactList}\item 
+int \hyperlink{classsim800Client_ac200fe43c977c3b6f981b07206ea0e4c}{read\+Bytes} (char $\ast$buffer, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Read characters from a stream into a buffer. Terminates if the determined length has been read, or it times out. \end{DoxyCompactList}\item 
+int \hyperlink{classsim800Client_a961a22382e23d4ce928a60098cc13973}{read\+Bytes} (uint8\+\_\+t $\ast$buffer, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Read bytes from a stream into a buffer. Terminates if the determined length has been read, or it times out. \end{DoxyCompactList}\item 
+void \hyperlink{classsim800Client_a10001f737f1331303472de45a2d8faa1}{set\+Timeout} (uint32\+\_\+t timeout)
+\begin{DoxyCompactList}\small\item\em Sets the maximum milliseconds to wait for stream data. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classsim800Client_ab730edb73267508cbc261b13e643b12d}{write} (uint8\+\_\+t buffer)
+\begin{DoxyCompactList}\small\item\em Write bytes from a buffer into a stream. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classsim800Client_aef786fd9fa179f04b016c7cb916a7f39}{write} (const uint8\+\_\+t $\ast$buffer, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Write bytes from a buffer into a stream. Terminates if the determined length has been written. \end{DoxyCompactList}\item 
+void \hyperlink{classsim800Client_a2d7b70eec8e0ff108b3c3fee4eb9b559}{flush} ()
+\begin{DoxyCompactList}\small\item\em Clears the buffer once all outgoing characters have been sent. \end{DoxyCompactList}\item 
+void \hyperlink{classsim800Client_a26d88d095ba02c26e5d5dd8ba22e01c0}{stop} ()
+\begin{DoxyCompactList}\small\item\em Stop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{classsim800Client}{sim800\+Client} class. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsim800Client_ae6648c39586919bddcc5c1d24f395767}\label{classsim800Client_ae6648c39586919bddcc5c1d24f395767}} 
+\index{sim800\+Client@{sim800\+Client}!available@{available}}
+\index{available@{available}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{available()}{available()}}
+{\footnotesize\ttfamily int sim800\+Client\+::available (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return the number of bytes available in the stream. 
+
+\begin{DoxyReturn}{Returns}
+the number of bytes available. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_a2c26282b71132af7f50becb62d9fe0f4}\label{classsim800Client_a2c26282b71132af7f50becb62d9fe0f4}} 
+\index{sim800\+Client@{sim800\+Client}!connect@{connect}}
+\index{connect@{connect}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{connect()}{connect()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int sim800\+Client\+::connect (\begin{DoxyParamCaption}\item[{I\+P\+Address}]{ip,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Connect to server at specified port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ip} & ip address of server. \\
+\hline
+\mbox{\tt in}  & {\em port} & port to server. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status of connection sequence on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_ae74b00f32682498c63b05dd615705ea7}\label{classsim800Client_ae74b00f32682498c63b05dd615705ea7}} 
+\index{sim800\+Client@{sim800\+Client}!connect@{connect}}
+\index{connect@{connect}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{connect()}{connect()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily int sim800\+Client\+::connect (\begin{DoxyParamCaption}\item[{const char $\ast$}]{host,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Connect to server at specified port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$host} & hostname of server. \\
+\hline
+\mbox{\tt in}  & {\em port} & port to server. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status of connection sequence on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_ad3a5903a0f8c264ec445edafe167f4f0}\label{classsim800Client_ad3a5903a0f8c264ec445edafe167f4f0}} 
+\index{sim800\+Client@{sim800\+Client}!connected@{connected}}
+\index{connected@{connected}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{connected()}{connected()}}
+{\footnotesize\ttfamily uint8\+\_\+t sim800\+Client\+::connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if connection was performed. 
+
+\begin{DoxyReturn}{Returns}
+true if it is connected, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_a2d7b70eec8e0ff108b3c3fee4eb9b559}\label{classsim800Client_a2d7b70eec8e0ff108b3c3fee4eb9b559}} 
+\index{sim800\+Client@{sim800\+Client}!flush@{flush}}
+\index{flush@{flush}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily void sim800\+Client\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears the buffer once all outgoing characters have been sent. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_adafda98d2cc49e401053b3ba521d49b4}\label{classsim800Client_adafda98d2cc49e401053b3ba521d49b4}} 
+\index{sim800\+Client@{sim800\+Client}!read@{read}}
+\index{read@{read}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily int sim800\+Client\+::read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads one characters from an incoming stream. 
+
+\begin{DoxyReturn}{Returns}
+The readed characters or -\/1 if there isn\textquotesingle{}t characters. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_ac200fe43c977c3b6f981b07206ea0e4c}\label{classsim800Client_ac200fe43c977c3b6f981b07206ea0e4c}} 
+\index{sim800\+Client@{sim800\+Client}!read\+Bytes@{read\+Bytes}}
+\index{read\+Bytes@{read\+Bytes}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{read\+Bytes()}{readBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int sim800\+Client\+::read\+Bytes (\begin{DoxyParamCaption}\item[{char $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Read characters from a stream into a buffer. Terminates if the determined length has been read, or it times out. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$buffer} & pointer to readed characters buffer. \\
+\hline
+\mbox{\tt in}  & {\em size} & maximum number of characters to be read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of characters placed in the buffer. A 0 means no valid data was found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_a961a22382e23d4ce928a60098cc13973}\label{classsim800Client_a961a22382e23d4ce928a60098cc13973}} 
+\index{sim800\+Client@{sim800\+Client}!read\+Bytes@{read\+Bytes}}
+\index{read\+Bytes@{read\+Bytes}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{read\+Bytes()}{readBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily int sim800\+Client\+::read\+Bytes (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Read bytes from a stream into a buffer. Terminates if the determined length has been read, or it times out. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$buffer} & pointer to readed bytes buffer. \\
+\hline
+\mbox{\tt in}  & {\em size} & maximum number of bytes to be read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes placed in the buffer. A 0 means no valid data was found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_a10001f737f1331303472de45a2d8faa1}\label{classsim800Client_a10001f737f1331303472de45a2d8faa1}} 
+\index{sim800\+Client@{sim800\+Client}!set\+Timeout@{set\+Timeout}}
+\index{set\+Timeout@{set\+Timeout}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{set\+Timeout()}{setTimeout()}}
+{\footnotesize\ttfamily void sim800\+Client\+::set\+Timeout (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Sets the maximum milliseconds to wait for stream data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em timeout} & milliseconds for timeout. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_a26d88d095ba02c26e5d5dd8ba22e01c0}\label{classsim800Client_a26d88d095ba02c26e5d5dd8ba22e01c0}} 
+\index{sim800\+Client@{sim800\+Client}!stop@{stop}}
+\index{stop@{stop}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily void sim800\+Client\+::stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stop. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_ab730edb73267508cbc261b13e643b12d}\label{classsim800Client_ab730edb73267508cbc261b13e643b12d}} 
+\index{sim800\+Client@{sim800\+Client}!write@{write}}
+\index{write@{write}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily size\+\_\+t sim800\+Client\+::write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Write bytes from a buffer into a stream. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$buffer} & pointer to write bytes buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes written in the buffer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsim800Client_aef786fd9fa179f04b016c7cb916a7f39}\label{classsim800Client_aef786fd9fa179f04b016c7cb916a7f39}} 
+\index{sim800\+Client@{sim800\+Client}!write@{write}}
+\index{write@{write}!sim800\+Client@{sim800\+Client}}
+\subsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily size\+\_\+t sim800\+Client\+::write (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Write bytes from a buffer into a stream. Terminates if the determined length has been written. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$buffer} & pointer to write bytes buffer. \\
+\hline
+\mbox{\tt in}  & {\em size} & maximum number of bytes to write into stream. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes written in the buffer. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+sketchbook/libraries/sim800/\hyperlink{sim800Client_8h}{sim800\+Client.\+h}\item 
+sketchbook/libraries/sim800/\hyperlink{sim800_8cpp}{sim800.\+cpp}\end{DoxyCompactItemize}

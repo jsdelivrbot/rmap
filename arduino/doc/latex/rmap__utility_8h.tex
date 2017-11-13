@@ -1,0 +1,169 @@
+\hypertarget{rmap__utility_8h}{}\section{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.h File Reference}
+\label{rmap__utility_8h}\index{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+h@{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+h}}
+{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}stima\+\_\+module.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$mqtt\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$sensors\+\_\+config.\+h$>$}\newline
+Include dependency graph for rmap\+\_\+utility.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rmap__utility_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rmap__utility_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rmap__utility_8h_ae48529a4bba51677b5565dab04cbe245}\label{rmap__utility_8h_ae48529a4bba51677b5565dab04cbe245}} 
+\#define \hyperlink{rmap__utility_8h_ae48529a4bba51677b5565dab04cbe245}{execute\+Timer\+Task\+Each}(current,  desidered,  offset)~(desidered \% offset == 0 ? (current \% desidered == 0 ? 1 \+: 0) \+: 0)
+\begin{DoxyCompactList}\small\item\em Return true or false if current == desidered calculated in each offset. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap__utility_8h_a877c331bf98c513b27c382e0450426de}\label{rmap__utility_8h_a877c331bf98c513b27c382e0450426de}} 
+\#define \hyperlink{rmap__utility_8h_a877c331bf98c513b27c382e0450426de}{mac\+String\+To\+Array}(mac,  string)~(\hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array}(mac, string, \char`\"{}\+:\char`\"{}, 16))
+\begin{DoxyCompactList}\small\item\em Return an array of value rappresenting a mac address value extracted by its canonical string (xx\+:xx\+:xx\+:xx\+:xx\+:xx). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap__utility_8h_aff7b7a33f98123cc4d49244494cc0fc5}\label{rmap__utility_8h_aff7b7a33f98123cc4d49244494cc0fc5}} 
+\#define \hyperlink{rmap__utility_8h_aff7b7a33f98123cc4d49244494cc0fc5}{ip\+String\+To\+Array}(ip,  string)~(\hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array}(ip, string, \char`\"{}.\char`\"{}, 10))
+\begin{DoxyCompactList}\small\item\em Return an array of value rappresenting a ip address value extracted by its canonical string (xxx.\+xxx.\+xxx.\+xxx). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap__utility_8h_a792afe89c009b24151bfa2905c5bd6e5}\label{rmap__utility_8h_a792afe89c009b24151bfa2905c5bd6e5}} 
+\#define \hyperlink{rmap__utility_8h_a792afe89c009b24151bfa2905c5bd6e5}{date\+String\+To\+Array}(date,  string)~(\hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array}(date, string, \char`\"{}-\/\char`\"{}, 10))
+\begin{DoxyCompactList}\small\item\em Return an array of value rappresenting a date value extracted by its canonical string (xx-\/xx-\/xxxx). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap__utility_8h_a4ae48a415f202fc301926f041d2bb620}\label{rmap__utility_8h_a4ae48a415f202fc301926f041d2bb620}} 
+\#define \hyperlink{rmap__utility_8h_a4ae48a415f202fc301926f041d2bb620}{time\+String\+To\+Array}(time,  string)~(\hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array}(time, string, \char`\"{}\+:\char`\"{}, 10))
+\begin{DoxyCompactList}\small\item\em Return an array of value rappresenting a time value extracted by its canonical string (xx\+:xx\+:xx). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rmap__utility_8h_a73af03c50e1c4ae36757d611e3d474f2}{mqtt\+To\+Sd} (const char $\ast$topic, const char $\ast$message, char $\ast$sd)
+\begin{DoxyCompactList}\small\item\em Return a sdcard string from mqtt sensor\textquotesingle{}s topic and mqtt sensor\textquotesingle{}s value for storing on sdcard file. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8h_ae843b2f4240b888cfa5c747729396a2b}{sd\+To\+Mqtt} (const char $\ast$sd, char $\ast$topic, char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Break sdcard string in mqtt sensor\textquotesingle{}s topic and mqtt sensors\textquotesingle{} value. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8h_a0542c3362eb5021d4441144592783d23}{get\+Full\+Topic} (char $\ast$full\+\_\+topic, const char $\ast$root\+\_\+topic, const char $\ast$sensor\+\_\+topic)
+\begin{DoxyCompactList}\small\item\em Return complete mqtt topic from root topic and sensor topic. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8h_a243e9cf63ae67cde49acbcf4a9951288}{get\+Stima\+Name\+By\+Type} (char $\ast$name, uint8\+\_\+t type)
+\begin{DoxyCompactList}\small\item\em Return a S\+T\+I\+MA\textquotesingle{}s name starting from a module type stored in configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array} (uint8\+\_\+t $\ast$array, char $\ast$string, const char $\ast$delimiter, uint8\+\_\+t base)
+\begin{DoxyCompactList}\small\item\em Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rmap__utility_8h_a0542c3362eb5021d4441144592783d23}\label{rmap__utility_8h_a0542c3362eb5021d4441144592783d23}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!get\+Full\+Topic@{get\+Full\+Topic}}
+\index{get\+Full\+Topic@{get\+Full\+Topic}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{get\+Full\+Topic()}{getFullTopic()}}
+{\footnotesize\ttfamily void get\+Full\+Topic (\begin{DoxyParamCaption}\item[{char $\ast$}]{full\+\_\+topic,  }\item[{const char $\ast$}]{root\+\_\+topic,  }\item[{const char $\ast$}]{sensor\+\_\+topic }\end{DoxyParamCaption})}
+
+
+
+Return complete mqtt topic from root topic and sensor topic. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$full\+\_\+topic} & a complete topic buffer. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$root\+\_\+topic} & mqtt root topic (\{path\}/\{user\}/\{lon\},\{lat\}/\{typo\}/). \\
+\hline
+\mbox{\tt in}  & {\em $\ast$sensor\+\_\+topic} & mqtt sensor\textquotesingle{}s topic (\{aaa\},\{bbb\},\{ccc\}/\{ddd\},\{eee\},\{fff\},\{ggg\}/\+B\+X\+X\+X\+XX). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8h_a243e9cf63ae67cde49acbcf4a9951288}\label{rmap__utility_8h_a243e9cf63ae67cde49acbcf4a9951288}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}}
+\index{get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{get\+Stima\+Name\+By\+Type()}{getStimaNameByType()}}
+{\footnotesize\ttfamily void get\+Stima\+Name\+By\+Type (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{uint8\+\_\+t}]{type }\end{DoxyParamCaption})}
+
+
+
+Return a S\+T\+I\+MA\textquotesingle{}s name starting from a module type stored in configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$name} & S\+T\+I\+MA\textquotesingle{}s name. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & module type stored in configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8h_a73af03c50e1c4ae36757d611e3d474f2}\label{rmap__utility_8h_a73af03c50e1c4ae36757d611e3d474f2}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!mqtt\+To\+Sd@{mqtt\+To\+Sd}}
+\index{mqtt\+To\+Sd@{mqtt\+To\+Sd}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+To\+Sd()}{mqttToSd()}}
+{\footnotesize\ttfamily void mqtt\+To\+Sd (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message,  }\item[{char $\ast$}]{sd }\end{DoxyParamCaption})}
+
+
+
+Return a sdcard string from mqtt sensor\textquotesingle{}s topic and mqtt sensor\textquotesingle{}s value for storing on sdcard file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$topic} & full mqtt sensor\textquotesingle{}s topic (\{path\}/\{user\}/\{lon\},\{lat\}/\{typo\}/\{aaa\},\{bbb\},\{ccc\}/\{ddd\},\{eee\},\{fff\},\{ggg\}/\+B\+X\+X\+X\+XX) \\
+\hline
+\mbox{\tt in}  & {\em $\ast$message} & mqtt sensor\textquotesingle{}s value. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$sd} & sdcard string (\{aaa\},\{bbb\},\{ccc\}/\{ddd\},\{eee\},\{fff\},\{ggg\}/\+B\+X\+X\+X\+XX \{\char`\"{}v\char`\"{}\+:xxx,\char`\"{}t\char`\"{}\+:\char`\"{}yyyy-\/mm-\/dd\+T\+H\+H\+:\+M\+M\+:\+S\+S\char`\"{}\}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8h_ae843b2f4240b888cfa5c747729396a2b}\label{rmap__utility_8h_ae843b2f4240b888cfa5c747729396a2b}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!sd\+To\+Mqtt@{sd\+To\+Mqtt}}
+\index{sd\+To\+Mqtt@{sd\+To\+Mqtt}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{sd\+To\+Mqtt()}{sdToMqtt()}}
+{\footnotesize\ttfamily void sd\+To\+Mqtt (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sd,  }\item[{char $\ast$}]{topic,  }\item[{char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Break sdcard string in mqtt sensor\textquotesingle{}s topic and mqtt sensors\textquotesingle{} value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$sd} & sdcard string (\{aaa\},\{bbb\},\{ccc\}/\{ddd\},\{eee\},\{fff\},\{ggg\}/\+B\+X\+X\+X\+XX \{\char`\"{}v\char`\"{}\+:xxx,\char`\"{}t\char`\"{}\+:\char`\"{}yyyy-\/mm-\/dd\+T\+H\+H\+:\+M\+M\+:\+S\+S\char`\"{}\}). \\
+\hline
+\mbox{\tt out}  & {\em $\ast$topic} & mqtt sensor\textquotesingle{}s topic (\{aaa\},\{bbb\},\{ccc\}/\{ddd\},\{eee\},\{fff\},\{ggg\}/\+B\+X\+X\+X\+XX). \\
+\hline
+\mbox{\tt out}  & {\em $\ast$message} & mqtt sensor\textquotesingle{}s topic (\{\char`\"{}v\char`\"{}\+:xxx,\char`\"{}t\char`\"{}\+:\char`\"{}yyyy-\/mm-\/dd\+T\+H\+H\+:\+M\+M\+:\+S\+S\char`\"{}\}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}\label{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!string\+To\+Array@{string\+To\+Array}}
+\index{string\+To\+Array@{string\+To\+Array}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{string\+To\+Array()}{stringToArray()}}
+{\footnotesize\ttfamily void string\+To\+Array (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{array,  }\item[{char $\ast$}]{string,  }\item[{const char $\ast$}]{delimiter,  }\item[{uint8\+\_\+t}]{base }\end{DoxyParamCaption})}
+
+
+
+Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$array} & pointer to array obtained from string. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$string} & source string to divide searching by delimiter. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$delimiter} & a delimiter for divide string in multiple values. \\
+\hline
+\mbox{\tt in}  & {\em base} & it is a base for strtol function\+: numerical base (radix) that determines the valid characters and their interpretation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}

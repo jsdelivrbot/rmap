@@ -78,8 +78,8 @@ public:
    /*!
    \fn bool sendRequest(EthernetUDP *client, const char *server)
    \brief Send ntp request over ethernet client.
-   \param *client ethernet client pointer.
-   \param *server ntp server.
+   \param[in] *client ethernet client pointer.
+   \param[in] *server ntp server.
    \return true if request was sent.
    */
    static bool sendRequest(EthernetUDP *client, const char *server);
@@ -87,7 +87,7 @@ public:
    /*!
    \fn uint32_t getResponse(EthernetUDP *client)
    \brief Get ntp response.
-   \param *client ethernet client pointer.
+   \param[in] *client ethernet client pointer.
    \return ntp time in seconds since 01/01/1970 00:0:00.
    */
    static uint32_t getResponse(EthernetUDP *client);
@@ -95,7 +95,7 @@ public:
    /*!
    \fn bool sendRequest(sim800Client *client)
    \brief Send ntp request over sim800 client.
-   \param *client sim800 client pointer.
+   \param[in] *client sim800 client pointer.
    \return true if request was sent.
    */
    static bool sendRequest(sim800Client *client);
@@ -103,7 +103,7 @@ public:
    /*!
    \fn uint32_t getResponse(sim800Client *client)
    \brief Get ntp response.
-   \param *client sim800 client pointer.
+   \param[in] *client sim800 client pointer.
    \return ntp time in seconds since 01/01/1970 00:0:00.
    */
    static uint32_t getResponse(sim800Client *client);
@@ -112,15 +112,15 @@ private:
    /*!
    \fn void makePacket(uint8_t *ntp_packet)
    \brief Make ntp packet.
-   \param *ntp_packet buffer.
-   \return buffer filled.
+   \param[out] *ntp_packet buffer filled with ntp packet.
+   \return void.
    */
    static void makePacket(uint8_t *ntp_packet);
 
    /*!
    \fn uint32_t extractTime(uint8_t *ntp_packet)
    \brief Extract time from ntp packet response.
-   \param *ntp_packet ntp packet response.
+   \param[in] *ntp_packet ntp packet response.
    \return ntp time in seconds since 01/01/1970 00:0:00.
    */
    static uint32_t extractTime(uint8_t *ntp_packet);

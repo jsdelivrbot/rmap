@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,8 +23,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _LCD_CONFIG_H
 #define _LCD_CONFIG_H
 
+/*!
+\def LCD_I2C_ADDRESS
+\brief Default LCD i2c address.
+*/
 #define LCD_I2C_ADDRESS          (0x3F)
+
+/*!
+\def LCD_COLUMNS
+\brief Default LCD columns number.
+*/
 #define LCD_COLUMNS              (20)
+
+/*!
+\def LCD_ROWS
+\brief Default LCD rows number.
+*/
 #define LCD_ROWS                 (4)
 
 #endif

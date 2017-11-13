@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -22,7 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "debug.h"
 
+/*!
+\var serial_buffer_print[SERIAL_PRINTF_BUFFER_LENGTH]
+\brief Serial data buffer for storing message before print.
+*/
 char serial_buffer_print[SERIAL_PRINTF_BUFFER_LENGTH];
+
+/*!
+\var serial_buffer_print_written_char
+\brief Length in bytes of serial data buffer.
+*/
 int16_t serial_buffer_print_written_char;
 
 char *serial_printf(char *ptr, const char *fmt, ...) {
@@ -76,9 +85,28 @@ char *serial_printf_array(void *data, int16_t length, uint8_t type, const char *
    return serial_buffer_print;
 }
 
+/*!
+\var lcd_buffer_print[LCD_PRINTF_BUFFER_LENGTH]
+\brief Lcd data buffer for storing message before print.
+*/
 char lcd_buffer_print[LCD_PRINTF_BUFFER_LENGTH];
+
+/*!
+\var lcd_current_row
+\brief Indicate the "free to print" lcd row.
+*/
 uint8_t lcd_current_row;
+
+/*!
+\var lcd_max_cols
+\brief Number of lcd columns.
+*/
 uint8_t lcd_max_cols;
+
+/*!
+\var lcd_max_rows
+\brief Number of lcd rows.
+*/
 uint8_t lcd_max_rows;
 
 void lcd_begin (LiquidCrystal_I2C *lcd, uint8_t max_cols, uint8_t max_rows) {

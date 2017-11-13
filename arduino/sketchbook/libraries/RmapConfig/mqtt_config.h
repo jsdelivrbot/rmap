@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,22 +23,94 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _MQTT_CONFIG_H
 #define _MQTT_CONFIG_H
 
+/*!
+\def MQTT_ROOT_TOPIC_LENGTH
+\brief Length in bytes for mqtt root topic.
+*/
 #define MQTT_ROOT_TOPIC_LENGTH         (50)
+
+/*!
+\def MQTT_SUBSCRIBE_TOPIC_LENGTH
+\brief Length in bytes for mqtt subscibe topic.
+*/
 #define MQTT_SUBSCRIBE_TOPIC_LENGTH    (50)
+
+/*!
+\def MQTT_SENSOR_TOPIC_LENGTH
+\brief Length in bytes for mqtt sensor topic.
+*/
 #define MQTT_SENSOR_TOPIC_LENGTH       (30)
+
+/*!
+\def MQTT_MESSAGE_LENGTH
+\brief Length in bytes for mqtt message.
+*/
 #define MQTT_MESSAGE_LENGTH            (50)
+
+/*!
+\def MQTT_SERVER_LENGTH
+\brief Length in bytes for mqtt server.
+*/
 #define MQTT_SERVER_LENGTH             (30)
+
+/*!
+\def MQTT_USERNAME_LENGTH
+\brief Length in bytes for mqtt username.
+*/
 #define MQTT_USERNAME_LENGTH           (30)
+
+/*!
+\def MQTT_PASSWORD_LENGTH
+\brief Length in bytes for mqtt password.
+*/
 #define MQTT_PASSWORD_LENGTH           (30)
 
+/*!
+\def MQTT_TIMEOUT_MS
+\brief Timeout in milliseconds for mqtt stack.
+*/
 #define MQTT_TIMEOUT_MS                (6000)
 
+/*!
+\def MQTT_DEFAULT_SERVER
+\brief Default MQTT server.
+*/
 #define MQTT_DEFAULT_SERVER            ("rmap.cc")
+
+/*!
+\def MQTT_DEFAULT_PORT
+\brief Default MQTT server port.
+*/
 #define MQTT_DEFAULT_PORT              (1883)
-#define MQTT_DEFAULT_ROOT_TOPIC        ("")   // 1132822,4450078 arpae 1162336,4465346 spcap
-#define MQTT_DEFAULT_SUBSCRIBE_TOPIC   ("")      // 1100000,4400000 eth 1100001,4400001 gsm
+
+/*!
+\def MQTT_DEFAULT_ROOT_TOPIC
+\brief Default MQTT root topic.
+*/
+#define MQTT_DEFAULT_ROOT_TOPIC        ("")
+
+/*!
+\def MQTT_DEFAULT_SUBSCRIBE_TOPIC
+\brief Default MQTT subscibe topic.
+*/
+#define MQTT_DEFAULT_SUBSCRIBE_TOPIC   ("")
+
+/*!
+\def MQTT_DEFAULT_USERNAME
+\brief Default MQTT username.
+*/
 #define MQTT_DEFAULT_USERNAME          ("")
+
+/*!
+\def MQTT_DEFAULT_PASSWORD
+\brief Default MQTT password.
+*/
 #define MQTT_DEFAULT_PASSWORD          ("")
+
+/*!
+\def MQTT_STATUS_TOPIC
+\brief Default MQTT status topic for printing on connect/disconnect message.
+*/
 #define MQTT_STATUS_TOPIC              ("-,-,-/-,-,-,-/B01213")
 
 #if (MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH > 100)

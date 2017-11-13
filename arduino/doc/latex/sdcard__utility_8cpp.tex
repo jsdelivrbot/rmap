@@ -1,0 +1,87 @@
+\hypertarget{sdcard__utility_8cpp}{}\section{sketchbook/libraries/\+Rmap/sdcard\+\_\+utility.cpp File Reference}
+\label{sdcard__utility_8cpp}\index{sketchbook/libraries/\+Rmap/sdcard\+\_\+utility.\+cpp@{sketchbook/libraries/\+Rmap/sdcard\+\_\+utility.\+cpp}}
+{\ttfamily \#include \char`\"{}sdcard\+\_\+utility.\+h\char`\"{}}\newline
+Include dependency graph for sdcard\+\_\+utility.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{sdcard__utility_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{sdcard__utility_8cpp_a9375a6f4bfaff011d92f7cbbc8facba6}{sdcard\+\_\+init} (Sd\+Fat $\ast$\hyperlink{rmap_8h_a552b54fa96e90cd6565fb71968e9fc5a}{SD}, uint8\+\_\+t chip\+\_\+select)
+\begin{DoxyCompactList}\small\item\em Init sdcard and check if operation was succesful. \end{DoxyCompactList}\item 
+bool \hyperlink{sdcard__utility_8cpp_ac5dafadabc1474a4dd75ceaf002d0c91}{sdcard\+\_\+open\+\_\+file} (Sd\+Fat $\ast$\hyperlink{rmap_8h_a552b54fa96e90cd6565fb71968e9fc5a}{SD}, File $\ast$file, const char $\ast$file\+\_\+name, uint8\+\_\+t param)
+\begin{DoxyCompactList}\small\item\em Open file on sdcard with relative file mode bits. \end{DoxyCompactList}\item 
+void \hyperlink{sdcard__utility_8cpp_aa9384608e9f039f0deda9438277383cc}{sdcard\+\_\+make\+\_\+filename} (time\+\_\+t time, char $\ast$file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Generate a file name (dd\+\_\+mm\+\_\+yyyy.\+txt) starting from a variable containing a seconds elapsed from 00\+:00\+:00 01/01/1900. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sdcard__utility_8cpp_a9375a6f4bfaff011d92f7cbbc8facba6}\label{sdcard__utility_8cpp_a9375a6f4bfaff011d92f7cbbc8facba6}} 
+\index{sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}!sdcard\+\_\+init@{sdcard\+\_\+init}}
+\index{sdcard\+\_\+init@{sdcard\+\_\+init}!sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{sdcard\+\_\+init()}{sdcard\_init()}}
+{\footnotesize\ttfamily bool sdcard\+\_\+init (\begin{DoxyParamCaption}\item[{Sd\+Fat $\ast$}]{SD,  }\item[{uint8\+\_\+t}]{chip\+\_\+select }\end{DoxyParamCaption})}
+
+
+
+Init sdcard and check if operation was succesful. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$\+SD} & pointer to sdcard instance. \\
+\hline
+\mbox{\tt in}  & {\em chip\+\_\+select} & corresponding chip select pin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if success, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{sdcard__utility_8cpp_aa9384608e9f039f0deda9438277383cc}\label{sdcard__utility_8cpp_aa9384608e9f039f0deda9438277383cc}} 
+\index{sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}!sdcard\+\_\+make\+\_\+filename@{sdcard\+\_\+make\+\_\+filename}}
+\index{sdcard\+\_\+make\+\_\+filename@{sdcard\+\_\+make\+\_\+filename}!sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{sdcard\+\_\+make\+\_\+filename()}{sdcard\_make\_filename()}}
+{\footnotesize\ttfamily void sdcard\+\_\+make\+\_\+filename (\begin{DoxyParamCaption}\item[{time\+\_\+t}]{time,  }\item[{char $\ast$}]{file\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Generate a file name (dd\+\_\+mm\+\_\+yyyy.\+txt) starting from a variable containing a seconds elapsed from 00\+:00\+:00 01/01/1900. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$time} & seconds since 1900. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$file\+\_\+name} & file name generated from time. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{sdcard__utility_8cpp_ac5dafadabc1474a4dd75ceaf002d0c91}\label{sdcard__utility_8cpp_ac5dafadabc1474a4dd75ceaf002d0c91}} 
+\index{sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}!sdcard\+\_\+open\+\_\+file@{sdcard\+\_\+open\+\_\+file}}
+\index{sdcard\+\_\+open\+\_\+file@{sdcard\+\_\+open\+\_\+file}!sdcard\+\_\+utility.\+cpp@{sdcard\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{sdcard\+\_\+open\+\_\+file()}{sdcard\_open\_file()}}
+{\footnotesize\ttfamily bool sdcard\+\_\+open\+\_\+file (\begin{DoxyParamCaption}\item[{Sd\+Fat $\ast$}]{SD,  }\item[{File $\ast$}]{file,  }\item[{const char $\ast$}]{file\+\_\+name,  }\item[{uint8\+\_\+t}]{param }\end{DoxyParamCaption})}
+
+
+
+Open file on sdcard with relative file mode bits. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$\+SD} & pointer to sdcard instance. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$file} & pointer to file instance. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$file\+\_\+name} & file name. \\
+\hline
+\mbox{\tt in}  & {\em param} & parameter for open file (example\+: O\+\_\+\+R\+D\+WR $\vert$ O\+\_\+\+C\+R\+E\+AT $\vert$ O\+\_\+\+A\+P\+P\+E\+ND. See Sd\+Fat documentation). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if success, false otherwise. 
+\end{DoxyReturn}

@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -373,19 +373,13 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 \def NTP_TIME_FOR_RESYNC_S
 \brief Maximum seconds for resync time over ntp.
 */
-#define NTP_TIME_FOR_RESYNC_S                         (SECS_PER_DAY)
+#define NTP_TIME_FOR_RESYNC_S                         (SECS_PER_WEEK)
 
 /*!
 \def LCD_TIME_FOR_REINITIALIZE_S
 \brief Maximum seconds for reinitialize LCD.
 */
 #define LCD_TIME_FOR_REINITIALIZE_S                   (SECS_PER_HOUR)
-
-/*!
-\def TIME_RESYNC_INTERVALS_S
-\brief Interval in seconds for resync time.
-*/
-#define TIME_RESYNC_INTERVALS_S                       (SECS_PER_WEEK)
 
 #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
 /*!

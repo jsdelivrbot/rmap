@@ -1,0 +1,28 @@
+\hypertarget{i2c__utility_8cpp}{}\section{sketchbook/libraries/\+Rmap/i2c\+\_\+utility.cpp File Reference}
+\label{i2c__utility_8cpp}\index{sketchbook/libraries/\+Rmap/i2c\+\_\+utility.\+cpp@{sketchbook/libraries/\+Rmap/i2c\+\_\+utility.\+cpp}}
+{\ttfamily \#include \char`\"{}i2c\+\_\+utility.\+h\char`\"{}}\newline
+Include dependency graph for i2c\+\_\+utility.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{i2c__utility_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{i2c__utility_8cpp_aa7bc76353bcfeb7f24ffe98e8bf3d69a}{I2\+C\+\_\+\+Clear\+Bus} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{i2c__utility_8cpp_aa7bc76353bcfeb7f24ffe98e8bf3d69a}\label{i2c__utility_8cpp_aa7bc76353bcfeb7f24ffe98e8bf3d69a}} 
+\index{i2c\+\_\+utility.\+cpp@{i2c\+\_\+utility.\+cpp}!I2\+C\+\_\+\+Clear\+Bus@{I2\+C\+\_\+\+Clear\+Bus}}
+\index{I2\+C\+\_\+\+Clear\+Bus@{I2\+C\+\_\+\+Clear\+Bus}!i2c\+\_\+utility.\+cpp@{i2c\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{I2\+C\+\_\+\+Clear\+Bus()}{I2C\_ClearBus()}}
+{\footnotesize\ttfamily uint8\+\_\+t I2\+C\+\_\+\+Clear\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This routine turns off the I2C bus and clears it on return S\+CA and S\+CL pins are tri-\/state inputs. You need to call Wire.\+begin() after this to re-\/enable I2C This routine does N\+OT use the Wire library at all.
+
+returns 0 if bus cleared 1 if S\+CL held low. 2 if S\+DA held low by slave clock stretch for $>$ 2sec 3 if S\+DA held low after 20 clocks. A Repeat Start is a Start occurring after a Start with no intervening Stop. 

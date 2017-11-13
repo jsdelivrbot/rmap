@@ -1,0 +1,28 @@
+\hypertarget{eeprom__utility_8h}{}\section{sketchbook/libraries/\+Rmap/eeprom\+\_\+utility.h File Reference}
+\label{eeprom__utility_8h}\index{sketchbook/libraries/\+Rmap/eeprom\+\_\+utility.\+h@{sketchbook/libraries/\+Rmap/eeprom\+\_\+utility.\+h}}
+{\ttfamily \#include $<$avr/eeprom.\+h$>$}\newline
+Include dependency graph for eeprom\+\_\+utility.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{eeprom__utility_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eeprom__utility_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{eeprom__utility_8h_a715dca2643f9f8ee01f6ea0f484be62e}\label{eeprom__utility_8h_a715dca2643f9f8ee01f6ea0f484be62e}} 
+\#define \hyperlink{eeprom__utility_8h_a715dca2643f9f8ee01f6ea0f484be62e}{ee\+\_\+read}(data,  address,  size)~(eeprom\+\_\+read\+\_\+block((void $\ast$)data, (const void $\ast$)address, size))
+\begin{DoxyCompactList}\small\item\em Read size bytes of data in eeprom at specified address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{eeprom__utility_8h_afa92ea9ce29595f99960fe4c0dc3cda9}\label{eeprom__utility_8h_afa92ea9ce29595f99960fe4c0dc3cda9}} 
+\#define \hyperlink{eeprom__utility_8h_afa92ea9ce29595f99960fe4c0dc3cda9}{ee\+\_\+write}(data,  address,  size)~(eeprom\+\_\+write\+\_\+block((void $\ast$)data, (void $\ast$)address, size))
+\begin{DoxyCompactList}\small\item\em Write size bytes of data in eeprom at specified address. \end{DoxyCompactList}\end{DoxyCompactItemize}

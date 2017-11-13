@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,43 +23,148 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _DEBUG_CONFIG_H
 #define _DEBUG_CONFIG_H
 
-//! Serial debug level definitions
+/*!
+\def SERIAL_TRACE_LEVEL_OFF
+\brief Debug level for disable debug on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_OFF            (0)
+
+/*!
+\def SERIAL_TRACE_LEVEL_ERROR
+\brief Debug level for print error message on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_ERROR          (1)
+
+/*!
+\def SERIAL_TRACE_LEVEL_WARNING
+\brief Debug level for print warning message on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_WARNING        (2)
+
+/*!
+\def SERIAL_TRACE_LEVEL_INFO
+\brief Debug level for print informations message on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_INFO           (3)
+
+/*!
+\def SERIAL_TRACE_LEVEL_DEBUG
+\brief Debug level for print verbose informations message on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_DEBUG          (4)
+
+/*!
+\def SERIAL_TRACE_LEVEL_TRACE
+\brief Debug level for print detailed informations message on serial interface.
+*/
 #define SERIAL_TRACE_LEVEL_TRACE          (5)
 
-//! LCD debug level definitions
+/*!
+\def LCD_TRACE_LEVEL_OFF
+\brief Debug level for print error message on lcd interface.
+*/
 #define LCD_TRACE_LEVEL_OFF               (0)
+
+/*!
+\def LCD_TRACE_LEVEL_ERROR
+\brief Debug level for print error message on lcd.
+*/
 #define LCD_TRACE_LEVEL_ERROR             (1)
+
+/*!
+\def LCD_TRACE_LEVEL_WARNING
+\brief Debug level for print detailed informations message on serial interface.
+*/
 #define LCD_TRACE_LEVEL_WARNING           (2)
+
+/*!
+\def LCD_TRACE_LEVEL_INFO
+\brief Debug level for print informations message on lcd.
+*/
 #define LCD_TRACE_LEVEL_INFO              (3)
+
+/*!
+\def LCD_TRACE_LEVEL_DEBUG
+\brief Debug level for print verbose informations message on lcd.
+*/
 #define LCD_TRACE_LEVEL_DEBUG             (4)
 
+/*!
+\def OK_STRING
+\brief "OK" string message.
+*/
 #define OK_STRING                         ("OK")
+
+/*!
+\def ERROR_STRING
+\brief "ERROR" string message.
+*/
 #define ERROR_STRING                      ("ERROR")
+
+/*!
+\def FAIL_STRING
+\brief "FAIL" string message.
+*/
 #define FAIL_STRING                       ("FAIL")
+
+/*!
+\def YES_STRING
+\brief "YES" string message.
+*/
 #define YES_STRING                        ("YES")
+
+/*!
+\def NO_STRING
+\brief "NO" string message.
+*/
 #define NO_STRING                         ("NO")
+
+/*!
+\def ON_STRING
+\brief "ON" string message.
+*/
 #define ON_STRING                         ("ON")
+
+/*!
+\def OFF_STRING
+\brief "OFF" string message.
+*/
 #define OFF_STRING                        ("OFF")
 
-//! SensorDriver
-#define SENSOR_DRIVER_SERIAL_TRACE_LEVEL  (SERIAL_TRACE_LEVEL_OFF)
+/*!
+\def SENSOR_DRIVER_SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for SensorDriver library.
+*/
+#define SENSOR_DRIVER_SERIAL_TRACE_LEVEL  (SERIAL_TRACE_LEVEL_INFO)
 
-//! Sim800
+/*!
+\def SIM800_SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for Sim800 library.
+*/
 #define SIM800_SERIAL_TRACE_LEVEL         (SERIAL_TRACE_LEVEL_INFO)
 
-//! I2C-TH
+/*!
+\def I2C_TH_SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for i2c-th sketch.
+*/
 #define I2C_TH_SERIAL_TRACE_LEVEL         (SERIAL_TRACE_LEVEL_INFO)
 
-//! I2C-RAIN
+/*!
+\def I2C_RAIN_SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for i2c-rain sketch.
+*/
 #define I2C_RAIN_SERIAL_TRACE_LEVEL       (SERIAL_TRACE_LEVEL_INFO)
 
-//! rmap
-#define RMAP_SERIAL_TRACE_LEVEL           (SERIAL_TRACE_LEVEL_INFO)
+/*!
+\def RMAP_SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for rmap sketch.
+*/
+#define RMAP_SERIAL_TRACE_LEVEL           (SERIAL_TRACE_LEVEL_TRACE)
+
+/*!
+\def RMAP_LCD_TRACE_LEVEL
+\brief Lcd trace level debug for rmap sketch.
+*/
 #define RMAP_LCD_TRACE_LEVEL              (LCD_TRACE_LEVEL_INFO)
 
 #endif

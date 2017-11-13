@@ -1,0 +1,1390 @@
+\hypertarget{rmap_8h}{}\section{sketchbook/rmap/rmap/rmap.h File Reference}
+\label{rmap_8h}\index{sketchbook/rmap/rmap/rmap.\+h@{sketchbook/rmap/rmap/rmap.\+h}}
+{\ttfamily \#include \char`\"{}rmap-\/config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$typedef.\+h$>$}\newline
+{\ttfamily \#include $<$debug.\+h$>$}\newline
+{\ttfamily \#include $<$hardware\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$json\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$ntp\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$lcd\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$avr/sleep.\+h$>$}\newline
+{\ttfamily \#include $<$avr/power.\+h$>$}\newline
+{\ttfamily \#include $<$avr/wdt.\+h$>$}\newline
+{\ttfamily \#include $<$S\+P\+I.\+h$>$}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$Sd\+Fat.\+h$>$}\newline
+{\ttfamily \#include $<$pcf8563.\+h$>$}\newline
+{\ttfamily \#include $<$ntp.\+h$>$}\newline
+{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include $<$Sensor\+Driver.\+h$>$}\newline
+{\ttfamily \#include $<$eeprom\+\_\+utility.\+h$>$}\newline
+{\ttfamily \#include $<$rmap\+\_\+utility.\+h$>$}\newline
+{\ttfamily \#include $<$i2c\+\_\+utility.\+h$>$}\newline
+{\ttfamily \#include $<$sdcard\+\_\+utility.\+h$>$}\newline
+{\ttfamily \#include $<$ethernet\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$Ethernet2.\+h$>$}\newline
+{\ttfamily \#include $<$I\+P\+Stack.\+h$>$}\newline
+{\ttfamily \#include $<$Countdown.\+h$>$}\newline
+{\ttfamily \#include $<$M\+Q\+T\+T\+Client.\+h$>$}\newline
+Include dependency graph for rmap.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rmap_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{rmap_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structconfiguration__t}{configuration\+\_\+t}
+\begin{DoxyCompactList}\small\item\em E\+E\+P\+R\+OM saved configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{rmap_8h_aa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t} \{ \newline
+\hyperlink{i2c-rain_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}, 
+\hyperlink{i2c-rain_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}, 
+\hyperlink{i2c-rain_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}{E\+ND}, 
+\hyperlink{i2c-th_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}, 
+\newline
+\hyperlink{i2c-th_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}, 
+\hyperlink{i2c-th_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}{E\+ND}, 
+\hyperlink{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}, 
+\hyperlink{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}, 
+\newline
+\hyperlink{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}{E\+ND}
+ \}
+\item 
+enum \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}{supervisor\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\newline
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND}, 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838}{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Supervisor task finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5}{ethernet\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ae749f72358acfad64bb00e3461f4cbc2}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a95426b8bbfdb86442c9e41a139f8ae3c}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5aa12a74aa444cd4e24b43d3e280fc5044}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET}, 
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a8869bbdcd969ee43efef6b882780bc5b}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ada078050168a00fc4e3b5b4c345aa7bc}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Ethernet task finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953}{sensors\+\_\+reading\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}, 
+\newline
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}, 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}, 
+\newline
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}, 
+\newline
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}, 
+\hyperlink{rmap_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}
+\item 
+enum \hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092a}{time\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa74247eca9c928de916c1d25055cfce4c}{T\+I\+M\+E\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aab9e041a5c5be51544fe8a923da7a534b}{T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}, 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa36b665f47ddd47fe4ff903d2cdec77c4}{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}, 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aada3c6a7b36ab0c2fbdb62e99e576fd87}{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER}, 
+\newline
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa69c34bd14a9fc8eeb55a37163f7774a4}{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER}, 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa43fcb32d8eb7b4b3ae69a20356ae484b}{T\+I\+M\+E\+\_\+\+E\+ND}, 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa834d29edc9046ba5706bc4b17bcbb447}{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Time task finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188}{data\+\_\+saving\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}, 
+\newline
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef}{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Data saving task finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2a}{mqtt\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab78e0d91fcdd4c3b9fa2a8daf8da61ee}{M\+Q\+T\+T\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa6f072da1e81e5ddb573f53214aef5c29}{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa333fe1685d303726beaf4ab7f79675dc}{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa88ef6d59236afb176577d29232ac2dbe}{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa4c14dda1eb0b6815720a8825c51a972f}{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafb016951f241118473fa441f9e255716}{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa976c127fbaa0c71ff67c039a6ead4270}{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafc9e8686794d1ce791b2d50be3e0b718}{M\+Q\+T\+T\+\_\+\+O\+P\+EN}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8bd5fe2df05cf458706f4746031101f}{M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1f01f8e725b363e6b107d3d8cfc8586b}{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa5d00f1aedfa96cebd92f9ee837c3a615}{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa7dd20d5d68728190c8c1050599b562f7}{M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa559395ca103488b50d5cb1bebd24a539}{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8529974dafdcc57ae96953df84c4d23}{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aabfd381e8944cbb38db3ae9e26be8e5fa}{M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaa374bf000fce299ee44a155c315be872}{M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa18f5c91ee58e3c7af217a99d06bce38a}{M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aadd96b9c4ec8178e82fbbaea103f0af4c}{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa247d31e0fa0c828dfc7e7d2d22ca18b2}{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaf72d33e5f5a66855c0f30a1b1184d948}{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa373d63f35bc88e697f24d68c1685a0b2}{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa87cbbb025c198e8a13e05e43090b1012}{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa45ee7f65a13484d4aa294bc91c0bc452}{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD}, 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1c2b0cefef6f30ebcfa09ac728a41aa5}{M\+Q\+T\+T\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6}{M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em M\+Q\+TT task finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7ab}{stream\+\_\+state\+\_\+t} \{ \hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a}{S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT}, 
+\hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed}{S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}, 
+\hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd}{S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS}, 
+\hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487}{S\+T\+R\+E\+A\+M\+\_\+\+E\+ND}
+ \}\begin{DoxyCompactList}\small\item\em Stream task finite state machine. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+I\+P\+Stack \hyperlink{rmap_8h_a447e41b96c37bcba88cba66f6ebb7878}{ipstack} (\hyperlink{rmap_8h_abdcb198b5489995a350bc73d1d5f4f6d}{eth\+\_\+tcp\+\_\+client})
+\begin{DoxyCompactList}\small\item\em Ethernet I\+P\+Stack M\+Q\+T\+T\+Client structure. \end{DoxyCompactList}\item 
+Liquid\+Crystal\+\_\+\+I2C \hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd} (\hyperlink{lcd__config_8h_aabe3eae58b7e15bab0e4e34245079410}{L\+C\+D\+\_\+\+I2\+C\+\_\+\+A\+D\+D\+R\+E\+SS}, \hyperlink{lcd__config_8h_a537e0d54d9ec6c708bd8990c2f4d8e64}{L\+C\+D\+\_\+\+C\+O\+L\+U\+M\+NS}, \hyperlink{lcd__config_8h_a9a59fc4d524d3519a6bd0cb451850a65}{L\+C\+D\+\_\+\+R\+O\+WS})
+\begin{DoxyCompactList}\small\item\em L\+CD structure. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_afb98a0f07c30784284f48271ffe02b97}{init\+\_\+power\+\_\+down} (uint32\+\_\+t $\ast$time\+\_\+ms, uint32\+\_\+t debouncing\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Enter power down mode. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a980e73df66b14b1190bc25da430a4f12}{init\+\_\+wdt} (uint8\+\_\+t wdt\+\_\+timer)
+\begin{DoxyCompactList}\small\item\em Init watchdog. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a348d23d5899ce59d18975284dfb0afc0}{init\+\_\+system} (void)
+\begin{DoxyCompactList}\small\item\em Init system. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}{init\+\_\+buffers} (void)
+\begin{DoxyCompactList}\small\item\em Init buffers. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a2aae2290a141fddcea3fb6009acbb445}{init\+\_\+tasks} (void)
+\begin{DoxyCompactList}\small\item\em Init tasks variable and state. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_aa9c113540346b54d49b2a596e6ba8480}{init\+\_\+pins} (void)
+\begin{DoxyCompactList}\small\item\em Init hardware pins. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a7c21452937863fa02a29654247eef09b}{init\+\_\+wire} (void)
+\begin{DoxyCompactList}\small\item\em Init wire (i2c) library and performs checks on the bus. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a4454f968b2402a0e61deb15ab2571dab}{init\+\_\+spi} (void)
+\begin{DoxyCompactList}\small\item\em Init S\+PI library. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a88533ad02465ce52d4e6de7b2095ec32}{init\+\_\+rtc} (void)
+\begin{DoxyCompactList}\small\item\em Init R\+TC module. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ad7577ba7f06f417a019b69da8682ede5}{init\+\_\+sensors} (void)
+\begin{DoxyCompactList}\small\item\em Create and setup sensors. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ab08b9047f47849f399950705e769be2e}{print\+\_\+configuration} (void)
+\begin{DoxyCompactList}\small\item\em Print current configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a1be652e7d942160a14a560e0be837358}{load\+\_\+configuration} (void)
+\begin{DoxyCompactList}\small\item\em Load configuration from E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}{save\+\_\+configuration} (bool)
+\begin{DoxyCompactList}\small\item\em Save configuration to E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a90fe8c7d55bc889ad3ede7c76207e6a8}{set\+\_\+default\+\_\+configuration} (void)
+\begin{DoxyCompactList}\small\item\em Set default configuration to global configuration variable. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a1686e2719fa4a37ef933458673973d28}{set\+Next\+Time\+For\+Sensor\+Reading} (time\+\_\+t $\ast$next\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8h_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
+\begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}{mqtt\+Publish} (const char $\ast$topic, const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Publish message on topic. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}{mqtt\+Rx\+Callback} (M\+Q\+T\+T\+::\+Message\+Data \&md)
+\begin{DoxyCompactList}\small\item\em Register a receive callback for incoming mqtt message. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{rmap_8h_afba6e70a8bee4b42785eaeca4fd566d3}{rpc\+\_\+process} (char $\ast$json)
+\begin{DoxyCompactList}\small\item\em Process and execute a received Remote Procedure Call (R\+PC). Useful for configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a1c0ac3dbd03144160dd35a3c8674d9b3}{supervisor\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Supervisor task. Manage R\+TC and N\+TP sync and open/close gsm and ethernet connection. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_af0e8965583b124096972fe3a9e0e7954}{sensors\+\_\+reading\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Sensors reading Task. Read data from sensors. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a5099cc10afd8a26fdd8599574f0fc5a8}{rtc\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Real Time Clock task. Read R\+TC time and sync system time with it. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_a5069fdc64788136358f93a124624d05d}{time\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Time task. Get time from N\+TP and sync R\+TC with it. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ab468f998bb8b3e07fe2b4325d359a8ec}{ethernet\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Ethernet task. Manage Ethernet operation. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ae49b822b37337a0744225c3bdd43c79c}{data\+\_\+saving\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em Data Saving Task. Save acquired sensors data on S\+D-\/\+Card. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ad0a96c657cfe5d9ec637fbe1731a7bd6}{mqtt\+\_\+task} (void)
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT Task. \end{DoxyCompactList}\item 
+bool \hyperlink{rmap_8h_a21575354e8ec54fa31f581ed1838be79}{stream\+\_\+task} (Stream $\ast$stream, uint32\+\_\+t stream\+\_\+timeout, uint32\+\_\+t end\+\_\+task\+\_\+timeout)
+\begin{DoxyCompactList}\small\item\em Stream Task. \end{DoxyCompactList}\item 
+void \hyperlink{rmap_8h_ad61a7a94cdd76d63031bbe2972057659}{rtc\+\_\+interrupt\+\_\+handler} (void)
+\begin{DoxyCompactList}\small\item\em Real Time Clock interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rmap_8h_af0d633ce166aa2f6289c2170c5f8879a}\label{rmap_8h_af0d633ce166aa2f6289c2170c5f8879a}} 
+\hyperlink{structconfiguration__t}{configuration\+\_\+t} \hyperlink{rmap_8h_af0d633ce166aa2f6289c2170c5f8879a}{readable\+\_\+configuration}
+\begin{DoxyCompactList}\small\item\em Configuration for this module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a28f0b3b858571f1f06e37cece9d0bed7}\label{rmap_8h_a28f0b3b858571f1f06e37cece9d0bed7}} 
+\hyperlink{structconfiguration__t}{configuration\+\_\+t} \hyperlink{rmap_8h_a28f0b3b858571f1f06e37cece9d0bed7}{writable\+\_\+configuration}
+\begin{DoxyCompactList}\small\item\em Configuration for this module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ab51900c214aadb930a66e4581a5d205e}\label{rmap_8h_ab51900c214aadb930a66e4581a5d205e}} 
+volatile uint8\+\_\+t {\bfseries ready\+\_\+tasks\+\_\+count}
+\item 
+\mbox{\Hypertarget{rmap_8h_a78178f418362740f92f9e8b16aebb380}\label{rmap_8h_a78178f418362740f92f9e8b16aebb380}} 
+uint32\+\_\+t {\bfseries awakened\+\_\+event\+\_\+occurred\+\_\+time\+\_\+ms}
+\item 
+\mbox{\Hypertarget{rmap_8h_a552b54fa96e90cd6565fb71968e9fc5a}\label{rmap_8h_a552b54fa96e90cd6565fb71968e9fc5a}} 
+Sd\+Fat \hyperlink{rmap_8h_a552b54fa96e90cd6565fb71968e9fc5a}{SD}
+\begin{DoxyCompactList}\small\item\em S\+D-\/\+Card structure. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_accc3044dc5c2625353cfb41b309c883d}\label{rmap_8h_accc3044dc5c2625353cfb41b309c883d}} 
+File \hyperlink{rmap_8h_accc3044dc5c2625353cfb41b309c883d}{read\+\_\+data\+\_\+file}
+\begin{DoxyCompactList}\small\item\em File structure for read data stored on S\+D-\/\+Card. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a5766a19f9e7176fe5573021ef49d6e5d}\label{rmap_8h_a5766a19f9e7176fe5573021ef49d6e5d}} 
+File \hyperlink{rmap_8h_a5766a19f9e7176fe5573021ef49d6e5d}{write\+\_\+data\+\_\+file}
+\begin{DoxyCompactList}\small\item\em File structure for write data stored on S\+D-\/\+Card. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ad4b1a751f0188d2a28ab680482fc0984}\label{rmap_8h_ad4b1a751f0188d2a28ab680482fc0984}} 
+File \hyperlink{rmap_8h_ad4b1a751f0188d2a28ab680482fc0984}{mqtt\+\_\+ptr\+\_\+file}
+\begin{DoxyCompactList}\small\item\em File structure for read and write data pointer stored on S\+D-\/\+Card for mqtt send. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a2765db5c6ff0cd5266f528c32d9e1377}\label{rmap_8h_a2765db5c6ff0cd5266f528c32d9e1377}} 
+Ethernet\+U\+DP \hyperlink{rmap_8h_a2765db5c6ff0cd5266f528c32d9e1377}{eth\+\_\+udp\+\_\+client}
+\begin{DoxyCompactList}\small\item\em Ethernet U\+DP client structure. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_abdcb198b5489995a350bc73d1d5f4f6d}\label{rmap_8h_abdcb198b5489995a350bc73d1d5f4f6d}} 
+Ethernet\+Client \hyperlink{rmap_8h_abdcb198b5489995a350bc73d1d5f4f6d}{eth\+\_\+tcp\+\_\+client}
+\begin{DoxyCompactList}\small\item\em Ethernet T\+CP client structure. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a4ba5e40cce164049fd8104ea673e56a9}\label{rmap_8h_a4ba5e40cce164049fd8104ea673e56a9}} 
+M\+Q\+T\+T\+::\+Client$<$ I\+P\+Stack, Countdown, \hyperlink{mqtt__config_8h_a6d3b5b0f9c41b605e608f7d460491be6}{M\+Q\+T\+T\+\_\+\+R\+O\+O\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}+\hyperlink{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}+\hyperlink{mqtt__config_8h_a0fff77926fd907aeb2c03f60600d136c}{M\+Q\+T\+T\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+L\+E\+N\+G\+TH}, 1 $>$ \hyperlink{rmap_8h_a4ba5e40cce164049fd8104ea673e56a9}{mqtt\+\_\+client} = M\+Q\+T\+T\+::\+Client$<$I\+P\+Stack, Countdown, \hyperlink{mqtt__config_8h_a6d3b5b0f9c41b605e608f7d460491be6}{M\+Q\+T\+T\+\_\+\+R\+O\+O\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}+\hyperlink{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}+\hyperlink{mqtt__config_8h_a0fff77926fd907aeb2c03f60600d136c}{M\+Q\+T\+T\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+L\+E\+N\+G\+TH}, 1$>$(\hyperlink{rmap_8h_a447e41b96c37bcba88cba66f6ebb7878}{ipstack}, \hyperlink{rmap-config_8h_a578ee6f26618a9f795fb5828663431f0}{I\+P\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+MS})
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT Client structure. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_afe8658551453cd97976b7a1490deaf36}\label{rmap_8h_afe8658551453cd97976b7a1490deaf36}} 
+\hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$ {\bfseries sensors} \mbox{[}\hyperlink{rmap-config_8h_af18dc3de744722cb308451b7a705611b}{U\+S\+E\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+C\+O\+U\+NT}\mbox{]}
+\item 
+\mbox{\Hypertarget{rmap_8h_a2de58e7c37115b75e1c0dfe5f0c4a982}\label{rmap_8h_a2de58e7c37115b75e1c0dfe5f0c4a982}} 
+bool \hyperlink{rmap_8h_a2de58e7c37115b75e1c0dfe5f0c4a982}{is\+\_\+first\+\_\+run}
+\begin{DoxyCompactList}\small\item\em If true, the first reading of the sensors was performed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a07c4f36e092c5486b25f32b6f387d387}\label{rmap_8h_a07c4f36e092c5486b25f32b6f387d387}} 
+bool \hyperlink{rmap_8h_a07c4f36e092c5486b25f32b6f387d387}{is\+\_\+time\+\_\+set}
+\begin{DoxyCompactList}\small\item\em If true, the time was readed from rtc or ntp and was setted in system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a3b06b80d1e1827c8d1449af2bcf8a1d7}\label{rmap_8h_a3b06b80d1e1827c8d1449af2bcf8a1d7}} 
+bool \hyperlink{rmap_8h_a3b06b80d1e1827c8d1449af2bcf8a1d7}{is\+\_\+time\+\_\+for\+\_\+sensors\+\_\+reading\+\_\+updated}
+\begin{DoxyCompactList}\small\item\em If true, the next time has been calculated to read the sensors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_af66035ffa50a0ca243f92d007f3dd3e5}\label{rmap_8h_af66035ffa50a0ca243f92d007f3dd3e5}} 
+bool \hyperlink{rmap_8h_af66035ffa50a0ca243f92d007f3dd3e5}{is\+\_\+client\+\_\+connected}
+\begin{DoxyCompactList}\small\item\em If true, the client (ethernet or gsm) was connected to socket (T\+CP or U\+DP). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a58f6a93217bb39bd5aa74734db38af87}\label{rmap_8h_a58f6a93217bb39bd5aa74734db38af87}} 
+bool \hyperlink{rmap_8h_a58f6a93217bb39bd5aa74734db38af87}{is\+\_\+client\+\_\+udp\+\_\+socket\+\_\+open}
+\begin{DoxyCompactList}\small\item\em If true, the client (ethernet or gsm) was opened the U\+DP socket. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_abea8c8c20b73acadd6420f7f63d2990d}\label{rmap_8h_abea8c8c20b73acadd6420f7f63d2990d}} 
+bool \hyperlink{rmap_8h_abea8c8c20b73acadd6420f7f63d2990d}{is\+\_\+event\+\_\+client\+\_\+executed}
+\begin{DoxyCompactList}\small\item\em If true, the client has executed its task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ae116f3df71f37918212f970931571573}\label{rmap_8h_ae116f3df71f37918212f970931571573}} 
+bool \hyperlink{rmap_8h_ae116f3df71f37918212f970931571573}{is\+\_\+event\+\_\+time\+\_\+executed}
+\begin{DoxyCompactList}\small\item\em If true, the time task has executed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_abd2d7990cd2b2e061711bfdc600cef38}\label{rmap_8h_abd2d7990cd2b2e061711bfdc600cef38}} 
+bool \hyperlink{rmap_8h_abd2d7990cd2b2e061711bfdc600cef38}{do\+\_\+ntp\+\_\+sync}
+\begin{DoxyCompactList}\small\item\em If true, you must update the time from ntp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ae43fef3f7a959fdfb3f657c4b7f71ad5}\label{rmap_8h_ae43fef3f7a959fdfb3f657c4b7f71ad5}} 
+time\+\_\+t \hyperlink{rmap_8h_ae43fef3f7a959fdfb3f657c4b7f71ad5}{last\+\_\+ntp\+\_\+sync}
+\begin{DoxyCompactList}\small\item\em Last date and time when ntp sync was performed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a14818043a8a96a96433b3af2a9f5821d}\label{rmap_8h_a14818043a8a96a96433b3af2a9f5821d}} 
+time\+\_\+t \hyperlink{rmap_8h_a14818043a8a96a96433b3af2a9f5821d}{last\+\_\+lcd\+\_\+begin}
+\begin{DoxyCompactList}\small\item\em Last date and time when L\+CD was initializated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ad5cfddd994a6ae87b425e5fad249627c}\label{rmap_8h_ad5cfddd994a6ae87b425e5fad249627c}} 
+bool \hyperlink{rmap_8h_ad5cfddd994a6ae87b425e5fad249627c}{is\+\_\+sdcard\+\_\+open}
+\begin{DoxyCompactList}\small\item\em If true, the S\+D-\/\+Card is ready. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a01167fb785c25e02aa85971cd3661c83}\label{rmap_8h_a01167fb785c25e02aa85971cd3661c83}} 
+bool \hyperlink{rmap_8h_a01167fb785c25e02aa85971cd3661c83}{is\+\_\+sdcard\+\_\+error}
+\begin{DoxyCompactList}\small\item\em If true, the S\+D-\/\+Card is in error. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}\label{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}} 
+bool \hyperlink{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}{is\+\_\+mqtt\+\_\+subscribed}
+\begin{DoxyCompactList}\small\item\em If true, M\+Q\+TT Client is subscribed to receive topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}\label{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}} 
+char \hyperlink{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}{json\+\_\+sensors\+\_\+data} \mbox{[}\hyperlink{rmap-config_8h_af18dc3de744722cb308451b7a705611b}{U\+S\+E\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+C\+O\+U\+NT}\mbox{]}\mbox{[}\hyperlink{json__config_8h_a0a84205906d82fe38eb136a6384fd1c8}{J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
+\begin{DoxyCompactList}\small\item\em buffer containing the data read by sensors in json text format. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ad3765c79f297466a23325d66c036810d}\label{rmap_8h_ad3765c79f297466a23325d66c036810d}} 
+volatile time\+\_\+t \hyperlink{rmap_8h_ad3765c79f297466a23325d66c036810d}{next\+\_\+ptr\+\_\+time\+\_\+for\+\_\+sensors\+\_\+reading}
+\begin{DoxyCompactList}\small\item\em Next scheduled time (in seconds since 01/01/1970 00\+:0\+:00) for sensors reading. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_aeec8f1692cef357b0f4993acd2091e64}\label{rmap_8h_aeec8f1692cef357b0f4993acd2091e64}} 
+volatile tm\+Elements\+\_\+t \hyperlink{rmap_8h_aeec8f1692cef357b0f4993acd2091e64}{sensor\+\_\+reading\+\_\+time}
+\begin{DoxyCompactList}\small\item\em Date and time corresponding to the last reading of the sensors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ab62f2d48ad2d1b6b57531fcb55aab92a}\label{rmap_8h_ab62f2d48ad2d1b6b57531fcb55aab92a}} 
+time\+\_\+t \hyperlink{rmap_8h_ab62f2d48ad2d1b6b57531fcb55aab92a}{ptr\+\_\+time\+\_\+data}
+\begin{DoxyCompactList}\small\item\em Readed data pointer stored on S\+D-\/\+Card for mqtt send. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a7ceb1f2d624bd4c8ac2b44eb593584e0}\label{rmap_8h_a7ceb1f2d624bd4c8ac2b44eb593584e0}} 
+char \hyperlink{rmap_8h_a7ceb1f2d624bd4c8ac2b44eb593584e0}{stima\+\_\+name} \mbox{[}20\mbox{]}
+\begin{DoxyCompactList}\small\item\em Name of this module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a499e7824037af983d0524a98081e7f0b}\label{rmap_8h_a499e7824037af983d0524a98081e7f0b}} 
+\hyperlink{i2c-rain_8h_aa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t} {\bfseries state}
+\item 
+\mbox{\Hypertarget{rmap_8h_a3e26cdd6ff02dd9530bb5fafeebf33bc}\label{rmap_8h_a3e26cdd6ff02dd9530bb5fafeebf33bc}} 
+\hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}{supervisor\+\_\+state\+\_\+t} \hyperlink{rmap_8h_a3e26cdd6ff02dd9530bb5fafeebf33bc}{supervisor\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Supervisor task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a2214271b33b8a59a3c0741baf58f423f}\label{rmap_8h_a2214271b33b8a59a3c0741baf58f423f}} 
+\hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5}{ethernet\+\_\+state\+\_\+t} \hyperlink{rmap_8h_a2214271b33b8a59a3c0741baf58f423f}{ethernet\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Ethernet task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a3b0670bbe3f8dd3e1e55ef9f601d31b8}\label{rmap_8h_a3b0670bbe3f8dd3e1e55ef9f601d31b8}} 
+\hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092a}{time\+\_\+state\+\_\+t} \hyperlink{rmap_8h_a3b0670bbe3f8dd3e1e55ef9f601d31b8}{time\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Time task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a9fa8748c910383c5584502d00e3b36c2}\label{rmap_8h_a9fa8748c910383c5584502d00e3b36c2}} 
+\hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953}{sensors\+\_\+reading\+\_\+state\+\_\+t} {\bfseries sensors\+\_\+reading\+\_\+state}
+\item 
+\mbox{\Hypertarget{rmap_8h_ad8e73c4c6e8c2a77fd6d5b2763aa7ef9}\label{rmap_8h_ad8e73c4c6e8c2a77fd6d5b2763aa7ef9}} 
+\hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188}{data\+\_\+saving\+\_\+state\+\_\+t} \hyperlink{rmap_8h_ad8e73c4c6e8c2a77fd6d5b2763aa7ef9}{data\+\_\+saving\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Data saving task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_aaf4eb4a280abe9aa1fccf2a181d30344}\label{rmap_8h_aaf4eb4a280abe9aa1fccf2a181d30344}} 
+\hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2a}{mqtt\+\_\+state\+\_\+t} \hyperlink{rmap_8h_aaf4eb4a280abe9aa1fccf2a181d30344}{mqtt\+\_\+state}
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ae71ce4452d78bfb55e2c0727413bf6fa}\label{rmap_8h_ae71ce4452d78bfb55e2c0727413bf6fa}} 
+\hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7ab}{stream\+\_\+state\+\_\+t} \hyperlink{rmap_8h_ae71ce4452d78bfb55e2c0727413bf6fa}{stream\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Stream task state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ae1bd8ad790d09d991db977cacda3c47f}\label{rmap_8h_ae1bd8ad790d09d991db977cacda3c47f}} 
+bool \hyperlink{rmap_8h_ae1bd8ad790d09d991db977cacda3c47f}{is\+\_\+event\+\_\+supervisor}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Supervisor task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a32eecb76c89988c140a19707949395de}\label{rmap_8h_a32eecb76c89988c140a19707949395de}} 
+volatile bool {\bfseries is\+\_\+event\+\_\+sensors\+\_\+reading}
+\item 
+\mbox{\Hypertarget{rmap_8h_a37ffdd300f5bc8929b3bd03080029340}\label{rmap_8h_a37ffdd300f5bc8929b3bd03080029340}} 
+volatile bool \hyperlink{rmap_8h_a37ffdd300f5bc8929b3bd03080029340}{is\+\_\+event\+\_\+rtc}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Real Time Clock task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a7e7212c5bba53e21a4c3422699823ec2}\label{rmap_8h_a7e7212c5bba53e21a4c3422699823ec2}} 
+volatile bool \hyperlink{rmap_8h_a7e7212c5bba53e21a4c3422699823ec2}{is\+\_\+event\+\_\+time}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Time task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a43e1012e1a33c368bc1c476d910b6455}\label{rmap_8h_a43e1012e1a33c368bc1c476d910b6455}} 
+bool \hyperlink{rmap_8h_a43e1012e1a33c368bc1c476d910b6455}{is\+\_\+event\+\_\+ethernet}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Ethernet task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a973a9acc01359d869d45e68da61f19b6}\label{rmap_8h_a973a9acc01359d869d45e68da61f19b6}} 
+bool \hyperlink{rmap_8h_a973a9acc01359d869d45e68da61f19b6}{is\+\_\+event\+\_\+data\+\_\+saving}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Data saving task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_ae2c65544c215ff98873ea71757eb6e36}\label{rmap_8h_ae2c65544c215ff98873ea71757eb6e36}} 
+bool \hyperlink{rmap_8h_ae2c65544c215ff98873ea71757eb6e36}{is\+\_\+event\+\_\+mqtt}
+\begin{DoxyCompactList}\small\item\em Enable or disable the M\+Q\+TT task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_afc27aa8a22a1aea610c2e638f3fd5c0b}\label{rmap_8h_afc27aa8a22a1aea610c2e638f3fd5c0b}} 
+bool \hyperlink{rmap_8h_afc27aa8a22a1aea610c2e638f3fd5c0b}{is\+\_\+event\+\_\+mqtt\+\_\+paused}
+\begin{DoxyCompactList}\small\item\em If true, the M\+Q\+TT task is in pause (need resume). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a034de205ba53a6d1258c468492e784cd}\label{rmap_8h_a034de205ba53a6d1258c468492e784cd}} 
+bool \hyperlink{rmap_8h_a034de205ba53a6d1258c468492e784cd}{is\+\_\+event\+\_\+stream}
+\begin{DoxyCompactList}\small\item\em Enable or disable the Strem task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188}} 
+\index{rmap.\+h@{rmap.\+h}!data\+\_\+saving\+\_\+state\+\_\+t@{data\+\_\+saving\+\_\+state\+\_\+t}}
+\index{data\+\_\+saving\+\_\+state\+\_\+t@{data\+\_\+saving\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{data\+\_\+saving\+\_\+state\+\_\+t}{data\_saving\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188}{data\+\_\+saving\+\_\+state\+\_\+t}}
+
+
+
+Data saving task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD&if not already open \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+LE&open sdcard file for saving new data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP&loop on the sensors \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP&loop on the sensors data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+R\+I\+T\+E\+\_\+\+F\+I\+LE&write data on sdcard file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE&close sdcard file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef}\label{rmap_8h_a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef}} 
+D\+A\+T\+A\+\_\+\+S\+A\+V\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5}} 
+\index{rmap.\+h@{rmap.\+h}!ethernet\+\_\+state\+\_\+t@{ethernet\+\_\+state\+\_\+t}}
+\index{ethernet\+\_\+state\+\_\+t@{ethernet\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{ethernet\+\_\+state\+\_\+t}{ethernet\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5}{ethernet\+\_\+state\+\_\+t}}
+
+
+
+Ethernet task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ae749f72358acfad64bb00e3461f4cbc2}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ae749f72358acfad64bb00e3461f4cbc2}} 
+E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a95426b8bbfdb86442c9e41a139f8ae3c}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a95426b8bbfdb86442c9e41a139f8ae3c}} 
+E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+C\+O\+N\+N\+E\+CT&begin ethernet operations \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET}}}\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5aa12a74aa444cd4e24b43d3e280fc5044}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5aa12a74aa444cd4e24b43d3e280fc5044}} 
+E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+O\+P\+E\+N\+\_\+\+U\+D\+P\+\_\+\+S\+O\+C\+K\+ET&open udp socket \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a8869bbdcd969ee43efef6b882780bc5b}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5a8869bbdcd969ee43efef6b882780bc5b}} 
+E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ada078050168a00fc4e3b5b4c345aa7bc}\label{rmap_8h_a41694caa7c2afa9fa0f9b3eae96246e5ada078050168a00fc4e3b5b4c345aa7bc}} 
+E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2a}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2a}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+\_\+state\+\_\+t@{mqtt\+\_\+state\+\_\+t}}
+\index{mqtt\+\_\+state\+\_\+t@{mqtt\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+\_\+state\+\_\+t}{mqtt\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2a}{mqtt\+\_\+state\+\_\+t}}
+
+
+
+M\+Q\+TT task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+I\+N\+IT@{M\+Q\+T\+T\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+I\+N\+IT@{M\+Q\+T\+T\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab78e0d91fcdd4c3b9fa2a8daf8da61ee}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab78e0d91fcdd4c3b9fa2a8daf8da61ee}} 
+M\+Q\+T\+T\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa6f072da1e81e5ddb573f53214aef5c29}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa6f072da1e81e5ddb573f53214aef5c29}} 
+M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+S\+D\+C\+A\+RD&if not already open \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa333fe1685d303726beaf4ab7f79675dc}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa333fe1685d303726beaf4ab7f79675dc}} 
+M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE&open mqtt data pointer sdcard file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa88ef6d59236afb176577d29232ac2dbe}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa88ef6d59236afb176577d29232ac2dbe}} 
+M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+R\+E\+AD&read mqtt data pointer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa4c14dda1eb0b6815720a8825c51a972f}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa4c14dda1eb0b6815720a8825c51a972f}} 
+M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+I\+ND&if not exists, find mqtt data pointer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafb016951f241118473fa441f9e255716}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafb016951f241118473fa441f9e255716}} 
+M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+F\+O\+U\+ND&check if there is data to be send over mqtt \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa976c127fbaa0c71ff67c039a6ead4270}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa976c127fbaa0c71ff67c039a6ead4270}} 
+M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+E\+ND&performs end operations with mqtt data pointer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+P\+EN@{M\+Q\+T\+T\+\_\+\+O\+P\+EN}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+P\+EN@{M\+Q\+T\+T\+\_\+\+O\+P\+EN}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafc9e8686794d1ce791b2d50be3e0b718}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aafc9e8686794d1ce791b2d50be3e0b718}} 
+M\+Q\+T\+T\+\_\+\+O\+P\+EN&check mqtt client status \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK@{M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK@{M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8bd5fe2df05cf458706f4746031101f}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8bd5fe2df05cf458706f4746031101f}} 
+M\+Q\+T\+T\+\_\+\+C\+H\+E\+CK&check what kind of data to send\+: sdcard o current (sdcard fallback) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1f01f8e725b363e6b107d3d8cfc8586b}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1f01f8e725b363e6b107d3d8cfc8586b}} 
+M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+CT&connect to mqtt server \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa5d00f1aedfa96cebd92f9ee837c3a615}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa5d00f1aedfa96cebd92f9ee837c3a615}} 
+M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+CT&doing on connect event routine \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa7dd20d5d68728190c8c1050599b562f7}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa7dd20d5d68728190c8c1050599b562f7}} 
+M\+Q\+T\+T\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE&subscribe to mqtt topic \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa559395ca103488b50d5cb1bebd24a539}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa559395ca103488b50d5cb1bebd24a539}} 
+M\+Q\+T\+T\+\_\+\+O\+P\+E\+N\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE&open sdcard read data file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8529974dafdcc57ae96953df84c4d23}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aab8529974dafdcc57ae96953df84c4d23}} 
+M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+L\+O\+OP&loop on the sensors \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aabfd381e8944cbb38db3ae9e26be8e5fa}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aabfd381e8944cbb38db3ae9e26be8e5fa}} 
+M\+Q\+T\+T\+\_\+\+D\+A\+T\+A\+\_\+\+L\+O\+OP&loop on the sensors data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP@{M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaa374bf000fce299ee44a155c315be872}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaa374bf000fce299ee44a155c315be872}} 
+M\+Q\+T\+T\+\_\+\+S\+D\+\_\+\+L\+O\+OP&loop from first row to last row of read data file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH@{M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH@{M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa18f5c91ee58e3c7af217a99d06bce38a}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa18f5c91ee58e3c7af217a99d06bce38a}} 
+M\+Q\+T\+T\+\_\+\+P\+U\+B\+L\+I\+SH&mqtt publish data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aadd96b9c4ec8178e82fbbaea103f0af4c}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aadd96b9c4ec8178e82fbbaea103f0af4c}} 
+M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+D\+A\+T\+A\+\_\+\+F\+I\+LE&close sdcard read data file \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa247d31e0fa0c828dfc7e7d2d22ca18b2}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa247d31e0fa0c828dfc7e7d2d22ca18b2}} 
+M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT&disconnect from mqtt server \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaf72d33e5f5a66855c0f30a1b1184d948}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aaf72d33e5f5a66855c0f30a1b1184d948}} 
+M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT&doing on disconnect event routine \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE@{M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa373d63f35bc88e697f24d68c1685a0b2}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa373d63f35bc88e697f24d68c1685a0b2}} 
+M\+Q\+T\+T\+\_\+\+P\+T\+R\+\_\+\+U\+P\+D\+A\+TE&update mqtt data file pointer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa87cbbb025c198e8a13e05e43090b1012}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa87cbbb025c198e8a13e05e43090b1012}} 
+M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+T\+R\+\_\+\+F\+I\+LE&close mqtt data file pointer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD@{M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa45ee7f65a13484d4aa294bc91c0bc452}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa45ee7f65a13484d4aa294bc91c0bc452}} 
+M\+Q\+T\+T\+\_\+\+C\+L\+O\+S\+E\+\_\+\+S\+D\+C\+A\+RD&close sdcard \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+E\+ND@{M\+Q\+T\+T\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+E\+ND@{M\+Q\+T\+T\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1c2b0cefef6f30ebcfa09ac728a41aa5}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa1c2b0cefef6f30ebcfa09ac728a41aa5}} 
+M\+Q\+T\+T\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6}\label{rmap_8h_a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6}} 
+M\+Q\+T\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953}} 
+\index{rmap.\+h@{rmap.\+h}!sensors\+\_\+reading\+\_\+state\+\_\+t@{sensors\+\_\+reading\+\_\+state\+\_\+t}}
+\index{sensors\+\_\+reading\+\_\+state\+\_\+t@{sensors\+\_\+reading\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{sensors\+\_\+reading\+\_\+state\+\_\+t}{sensors\_reading\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{i2c-th_8h_a48bef3d022ff6f88967496ad53a6b953}{sensors\+\_\+reading\+\_\+state\+\_\+t}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE&prepare sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED&check if the sensor has been prepared \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET&read and get values from sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED&check if the sensor has been readed \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD&intermediate state (future implementation...) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT&go to next sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a2cb28b4d2ce509fc382d6bd1b2d5d16f}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a7cf0f5ecc300e86aacc2deb266d14724}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+P\+R\+E\+P\+A\+RE&prepare sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a96e335eefffa76f53459df4a3cf71ac1}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+P\+R\+E\+P\+A\+R\+ED&check if the sensor has been prepared \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a8e031386ec7bcc225e75a4a0b408d731}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+G\+ET&read and get values from sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a3dae8abf31ae3db2ab2d679c224fd8be}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+\+G\+E\+T\+T\+ED&check if the sensor has been readed \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ac2ebb8ebf9d29905d0a30f804376b9fa}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+R\+E\+AD&intermediate state (future implementation...) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953a739c69b8d018187b0956660ed209e303}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+N\+E\+XT&go to next sensor \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953ab602220e588f3c2ac15b450239d9577a}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}\label{rmap_8h_a48bef3d022ff6f88967496ad53a6b953acfc850b971651f7c8c90cddf593fa399}} 
+S\+E\+N\+S\+O\+R\+S\+\_\+\+R\+E\+A\+D\+I\+N\+G\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248}} 
+\index{rmap.\+h@{rmap.\+h}!state\+\_\+t@{state\+\_\+t}}
+\index{state\+\_\+t@{state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{state\+\_\+t}{state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{i2c-rain_8h_aa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+N\+IT@{I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!I\+N\+IT@{I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}} 
+I\+N\+IT&init tasks and sensors \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}} 
+T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON&execute active tasks \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+ND@{E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+ND@{E\+ND}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}} 
+E\+ND&go to E\+N\+T\+E\+R\+\_\+\+P\+O\+W\+E\+R\+\_\+\+D\+O\+WN or T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+N\+IT@{I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!I\+N\+IT@{I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}} 
+I\+N\+IT&init tasks and sensors \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}} 
+T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON&execute active tasks \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+ND@{E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+ND@{E\+ND}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}} 
+E\+ND&go to E\+N\+T\+E\+R\+\_\+\+P\+O\+W\+E\+R\+\_\+\+D\+O\+WN or T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+N\+IT@{I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!I\+N\+IT@{I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}} 
+I\+N\+IT&init tasks and sensors \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON@{T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248a34f1df650a5075369a6827770c433a91}} 
+T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON&execute active tasks \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+ND@{E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!E\+ND@{E\+ND}}}\mbox{\Hypertarget{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}\label{rmap_8h_aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924}} 
+E\+ND&go to E\+N\+T\+E\+R\+\_\+\+P\+O\+W\+E\+R\+\_\+\+D\+O\+WN or T\+A\+S\+K\+S\+\_\+\+E\+X\+E\+C\+U\+T\+I\+ON \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a94235530fc35d5e307de374cfca8b7ab}\label{rmap_8h_a94235530fc35d5e307de374cfca8b7ab}} 
+\index{rmap.\+h@{rmap.\+h}!stream\+\_\+state\+\_\+t@{stream\+\_\+state\+\_\+t}}
+\index{stream\+\_\+state\+\_\+t@{stream\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{stream\+\_\+state\+\_\+t}{stream\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a94235530fc35d5e307de374cfca8b7ab}{stream\+\_\+state\+\_\+t}}
+
+
+
+Stream task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT@{S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT@{S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a}\label{rmap_8h_a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a}} 
+S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}}}\mbox{\Hypertarget{rmap_8h_a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed}\label{rmap_8h_a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed}} 
+S\+T\+R\+E\+A\+M\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE&check if there are data available in the stream \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS@{S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS@{S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS}}}\mbox{\Hypertarget{rmap_8h_a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd}\label{rmap_8h_a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd}} 
+S\+T\+R\+E\+A\+M\+\_\+\+P\+R\+O\+C\+E\+SS&process data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+T\+R\+E\+A\+M\+\_\+\+E\+ND@{S\+T\+R\+E\+A\+M\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+T\+R\+E\+A\+M\+\_\+\+E\+ND@{S\+T\+R\+E\+A\+M\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487}\label{rmap_8h_a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487}} 
+S\+T\+R\+E\+A\+M\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}} 
+\index{rmap.\+h@{rmap.\+h}!supervisor\+\_\+state\+\_\+t@{supervisor\+\_\+state\+\_\+t}}
+\index{supervisor\+\_\+state\+\_\+t@{supervisor\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{supervisor\+\_\+state\+\_\+t}{supervisor\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296}{supervisor\+\_\+state\+\_\+t}}
+
+
+
+Supervisor task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a363ccb4e9e123cf22fb0e3b280964961}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ae7005d420b6eebd40ad507ac8b7dbc19}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable hardware related tasks for doing connection \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a8a66e5b3f27cba640fc2361ec510a610}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable hardware related tasks for doing connection \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a4808544db525d23b15d75770b1c770dd}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable time task for sync time with ntp server \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296aa832a47126ddf8bf542fd467854200a1}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+T\+A\+SK&enable tasks for manage data (mqtt) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296ac6b695b8e38a80dc56aa57beec7a0279}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838}\label{rmap_8h_a3a75eeb98a0ff1f3689694fa76711296a42cba049478891fe2685e6aa11695838}} 
+S\+U\+P\+E\+R\+V\+I\+S\+O\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092a}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092a}} 
+\index{rmap.\+h@{rmap.\+h}!time\+\_\+state\+\_\+t@{time\+\_\+state\+\_\+t}}
+\index{time\+\_\+state\+\_\+t@{time\+\_\+state\+\_\+t}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{time\+\_\+state\+\_\+t}{time\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{rmap_8h_a70deb66f62f31f2e15c734513dc0092a}{time\+\_\+state\+\_\+t}}
+
+
+
+Time task finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+I\+N\+IT@{T\+I\+M\+E\+\_\+\+I\+N\+IT}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+I\+N\+IT@{T\+I\+M\+E\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa74247eca9c928de916c1d25055cfce4c}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa74247eca9c928de916c1d25055cfce4c}} 
+T\+I\+M\+E\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST@{T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST@{T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aab9e041a5c5be51544fe8a923da7a534b}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aab9e041a5c5be51544fe8a923da7a534b}} 
+T\+I\+M\+E\+\_\+\+S\+E\+N\+D\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+Q\+U\+E\+ST&send ntp request \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa36b665f47ddd47fe4ff903d2cdec77c4}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa36b665f47ddd47fe4ff903d2cdec77c4}} 
+T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE&wait ntp response \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aada3c6a7b36ab0c2fbdb62e99e576fd87}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aada3c6a7b36ab0c2fbdb62e99e576fd87}} 
+T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+N\+T\+P\+\_\+\+P\+R\+O\+V\+I\+D\+ER&set ntp time \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa69c34bd14a9fc8eeb55a37163f7774a4}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa69c34bd14a9fc8eeb55a37163f7774a4}} 
+T\+I\+M\+E\+\_\+\+S\+E\+T\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+T\+C\+\_\+\+P\+R\+O\+V\+I\+D\+ER&set rtc time \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+E\+ND@{T\+I\+M\+E\+\_\+\+E\+ND}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+E\+ND@{T\+I\+M\+E\+\_\+\+E\+ND}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa43fcb32d8eb7b4b3ae69a20356ae484b}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa43fcb32d8eb7b4b3ae69a20356ae484b}} 
+T\+I\+M\+E\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!rmap.\+h@{rmap.\+h}}\index{rmap.\+h@{rmap.\+h}!T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa834d29edc9046ba5706bc4b17bcbb447}\label{rmap_8h_a70deb66f62f31f2e15c734513dc0092aa834d29edc9046ba5706bc4b17bcbb447}} 
+T\+I\+M\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rmap_8h_ae49b822b37337a0744225c3bdd43c79c}\label{rmap_8h_ae49b822b37337a0744225c3bdd43c79c}} 
+\index{rmap.\+h@{rmap.\+h}!data\+\_\+saving\+\_\+task@{data\+\_\+saving\+\_\+task}}
+\index{data\+\_\+saving\+\_\+task@{data\+\_\+saving\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{data\+\_\+saving\+\_\+task()}{data\_saving\_task()}}
+{\footnotesize\ttfamily void data\+\_\+saving\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Data Saving Task. Save acquired sensors data on S\+D-\/\+Card. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_ab468f998bb8b3e07fe2b4325d359a8ec}\label{rmap_8h_ab468f998bb8b3e07fe2b4325d359a8ec}} 
+\index{rmap.\+h@{rmap.\+h}!ethernet\+\_\+task@{ethernet\+\_\+task}}
+\index{ethernet\+\_\+task@{ethernet\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{ethernet\+\_\+task()}{ethernet\_task()}}
+{\footnotesize\ttfamily void ethernet\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Ethernet task. Manage Ethernet operation. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}\label{rmap_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+buffers@{init\+\_\+buffers}}
+\index{init\+\_\+buffers@{init\+\_\+buffers}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+buffers()}{init\_buffers()}}
+{\footnotesize\ttfamily void init\+\_\+buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init buffers. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
+
+copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
+
+copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
+
+copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{rmap_8h_aa9c113540346b54d49b2a596e6ba8480}\label{rmap_8h_aa9c113540346b54d49b2a596e6ba8480}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+pins@{init\+\_\+pins}}
+\index{init\+\_\+pins@{init\+\_\+pins}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+pins()}{init\_pins()}}
+{\footnotesize\ttfamily void init\+\_\+pins (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init hardware pins. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_afb98a0f07c30784284f48271ffe02b97}\label{rmap_8h_afb98a0f07c30784284f48271ffe02b97}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}}
+\index{init\+\_\+power\+\_\+down@{init\+\_\+power\+\_\+down}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+power\+\_\+down()}{init\_power\_down()}}
+{\footnotesize\ttfamily void init\+\_\+power\+\_\+down (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{time\+\_\+ms,  }\item[{uint32\+\_\+t}]{debouncing\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Enter power down mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+\_\+ms} & pointer to a variable to save the last instant you entered power down. \\
+\hline
+{\em debouncing\+\_\+ms} & delay to power down. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+turn off brown-\/out
+
+turn off brown-\/out
+
+turn off brown-\/out
+
+turn off brown-\/out \mbox{\Hypertarget{rmap_8h_a88533ad02465ce52d4e6de7b2095ec32}\label{rmap_8h_a88533ad02465ce52d4e6de7b2095ec32}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+rtc@{init\+\_\+rtc}}
+\index{init\+\_\+rtc@{init\+\_\+rtc}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+rtc()}{init\_rtc()}}
+{\footnotesize\ttfamily void init\+\_\+rtc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init R\+TC module. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_ad7577ba7f06f417a019b69da8682ede5}\label{rmap_8h_ad7577ba7f06f417a019b69da8682ede5}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+sensors@{init\+\_\+sensors}}
+\index{init\+\_\+sensors@{init\+\_\+sensors}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+sensors()}{init\_sensors()}}
+{\footnotesize\ttfamily void init\+\_\+sensors (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Create and setup sensors. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a4454f968b2402a0e61deb15ab2571dab}\label{rmap_8h_a4454f968b2402a0e61deb15ab2571dab}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+spi@{init\+\_\+spi}}
+\index{init\+\_\+spi@{init\+\_\+spi}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+spi()}{init\_spi()}}
+{\footnotesize\ttfamily void init\+\_\+spi (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init S\+PI library. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a348d23d5899ce59d18975284dfb0afc0}\label{rmap_8h_a348d23d5899ce59d18975284dfb0afc0}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+system@{init\+\_\+system}}
+\index{init\+\_\+system@{init\+\_\+system}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+system()}{init\_system()}}
+{\footnotesize\ttfamily void init\+\_\+system (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init system. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+main loop state
+
+main loop state
+
+main loop state
+
+main loop state \mbox{\Hypertarget{rmap_8h_a2aae2290a141fddcea3fb6009acbb445}\label{rmap_8h_a2aae2290a141fddcea3fb6009acbb445}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+tasks@{init\+\_\+tasks}}
+\index{init\+\_\+tasks@{init\+\_\+tasks}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+tasks()}{init\_tasks()}}
+{\footnotesize\ttfamily void init\+\_\+tasks (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init tasks variable and state. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+no tasks ready
+
+reset tipping bucket debounce value
+
+no tasks ready
+
+reset samples\+\_\+count value
+
+no tasks ready
+
+reset tipping bucket debounce value
+
+no tasks ready
+
+reset samples\+\_\+count value \mbox{\Hypertarget{rmap_8h_a980e73df66b14b1190bc25da430a4f12}\label{rmap_8h_a980e73df66b14b1190bc25da430a4f12}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+wdt@{init\+\_\+wdt}}
+\index{init\+\_\+wdt@{init\+\_\+wdt}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+wdt()}{init\_wdt()}}
+{\footnotesize\ttfamily void init\+\_\+wdt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{wdt\+\_\+timer }\end{DoxyParamCaption})}
+
+
+
+Init watchdog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wdt\+\_\+timer} & a time value for init watchdog (W\+D\+T\+O\+\_\+xxxx). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a7c21452937863fa02a29654247eef09b}\label{rmap_8h_a7c21452937863fa02a29654247eef09b}} 
+\index{rmap.\+h@{rmap.\+h}!init\+\_\+wire@{init\+\_\+wire}}
+\index{init\+\_\+wire@{init\+\_\+wire}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{init\+\_\+wire()}{init\_wire()}}
+{\footnotesize\ttfamily void init\+\_\+wire (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Init wire (i2c) library and performs checks on the bus. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+clear the I2C bus first before calling Wire.\+begin()
+
+wait for watchdog reboot
+
+clear the I2C bus first before calling Wire.\+begin()
+
+wait for watchdog reboot
+
+clear the I2C bus first before calling Wire.\+begin()
+
+wait for watchdog reboot
+
+clear the I2C bus first before calling Wire.\+begin()
+
+wait for watchdog reboot \mbox{\Hypertarget{rmap_8h_a447e41b96c37bcba88cba66f6ebb7878}\label{rmap_8h_a447e41b96c37bcba88cba66f6ebb7878}} 
+\index{rmap.\+h@{rmap.\+h}!ipstack@{ipstack}}
+\index{ipstack@{ipstack}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{ipstack()}{ipstack()}}
+{\footnotesize\ttfamily I\+P\+Stack ipstack (\begin{DoxyParamCaption}\item[{\hyperlink{rmap_8h_abdcb198b5489995a350bc73d1d5f4f6d}{eth\+\_\+tcp\+\_\+client}}]{ }\end{DoxyParamCaption})}
+
+
+
+Ethernet I\+P\+Stack M\+Q\+T\+T\+Client structure. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}\label{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}} 
+\index{rmap.\+h@{rmap.\+h}!lcd@{lcd}}
+\index{lcd@{lcd}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{lcd()}{lcd()}}
+{\footnotesize\ttfamily Liquid\+Crystal\+\_\+\+I2C lcd (\begin{DoxyParamCaption}\item[{\hyperlink{lcd__config_8h_aabe3eae58b7e15bab0e4e34245079410}{L\+C\+D\+\_\+\+I2\+C\+\_\+\+A\+D\+D\+R\+E\+SS}}]{,  }\item[{\hyperlink{lcd__config_8h_a537e0d54d9ec6c708bd8990c2f4d8e64}{L\+C\+D\+\_\+\+C\+O\+L\+U\+M\+NS}}]{,  }\item[{\hyperlink{lcd__config_8h_a9a59fc4d524d3519a6bd0cb451850a65}{L\+C\+D\+\_\+\+R\+O\+WS}}]{ }\end{DoxyParamCaption})}
+
+
+
+L\+CD structure. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a1be652e7d942160a14a560e0be837358}\label{rmap_8h_a1be652e7d942160a14a560e0be837358}} 
+\index{rmap.\+h@{rmap.\+h}!load\+\_\+configuration@{load\+\_\+configuration}}
+\index{load\+\_\+configuration@{load\+\_\+configuration}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{load\+\_\+configuration()}{load\_configuration()}}
+{\footnotesize\ttfamily void load\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Load configuration from E\+E\+P\+R\+OM. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+read configuration from eeprom
+
+set configuration value to writable register
+
+read configuration from eeprom
+
+read configuration from eeprom
+
+set configuration value to writable register
+
+read configuration from eeprom \mbox{\Hypertarget{rmap_8h_ad0a96c657cfe5d9ec637fbe1731a7bd6}\label{rmap_8h_ad0a96c657cfe5d9ec637fbe1731a7bd6}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+\_\+task@{mqtt\+\_\+task}}
+\index{mqtt\+\_\+task@{mqtt\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+\_\+task()}{mqtt\_task()}}
+{\footnotesize\ttfamily void mqtt\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+M\+Q\+TT Task. 
+
+\begin{DoxyReturn}{Returns}
+void. Read data stored on S\+D-\/\+Card and send it over M\+Q\+TT. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a9f5e5ca8c47d4536dd1805e89fbb7db2}\label{rmap_8h_a9f5e5ca8c47d4536dd1805e89fbb7db2}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+Connect@{mqtt\+Connect}}
+\index{mqtt\+Connect@{mqtt\+Connect}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Connect()}{mqttConnect()}}
+{\footnotesize\ttfamily bool mqtt\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{username,  }\item[{char $\ast$}]{password }\end{DoxyParamCaption})}
+
+
+
+Use a open tcp socket to connect to the mqtt server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$username} & Username of mqtt server \\
+\hline
+{\em $\ast$password} & Password of mqtt server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if connection was succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}\label{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+Publish@{mqtt\+Publish}}
+\index{mqtt\+Publish@{mqtt\+Publish}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
+{\footnotesize\ttfamily bool mqtt\+Publish (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Publish message on topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$topic} & Topic for mqtt publish \\
+\hline
+{\em $\ast$message} & Message to be publish \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if publish was succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}\label{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}}
+\index{mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Rx\+Callback()}{mqttRxCallback()}}
+{\footnotesize\ttfamily void mqtt\+Rx\+Callback (\begin{DoxyParamCaption}\item[{M\+Q\+T\+T\+::\+Message\+Data \&}]{md }\end{DoxyParamCaption})}
+
+
+
+Register a receive callback for incoming mqtt message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&md} & Received data structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_ab08b9047f47849f399950705e769be2e}\label{rmap_8h_ab08b9047f47849f399950705e769be2e}} 
+\index{rmap.\+h@{rmap.\+h}!print\+\_\+configuration@{print\+\_\+configuration}}
+\index{print\+\_\+configuration@{print\+\_\+configuration}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+configuration()}{print\_configuration()}}
+{\footnotesize\ttfamily void print\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Print current configuration. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_afba6e70a8bee4b42785eaeca4fd566d3}\label{rmap_8h_afba6e70a8bee4b42785eaeca4fd566d3}} 
+\index{rmap.\+h@{rmap.\+h}!rpc\+\_\+process@{rpc\+\_\+process}}
+\index{rpc\+\_\+process@{rpc\+\_\+process}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{rpc\+\_\+process()}{rpc\_process()}}
+{\footnotesize\ttfamily char $\ast$ rpc\+\_\+process (\begin{DoxyParamCaption}\item[{char $\ast$}]{json }\end{DoxyParamCaption})}
+
+
+
+Process and execute a received Remote Procedure Call (R\+PC). Useful for configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$json} & message in json text format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to R\+PC response. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_ad61a7a94cdd76d63031bbe2972057659}\label{rmap_8h_ad61a7a94cdd76d63031bbe2972057659}} 
+\index{rmap.\+h@{rmap.\+h}!rtc\+\_\+interrupt\+\_\+handler@{rtc\+\_\+interrupt\+\_\+handler}}
+\index{rtc\+\_\+interrupt\+\_\+handler@{rtc\+\_\+interrupt\+\_\+handler}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{rtc\+\_\+interrupt\+\_\+handler()}{rtc\_interrupt\_handler()}}
+{\footnotesize\ttfamily void rtc\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Real Time Clock interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a5099cc10afd8a26fdd8599574f0fc5a8}\label{rmap_8h_a5099cc10afd8a26fdd8599574f0fc5a8}} 
+\index{rmap.\+h@{rmap.\+h}!rtc\+\_\+task@{rtc\+\_\+task}}
+\index{rtc\+\_\+task@{rtc\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{rtc\+\_\+task()}{rtc\_task()}}
+{\footnotesize\ttfamily void rtc\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Real Time Clock task. Read R\+TC time and sync system time with it. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}\label{rmap_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}} 
+\index{rmap.\+h@{rmap.\+h}!save\+\_\+configuration@{save\+\_\+configuration}}
+\index{save\+\_\+configuration@{save\+\_\+configuration}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{save\+\_\+configuration()}{save\_configuration()}}
+{\footnotesize\ttfamily void save\+\_\+configuration (\begin{DoxyParamCaption}\item[{bool}]{is\+\_\+default }\end{DoxyParamCaption})}
+
+
+
+Save configuration to E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+\_\+default} & if true save default configuration; if false save current configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+write configuration to eeprom
+
+write configuration to eeprom
+
+write configuration to eeprom
+
+write configuration to eeprom \mbox{\Hypertarget{rmap_8h_af0e8965583b124096972fe3a9e0e7954}\label{rmap_8h_af0e8965583b124096972fe3a9e0e7954}} 
+\index{rmap.\+h@{rmap.\+h}!sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}}
+\index{sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{sensors\+\_\+reading\+\_\+task()}{sensors\_reading\_task()}}
+{\footnotesize\ttfamily void sensors\+\_\+reading\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Sensors reading Task. Read data from sensors. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+reset internal state of all sensors to default
+
+prepare sensor and get delay for complete operation
+
+if there is any delay, wait it. Otherwise go to next.
+
+success
+
+retry
+
+fail
+
+get V\+A\+L\+U\+E\+S\+\_\+\+T\+O\+\_\+\+R\+E\+A\+D\+\_\+\+F\+R\+O\+M\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+NT values from sensor and store it in values\+\_\+readed\+\_\+from\+\_\+sensor.
+
+end of internal sensor state (finished read)
+
+success
+
+retry
+
+fail
+
+mark error
+
+go to next sensor
+
+process other internal sensor state
+
+read sensor value
+
+go to next sensor
+
+end (there are no other sensors to read)
+
+if it is in continuous mode, do samples processing
+
+reset internal state of all sensors to default
+
+prepare sensor and get delay for complete operation
+
+if there is any delay, wait it. Otherwise go to next.
+
+success
+
+retry
+
+fail
+
+get V\+A\+L\+U\+E\+S\+\_\+\+T\+O\+\_\+\+R\+E\+A\+D\+\_\+\+F\+R\+O\+M\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+NT values from sensor and store it in values\+\_\+readed\+\_\+from\+\_\+sensor.
+
+end of internal sensor state (finished read)
+
+success
+
+retry
+
+fail
+
+mark error
+
+go to next sensor
+
+process other internal sensor state
+
+read sensor value
+
+go to next sensor
+
+end (there are no other sensors to read)
+
+if it is in continuous mode, do samples processing \mbox{\Hypertarget{rmap_8h_a90fe8c7d55bc889ad3ede7c76207e6a8}\label{rmap_8h_a90fe8c7d55bc889ad3ede7c76207e6a8}} 
+\index{rmap.\+h@{rmap.\+h}!set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}}
+\index{set\+\_\+default\+\_\+configuration@{set\+\_\+default\+\_\+configuration}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{set\+\_\+default\+\_\+configuration()}{set\_default\_configuration()}}
+{\footnotesize\ttfamily void set\+\_\+default\+\_\+configuration (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Set default configuration to global configuration variable. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a1686e2719fa4a37ef933458673973d28}\label{rmap_8h_a1686e2719fa4a37ef933458673973d28}} 
+\index{rmap.\+h@{rmap.\+h}!set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}}
+\index{set\+Next\+Time\+For\+Sensor\+Reading@{set\+Next\+Time\+For\+Sensor\+Reading}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{set\+Next\+Time\+For\+Sensor\+Reading()}{setNextTimeForSensorReading()}}
+{\footnotesize\ttfamily void set\+Next\+Time\+For\+Sensor\+Reading (\begin{DoxyParamCaption}\item[{time\+\_\+t $\ast$}]{next\+\_\+time }\end{DoxyParamCaption})}
+
+
+
+Calculate next hour, minute and second for sensors reading. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$next\+\_\+time} & Pointer to next scheduled time for sensors reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a21575354e8ec54fa31f581ed1838be79}\label{rmap_8h_a21575354e8ec54fa31f581ed1838be79}} 
+\index{rmap.\+h@{rmap.\+h}!stream\+\_\+task@{stream\+\_\+task}}
+\index{stream\+\_\+task@{stream\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{stream\+\_\+task()}{stream\_task()}}
+{\footnotesize\ttfamily bool stream\+\_\+task (\begin{DoxyParamCaption}\item[{Stream $\ast$}]{stream,  }\item[{uint32\+\_\+t}]{stream\+\_\+timeout,  }\item[{uint32\+\_\+t}]{end\+\_\+task\+\_\+timeout }\end{DoxyParamCaption})}
+
+
+
+Stream Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$stream} & Pointer to stream \\
+\hline
+{\em stream\+\_\+timeout} & Timeout for stream \\
+\hline
+{\em end\+\_\+task\+\_\+timeout} & Timeout for deactivate task after last received bytes Read a stream and process Remote Procedure Call data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if end\+\_\+task\+\_\+timeout was elapsed, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a1c0ac3dbd03144160dd35a3c8674d9b3}\label{rmap_8h_a1c0ac3dbd03144160dd35a3c8674d9b3}} 
+\index{rmap.\+h@{rmap.\+h}!supervisor\+\_\+task@{supervisor\+\_\+task}}
+\index{supervisor\+\_\+task@{supervisor\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{supervisor\+\_\+task()}{supervisor\_task()}}
+{\footnotesize\ttfamily void supervisor\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Supervisor task. Manage R\+TC and N\+TP sync and open/close gsm and ethernet connection. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a5069fdc64788136358f93a124624d05d}\label{rmap_8h_a5069fdc64788136358f93a124624d05d}} 
+\index{rmap.\+h@{rmap.\+h}!time\+\_\+task@{time\+\_\+task}}
+\index{time\+\_\+task@{time\+\_\+task}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{time\+\_\+task()}{time\_task()}}
+{\footnotesize\ttfamily void time\+\_\+task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Time task. Get time from N\+TP and sync R\+TC with it. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}

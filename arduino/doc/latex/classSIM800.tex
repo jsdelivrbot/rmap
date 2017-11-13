@@ -1,0 +1,509 @@
+\hypertarget{classSIM800}{}\section{S\+I\+M800 Class Reference}
+\label{classSIM800}\index{S\+I\+M800@{S\+I\+M800}}
+
+
+\hyperlink{classSIM800}{S\+I\+M800} class.  
+
+
+
+
+{\ttfamily \#include $<$sim800.\+h$>$}
+
+
+
+Inheritance diagram for S\+I\+M800\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classSIM800__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classSIM800_aa021c75801b1918b5ad0fa56069f375c}{is\+On} ()
+\begin{DoxyCompactList}\small\item\em Check if sim800 is on or is off. \end{DoxyCompactList}\item 
+bool \hyperlink{classSIM800_ad582d1f567623255d8562a8fc01de236}{is\+Initialized} ()
+\begin{DoxyCompactList}\small\item\em Check if sim800 is initialized. \end{DoxyCompactList}\item 
+bool \hyperlink{classSIM800_a373c14a3362d291f32c8019f072dfe4e}{is\+Setted} ()
+\begin{DoxyCompactList}\small\item\em Check if sim800 is setted. \end{DoxyCompactList}\item 
+bool \hyperlink{classSIM800_a275fc00e4d607e244c3ce9f6eff032d2}{is\+Registered} ()
+\begin{DoxyCompactList}\small\item\em Check if sim800 is registered on network. \end{DoxyCompactList}\item 
+bool \hyperlink{classSIM800_aadbaa3d44c842c016d57c28bee6e1d1d}{is\+Http\+Initialized} ()
+\begin{DoxyCompactList}\small\item\em Check if sim800 is connected. \end{DoxyCompactList}\item 
+void \hyperlink{classSIM800_a4872e1f7377e73315966faff14c675d2}{set\+Serial} (Hardware\+Serial $\ast$serial)
+\begin{DoxyCompactList}\small\item\em Set serial port for sim800. \end{DoxyCompactList}\item 
+bool \hyperlink{classSIM800_aace0006eac0349e879e0b59395a86bc7}{init} (uint8\+\_\+t \+\_\+on\+\_\+off\+\_\+pin, uint8\+\_\+t \+\_\+reset\+\_\+pin=0x\+F\+F)
+\begin{DoxyCompactList}\small\item\em Init variables for sim800. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a9bbdd9fd81aaa798f6cc8ae9dfba0dce}{get\+Gsn} (char $\ast$imei)
+\begin{DoxyCompactList}\small\item\em Send G\+SN AT command for reading simcard I\+M\+EI. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_acc33ebd53d7632af0231fe5762700a6c}{get\+Creg} (uint8\+\_\+t $\ast$n, uint8\+\_\+t $\ast$stat)
+\begin{DoxyCompactList}\small\item\em Send C\+R\+EG AT command for reading network status. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a4512a8ea233080900c43cc42fe8a4dfb}{get\+Csq} (uint8\+\_\+t $\ast$rssi, uint8\+\_\+t $\ast$ber)
+\begin{DoxyCompactList}\small\item\em Send C\+SQ AT command for reading signal quality. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a01c081285a1c61b068f97f06fb2004d9}{get\+Cgatt} (bool $\ast$is\+\_\+attached)
+\begin{DoxyCompactList}\small\item\em Send C\+G\+A\+TT AT command for check if gprs is attached. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a5313d75fb7510fe8b84b89def3b35096}{get\+Cifsr} (char $\ast$ip)
+\begin{DoxyCompactList}\small\item\em Send C\+I\+F\+SR AT command for reading IP. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_ad8e19f34a392ac9b982fba48aed2d83e}{send\+Cpowd} ()
+\begin{DoxyCompactList}\small\item\em Send C\+P\+O\+WD AT command for power off module. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a30eb06e923b419efac4866dd630ae849}{switch\+On} ()
+\begin{DoxyCompactList}\small\item\em Power on module. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a6a7ee5f0c1ebaef0e04d3d0a8cb05032}{switch\+Off} (uint8\+\_\+t power\+\_\+off\+\_\+method=\hyperlink{sim800_8h_afec179273e643a34ac7e4991be4dfe7d}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+F\+F\+\_\+\+B\+Y\+\_\+\+S\+W\+I\+T\+CH})
+\begin{DoxyCompactList}\small\item\em Power off module. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a05cceb142dd2e23b6459075f19c04ae8}{send\+At} ()
+\begin{DoxyCompactList}\small\item\em Send \char`\"{}\+A\+T\char`\"{} AT command. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_ae2c0405faa73c05dd486b2a3f8086eb4}{init\+Autobaud} ()
+\begin{DoxyCompactList}\small\item\em Execute autobaud sequence. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_af689d4460f01f57a910d4befc82b9b81}{setup} ()
+\begin{DoxyCompactList}\small\item\em Execute setup sequence. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_aef7d718949e714a45d2f671fbd14e804}{start\+Connection} (const char $\ast$apn, const char $\ast$username, const char $\ast$password)
+\begin{DoxyCompactList}\small\item\em Execute start connection sequence. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a834bbcd0087d6f3ef3474b5914c39e3a}{connection} (const char $\ast$tipo, const char $\ast$server, const int port)
+\begin{DoxyCompactList}\small\item\em Execute connection sequence. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_aac1e10bd21b00bfafc4487891a04e9d3}{stop\+Connection} ()
+\begin{DoxyCompactList}\small\item\em Execute stop connection sequence. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a3c73206225b81654384e625faadb1b49}{exit\+Transparent\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Execute exiting trasparent mode sequence. \end{DoxyCompactList}\item 
+void \hyperlink{classSIM800_ad6ea4550521aee8f55656cede649baff}{clean\+Input} ()
+\begin{DoxyCompactList}\small\item\em Clear read serial port stream. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classSIM800_a4dfa4237d627c04532156d476f29dacf}{receive} (char $\ast$rx\+\_\+buffer, const char $\ast$at\+\_\+ok\+\_\+string=\hyperlink{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}{A\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}, const char $\ast$at\+\_\+error\+\_\+string=\hyperlink{sim800_8h_a883ea39010a33ca1b400940a65869e47}{A\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG})
+\begin{DoxyCompactList}\small\item\em Read serial port stream and check if response message is a success message or error message. \end{DoxyCompactList}\item 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \hyperlink{classSIM800_a3ff02a2d318c230bc3711af6316a28c3}{send\+At\+Command} (const char $\ast$command, char $\ast$buf, const char $\ast$at\+\_\+ok\+\_\+string=\hyperlink{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}{A\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}, const char $\ast$at\+\_\+error\+\_\+string=\hyperlink{sim800_8h_a883ea39010a33ca1b400940a65869e47}{A\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}, uint32\+\_\+t timeout\+\_\+ms=\hyperlink{sim800_8h_a0499ea42358376e7a0c09e540ab7219a}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+MS})
+\begin{DoxyCompactList}\small\item\em Write AT command to serial stream, managing timeout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIM800_a825f975081ae033934dca5404895246d}\label{classSIM800_a825f975081ae033934dca5404895246d}} 
+uint8\+\_\+t \hyperlink{classSIM800_a825f975081ae033934dca5404895246d}{state}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classSIM800}{S\+I\+M800} state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIM800_ac88d7703f4b6a439c4fb3a97bb0c5d0e}\label{classSIM800_ac88d7703f4b6a439c4fb3a97bb0c5d0e}} 
+Hardware\+Serial $\ast$ \hyperlink{classSIM800_ac88d7703f4b6a439c4fb3a97bb0c5d0e}{modem} = \&Serial1
+\begin{DoxyCompactList}\small\item\em pointer to modem serial stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classSIM800}{S\+I\+M800} class. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSIM800_ad6ea4550521aee8f55656cede649baff}\label{classSIM800_ad6ea4550521aee8f55656cede649baff}} 
+\index{S\+I\+M800@{S\+I\+M800}!clean\+Input@{clean\+Input}}
+\index{clean\+Input@{clean\+Input}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{clean\+Input()}{cleanInput()}}
+{\footnotesize\ttfamily void S\+I\+M800\+::clean\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear read serial port stream. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a834bbcd0087d6f3ef3474b5914c39e3a}\label{classSIM800_a834bbcd0087d6f3ef3474b5914c39e3a}} 
+\index{S\+I\+M800@{S\+I\+M800}!connection@{connection}}
+\index{connection@{connection}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{connection()}{connection()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::connection (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tipo,  }\item[{const char $\ast$}]{server,  }\item[{const int}]{port }\end{DoxyParamCaption})}
+
+
+
+Execute connection sequence. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$tipo} & indicate what type of connection you want to open. Supported type are \char`\"{}\+U\+D\+P\char`\"{} and \char`\"{}\+T\+C\+P\char`\"{}. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$server} & IP address or hostname of server. \\
+\hline
+\mbox{\tt in}  & {\em port} & connection port. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a3c73206225b81654384e625faadb1b49}\label{classSIM800_a3c73206225b81654384e625faadb1b49}} 
+\index{S\+I\+M800@{S\+I\+M800}!exit\+Transparent\+Mode@{exit\+Transparent\+Mode}}
+\index{exit\+Transparent\+Mode@{exit\+Transparent\+Mode}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{exit\+Transparent\+Mode()}{exitTransparentMode()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::exit\+Transparent\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Execute exiting trasparent mode sequence. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a01c081285a1c61b068f97f06fb2004d9}\label{classSIM800_a01c081285a1c61b068f97f06fb2004d9}} 
+\index{S\+I\+M800@{S\+I\+M800}!get\+Cgatt@{get\+Cgatt}}
+\index{get\+Cgatt@{get\+Cgatt}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{get\+Cgatt()}{getCgatt()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::get\+Cgatt (\begin{DoxyParamCaption}\item[{bool $\ast$}]{is\+\_\+attached }\end{DoxyParamCaption})}
+
+
+
+Send C\+G\+A\+TT AT command for check if gprs is attached. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$is\+\_\+attached} & pointer to bool variable indicating if gprs is attach (true) or not (false). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a5313d75fb7510fe8b84b89def3b35096}\label{classSIM800_a5313d75fb7510fe8b84b89def3b35096}} 
+\index{S\+I\+M800@{S\+I\+M800}!get\+Cifsr@{get\+Cifsr}}
+\index{get\+Cifsr@{get\+Cifsr}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{get\+Cifsr()}{getCifsr()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::get\+Cifsr (\begin{DoxyParamCaption}\item[{char $\ast$}]{ip }\end{DoxyParamCaption})}
+
+
+
+Send C\+I\+F\+SR AT command for reading IP. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$ip} & pointer to char buffer containing ip. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_acc33ebd53d7632af0231fe5762700a6c}\label{classSIM800_acc33ebd53d7632af0231fe5762700a6c}} 
+\index{S\+I\+M800@{S\+I\+M800}!get\+Creg@{get\+Creg}}
+\index{get\+Creg@{get\+Creg}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{get\+Creg()}{getCreg()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::get\+Creg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{n,  }\item[{uint8\+\_\+t $\ast$}]{stat }\end{DoxyParamCaption})}
+
+
+
+Send C\+R\+EG AT command for reading network status. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$n} & pointer to variable containing n value. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$stat} & pointer to variable containing stat value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a4512a8ea233080900c43cc42fe8a4dfb}\label{classSIM800_a4512a8ea233080900c43cc42fe8a4dfb}} 
+\index{S\+I\+M800@{S\+I\+M800}!get\+Csq@{get\+Csq}}
+\index{get\+Csq@{get\+Csq}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{get\+Csq()}{getCsq()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::get\+Csq (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{rssi,  }\item[{uint8\+\_\+t $\ast$}]{ber }\end{DoxyParamCaption})}
+
+
+
+Send C\+SQ AT command for reading signal quality. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$rssi} & pointer to variable containing rssi value. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$ber} & pointer to variable containing ber value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a9bbdd9fd81aaa798f6cc8ae9dfba0dce}\label{classSIM800_a9bbdd9fd81aaa798f6cc8ae9dfba0dce}} 
+\index{S\+I\+M800@{S\+I\+M800}!get\+Gsn@{get\+Gsn}}
+\index{get\+Gsn@{get\+Gsn}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{get\+Gsn()}{getGsn()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::get\+Gsn (\begin{DoxyParamCaption}\item[{char $\ast$}]{imei }\end{DoxyParamCaption})}
+
+
+
+Send G\+SN AT command for reading simcard I\+M\+EI. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$imei} & pointer to char buffer containing imei. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_aace0006eac0349e879e0b59395a86bc7}\label{classSIM800_aace0006eac0349e879e0b59395a86bc7}} 
+\index{S\+I\+M800@{S\+I\+M800}!init@{init}}
+\index{init@{init}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{\+\_\+on\+\_\+off\+\_\+pin,  }\item[{uint8\+\_\+t}]{\+\_\+reset\+\_\+pin = {\ttfamily 0xFF} }\end{DoxyParamCaption})}
+
+
+
+Init variables for sim800. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+on\+\_\+off\+\_\+pin} & on/off pin for module. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+reset\+\_\+pin} & reset pin for module. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_ae2c0405faa73c05dd486b2a3f8086eb4}\label{classSIM800_ae2c0405faa73c05dd486b2a3f8086eb4}} 
+\index{S\+I\+M800@{S\+I\+M800}!init\+Autobaud@{init\+Autobaud}}
+\index{init\+Autobaud@{init\+Autobaud}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{init\+Autobaud()}{initAutobaud()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::init\+Autobaud (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Execute autobaud sequence. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_aadbaa3d44c842c016d57c28bee6e1d1d}\label{classSIM800_aadbaa3d44c842c016d57c28bee6e1d1d}} 
+\index{S\+I\+M800@{S\+I\+M800}!is\+Http\+Initialized@{is\+Http\+Initialized}}
+\index{is\+Http\+Initialized@{is\+Http\+Initialized}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{is\+Http\+Initialized()}{isHttpInitialized()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::is\+Http\+Initialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if sim800 is connected. 
+
+\begin{DoxyReturn}{Returns}
+true if it is connected, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_ad582d1f567623255d8562a8fc01de236}\label{classSIM800_ad582d1f567623255d8562a8fc01de236}} 
+\index{S\+I\+M800@{S\+I\+M800}!is\+Initialized@{is\+Initialized}}
+\index{is\+Initialized@{is\+Initialized}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{is\+Initialized()}{isInitialized()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::is\+Initialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if sim800 is initialized. 
+
+\begin{DoxyReturn}{Returns}
+true if it is initialized, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_aa021c75801b1918b5ad0fa56069f375c}\label{classSIM800_aa021c75801b1918b5ad0fa56069f375c}} 
+\index{S\+I\+M800@{S\+I\+M800}!is\+On@{is\+On}}
+\index{is\+On@{is\+On}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{is\+On()}{isOn()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::is\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if sim800 is on or is off. 
+
+\begin{DoxyReturn}{Returns}
+true if it is on, false if is off. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a275fc00e4d607e244c3ce9f6eff032d2}\label{classSIM800_a275fc00e4d607e244c3ce9f6eff032d2}} 
+\index{S\+I\+M800@{S\+I\+M800}!is\+Registered@{is\+Registered}}
+\index{is\+Registered@{is\+Registered}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{is\+Registered()}{isRegistered()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::is\+Registered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if sim800 is registered on network. 
+
+\begin{DoxyReturn}{Returns}
+true if it is registered, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a373c14a3362d291f32c8019f072dfe4e}\label{classSIM800_a373c14a3362d291f32c8019f072dfe4e}} 
+\index{S\+I\+M800@{S\+I\+M800}!is\+Setted@{is\+Setted}}
+\index{is\+Setted@{is\+Setted}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{is\+Setted()}{isSetted()}}
+{\footnotesize\ttfamily bool S\+I\+M800\+::is\+Setted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if sim800 is setted. 
+
+\begin{DoxyReturn}{Returns}
+true if it is setted, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a4dfa4237d627c04532156d476f29dacf}\label{classSIM800_a4dfa4237d627c04532156d476f29dacf}} 
+\index{S\+I\+M800@{S\+I\+M800}!receive@{receive}}
+\index{receive@{receive}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily uint8\+\_\+t S\+I\+M800\+::receive (\begin{DoxyParamCaption}\item[{char $\ast$}]{rx\+\_\+buffer,  }\item[{const char $\ast$}]{at\+\_\+ok\+\_\+string = {\ttfamily \hyperlink{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}{A\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}},  }\item[{const char $\ast$}]{at\+\_\+error\+\_\+string = {\ttfamily \hyperlink{sim800_8h_a883ea39010a33ca1b400940a65869e47}{A\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}} }\end{DoxyParamCaption})}
+
+
+
+Read serial port stream and check if response message is a success message or error message. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$rx\+\_\+buffer} & pointer to readed data buffer. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$at\+\_\+ok\+\_\+string} & success message. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$at\+\_\+error\+\_\+string} & error message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes readed from stream. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a05cceb142dd2e23b6459075f19c04ae8}\label{classSIM800_a05cceb142dd2e23b6459075f19c04ae8}} 
+\index{S\+I\+M800@{S\+I\+M800}!send\+At@{send\+At}}
+\index{send\+At@{send\+At}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{send\+At()}{sendAt()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::send\+At (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Send \char`\"{}\+A\+T\char`\"{} AT command. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a3ff02a2d318c230bc3711af6316a28c3}\label{classSIM800_a3ff02a2d318c230bc3711af6316a28c3}} 
+\index{S\+I\+M800@{S\+I\+M800}!send\+At\+Command@{send\+At\+Command}}
+\index{send\+At\+Command@{send\+At\+Command}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{send\+At\+Command()}{sendAtCommand()}}
+{\footnotesize\ttfamily S\+I\+M800\+::send\+At\+Command (\begin{DoxyParamCaption}\item[{const char $\ast$}]{command,  }\item[{char $\ast$}]{buf,  }\item[{const char $\ast$}]{at\+\_\+ok\+\_\+string = {\ttfamily \hyperlink{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}{A\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}},  }\item[{const char $\ast$}]{at\+\_\+error\+\_\+string = {\ttfamily \hyperlink{sim800_8h_a883ea39010a33ca1b400940a65869e47}{A\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}},  }\item[{uint32\+\_\+t}]{timeout\+\_\+ms = {\ttfamily \hyperlink{sim800_8h_a0499ea42358376e7a0c09e540ab7219a}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+MS}} }\end{DoxyParamCaption})}
+
+
+
+Write AT command to serial stream, managing timeout. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$command} & AT command to be send. \\
+\hline
+\mbox{\tt in,out}  & {\em $\ast$buf} & pointer to readed and writed data buffer. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$at\+\_\+ok\+\_\+string} & success message. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$at\+\_\+error\+\_\+string} & error message. \\
+\hline
+\mbox{\tt in}  & {\em timeout\+\_\+ms} & timeout in milliseconds for receive a response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_ad8e19f34a392ac9b982fba48aed2d83e}\label{classSIM800_ad8e19f34a392ac9b982fba48aed2d83e}} 
+\index{S\+I\+M800@{S\+I\+M800}!send\+Cpowd@{send\+Cpowd}}
+\index{send\+Cpowd@{send\+Cpowd}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{send\+Cpowd()}{sendCpowd()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::send\+Cpowd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Send C\+P\+O\+WD AT command for power off module. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a4872e1f7377e73315966faff14c675d2}\label{classSIM800_a4872e1f7377e73315966faff14c675d2}} 
+\index{S\+I\+M800@{S\+I\+M800}!set\+Serial@{set\+Serial}}
+\index{set\+Serial@{set\+Serial}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{set\+Serial()}{setSerial()}}
+{\footnotesize\ttfamily void S\+I\+M800\+::set\+Serial (\begin{DoxyParamCaption}\item[{Hardware\+Serial $\ast$}]{serial }\end{DoxyParamCaption})}
+
+
+
+Set serial port for sim800. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$serial} & pointer to serial stream. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_af689d4460f01f57a910d4befc82b9b81}\label{classSIM800_af689d4460f01f57a910d4befc82b9b81}} 
+\index{S\+I\+M800@{S\+I\+M800}!setup@{setup}}
+\index{setup@{setup}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Execute setup sequence. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_aef7d718949e714a45d2f671fbd14e804}\label{classSIM800_aef7d718949e714a45d2f671fbd14e804}} 
+\index{S\+I\+M800@{S\+I\+M800}!start\+Connection@{start\+Connection}}
+\index{start\+Connection@{start\+Connection}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{start\+Connection()}{startConnection()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::start\+Connection (\begin{DoxyParamCaption}\item[{const char $\ast$}]{apn,  }\item[{const char $\ast$}]{username,  }\item[{const char $\ast$}]{password }\end{DoxyParamCaption})}
+
+
+
+Execute start connection sequence. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$apn} & apn for simcard network operation \\
+\hline
+\mbox{\tt in}  & {\em $\ast$username} & username for simcard network operation \\
+\hline
+\mbox{\tt in}  & {\em $\ast$password} & password for simcard network operation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_aac1e10bd21b00bfafc4487891a04e9d3}\label{classSIM800_aac1e10bd21b00bfafc4487891a04e9d3}} 
+\index{S\+I\+M800@{S\+I\+M800}!stop\+Connection@{stop\+Connection}}
+\index{stop\+Connection@{stop\+Connection}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{stop\+Connection()}{stopConnection()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::stop\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Execute stop connection sequence. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a6a7ee5f0c1ebaef0e04d3d0a8cb05032}\label{classSIM800_a6a7ee5f0c1ebaef0e04d3d0a8cb05032}} 
+\index{S\+I\+M800@{S\+I\+M800}!switch\+Off@{switch\+Off}}
+\index{switch\+Off@{switch\+Off}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{switch\+Off()}{switchOff()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::switch\+Off (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+\_\+off\+\_\+method = {\ttfamily \hyperlink{sim800_8h_afec179273e643a34ac7e4991be4dfe7d}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+F\+F\+\_\+\+B\+Y\+\_\+\+S\+W\+I\+T\+CH}} }\end{DoxyParamCaption})}
+
+
+
+Power off module. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em power\+\_\+off\+\_\+method} & indicate what method you want to use for power off module (hardware switch or AT command). Default is hardware switch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIM800_a30eb06e923b419efac4866dd630ae849}\label{classSIM800_a30eb06e923b419efac4866dd630ae849}} 
+\index{S\+I\+M800@{S\+I\+M800}!switch\+On@{switch\+On}}
+\index{switch\+On@{switch\+On}!S\+I\+M800@{S\+I\+M800}}
+\subsubsection{\texorpdfstring{switch\+On()}{switchOn()}}
+{\footnotesize\ttfamily \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} S\+I\+M800\+::switch\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Power on module. 
+
+\begin{DoxyReturn}{Returns}
+sim800 status on each call. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+sketchbook/libraries/sim800/\hyperlink{sim800_8h}{sim800.\+h}\item 
+sketchbook/libraries/sim800/\hyperlink{sim800_8cpp}{sim800.\+cpp}\end{DoxyCompactItemize}

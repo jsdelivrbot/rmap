@@ -1,0 +1,578 @@
+\hypertarget{sim800_8h}{}\section{sketchbook/libraries/sim800/sim800.h File Reference}
+\label{sim800_8h}\index{sketchbook/libraries/sim800/sim800.\+h@{sketchbook/libraries/sim800/sim800.\+h}}
+{\ttfamily \#include \char`\"{}Arduino.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}I\+P\+Address.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$debug.\+h$>$}\newline
+Include dependency graph for sim800.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sim800_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sim800_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classSIM800}{S\+I\+M800}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classSIM800}{S\+I\+M800} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{sim800_8h_a80db592d84973e51b15de180e4d7a897}\label{sim800_8h_a80db592d84973e51b15de180e4d7a897}} 
+\#define \hyperlink{sim800_8h_a80db592d84973e51b15de180e4d7a897}{S\+I\+M800\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}~(100)
+\begin{DoxyCompactList}\small\item\em Length of sim800 buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a57ae657a3de64edd7551237d03983b3b}\label{sim800_8h_a57ae657a3de64edd7551237d03983b3b}} 
+\#define \hyperlink{sim800_8h_a57ae657a3de64edd7551237d03983b3b}{S\+I\+M800\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}~(120)
+\begin{DoxyCompactList}\small\item\em Length of sim800 command buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ab26f7b4f1b2ad7cb92f32d2a079bb146}\label{sim800_8h_ab26f7b4f1b2ad7cb92f32d2a079bb146}} 
+\#define \hyperlink{sim800_8h_ab26f7b4f1b2ad7cb92f32d2a079bb146}{S\+I\+M800\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+O\+RT}~(Serial1)
+\begin{DoxyCompactList}\small\item\em Default sim800 serial port. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a04d3e32fe0ce2936bfe4cc9362f4141e}\label{sim800_8h_a04d3e32fe0ce2936bfe4cc9362f4141e}} 
+\#define \hyperlink{sim800_8h_a04d3e32fe0ce2936bfe4cc9362f4141e}{S\+I\+M800\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+O\+R\+T\+\_\+\+B\+A\+U\+D\+\_\+\+R\+A\+TE}~(115200)
+\begin{DoxyCompactList}\small\item\em Baud rate of sim800 serial port. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a5fedd17799968f6189ce86b59b7a69f9}\label{sim800_8h_a5fedd17799968f6189ce86b59b7a69f9}} 
+\#define \hyperlink{sim800_8h_a5fedd17799968f6189ce86b59b7a69f9}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE}~(0b00000000)
+\begin{DoxyCompactList}\small\item\em sim800 state none\+: default state at power on. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a8ad7c7b700c1c9fd0e7443efd0f22881}\label{sim800_8h_a8ad7c7b700c1c9fd0e7443efd0f22881}} 
+\#define \hyperlink{sim800_8h_a8ad7c7b700c1c9fd0e7443efd0f22881}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+ON}~(0b00000001)
+\begin{DoxyCompactList}\small\item\em sim800 is on. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a5da4984e087c46f45481124eff4684f0}\label{sim800_8h_a5da4984e087c46f45481124eff4684f0}} 
+\#define \hyperlink{sim800_8h_a5da4984e087c46f45481124eff4684f0}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ED}~(0b00000010)
+\begin{DoxyCompactList}\small\item\em sim800 is initialized. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aa816adb18e47d9c6249c3cc0a7041cbc}\label{sim800_8h_aa816adb18e47d9c6249c3cc0a7041cbc}} 
+\#define \hyperlink{sim800_8h_aa816adb18e47d9c6249c3cc0a7041cbc}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+T\+T\+ED}~(0b00000100)
+\begin{DoxyCompactList}\small\item\em sim800 is setted. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_af48604d2ce04f719542ed6eb7bf02ebc}\label{sim800_8h_af48604d2ce04f719542ed6eb7bf02ebc}} 
+\#define \hyperlink{sim800_8h_af48604d2ce04f719542ed6eb7bf02ebc}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+ED}~(0b00001000)
+\begin{DoxyCompactList}\small\item\em sim800 is registered on network. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a01359491a87a7365211b3677831b8397}\label{sim800_8h_a01359491a87a7365211b3677831b8397}} 
+\#define \hyperlink{sim800_8h_a01359491a87a7365211b3677831b8397}{S\+I\+M800\+\_\+\+S\+T\+A\+T\+E\+\_\+\+H\+T\+T\+P\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ED}~(0b00010000)
+\begin{DoxyCompactList}\small\item\em sim800 is connected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}\label{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}} 
+\#define \hyperlink{sim800_8h_a1da24009e90c1a5de1d1f0bc0dda6dc6}{A\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}OK\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: ok message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a883ea39010a33ca1b400940a65869e47}\label{sim800_8h_a883ea39010a33ca1b400940a65869e47}} 
+\#define \hyperlink{sim800_8h_a883ea39010a33ca1b400940a65869e47}{A\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}E\+R\+R\+OR\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: error message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ad55e72cac666f249e1896bc1a7d18d2c}\label{sim800_8h_ad55e72cac666f249e1896bc1a7d18d2c}} 
+\#define \hyperlink{sim800_8h_ad55e72cac666f249e1896bc1a7d18d2c}{A\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}C\+O\+N\+N\+E\+CT\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: on connect message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a35fc17fa94b9a1000c3a5a8e8e79fba2}\label{sim800_8h_a35fc17fa94b9a1000c3a5a8e8e79fba2}} 
+\#define \hyperlink{sim800_8h_a35fc17fa94b9a1000c3a5a8e8e79fba2}{A\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+\_\+\+F\+A\+I\+L\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}C\+O\+N\+N\+E\+CT F\+A\+IL\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: connect fail message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a6cfee29198dc2392573a1e6f65760be4}\label{sim800_8h_a6cfee29198dc2392573a1e6f65760be4}} 
+\#define \hyperlink{sim800_8h_a6cfee29198dc2392573a1e6f65760be4}{A\+T\+\_\+\+N\+O\+R\+M\+A\+L\+\_\+\+P\+O\+W\+E\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}N\+O\+R\+M\+AL P\+O\+W\+ER D\+O\+WN\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: power down message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a6dfc0de8f99bbe71ef94e550a5b29b9d}\label{sim800_8h_a6dfc0de8f99bbe71ef94e550a5b29b9d}} 
+\#define \hyperlink{sim800_8h_a6dfc0de8f99bbe71ef94e550a5b29b9d}{A\+T\+\_\+\+C\+I\+P\+C\+L\+O\+S\+E\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}C\+L\+O\+SE OK\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: cip close message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a038501d9cae089bbd3d556b5875ef803}\label{sim800_8h_a038501d9cae089bbd3d556b5875ef803}} 
+\#define \hyperlink{sim800_8h_a038501d9cae089bbd3d556b5875ef803}{A\+T\+\_\+\+C\+I\+P\+C\+L\+O\+S\+E\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}E\+R\+R\+OR\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: cip close error message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a6443dbf61ba7e7a650ab7daa067de25e}\label{sim800_8h_a6443dbf61ba7e7a650ab7daa067de25e}} 
+\#define \hyperlink{sim800_8h_a6443dbf61ba7e7a650ab7daa067de25e}{A\+T\+\_\+\+C\+I\+P\+S\+H\+U\+T\+\_\+\+O\+K\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}S\+H\+UT OK\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: cip shiut ok message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a483717ebf1fde0bc846c16cac162d137}\label{sim800_8h_a483717ebf1fde0bc846c16cac162d137}} 
+\#define \hyperlink{sim800_8h_a483717ebf1fde0bc846c16cac162d137}{A\+T\+\_\+\+C\+I\+P\+S\+H\+U\+T\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+R\+I\+NG}~(\char`\"{}E\+R\+R\+OR\char`\"{})
+\begin{DoxyCompactList}\small\item\em AT command\+: cip shut error message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ac7dade9eabbfbea10d19cf738d649b02}\label{sim800_8h_ac7dade9eabbfbea10d19cf738d649b02}} 
+\#define \hyperlink{sim800_8h_ac7dade9eabbfbea10d19cf738d649b02}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+U\+DP}~(\char`\"{}U\+DP\char`\"{})
+\begin{DoxyCompactList}\small\item\em U\+DP type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aee87b1df8256eccac1a8e8d75f7283f4}\label{sim800_8h_aee87b1df8256eccac1a8e8d75f7283f4}} 
+\#define \hyperlink{sim800_8h_aee87b1df8256eccac1a8e8d75f7283f4}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+T\+CP}~(\char`\"{}T\+CP\char`\"{})
+\begin{DoxyCompactList}\small\item\em T\+CP type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a0499ea42358376e7a0c09e540ab7219a}\label{sim800_8h_a0499ea42358376e7a0c09e540ab7219a}} 
+\#define \hyperlink{sim800_8h_a0499ea42358376e7a0c09e540ab7219a}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+MS}~(1000)
+\begin{DoxyCompactList}\small\item\em Default AT command response timeout in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a1fe12261ddf6f817d2a26a00461bc73d}\label{sim800_8h_a1fe12261ddf6f817d2a26a00461bc73d}} 
+\#define \hyperlink{sim800_8h_a1fe12261ddf6f817d2a26a00461bc73d}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(200)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds between two AT command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a08e085853c1af5986c5995ed36e2d69b}\label{sim800_8h_a08e085853c1af5986c5995ed36e2d69b}} 
+\#define \hyperlink{sim800_8h_a08e085853c1af5986c5995ed36e2d69b}{S\+I\+M800\+\_\+\+G\+E\+N\+E\+R\+I\+C\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+C\+O\+U\+N\+T\+\_\+\+M\+AX}~(3)
+\begin{DoxyCompactList}\small\item\em Number of retry in case of error. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a612aa6e09b1e3ae6352a57d012f531ba}\label{sim800_8h_a612aa6e09b1e3ae6352a57d012f531ba}} 
+\#define \hyperlink{sim800_8h_a612aa6e09b1e3ae6352a57d012f531ba}{S\+I\+M800\+\_\+\+G\+E\+N\+E\+R\+I\+C\+\_\+\+W\+A\+I\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(3000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds between two retry in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ac26cf7fce31808a0f4d16dabdc0b5f2a}\label{sim800_8h_ac26cf7fce31808a0f4d16dabdc0b5f2a}} 
+\#define \hyperlink{sim800_8h_ac26cf7fce31808a0f4d16dabdc0b5f2a}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+N\+E\+T\+W\+O\+R\+K\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(5000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds network availability. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a838693d3c3534963060cbef92e5efbbc}\label{sim800_8h_a838693d3c3534963060cbef92e5efbbc}} 
+\#define \hyperlink{sim800_8h_a838693d3c3534963060cbef92e5efbbc}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+N\+E\+T\+W\+O\+R\+K\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+C\+O\+U\+N\+T\+\_\+\+M\+AX}~(10)
+\begin{DoxyCompactList}\small\item\em Max number of retry for checking network availability. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a93da940acfa9eadbfbc44035ef8b4303}\label{sim800_8h_a93da940acfa9eadbfbc44035ef8b4303}} 
+\#define \hyperlink{sim800_8h_a93da940acfa9eadbfbc44035ef8b4303}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+S\+E\+T\+U\+P\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(5000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for sim800 setup. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a597d595483e1b8925ed76b05abedf1d8}\label{sim800_8h_a597d595483e1b8925ed76b05abedf1d8}} 
+\#define \hyperlink{sim800_8h_a597d595483e1b8925ed76b05abedf1d8}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+A\+U\+T\+O\+B\+A\+U\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(3000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for autobaud. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aac7cff6c12e108b830b62d4f09529765}\label{sim800_8h_aac7cff6c12e108b830b62d4f09529765}} 
+\#define \hyperlink{sim800_8h_aac7cff6c12e108b830b62d4f09529765}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+R\+S\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(5000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for attaching gprs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aa6fe4870d98dc892bd782cd87ff3d2a2}\label{sim800_8h_aa6fe4870d98dc892bd782cd87ff3d2a2}} 
+\#define \hyperlink{sim800_8h_aa6fe4870d98dc892bd782cd87ff3d2a2}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(2000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for setting up connection. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a573391a836e0dccdfbfaa1db93d69cb1}\label{sim800_8h_a573391a836e0dccdfbfaa1db93d69cb1}} 
+\#define \hyperlink{sim800_8h_a573391a836e0dccdfbfaa1db93d69cb1}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+N\+\_\+\+O\+F\+F\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(1200)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for putting sim800 on or off by pulling down on/off pin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aa5e4e495d2880f8df59d2df7c2d6d5d6}\label{sim800_8h_aa5e4e495d2880f8df59d2df7c2d6d5d6}} 
+\#define \hyperlink{sim800_8h_aa5e4e495d2880f8df59d2df7c2d6d5d6}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+N\+\_\+\+O\+F\+F\+\_\+\+D\+O\+N\+E\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(2000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for sim800 startup or shutdown sequence. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_adb8ccdacdadacc86fa6e618bbc6dac01}\label{sim800_8h_adb8ccdacdadacc86fa6e618bbc6dac01}} 
+\#define \hyperlink{sim800_8h_adb8ccdacdadacc86fa6e618bbc6dac01}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+N\+\_\+\+T\+O\+\_\+\+O\+F\+F\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(10000)
+\begin{DoxyCompactList}\small\item\em Minimum time in milliseconds for shutdown sim800 after a poweron. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a3f776207586b0f487610de6343ade17d}\label{sim800_8h_a3f776207586b0f487610de6343ade17d}} 
+\#define \hyperlink{sim800_8h_a3f776207586b0f487610de6343ade17d}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+F\+F\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(100)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds after sim800 poweroff (useful for printing message in cpu powerdown). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_afa511fb2a9f2f1bc078759e57d331c0b}\label{sim800_8h_afa511fb2a9f2f1bc078759e57d331c0b}} 
+\#define \hyperlink{sim800_8h_afa511fb2a9f2f1bc078759e57d331c0b}{S\+I\+M800\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~(1000)
+\begin{DoxyCompactList}\small\item\em Waiting time in milliseconds for exiting trasparent mode. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_afec179273e643a34ac7e4991be4dfe7d}\label{sim800_8h_afec179273e643a34ac7e4991be4dfe7d}} 
+\#define \hyperlink{sim800_8h_afec179273e643a34ac7e4991be4dfe7d}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+F\+F\+\_\+\+B\+Y\+\_\+\+S\+W\+I\+T\+CH}~(0x01)
+\begin{DoxyCompactList}\small\item\em Execute sim800 poweroff by pulling down relative pin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a9010971fb72ca79f73f7d417161ad272}\label{sim800_8h_a9010971fb72ca79f73f7d417161ad272}} 
+\#define \hyperlink{sim800_8h_a9010971fb72ca79f73f7d417161ad272}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+O\+F\+F\+\_\+\+B\+Y\+\_\+\+A\+T\+\_\+\+C\+O\+M\+M\+A\+ND}~(0x02)
+\begin{DoxyCompactList}\small\item\em Execute sim800 poweroff by sending relative AT command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a1295fcd4e6c1d982faa106ca700b05af}\label{sim800_8h_a1295fcd4e6c1d982faa106ca700b05af}} 
+\#define \hyperlink{sim800_8h_a1295fcd4e6c1d982faa106ca700b05af}{S\+I\+M800\+\_\+\+I\+P\+\_\+\+L\+E\+N\+G\+TH}~(16)
+\begin{DoxyCompactList}\small\item\em Length of IP string buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a7d15a644f520f7aed5fd5e44d8aa5d0c}\label{sim800_8h_a7d15a644f520f7aed5fd5e44d8aa5d0c}} 
+\#define \hyperlink{sim800_8h_a7d15a644f520f7aed5fd5e44d8aa5d0c}{S\+I\+M800\+\_\+\+I\+M\+E\+I\+\_\+\+L\+E\+N\+G\+TH}~(20)
+\begin{DoxyCompactList}\small\item\em Length of I\+M\+EI string buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a2e19f9c0c09f9bb569c8ed1a282a9a7d}\label{sim800_8h_a2e19f9c0c09f9bb569c8ed1a282a9a7d}} 
+\#define \hyperlink{sim800_8h_a2e19f9c0c09f9bb569c8ed1a282a9a7d}{S\+I\+M800\+\_\+\+R\+S\+S\+I\+\_\+\+M\+IN}~(0)
+\begin{DoxyCompactList}\small\item\em Minimum value of R\+S\+SI (low signal). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a256d233e15adb2158d623355595633fa}\label{sim800_8h_a256d233e15adb2158d623355595633fa}} 
+\#define \hyperlink{sim800_8h_a256d233e15adb2158d623355595633fa}{S\+I\+M800\+\_\+\+R\+S\+S\+I\+\_\+\+M\+AX}~(31)
+\begin{DoxyCompactList}\small\item\em Minimum value of R\+S\+SI (high signal). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_abf114b65e645617021187e6860087d60}\label{sim800_8h_abf114b65e645617021187e6860087d60}} 
+\#define \hyperlink{sim800_8h_abf114b65e645617021187e6860087d60}{S\+I\+M800\+\_\+\+R\+S\+S\+I\+\_\+\+U\+N\+K\+N\+O\+WN}~(99)
+\begin{DoxyCompactList}\small\item\em Unknown value of R\+S\+SI. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a592500a812de5a0958ebe922c1d59aa3}\label{sim800_8h_a592500a812de5a0958ebe922c1d59aa3}} 
+\#define \hyperlink{sim800_8h_a592500a812de5a0958ebe922c1d59aa3}{S\+I\+M800\+\_\+\+B\+E\+R\+\_\+\+M\+IN}~(0)
+\begin{DoxyCompactList}\small\item\em Minimum value of B\+ER. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ae793c41c422a3256029495a490ac1898}\label{sim800_8h_ae793c41c422a3256029495a490ac1898}} 
+\#define \hyperlink{sim800_8h_ae793c41c422a3256029495a490ac1898}{S\+I\+M800\+\_\+\+B\+E\+R\+\_\+\+M\+AX}~(7)
+\begin{DoxyCompactList}\small\item\em Maximum value of B\+ER. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_af910343356e2f90ffe7633de7964cf2d}\label{sim800_8h_af910343356e2f90ffe7633de7964cf2d}} 
+\#define \hyperlink{sim800_8h_af910343356e2f90ffe7633de7964cf2d}{S\+I\+M800\+\_\+\+B\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN}~(99)
+\begin{DoxyCompactList}\small\item\em Unknown value of B\+ER. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a624ecc6747e2a13bcc5705abe0fa3ebd}\label{sim800_8h_a624ecc6747e2a13bcc5705abe0fa3ebd}} 
+\#define \hyperlink{sim800_8h_a624ecc6747e2a13bcc5705abe0fa3ebd}{S\+I\+M800\+\_\+\+C\+G\+A\+T\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+I\+M\+E\+\_\+\+M\+A\+X\+\_\+\+MS}~(10000)
+\begin{DoxyCompactList}\small\item\em Maximum C\+G\+A\+TT AT command response time in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_af7b427523ac873f7283480961ceab898}\label{sim800_8h_af7b427523ac873f7283480961ceab898}} 
+\#define \hyperlink{sim800_8h_af7b427523ac873f7283480961ceab898}{S\+I\+M800\+\_\+\+C\+I\+I\+C\+R\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+I\+M\+E\+\_\+\+M\+A\+X\+\_\+\+MS}~(85000)
+\begin{DoxyCompactList}\small\item\em Maximum C\+I\+I\+CR AT command response time in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aad741e45f6d3aeba3771a879d4158b77}\label{sim800_8h_aad741e45f6d3aeba3771a879d4158b77}} 
+\#define \hyperlink{sim800_8h_aad741e45f6d3aeba3771a879d4158b77}{S\+I\+M800\+\_\+\+C\+I\+P\+S\+T\+A\+R\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+I\+M\+E\+\_\+\+M\+A\+X\+\_\+\+MS}~(160000)
+\begin{DoxyCompactList}\small\item\em Maximum C\+I\+P\+S\+T\+A\+RT AT command response time in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_aa8b8c685b167f73fe7fd70417b6f1fc2}\label{sim800_8h_aa8b8c685b167f73fe7fd70417b6f1fc2}} 
+\#define \hyperlink{sim800_8h_aa8b8c685b167f73fe7fd70417b6f1fc2}{S\+I\+M800\+\_\+\+C\+I\+P\+S\+H\+U\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+T\+I\+M\+E\+\_\+\+M\+A\+X\+\_\+\+MS}~(65000)
+\begin{DoxyCompactList}\small\item\em Maximum C\+I\+P\+S\+H\+UT AT command response time in milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a6807a2bb0c6ebd770890b58d97b3ad48}\label{sim800_8h_a6807a2bb0c6ebd770890b58d97b3ad48}} 
+\#define \hyperlink{sim800_8h_a6807a2bb0c6ebd770890b58d97b3ad48}{found}(str,  check)~(strstr(str, check))
+\begin{DoxyCompactList}\small\item\em Return true or false if check string is found in str string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a859aef935c2a20a4c6acc7ce688cd25b}\label{sim800_8h_a859aef935c2a20a4c6acc7ce688cd25b}} 
+\#define \hyperlink{sim800_8h_a859aef935c2a20a4c6acc7ce688cd25b}{send}(data)~(modem-\/$>$print(data))
+\begin{DoxyCompactList}\small\item\em write data in modem stream (Serial). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ac42d67e3c2d87cf4a03cc6901384e033}\label{sim800_8h_ac42d67e3c2d87cf4a03cc6901384e033}} 
+\#define \hyperlink{sim800_8h_ac42d67e3c2d87cf4a03cc6901384e033}{print\+Status}(status,  ok,  error)~(status == \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a05133827166c1a62f1c78c34c39cd696}{S\+I\+M800\+\_\+\+OK} ? ok \+: error)
+\begin{DoxyCompactList}\small\item\em Check if status is ok and print relative message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a63657ea103b247bb4a57080c211d99ce}\label{sim800_8h_a63657ea103b247bb4a57080c211d99ce}} 
+\#define \hyperlink{sim800_8h_a63657ea103b247bb4a57080c211d99ce}{get\+Imei}(imei)~(get\+Gsn(imei))
+\begin{DoxyCompactList}\small\item\em Return I\+M\+EI of simcard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a4d6a7063b7b16defc4bead1da76e3d7e}\label{sim800_8h_a4d6a7063b7b16defc4bead1da76e3d7e}} 
+\#define \hyperlink{sim800_8h_a4d6a7063b7b16defc4bead1da76e3d7e}{get\+Ip}(ip)~(get\+Cifsr(ip))
+\begin{DoxyCompactList}\small\item\em Return IP. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a1354bda17eb77a5ba6f9c642e6638bad}\label{sim800_8h_a1354bda17eb77a5ba6f9c642e6638bad}} 
+\#define \hyperlink{sim800_8h_a1354bda17eb77a5ba6f9c642e6638bad}{get\+Network\+Status}(n,  stat)~(get\+Creg(n, stat))
+\begin{DoxyCompactList}\small\item\em Return network status. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_ac713ec074a79d4b1ba05a14b714b31a8}\label{sim800_8h_ac713ec074a79d4b1ba05a14b714b31a8}} 
+\#define \hyperlink{sim800_8h_ac713ec074a79d4b1ba05a14b714b31a8}{get\+Signal\+Quality}(rssi,  ber)~(get\+Csq(rssi, ber))
+\begin{DoxyCompactList}\small\item\em Return signal quality. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a5d9cb68d788e972a681da7922de8c399}\label{sim800_8h_a5d9cb68d788e972a681da7922de8c399}} 
+\#define \hyperlink{sim800_8h_a5d9cb68d788e972a681da7922de8c399}{is\+Gprs\+Attached}(is\+\_\+attached)~(get\+Cgatt(is\+\_\+attached))
+\begin{DoxyCompactList}\small\item\em Check if gprs is attached. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{sim800_8h_a82303f389e9fefeba6459edde03dab1e}\label{sim800_8h_a82303f389e9fefeba6459edde03dab1e}} 
+\#define \hyperlink{sim800_8h_a82303f389e9fefeba6459edde03dab1e}{software\+Switch\+Off}()~(send\+Cpowd())
+\begin{DoxyCompactList}\small\item\em Send switchoff AT command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836}{sim800\+\_\+power\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836a786ef9b505564e9477f26e35295d11d3}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836a88d49a6554944c344206e95006a2a33a}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW}, 
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836a1e6195855170fe752a8afd50e193fda5}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH}, 
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836a500db6b55d08fa3e3cd8645169468335}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}, 
+\newline
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836a89b9cc73c1815a651fca5b4d7f6859b5}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND}, 
+\hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836aa7fb139d41c83d78377737f8feef7330}{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943f}{sim800\+\_\+setup\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fa94fbab702c5aac4300dc3262ca058a31}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fa43508832c79a8decf00bf35cca50765e}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET}, 
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fae06f8f8f2cdf5274a0a0a43eede92706}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE}, 
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fa011c52b2b6f3239b67c1f2ec5043e1b7}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY}, 
+\newline
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fa1724cf020041a0b0f30db0ce65404ec0}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK}, 
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943faaebb0a6d53077a5fab9b065ba9a6f1ad}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND}, 
+\hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943fad2fa5fbc6012a8188d66821e3b2a2c8e}{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9}{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a3a9ea3068aec2f33baa7f281df735f83}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad20fe25b3e75587f3dbc130ae7e74730}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9fa295cfda01eb7d94e3e4554a80891f}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a447502ce2ccee24d77a57707ce3428f8}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP}, 
+\newline
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9df75fefa902d2d0c47fdd53a4eb88bf}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a76e07650877d2bd5855e0c8e4df03db4}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a255dd58bac862a3bc0795162c9e1012a}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9aabd15f44851740f13a2bef8f46ae79f8}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT}, 
+\newline
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9afa449b452663e082e85c6d56778d3b0a}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad74d7ce4e7674e42a04052c970647960}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND}, 
+\hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a09b2bee355379e14d4afda8368a8325f}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322d}{sim800\+\_\+connection\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322da5859425193a409659af9a20d7da3d8d1}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322daf02ae7503c4dd4d0c6a5c91c8b26930f}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN}, 
+\hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322da381901ed1ed72abc9a8ad71ace0b157e}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}, 
+\hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322da3ff22c17f522164c2084fb9d72c4f217}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322dac38fd39516a4c17c7e0572e799f82829}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03c}{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca6f3c7855b190ade5597634dfafedf99e}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9d21373b6fc1440c5dace3ed40f5c3e3}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE}, 
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca1110cd6a1cea6042a404dfd2cb7c0589}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE}, 
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca5325d9664d2de356a0ed7cdea8d9a3f9}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP}, 
+\newline
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca35521b0dcc5d893aab2a0e8557e97041}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS}, 
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca4711166b017b50b24cbbd6376df0639e}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND}, 
+\hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9fe5242e756f748fbd58a48e11991342}{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90}{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t} \{ \hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90a4ad991536d740cd8d62fe99b1f5a66c9}{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90a6f3899d5d637a6134dccceb77e05fb7f}{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE}, 
+\hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90a939323578ed4502308e2a83f7f2406a9}{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND}, 
+\hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90acfe592f772a3ae3649495718a4818917}{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6}{sim800\+\_\+at\+\_\+state\+\_\+t} \{ \newline
+\hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6086e1a2ba32d4b7c49d3280d15b284d}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT}, 
+\hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6a39132d64d2c2032272292ac43396d2}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND}, 
+\hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a4f07264c903072c89ba641cc36cfc144}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE}, 
+\hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a2c1211fd89562bc7bb277d56ceaa9897}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND}, 
+\newline
+\hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6acb41d33cb3d3b3081507de048f07fa1e}{S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\item 
+enum \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t} \{ \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a1c41b5b3474fc08d335382d13ad9a343}{S\+I\+M800\+\_\+\+B\+U\+SY}, 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a05133827166c1a62f1c78c34c39cd696}{S\+I\+M800\+\_\+\+OK}, 
+\hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a00108f7ce77066325925decfea51b01e}{S\+I\+M800\+\_\+\+E\+R\+R\+OR}
+ \}\begin{DoxyCompactList}\small\item\em Main loop finite state machine. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+at\+\_\+state\+\_\+t@{sim800\+\_\+at\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+at\+\_\+state\+\_\+t@{sim800\+\_\+at\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+at\+\_\+state\+\_\+t}{sim800\_at\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6}{sim800\+\_\+at\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6086e1a2ba32d4b7c49d3280d15b284d}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6086e1a2ba32d4b7c49d3280d15b284d}} 
+S\+I\+M800\+\_\+\+A\+T\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6a39132d64d2c2032272292ac43396d2}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a6a39132d64d2c2032272292ac43396d2}} 
+S\+I\+M800\+\_\+\+A\+T\+\_\+\+S\+E\+ND&send AT command \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE}}}\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a4f07264c903072c89ba641cc36cfc144}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a4f07264c903072c89ba641cc36cfc144}} 
+S\+I\+M800\+\_\+\+A\+T\+\_\+\+R\+E\+C\+E\+I\+VE&wait for AT response \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a2c1211fd89562bc7bb277d56ceaa9897}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6a2c1211fd89562bc7bb277d56ceaa9897}} 
+S\+I\+M800\+\_\+\+A\+T\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6acb41d33cb3d3b3081507de048f07fa1e}\label{sim800_8h_a17e9ccdec852f93bb3afe1cad73347d6acb41d33cb3d3b3081507de048f07fa1e}} 
+S\+I\+M800\+\_\+\+A\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t}{sim800\_connection\_start\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9}{sim800\+\_\+connection\+\_\+start\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a3a9ea3068aec2f33baa7f281df735f83}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a3a9ea3068aec2f33baa7f281df735f83}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad20fe25b3e75587f3dbc130ae7e74730}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad20fe25b3e75587f3dbc130ae7e74730}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+G\+P\+RS&check if sim800 is attached to gprs \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9fa295cfda01eb7d94e3e4554a80891f}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9fa295cfda01eb7d94e3e4554a80891f}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+T\+T\+A\+C\+H\+\_\+\+G\+P\+RS&if not, attach it to gprs \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a447502ce2ccee24d77a57707ce3428f8}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a447502ce2ccee24d77a57707ce3428f8}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+IP&enable single ip mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9df75fefa902d2d0c47fdd53a4eb88bf}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a9df75fefa902d2d0c47fdd53a4eb88bf}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+DE&enable trasparent mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a76e07650877d2bd5855e0c8e4df03db4}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a76e07650877d2bd5855e0c8e4df03db4}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+C\+O\+N\+F\+IG&configuring trasparent mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a255dd58bac862a3bc0795162c9e1012a}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a255dd58bac862a3bc0795162c9e1012a}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+P\+N\+\_\+\+U\+S\+E\+R\+N\+A\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD&settting apn, username and password \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9aabd15f44851740f13a2bef8f46ae79f8}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9aabd15f44851740f13a2bef8f46ae79f8}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+O\+N\+N\+E\+CT&starting up connection \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9afa449b452663e082e85c6d56778d3b0a}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9afa449b452663e082e85c6d56778d3b0a}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+G\+E\+T\+\_\+\+IP&get connection ip \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad74d7ce4e7674e42a04052c970647960}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9ad74d7ce4e7674e42a04052c970647960}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a09b2bee355379e14d4afda8368a8325f}\label{sim800_8h_acd9675f03c8f42c666a8faac43b80ff9a09b2bee355379e14d4afda8368a8325f}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322d}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322d}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+connection\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+connection\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+connection\+\_\+state\+\_\+t}{sim800\_connection\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_a242875fb0aea9760d7941d9cf850322d}{sim800\+\_\+connection\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322da5859425193a409659af9a20d7da3d8d1}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322da5859425193a409659af9a20d7da3d8d1}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN}}}\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322daf02ae7503c4dd4d0c6a5c91c8b26930f}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322daf02ae7503c4dd4d0c6a5c91c8b26930f}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+O\+P\+EN&open udp or tcp socket \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}}}\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322da381901ed1ed72abc9a8ad71ace0b157e}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322da381901ed1ed72abc9a8ad71ace0b157e}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US&check socket status \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322da3ff22c17f522164c2084fb9d72c4f217}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322da3ff22c17f522164c2084fb9d72c4f217}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_a242875fb0aea9760d7941d9cf850322dac38fd39516a4c17c7e0572e799f82829}\label{sim800_8h_a242875fb0aea9760d7941d9cf850322dac38fd39516a4c17c7e0572e799f82829}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03c}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03c}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t@{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t}{sim800\_connection\_stop\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03c}{sim800\+\_\+connection\+\_\+stop\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca6f3c7855b190ade5597634dfafedf99e}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca6f3c7855b190ade5597634dfafedf99e}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9d21373b6fc1440c5dace3ed40f5c3e3}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9d21373b6fc1440c5dace3ed40f5c3e3}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+S\+W\+I\+T\+C\+H\+\_\+\+T\+O\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+M\+O\+DE&exit transparent mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca1110cd6a1cea6042a404dfd2cb7c0589}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca1110cd6a1cea6042a404dfd2cb7c0589}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+SE&close socket \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca5325d9664d2de356a0ed7cdea8d9a3f9}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca5325d9664d2de356a0ed7cdea8d9a3f9}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+C\+L\+O\+S\+E\+\_\+\+P\+DP&close pdp context \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca35521b0dcc5d893aab2a0e8557e97041}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca35521b0dcc5d893aab2a0e8557e97041}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+D\+E\+T\+A\+C\+H\+\_\+\+G\+P\+RS&detach gprs \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca4711166b017b50b24cbbd6376df0639e}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca4711166b017b50b24cbbd6376df0639e}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9fe5242e756f748fbd58a48e11991342}\label{sim800_8h_a588092cdfcbbcfe86b25d9b7ef49a03ca9fe5242e756f748fbd58a48e11991342}} 
+S\+I\+M800\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+S\+T\+O\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_ab6058b422827f8d21d0f744181947a90}\label{sim800_8h_ab6058b422827f8d21d0f744181947a90}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t@{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t@{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t}{sim800\_exit\_transparent\_mode\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_ab6058b422827f8d21d0f744181947a90}{sim800\+\_\+exit\+\_\+transparent\+\_\+mode\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_ab6058b422827f8d21d0f744181947a90a4ad991536d740cd8d62fe99b1f5a66c9}\label{sim800_8h_ab6058b422827f8d21d0f744181947a90a4ad991536d740cd8d62fe99b1f5a66c9}} 
+S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE}}}\mbox{\Hypertarget{sim800_8h_ab6058b422827f8d21d0f744181947a90a6f3899d5d637a6134dccceb77e05fb7f}\label{sim800_8h_ab6058b422827f8d21d0f744181947a90a6f3899d5d637a6134dccceb77e05fb7f}} 
+S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+S\+E\+N\+D\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+E\+Q\+U\+E\+N\+CE&send escape sequence for exiting transparent mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_ab6058b422827f8d21d0f744181947a90a939323578ed4502308e2a83f7f2406a9}\label{sim800_8h_ab6058b422827f8d21d0f744181947a90a939323578ed4502308e2a83f7f2406a9}} 
+S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_ab6058b422827f8d21d0f744181947a90acfe592f772a3ae3649495718a4818917}\label{sim800_8h_ab6058b422827f8d21d0f744181947a90acfe592f772a3ae3649495718a4818917}} 
+S\+I\+M800\+\_\+\+E\+X\+I\+T\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+T\+\_\+\+M\+O\+D\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+power\+\_\+state\+\_\+t@{sim800\+\_\+power\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+power\+\_\+state\+\_\+t@{sim800\+\_\+power\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+power\+\_\+state\+\_\+t}{sim800\_power\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_af338a0ec7f6dc677e3a368b195968836}{sim800\+\_\+power\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836a786ef9b505564e9477f26e35295d11d3}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836a786ef9b505564e9477f26e35295d11d3}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836a88d49a6554944c344206e95006a2a33a}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836a88d49a6554944c344206e95006a2a33a}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+L\+OW&set sim800 poweron/poweroff pin low \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836a1e6195855170fe752a8afd50e193fda5}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836a1e6195855170fe752a8afd50e193fda5}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+S\+E\+T\+\_\+\+P\+I\+N\+\_\+\+H\+I\+GH&set sim800 poweron/poweroff pin high \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836a500db6b55d08fa3e3cd8645169468335}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836a500db6b55d08fa3e3cd8645169468335}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+T\+A\+T\+US&check if sim800 is on or is off \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836a89b9cc73c1815a651fca5b4d7f6859b5}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836a89b9cc73c1815a651fca5b4d7f6859b5}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_af338a0ec7f6dc677e3a368b195968836aa7fb139d41c83d78377737f8feef7330}\label{sim800_8h_af338a0ec7f6dc677e3a368b195968836aa7fb139d41c83d78377737f8feef7330}} 
+S\+I\+M800\+\_\+\+P\+O\+W\+E\+R\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943f}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943f}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+setup\+\_\+state\+\_\+t@{sim800\+\_\+setup\+\_\+state\+\_\+t}}
+\index{sim800\+\_\+setup\+\_\+state\+\_\+t@{sim800\+\_\+setup\+\_\+state\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+setup\+\_\+state\+\_\+t}{sim800\_setup\_state\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_a122c013ebe78184e977e34bcaa70943f}{sim800\+\_\+setup\+\_\+state\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fa94fbab702c5aac4300dc3262ca058a31}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fa94fbab702c5aac4300dc3262ca058a31}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+I\+N\+IT&init task variables \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fa43508832c79a8decf00bf35cca50765e}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fa43508832c79a8decf00bf35cca50765e}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+R\+E\+S\+ET&reset sim800 to default state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fae06f8f8f2cdf5274a0a0a43eede92706}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fae06f8f8f2cdf5274a0a0a43eede92706}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+C\+H\+O\+\_\+\+M\+O\+DE&disable sim800 echo mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fa011c52b2b6f3239b67c1f2ec5043e1b7}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fa011c52b2b6f3239b67c1f2ec5043e1b7}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+Q\+U\+A\+L\+I\+TY&get signal quality \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fa1724cf020041a0b0f30db0ce65404ec0}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fa1724cf020041a0b0f30db0ce65404ec0}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+N\+E\+T\+W\+O\+RK&wait for network availability \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943faaebb0a6d53077a5fab9b065ba9a6f1ad}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943faaebb0a6d53077a5fab9b065ba9a6f1ad}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+E\+ND&performs end operations and deactivate task \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE@{S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE}}}\mbox{\Hypertarget{sim800_8h_a122c013ebe78184e977e34bcaa70943fad2fa5fbc6012a8188d66821e3b2a2c8e}\label{sim800_8h_a122c013ebe78184e977e34bcaa70943fad2fa5fbc6012a8188d66821e3b2a2c8e}} 
+S\+I\+M800\+\_\+\+S\+E\+T\+U\+P\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+TE&non-\/blocking waiting time \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}\label{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}} 
+\index{sim800.\+h@{sim800.\+h}!sim800\+\_\+status\+\_\+t@{sim800\+\_\+status\+\_\+t}}
+\index{sim800\+\_\+status\+\_\+t@{sim800\+\_\+status\+\_\+t}!sim800.\+h@{sim800.\+h}}
+\subsubsection{\texorpdfstring{sim800\+\_\+status\+\_\+t}{sim800\_status\_t}}
+{\footnotesize\ttfamily enum \hyperlink{sim800_8h_a3d1eeaa095df003ea28385b81a134b27}{sim800\+\_\+status\+\_\+t}}
+
+
+
+Main loop finite state machine. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+B\+U\+SY@{S\+I\+M800\+\_\+\+B\+U\+SY}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+B\+U\+SY@{S\+I\+M800\+\_\+\+B\+U\+SY}}}\mbox{\Hypertarget{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a1c41b5b3474fc08d335382d13ad9a343}\label{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a1c41b5b3474fc08d335382d13ad9a343}} 
+S\+I\+M800\+\_\+\+B\+U\+SY&busy\+: sim800 is doing something \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+OK@{S\+I\+M800\+\_\+\+OK}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+OK@{S\+I\+M800\+\_\+\+OK}}}\mbox{\Hypertarget{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a05133827166c1a62f1c78c34c39cd696}\label{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a05133827166c1a62f1c78c34c39cd696}} 
+S\+I\+M800\+\_\+\+OK&operation complete with success \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+I\+M800\+\_\+\+E\+R\+R\+OR@{S\+I\+M800\+\_\+\+E\+R\+R\+OR}!sim800.\+h@{sim800.\+h}}\index{sim800.\+h@{sim800.\+h}!S\+I\+M800\+\_\+\+E\+R\+R\+OR@{S\+I\+M800\+\_\+\+E\+R\+R\+OR}}}\mbox{\Hypertarget{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a00108f7ce77066325925decfea51b01e}\label{sim800_8h_a3d1eeaa095df003ea28385b81a134b27a00108f7ce77066325925decfea51b01e}} 
+S\+I\+M800\+\_\+\+E\+R\+R\+OR&operation abort due to error \\
+\hline
+
+\end{DoxyEnumFields}

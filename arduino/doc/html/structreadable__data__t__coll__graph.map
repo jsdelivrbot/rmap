@@ -1,0 +1,4 @@
+<map id="readable_data_t" name="readable_data_t">
+<area shape="rect" id="node2" href="$structrain__t.html" title="Rain tips struct for storing rain tips count. " alt="" coords="5,5,60,32"/>
+<area shape="rect" id="node3" href="$structvalue__t.html" title="Value struct for storing sample, observation and minium, average and maximum measurement. " alt="" coords="85,5,149,32"/>
+</map>

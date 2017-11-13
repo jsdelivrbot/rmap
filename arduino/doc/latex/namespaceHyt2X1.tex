@@ -1,0 +1,176 @@
+\hypertarget{namespaceHyt2X1}{}\section{Hyt2\+X1 Namespace Reference}
+\label{namespaceHyt2X1}\index{Hyt2\+X1@{Hyt2\+X1}}
+
+
+H\+Y\+T2\+X1 namespace.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \hyperlink{namespaceHyt2X1_a47e38827f637ac58bbcec76c238de87a}{init\+Read} (uint8\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Init sensor read. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceHyt2X1_ab2e26ccda85abca1e0d3f29bd5ea7039}{read} (int8\+\_\+t address, float $\ast$humidity, float $\ast$temperature)
+\begin{DoxyCompactList}\small\item\em Returns the humidty and temperature from hyt2\+X1 sensor at specified address. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceHyt2X1_a4b974cad973a8aa5b8525c1c5cb85dd7}{send} (int8\+\_\+t address, uint8\+\_\+t data\+\_\+0, uint8\+\_\+t data\+\_\+1, uint8\+\_\+t data\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Send sensor command. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceHyt2X1_a06824bbb5dc4a87a4cd51249b43ba9c2}{change\+Address} (uint8\+\_\+t power\+\_\+pin, int8\+\_\+t address, int8\+\_\+t new\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Change sensor address. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceHyt2X1_a128d06772378bc6c052b01094407950c}{init} (uint8\+\_\+t power\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Init sensor. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceHyt2X1_a37cb490fe77882a734352359f0c2fba5}{on} (uint8\+\_\+t power\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Power on sensor. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceHyt2X1_ae78eebe12bb6a879bc487ec001416b2e}{off} (uint8\+\_\+t power\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Power off sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+H\+Y\+T2\+X1 namespace. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceHyt2X1_a06824bbb5dc4a87a4cd51249b43ba9c2}\label{namespaceHyt2X1_a06824bbb5dc4a87a4cd51249b43ba9c2}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!change\+Address@{change\+Address}}
+\index{change\+Address@{change\+Address}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{change\+Address()}{changeAddress()}}
+{\footnotesize\ttfamily void Hyt2\+X1\+::change\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+\_\+pin,  }\item[{int8\+\_\+t}]{address,  }\item[{int8\+\_\+t}]{new\+\_\+address }\end{DoxyParamCaption})}
+
+
+
+Change sensor address. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em power\+\_\+pin} & sensors power pin. \\
+\hline
+\mbox{\tt in}  & {\em address} & sensors i2c address. \\
+\hline
+\mbox{\tt in}  & {\em new\+\_\+address} & sensors i2c new address. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceHyt2X1_a128d06772378bc6c052b01094407950c}\label{namespaceHyt2X1_a128d06772378bc6c052b01094407950c}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!init@{init}}
+\index{init@{init}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Hyt2\+X1\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Init sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em power\+\_\+pin} & sensors power pin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceHyt2X1_a47e38827f637ac58bbcec76c238de87a}\label{namespaceHyt2X1_a47e38827f637ac58bbcec76c238de87a}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!init\+Read@{init\+Read}}
+\index{init\+Read@{init\+Read}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{init\+Read()}{initRead()}}
+{\footnotesize\ttfamily uint32\+\_\+t Hyt2\+X1\+::init\+Read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address }\end{DoxyParamCaption})}
+
+
+
+Init sensor read. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em address} & sensors i2c address. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t sensors conversion time. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceHyt2X1_ae78eebe12bb6a879bc487ec001416b2e}\label{namespaceHyt2X1_ae78eebe12bb6a879bc487ec001416b2e}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!off@{off}}
+\index{off@{off}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{off()}{off()}}
+{\footnotesize\ttfamily void Hyt2\+X1\+::off (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Power off sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em power\+\_\+pin} & sensors power pin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceHyt2X1_a37cb490fe77882a734352359f0c2fba5}\label{namespaceHyt2X1_a37cb490fe77882a734352359f0c2fba5}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!on@{on}}
+\index{on@{on}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{on()}{on()}}
+{\footnotesize\ttfamily void Hyt2\+X1\+::on (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{power\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Power on sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em power\+\_\+pin} & sensors power pin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceHyt2X1_ab2e26ccda85abca1e0d3f29bd5ea7039}\label{namespaceHyt2X1_ab2e26ccda85abca1e0d3f29bd5ea7039}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!read@{read}}
+\index{read@{read}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily bool Hyt2\+X1\+::read (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{address,  }\item[{float $\ast$}]{humidity,  }\item[{float $\ast$}]{temperature }\end{DoxyParamCaption})}
+
+
+
+Returns the humidty and temperature from hyt2\+X1 sensor at specified address. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em address} & sensor i2c address. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$humidity} & pointer to readed humidity variable. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$temperature} & pointer to readed temperature variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if success. 
+\end{DoxyReturn}
+Request 4 bytes\+: 2 bytes for Humidity and 2 bytes for Temperature
+
+read 4 bytes of raw data
+
+extract 14 bit humidity right adjusted (bit 0-\/14)
+
+extract 14 bit temperature left adjusted (bit 2-\/16) \mbox{\Hypertarget{namespaceHyt2X1_a4b974cad973a8aa5b8525c1c5cb85dd7}\label{namespaceHyt2X1_a4b974cad973a8aa5b8525c1c5cb85dd7}} 
+\index{Hyt2\+X1@{Hyt2\+X1}!send@{send}}
+\index{send@{send}!Hyt2\+X1@{Hyt2\+X1}}
+\subsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily void Hyt2\+X1\+::send (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{data\+\_\+0,  }\item[{uint8\+\_\+t}]{data\+\_\+1,  }\item[{uint8\+\_\+t}]{data\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+Send sensor command. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em address} & sensor i2c address. \\
+\hline
+\mbox{\tt in}  & {\em data\+\_\+0} & first byte data. \\
+\hline
+\mbox{\tt in}  & {\em data\+\_\+1} & second byte data. \\
+\hline
+\mbox{\tt in}  & {\em data\+\_\+2} & third byte data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}

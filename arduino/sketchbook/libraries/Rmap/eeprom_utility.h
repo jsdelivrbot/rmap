@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -25,7 +25,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <avr/eeprom.h>
 
+/*!
+\def ee_read(data,address,size)
+\brief Read size bytes of data in eeprom at specified address.
+*/
 #define ee_read(data,address,size)      (eeprom_read_block((void *)data, (const void *)address, size))
+
+/*!
+\def ee_write(data,address,size)
+\brief Write size bytes of data in eeprom at specified address.
+*/
 #define ee_write(data,address,size)     (eeprom_write_block((void *)data, (void *)address, size))
 
 #endif

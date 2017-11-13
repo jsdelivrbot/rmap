@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <debug_config.h>
 
+/*!
+\def SERIAL_TRACE_LEVEL
+\brief Serial trace level debug for this library.
+*/
 #define SERIAL_TRACE_LEVEL SIM800_SERIAL_TRACE_LEVEL
 
 #include "sim800Client.h"
@@ -561,11 +565,10 @@ sim800_status_t SIM800::connection(const char *tipo, const char *server, const i
 
          if (isInitialized()) {
             start_time_ms = millis();
-            delay_ms = 2000;
+            delay_ms = SIM800_WAIT_FOR_CONNECTION_DELAY_MS;
             sim800_connection_state = SIM800_CONNECTION_WAIT_STATE;
             state_after_wait = SIM800_CONNECTION_OPEN;
             snprintf(buffer2, SIM800_BUFFER_LENGTH, "AT+CIPSTART=\"%s\",\"%s\",\"%i\"\r\n", tipo, server, port);
-            // sim800_connection_state = SIM800_CONNECTION_OPEN;
          }
          else {
             is_error = true;
@@ -1252,11 +1255,11 @@ sim800Client::sim800Client() {}
 int sim800Client::connect(IPAddress ip, int port) {
    char server[16];
    sprintf(server, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
-   return connection("TCP", server, port);
+   return connection(SIM800_CONNECTION_TCP, server, port);
 }
 
 int sim800Client::connect(const char *server, int port) {
-   return (int) connection("TCP", server, port);
+   return (int) connection(SIM800_CONNECTION_TCP, server, port);
 }
 
 uint8_t sim800Client::connected() {
@@ -1289,12 +1292,6 @@ size_t sim800Client::write(uint8_t buffer) {
 
 size_t sim800Client::write(const uint8_t *buffer, size_t size) {
    return modem->write(buffer, size);
-}
-
-bool sim800Client::transparent() {
-   char buf[SIM800_BUFFER_LENGTH];
-   return sendAtCommand("O", buf, "CONNECT", AT_ERROR_STRING, 5000);
-
 }
 
 void sim800Client::flush() {

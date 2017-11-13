@@ -1,0 +1,276 @@
+\hypertarget{pcf8563_8h}{}\section{sketchbook/libraries/\+P\+C\+F8563/pcf8563.h File Reference}
+\label{pcf8563_8h}\index{sketchbook/libraries/\+P\+C\+F8563/pcf8563.\+h@{sketchbook/libraries/\+P\+C\+F8563/pcf8563.\+h}}
+{\ttfamily \#include \char`\"{}Arduino.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+Include dependency graph for pcf8563.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{pcf8563_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{pcf8563_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacePcf8563}{Pcf8563}
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespacePcf8563}{Pcf8563} namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{pcf8563_8h_ad8f013828cbaadce7813a224d980a96c}\label{pcf8563_8h_ad8f013828cbaadce7813a224d980a96c}} 
+\#define \hyperlink{pcf8563_8h_ad8f013828cbaadce7813a224d980a96c}{P\+C\+F8563\+\_\+\+R\+E\+A\+D\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x\+A3 $>$$>$ 1)
+\begin{DoxyCompactList}\small\item\em I2C read address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a21d8ece51034522404eeee69481a0cf8}\label{pcf8563_8h_a21d8ece51034522404eeee69481a0cf8}} 
+\#define \hyperlink{pcf8563_8h_a21d8ece51034522404eeee69481a0cf8}{P\+C\+F8563\+\_\+\+W\+R\+I\+T\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x\+A2)
+\begin{DoxyCompactList}\small\item\em I2C write address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a8c5dcf0f0ff373c1f9d2f22abf542239}\label{pcf8563_8h_a8c5dcf0f0ff373c1f9d2f22abf542239}} 
+\#define \hyperlink{pcf8563_8h_a8c5dcf0f0ff373c1f9d2f22abf542239}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+1\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x00)
+\begin{DoxyCompactList}\small\item\em Control status 1 register i2c address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a7bd74aa8863ad00d9307cac803e9dd84}\label{pcf8563_8h_a7bd74aa8863ad00d9307cac803e9dd84}} 
+\#define \hyperlink{pcf8563_8h_a7bd74aa8863ad00d9307cac803e9dd84}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x01)
+\begin{DoxyCompactList}\small\item\em Control status 2 register i2c address. B\+IT 4\+: T\+I\+\_\+\+TP, B\+IT 3\+: AF, B\+IT 2\+: TF, B\+IT 1\+: A\+IE, B\+IT 0\+: T\+IE. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a6983e57e032f3df9222f1d4dc166d505}\label{pcf8563_8h_a6983e57e032f3df9222f1d4dc166d505}} 
+\#define \hyperlink{pcf8563_8h_a6983e57e032f3df9222f1d4dc166d505}{P\+C\+F8563\+\_\+\+V\+L\+\_\+\+S\+E\+C\+O\+N\+D\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x02)
+\begin{DoxyCompactList}\small\item\em VL second register address. B\+IT 0-\/6\+: seconds \mbox{[}0-\/59\mbox{]}, B\+IT 7\+: VL. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a80c799b490b4eb70b8cbb0a68593c72d}\label{pcf8563_8h_a80c799b490b4eb70b8cbb0a68593c72d}} 
+\#define \hyperlink{pcf8563_8h_a80c799b490b4eb70b8cbb0a68593c72d}{P\+C\+F8563\+\_\+\+M\+I\+N\+U\+T\+E\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x03)
+\begin{DoxyCompactList}\small\item\em Minute register address. B\+IT 0-\/6\+: minutes \mbox{[}0-\/59\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a2eb91f788d87b5260e8ee3ed31a265a4}\label{pcf8563_8h_a2eb91f788d87b5260e8ee3ed31a265a4}} 
+\#define \hyperlink{pcf8563_8h_a2eb91f788d87b5260e8ee3ed31a265a4}{P\+C\+F8563\+\_\+\+H\+O\+U\+R\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x04)
+\begin{DoxyCompactList}\small\item\em Hour register address. B\+IT 0-\/5\+: hours \mbox{[}0-\/23\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_af17bb37d629f74400afd9344f63eb779}\label{pcf8563_8h_af17bb37d629f74400afd9344f63eb779}} 
+\#define \hyperlink{pcf8563_8h_af17bb37d629f74400afd9344f63eb779}{P\+C\+F8563\+\_\+\+D\+A\+Y\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x05)
+\begin{DoxyCompactList}\small\item\em Day register address. B\+IT 0-\/5\+: days \mbox{[}1-\/31\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_aa9b04f0b276feb2078be5f9ab8f94218}\label{pcf8563_8h_aa9b04f0b276feb2078be5f9ab8f94218}} 
+\#define \hyperlink{pcf8563_8h_aa9b04f0b276feb2078be5f9ab8f94218}{P\+C\+F8563\+\_\+\+W\+E\+E\+K\+D\+A\+Y\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x06)
+\begin{DoxyCompactList}\small\item\em Weekday register address. B\+IT 0-\/2\+: weekdays \mbox{[}0-\/6\mbox{]} start from Sunday. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_adcfc41a947d952dc512f424eecdd7fe1}\label{pcf8563_8h_adcfc41a947d952dc512f424eecdd7fe1}} 
+\#define \hyperlink{pcf8563_8h_adcfc41a947d952dc512f424eecdd7fe1}{P\+C\+F8563\+\_\+\+C\+E\+N\+T\+U\+R\+Y\+\_\+\+M\+O\+N\+T\+H\+S\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x07)
+\begin{DoxyCompactList}\small\item\em Century months register address. B\+IT 0-\/4\+: months \mbox{[}1-\/12\mbox{]}, B\+IT 7\+: century \mbox{[}0-\/1\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ae2a7adebd4abf8fd076b89c62d7fb835}\label{pcf8563_8h_ae2a7adebd4abf8fd076b89c62d7fb835}} 
+\#define \hyperlink{pcf8563_8h_ae2a7adebd4abf8fd076b89c62d7fb835}{P\+C\+F8563\+\_\+\+Y\+E\+A\+R\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x08)
+\begin{DoxyCompactList}\small\item\em Year register address. B\+IT 0-\/7\+: year \mbox{[}0-\/99\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ad53d7e8aa13ccc403b69e7641cc61bd0}\label{pcf8563_8h_ad53d7e8aa13ccc403b69e7641cc61bd0}} 
+\#define \hyperlink{pcf8563_8h_ad53d7e8aa13ccc403b69e7641cc61bd0}{P\+C\+F8563\+\_\+\+M\+I\+N\+U\+T\+E\+\_\+\+A\+L\+A\+R\+M\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x09)
+\begin{DoxyCompactList}\small\item\em Minute alarm register address. B\+IT 0-\/6\+: minutes alarm \mbox{[}0-\/59\mbox{]}, B\+IT 7\+: A\+E\+\_\+M (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a9060a94690f7eda74b5fa1bf751dcd85}\label{pcf8563_8h_a9060a94690f7eda74b5fa1bf751dcd85}} 
+\#define \hyperlink{pcf8563_8h_a9060a94690f7eda74b5fa1bf751dcd85}{P\+C\+F8563\+\_\+\+H\+O\+U\+R\+\_\+\+A\+L\+A\+R\+M\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+A)
+\begin{DoxyCompactList}\small\item\em Hour alarm register address. B\+IT 0-\/5\+: hours alarm \mbox{[}0-\/23\mbox{]}, B\+IT 7\+: A\+E\+\_\+H (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a44980c2c4b1898b3ff0dee1c036cfd9c}\label{pcf8563_8h_a44980c2c4b1898b3ff0dee1c036cfd9c}} 
+\#define \hyperlink{pcf8563_8h_a44980c2c4b1898b3ff0dee1c036cfd9c}{P\+C\+F8563\+\_\+\+D\+A\+Y\+\_\+\+A\+L\+A\+R\+M\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+B)
+\begin{DoxyCompactList}\small\item\em Day alarm register address. B\+IT 0-\/5\+: days alarm \mbox{[}1-\/31\mbox{]}, B\+IT 7\+: A\+E\+\_\+D (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a19b23ed5623881405c70b53ed506f36e}\label{pcf8563_8h_a19b23ed5623881405c70b53ed506f36e}} 
+\#define \hyperlink{pcf8563_8h_a19b23ed5623881405c70b53ed506f36e}{P\+C\+F8563\+\_\+\+W\+E\+E\+K\+D\+A\+Y\+\_\+\+A\+L\+A\+R\+M\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+C)
+\begin{DoxyCompactList}\small\item\em Weekday alarm register address. B\+IT 0-\/2\+: weekdays alarm \mbox{[}0-\/6\mbox{]}, B\+IT 7\+: A\+E\+\_\+W (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a902ac1240f9967bcc513f633b30fc755}\label{pcf8563_8h_a902ac1240f9967bcc513f633b30fc755}} 
+\#define \hyperlink{pcf8563_8h_a902ac1240f9967bcc513f633b30fc755}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+D)
+\begin{DoxyCompactList}\small\item\em Clockout alarm register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a5a8b4224179bf2bde7e2f858e03adfce}\label{pcf8563_8h_a5a8b4224179bf2bde7e2f858e03adfce}} 
+\#define \hyperlink{pcf8563_8h_a5a8b4224179bf2bde7e2f858e03adfce}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+E)
+\begin{DoxyCompactList}\small\item\em Timer control register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ac845995b60780b5d5e9f1b7781186f74}\label{pcf8563_8h_ac845995b60780b5d5e9f1b7781186f74}} 
+\#define \hyperlink{pcf8563_8h_ac845995b60780b5d5e9f1b7781186f74}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x0\+F)
+\begin{DoxyCompactList}\small\item\em Timer register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a5dc0e0904e05b982d9d12cdbf33770a8}\label{pcf8563_8h_a5dc0e0904e05b982d9d12cdbf33770a8}} 
+\#define \hyperlink{pcf8563_8h_a5dc0e0904e05b982d9d12cdbf33770a8}{P\+C\+F8563\+\_\+\+S\+E\+C\+O\+N\+D\+\_\+\+M\+A\+SK}~(0b01111111)
+\begin{DoxyCompactList}\small\item\em Second mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a253c3444d30c1634ff7c78ec4c2d50eb}\label{pcf8563_8h_a253c3444d30c1634ff7c78ec4c2d50eb}} 
+\#define \hyperlink{pcf8563_8h_a253c3444d30c1634ff7c78ec4c2d50eb}{P\+C\+F8563\+\_\+\+M\+I\+N\+U\+T\+E\+\_\+\+M\+A\+SK}~(0b01111111)
+\begin{DoxyCompactList}\small\item\em Minute mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a75b8e59bf74ec2d12b6ec7d2285d592e}\label{pcf8563_8h_a75b8e59bf74ec2d12b6ec7d2285d592e}} 
+\#define \hyperlink{pcf8563_8h_a75b8e59bf74ec2d12b6ec7d2285d592e}{P\+C\+F8563\+\_\+\+H\+O\+U\+R\+\_\+\+M\+A\+SK}~(0b00111111)
+\begin{DoxyCompactList}\small\item\em Hour mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a7a53bd99309d218685dc8b0f62582b7d}\label{pcf8563_8h_a7a53bd99309d218685dc8b0f62582b7d}} 
+\#define \hyperlink{pcf8563_8h_a7a53bd99309d218685dc8b0f62582b7d}{P\+C\+F8563\+\_\+\+D\+A\+Y\+\_\+\+M\+A\+SK}~(0b00111111)
+\begin{DoxyCompactList}\small\item\em Day mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a6e40b12b6be9dc62a69b481bc0bbc52a}\label{pcf8563_8h_a6e40b12b6be9dc62a69b481bc0bbc52a}} 
+\#define \hyperlink{pcf8563_8h_a6e40b12b6be9dc62a69b481bc0bbc52a}{P\+C\+F8563\+\_\+\+W\+E\+E\+K\+D\+A\+Y\+\_\+\+M\+A\+SK}~(0b00000111)
+\begin{DoxyCompactList}\small\item\em Weekday mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a45fb91562f8a9150d5b2fe1a64934e20}\label{pcf8563_8h_a45fb91562f8a9150d5b2fe1a64934e20}} 
+\#define \hyperlink{pcf8563_8h_a45fb91562f8a9150d5b2fe1a64934e20}{P\+C\+F8563\+\_\+\+C\+E\+N\+T\+U\+R\+Y\+\_\+\+M\+A\+SK}~(0b10000000)
+\begin{DoxyCompactList}\small\item\em Alarm century mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a21ba625a0eeb54cd7e6c59745f7d711d}\label{pcf8563_8h_a21ba625a0eeb54cd7e6c59745f7d711d}} 
+\#define \hyperlink{pcf8563_8h_a21ba625a0eeb54cd7e6c59745f7d711d}{P\+C\+F8563\+\_\+\+M\+O\+N\+T\+H\+\_\+\+M\+A\+SK}~(0b00011111)
+\begin{DoxyCompactList}\small\item\em Alarm month mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_afd666fe80153703430b897dd812b87c8}\label{pcf8563_8h_afd666fe80153703430b897dd812b87c8}} 
+\#define \hyperlink{pcf8563_8h_afd666fe80153703430b897dd812b87c8}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+M\+I\+N\+U\+T\+E\+\_\+\+M\+A\+SK}~(0b01111111)
+\begin{DoxyCompactList}\small\item\em Alarm minute mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a89d39daab6544d73ea936bb033a02a4d}\label{pcf8563_8h_a89d39daab6544d73ea936bb033a02a4d}} 
+\#define \hyperlink{pcf8563_8h_a89d39daab6544d73ea936bb033a02a4d}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+H\+O\+U\+R\+\_\+\+M\+A\+SK}~(0b00111111)
+\begin{DoxyCompactList}\small\item\em Alarm hour mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a98b7ce5051427ce7c3d6eab1f79685c5}\label{pcf8563_8h_a98b7ce5051427ce7c3d6eab1f79685c5}} 
+\#define \hyperlink{pcf8563_8h_a98b7ce5051427ce7c3d6eab1f79685c5}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+D\+A\+Y\+\_\+\+M\+A\+SK}~(0b00111111)
+\begin{DoxyCompactList}\small\item\em Alarm day mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a6ed606b41156fd783648accb06c17893}\label{pcf8563_8h_a6ed606b41156fd783648accb06c17893}} 
+\#define \hyperlink{pcf8563_8h_a6ed606b41156fd783648accb06c17893}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+W\+E\+E\+K\+D\+A\+Y\+\_\+\+M\+A\+SK}~(0b00000111)
+\begin{DoxyCompactList}\small\item\em Alarm weekday mask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_af372f4665d692e2c2b68917f1d954cfa}\label{pcf8563_8h_af372f4665d692e2c2b68917f1d954cfa}} 
+\#define \hyperlink{pcf8563_8h_af372f4665d692e2c2b68917f1d954cfa}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+B\+IT}~(0b10000000)
+\begin{DoxyCompactList}\small\item\em Alarm enable bit. B\+IT 7\+: A\+E\+\_\+M, A\+E\+\_\+H, A\+E\+\_\+D, A\+E\+\_\+W (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_aa9192e46b29115236e5d3d409923a361}\label{pcf8563_8h_aa9192e46b29115236e5d3d409923a361}} 
+\#define \hyperlink{pcf8563_8h_aa9192e46b29115236e5d3d409923a361}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+1\+\_\+\+S\+T\+O\+P\+\_\+\+B\+IT}~(0b00100000)
+\begin{DoxyCompactList}\small\item\em Control status 1 stop bit. B\+IT 5\+: R\+TC source clock runs (0\+: enable, 1\+: disable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a021726a59f9deaf2e5fb9fb230116248}\label{pcf8563_8h_a021726a59f9deaf2e5fb9fb230116248}} 
+\#define \hyperlink{pcf8563_8h_a021726a59f9deaf2e5fb9fb230116248}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+T\+I\+\_\+\+T\+P\+\_\+\+B\+IT}~(0b00010000)
+\begin{DoxyCompactList}\small\item\em Control status 2 TI TP bit. B\+IT 4\+: Pulse generator (0\+: disable, 1\+: enable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a94dd966ff5f9505d80c3d3ee2a65108d}\label{pcf8563_8h_a94dd966ff5f9505d80c3d3ee2a65108d}} 
+\#define \hyperlink{pcf8563_8h_a94dd966ff5f9505d80c3d3ee2a65108d}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+A\+F\+\_\+\+B\+IT}~(0b00001000)
+\begin{DoxyCompactList}\small\item\em Control status 2 AF bit. B\+IT 3\+: Alarm Flag (0\+: inactive, 1\+: active) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a31dd9a885cdc3a37d2bcc587b3fe2105}\label{pcf8563_8h_a31dd9a885cdc3a37d2bcc587b3fe2105}} 
+\#define \hyperlink{pcf8563_8h_a31dd9a885cdc3a37d2bcc587b3fe2105}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+T\+F\+\_\+\+B\+IT}~(0b00000100)
+\begin{DoxyCompactList}\small\item\em Control status 2 TF bit. B\+IT 2\+: Timer Flag (0\+: inactive, 1\+: active) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_aec996138ded94a7ff1a617a763b06397}\label{pcf8563_8h_aec996138ded94a7ff1a617a763b06397}} 
+\#define \hyperlink{pcf8563_8h_aec996138ded94a7ff1a617a763b06397}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+A\+I\+E\+\_\+\+B\+IT}~(0b00000010)
+\begin{DoxyCompactList}\small\item\em Control status 2 A\+IE bit. B\+IT 1\+: Alarm Interrupt Enable (0\+: disable, 1\+: enable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a96653b7c7cc40c28b69906b1a24c9078}\label{pcf8563_8h_a96653b7c7cc40c28b69906b1a24c9078}} 
+\#define \hyperlink{pcf8563_8h_a96653b7c7cc40c28b69906b1a24c9078}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+T\+I\+E\+\_\+\+B\+IT}~(0b00000001)
+\begin{DoxyCompactList}\small\item\em Control status 2 T\+IE bit. B\+IT 0\+: Timer Interrupt Enable (0\+: disable, 1\+: enable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_abef3a6f146be956b56fc96e935a57dc1}\label{pcf8563_8h_abef3a6f146be956b56fc96e935a57dc1}} 
+\#define \hyperlink{pcf8563_8h_abef3a6f146be956b56fc96e935a57dc1}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+T\+E\+\_\+\+B\+IT}~(0b10000000)
+\begin{DoxyCompactList}\small\item\em Timer control TE bit. B\+IT 7\+: Timer Enable (0\+: disable, 1\+: enable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a192a4199b6d3873ab0f4ab4f4ec97be4}\label{pcf8563_8h_a192a4199b6d3873ab0f4ab4f4ec97be4}} 
+\#define \hyperlink{pcf8563_8h_a192a4199b6d3873ab0f4ab4f4ec97be4}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+T\+D\+\_\+\+B\+IT}~(0b00000011)
+\begin{DoxyCompactList}\small\item\em Timer control TD bit. B\+IT 0-\/1\+: 00\+: 4096 K\+Hz, 01\+: 64 Hz, 10\+: 1 Hz, 11\+: 1/60 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_af99aa5068c2bbd643f166ce493f00cb5}\label{pcf8563_8h_af99aa5068c2bbd643f166ce493f00cb5}} 
+\#define \hyperlink{pcf8563_8h_af99aa5068c2bbd643f166ce493f00cb5}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+F\+E\+\_\+\+B\+IT}~(0b10000000)
+\begin{DoxyCompactList}\small\item\em Clockout control FE bit. B\+IT 7\+: Clkout Enable (0\+: disable, 1\+: enable) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a3ff1eb123d3e57336b33ce29281669ef}\label{pcf8563_8h_a3ff1eb123d3e57336b33ce29281669ef}} 
+\#define \hyperlink{pcf8563_8h_a3ff1eb123d3e57336b33ce29281669ef}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+F\+D\+\_\+\+B\+IT}~(0b00000011)
+\begin{DoxyCompactList}\small\item\em Clockout control FD bit. B\+IT 0-\/1\+: Frequency clock\+: 00\+: 32768 K\+Hz, 01\+: 1024 Hz, 10\+: 32 Hz, 11\+: 1 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a67cda026538dc402f103feed57dfef02}\label{pcf8563_8h_a67cda026538dc402f103feed57dfef02}} 
+\#define \hyperlink{pcf8563_8h_a67cda026538dc402f103feed57dfef02}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+1\+\_\+\+L\+E\+N\+G\+TH}~(1)
+\begin{DoxyCompactList}\small\item\em Length in bytes for control status 1 register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_af548dbfef342db9bcc4205ec020a7ee3}\label{pcf8563_8h_af548dbfef342db9bcc4205ec020a7ee3}} 
+\#define \hyperlink{pcf8563_8h_af548dbfef342db9bcc4205ec020a7ee3}{P\+C\+F8563\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+2\+\_\+\+L\+E\+N\+G\+TH}~(1)
+\begin{DoxyCompactList}\small\item\em Length in bytes for control status 2 register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a55e1c22a343f580273368c9641c0edfa}\label{pcf8563_8h_a55e1c22a343f580273368c9641c0edfa}} 
+\#define \hyperlink{pcf8563_8h_a55e1c22a343f580273368c9641c0edfa}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+E\+N\+G\+TH}~(1)
+\begin{DoxyCompactList}\small\item\em Length in bytes for timer control register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_aebe123e6e915ebf6e93200d5415f0efc}\label{pcf8563_8h_aebe123e6e915ebf6e93200d5415f0efc}} 
+\#define \hyperlink{pcf8563_8h_aebe123e6e915ebf6e93200d5415f0efc}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+E\+N\+G\+TH}~(1)
+\begin{DoxyCompactList}\small\item\em Length in bytes for clockout control register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ad515da0fbe7b9563b3f9677784a341b5}\label{pcf8563_8h_ad515da0fbe7b9563b3f9677784a341b5}} 
+\#define \hyperlink{pcf8563_8h_ad515da0fbe7b9563b3f9677784a341b5}{P\+C\+F8563\+\_\+\+D\+A\+T\+E\+\_\+\+L\+E\+N\+G\+TH}~(4)
+\begin{DoxyCompactList}\small\item\em Length in bytes for date register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a44d0599f06fcaa2ab833090b8c3aa45d}\label{pcf8563_8h_a44d0599f06fcaa2ab833090b8c3aa45d}} 
+\#define \hyperlink{pcf8563_8h_a44d0599f06fcaa2ab833090b8c3aa45d}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+\_\+\+L\+E\+N\+G\+TH}~(3)
+\begin{DoxyCompactList}\small\item\em Length in bytes for time register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ac756688afbd6172bd3abcd9200c680fe}\label{pcf8563_8h_ac756688afbd6172bd3abcd9200c680fe}} 
+\#define \hyperlink{pcf8563_8h_ac756688afbd6172bd3abcd9200c680fe}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+L\+E\+N\+G\+TH}~(4)
+\begin{DoxyCompactList}\small\item\em Length in bytes for alarm register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a19752b9a4071691b79e9f60ec4702dcc}\label{pcf8563_8h_a19752b9a4071691b79e9f60ec4702dcc}} 
+\#define \hyperlink{pcf8563_8h_a19752b9a4071691b79e9f60ec4702dcc}{P\+C\+F8563\+\_\+\+A\+L\+A\+R\+M\+\_\+\+D\+I\+S\+A\+B\+LE}~(255)
+\begin{DoxyCompactList}\small\item\em Value for disable alarm in alarm register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a0ae2af93462dffe3baefa9fbe7e0d2a2}\label{pcf8563_8h_a0ae2af93462dffe3baefa9fbe7e0d2a2}} 
+\#define \hyperlink{pcf8563_8h_a0ae2af93462dffe3baefa9fbe7e0d2a2}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+4096\+\_\+\+K\+HZ}~(0b00000000)
+\begin{DoxyCompactList}\small\item\em Timer frequency is 4096 K\+Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a4900de7cef710fe9af86e4bec400c44c}\label{pcf8563_8h_a4900de7cef710fe9af86e4bec400c44c}} 
+\#define \hyperlink{pcf8563_8h_a4900de7cef710fe9af86e4bec400c44c}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+64\+\_\+\+HZ}~(0b00000001)
+\begin{DoxyCompactList}\small\item\em Timer frequency is 64 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a8c5c4afa0d0bd9744e739848ae942381}\label{pcf8563_8h_a8c5c4afa0d0bd9744e739848ae942381}} 
+\#define \hyperlink{pcf8563_8h_a8c5c4afa0d0bd9744e739848ae942381}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+\+HZ}~(0b00000010)
+\begin{DoxyCompactList}\small\item\em Timer frequency is 1 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a53e6a4a96f12b2d4295844ef266a72aa}\label{pcf8563_8h_a53e6a4a96f12b2d4295844ef266a72aa}} 
+\#define \hyperlink{pcf8563_8h_a53e6a4a96f12b2d4295844ef266a72aa}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+60\+\_\+\+HZ}~(0b00000011)
+\begin{DoxyCompactList}\small\item\em Timer frequency is 1/60 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_ab914ccc4bb5e1b71c571b7084f80a313}\label{pcf8563_8h_ab914ccc4bb5e1b71c571b7084f80a313}} 
+\#define \hyperlink{pcf8563_8h_ab914ccc4bb5e1b71c571b7084f80a313}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+\+S\+E\+C\+O\+N\+DS}~(\hyperlink{pcf8563_8h_a8c5c4afa0d0bd9744e739848ae942381}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+\+HZ})
+\begin{DoxyCompactList}\small\item\em Timer frequency is 1 second. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a72db0ed8f001c2dd62951f1f7b07cede}\label{pcf8563_8h_a72db0ed8f001c2dd62951f1f7b07cede}} 
+\#define \hyperlink{pcf8563_8h_a72db0ed8f001c2dd62951f1f7b07cede}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+\+M\+I\+N\+U\+T\+ES}~(\hyperlink{pcf8563_8h_a53e6a4a96f12b2d4295844ef266a72aa}{P\+C\+F8563\+\_\+\+T\+I\+M\+E\+R\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+60\+\_\+\+HZ})
+\begin{DoxyCompactList}\small\item\em Timer frequency is 1 minute. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a7d4649ddcf971e51596a85722ded3a05}\label{pcf8563_8h_a7d4649ddcf971e51596a85722ded3a05}} 
+\#define \hyperlink{pcf8563_8h_a7d4649ddcf971e51596a85722ded3a05}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+32768\+\_\+\+K\+HZ}~(0b00000000)
+\begin{DoxyCompactList}\small\item\em Clockout frequency is 32768 K\+Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a681270820e2708844f96cf8cc57fcb75}\label{pcf8563_8h_a681270820e2708844f96cf8cc57fcb75}} 
+\#define \hyperlink{pcf8563_8h_a681270820e2708844f96cf8cc57fcb75}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1024\+\_\+\+HZ}~(0b00000001)
+\begin{DoxyCompactList}\small\item\em Clockout frequency is 1024 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a5804dd0985c8d0fb33ea7dac00e46248}\label{pcf8563_8h_a5804dd0985c8d0fb33ea7dac00e46248}} 
+\#define \hyperlink{pcf8563_8h_a5804dd0985c8d0fb33ea7dac00e46248}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+32\+\_\+\+HZ}~(0b00000010)
+\begin{DoxyCompactList}\small\item\em Clockout frequency is 32 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a82a1f10a838bf6ddc97c004fff578824}\label{pcf8563_8h_a82a1f10a838bf6ddc97c004fff578824}} 
+\#define \hyperlink{pcf8563_8h_a82a1f10a838bf6ddc97c004fff578824}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+\+HZ}~(0b00000011)
+\begin{DoxyCompactList}\small\item\em Clockout frequency is 1 Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pcf8563_8h_a3a76b38037d3ee5e0231c402a0f7f352}\label{pcf8563_8h_a3a76b38037d3ee5e0231c402a0f7f352}} 
+\#define \hyperlink{pcf8563_8h_a3a76b38037d3ee5e0231c402a0f7f352}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+\+S\+E\+C\+O\+N\+DS}~(\hyperlink{pcf8563_8h_a82a1f10a838bf6ddc97c004fff578824}{P\+C\+F8563\+\_\+\+C\+L\+K\+O\+U\+T\+\_\+\+F\+R\+E\+Q\+U\+E\+N\+C\+Y\+\_\+1\+\_\+\+HZ})
+\begin{DoxyCompactList}\small\item\em Clockout frequency is 1 second. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespacePcf8563_abe54082b4f23e40ef4f5be845b5cf008}{Pcf8563\+::reset} ()
+\begin{DoxyCompactList}\small\item\em Reset P\+C\+F8563. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a32420d263d406b766b21bc00dccdc333}{Pcf8563\+::enable} ()
+\begin{DoxyCompactList}\small\item\em Enable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a1920171d3aec259327a124b712299a04}{Pcf8563\+::disable} ()
+\begin{DoxyCompactList}\small\item\em Disable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a098f161f3396c8ed0c2f11c7193f5b0d}{Pcf8563\+::get\+Control\+Status1} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Read control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a17680b8e68d064bb39007b4a6afc240e}{Pcf8563\+::set\+Control\+Status1} (uint8\+\_\+t control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Write control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6cf47400c4e974b9d9a1bf1d1a9e463d}{Pcf8563\+::get\+Control\+Status2} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Read control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac23ff9ec298a4ec5a777139d972b5e4b}{Pcf8563\+::set\+Control\+Status2} (uint8\+\_\+t control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Write control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa6afef0bd9005fc8b8332c7cb82ec6ce}{Pcf8563\+::get\+Clockout\+Control} (uint8\+\_\+t $\ast$clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a52b2a6f5b28f961e7e4bece212c7bdd6}{Pcf8563\+::set\+Clockout\+Control} (uint8\+\_\+t clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a0aad62263917a9ceec3c12c88a29b835}{Pcf8563\+::get\+Timer\+Control} (uint8\+\_\+t $\ast$timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a112b6debc61100cd3ab737af9d31e119}{Pcf8563\+::set\+Timer\+Control} (uint8\+\_\+t timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a03e4ea0f00fd48664537788ba491fa60}{Pcf8563\+::enable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Enable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a76c81b3e0f59f5e4e80dd8807c199856}{Pcf8563\+::disable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Disable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a4bc96bd7ccbd30db659536befb3da1fe}{Pcf8563\+::set\+Clockout\+Frequency} (uint8\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Set clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ab8ff6484e7a5636187e0212a98f623bf}{Pcf8563\+::is\+Clockout\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if clockout frequency is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6e196fe410c080e4f6e20aadbe279637}{Pcf8563\+::enable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Enable Alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad9dd3fe9bf1ab196090357b717c7207d}{Pcf8563\+::disable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Disable alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ae554435cc17a3e49d9d731b97e3fc0be}{Pcf8563\+::reset\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Reset alarm. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a23086671303b630318e82e9bef662b44}{Pcf8563\+::is\+Alarm\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if alarm interrupt is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a687f6854cf03080456bdd8596c1c60ff}{Pcf8563\+::get\+Alarm} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$weekday)
+\begin{DoxyCompactList}\small\item\em Read alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad82df13e3625c1b975f2cc2e7e356f0e}{Pcf8563\+::set\+Alarm} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t day, uint8\+\_\+t weekday)
+\begin{DoxyCompactList}\small\item\em Write alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_af4cc94d1ea73bbff5d44e1b716111cdb}{Pcf8563\+::enable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Enable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac2c3ca7f3a13516c6549bfc0f6527c6a}{Pcf8563\+::disable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Disable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6fd0509d12fd312b5dbed8506b9315c9}{Pcf8563\+::reset\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Reset timer. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aab079fef811171abcba7e80b8595a8d1}{Pcf8563\+::is\+Timer\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if timer is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a338898a456015e796d48b82738d5a8c4}{Pcf8563\+::set\+Timer} (uint8\+\_\+t frequency, uint8\+\_\+t timer)
+\begin{DoxyCompactList}\small\item\em Write timer register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}{Pcf8563\+::get\+Date} (uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$month, uint8\+\_\+t $\ast$year, uint8\+\_\+t $\ast$weekday, uint8\+\_\+t $\ast$century)
+\begin{DoxyCompactList}\small\item\em Read date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}{Pcf8563\+::set\+Date} (uint8\+\_\+t day, uint8\+\_\+t month, uint8\+\_\+t year, uint8\+\_\+t weekday, uint8\+\_\+t century)
+\begin{DoxyCompactList}\small\item\em Write date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}{Pcf8563\+::get\+Time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds)
+\begin{DoxyCompactList}\small\item\em Read time register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a797213f5e675582765df0b42ab921999}{Pcf8563\+::set\+Time} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t seconds)
+\begin{DoxyCompactList}\small\item\em Write time register. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{namespacePcf8563_a7ffd9819a4946feda4117a90ef176ab9}{Pcf8563\+::get\+Days\+From\+Two\+Date} (int16\+\_\+t d1, int16\+\_\+t m1, int16\+\_\+t y1, int16\+\_\+t d2, int16\+\_\+t m2, int16\+\_\+t y2)
+\begin{DoxyCompactList}\small\item\em Calculate numbers of days from two date. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{namespacePcf8563_a2824a08aaed53b49a8fc1aa77cab629d}{Pcf8563\+::get\+Time} ()
+\begin{DoxyCompactList}\small\item\em Read date and time and return they as seconds elapsed from 00\+:00\+:00 01/01/1970. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_aae506e83df33a718bdd0dd184d42c19a}{Pcf8563\+::bcd\+To\+Dec} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from B\+CD format into decimal format. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_a3519616ff3c2de84e2ea54442ef0ed0c}{Pcf8563\+::dec\+To\+Bcd} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from decimal format into B\+CD format. \end{DoxyCompactList}\end{DoxyCompactItemize}

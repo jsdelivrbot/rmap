@@ -1,0 +1,212 @@
+\hypertarget{debug_8h}{}\section{sketchbook/libraries/\+Rmap/debug.h File Reference}
+\label{debug_8h}\index{sketchbook/libraries/\+Rmap/debug.\+h@{sketchbook/libraries/\+Rmap/debug.\+h}}
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$Liquid\+Crystal\+\_\+\+I2\+C.\+h$>$}\newline
+Include dependency graph for debug.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{debug_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{debug_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{debug_8h_a7e125472d65b57f10905accbed140b99}\label{debug_8h_a7e125472d65b57f10905accbed140b99}} 
+\#define \hyperlink{debug_8h_a7e125472d65b57f10905accbed140b99}{I\+N\+T8}~(1)
+\begin{DoxyCompactList}\small\item\em Indicate a int8\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_abc743ce126c3ada10501baffb3ca2295}\label{debug_8h_abc743ce126c3ada10501baffb3ca2295}} 
+\#define \hyperlink{debug_8h_abc743ce126c3ada10501baffb3ca2295}{I\+N\+T16}~(2)
+\begin{DoxyCompactList}\small\item\em Indicate a int16\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_aac92c5ec332dafe0abb24688dad1b795}\label{debug_8h_aac92c5ec332dafe0abb24688dad1b795}} 
+\#define \hyperlink{debug_8h_aac92c5ec332dafe0abb24688dad1b795}{I\+N\+T32}~(3)
+\begin{DoxyCompactList}\small\item\em Indicate a int32\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ad8ce12d83f204245685f98caf9d03944}\label{debug_8h_ad8ce12d83f204245685f98caf9d03944}} 
+\#define \hyperlink{debug_8h_ad8ce12d83f204245685f98caf9d03944}{U\+I\+N\+T8}~(4)
+\begin{DoxyCompactList}\small\item\em Indicate a uint8\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ab1922c2d8643eb7da964d427604e992e}\label{debug_8h_ab1922c2d8643eb7da964d427604e992e}} 
+\#define \hyperlink{debug_8h_ab1922c2d8643eb7da964d427604e992e}{U\+I\+N\+T16}~(5)
+\begin{DoxyCompactList}\small\item\em Indicate a uint16\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a69afa2e50b905f4eab1f2df8a3fd9f23}\label{debug_8h_a69afa2e50b905f4eab1f2df8a3fd9f23}} 
+\#define \hyperlink{debug_8h_a69afa2e50b905f4eab1f2df8a3fd9f23}{U\+I\+N\+T32}~(6)
+\begin{DoxyCompactList}\small\item\em Indicate a uint32\+\_\+t type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ae8690abbffa85934d64d545920e2b108}\label{debug_8h_ae8690abbffa85934d64d545920e2b108}} 
+\#define \hyperlink{debug_8h_ae8690abbffa85934d64d545920e2b108}{F\+L\+O\+AT}~(7)
+\begin{DoxyCompactList}\small\item\em Indicate a float type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a29b98fcac07224e9d92c51cfed5fc0e6}\label{debug_8h_a29b98fcac07224e9d92c51cfed5fc0e6}} 
+\#define \hyperlink{debug_8h_a29b98fcac07224e9d92c51cfed5fc0e6}{D\+E\+B\+U\+G\+\_\+\+W\+A\+I\+T\+\_\+\+F\+O\+R\+\_\+\+S\+L\+E\+E\+P\+\_\+\+MS}~(10)
+\begin{DoxyCompactList}\small\item\em If power down mode is enable, a necessary delay was needed after a debug message for correct print. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_aaeec252c41b3be1d1bf272ce43b9b13f}\label{debug_8h_aaeec252c41b3be1d1bf272ce43b9b13f}} 
+\#define \hyperlink{debug_8h_aaeec252c41b3be1d1bf272ce43b9b13f}{S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}~(256)
+\begin{DoxyCompactList}\small\item\em Length in bytes for serial data buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a05952bc8be9df24d159e158fa7e37aa9}\label{debug_8h_a05952bc8be9df24d159e158fa7e37aa9}} 
+\#define \hyperlink{debug_8h_a05952bc8be9df24d159e158fa7e37aa9}{L\+C\+D\+\_\+\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}~(20)
+\begin{DoxyCompactList}\small\item\em Length in bytes for lcd data buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a31fa5c36fa17c66feec7a67b76c3e786}\label{debug_8h_a31fa5c36fa17c66feec7a67b76c3e786}} 
+\#define \hyperlink{debug_8h_a31fa5c36fa17c66feec7a67b76c3e786}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL}~\hyperlink{debug__config_8h_ab6322e7dccbadeed1a84b6e4b5eba819}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+O\+FF}
+\begin{DoxyCompactList}\small\item\em Serial trace level is disable for default. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a03011829badde0371233790daf8dbd34}\label{debug_8h_a03011829badde0371233790daf8dbd34}} 
+\#define \hyperlink{debug_8h_a03011829badde0371233790daf8dbd34}{S\+E\+R\+I\+A\+L\+\_\+\+B\+E\+G\+IN}(...)
+\begin{DoxyCompactList}\small\item\em If serial debug was disabled, this macro do nothing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a640002baf58b6a49613e7ccde361357a}\label{debug_8h_a640002baf58b6a49613e7ccde361357a}} 
+\#define \hyperlink{debug_8h_a640002baf58b6a49613e7ccde361357a}{S\+E\+R\+I\+A\+L\+\_\+\+E\+R\+R\+OR}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+NT(N\+U\+LL, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ae8414f64d262e02dd90240a1e3e81c9b}\label{debug_8h_ae8414f64d262e02dd90240a1e3e81c9b}} 
+\#define \hyperlink{debug_8h_ae8414f64d262e02dd90240a1e3e81c9b}{S\+E\+R\+I\+A\+L\+\_\+\+E\+R\+R\+O\+R\+\_\+\+A\+R\+R\+AY}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+A\+R\+R\+AY(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print array error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_adaf8c9472cded6ccce35de9bbe5e58d7}\label{debug_8h_adaf8c9472cded6ccce35de9bbe5e58d7}} 
+\#define \hyperlink{debug_8h_adaf8c9472cded6ccce35de9bbe5e58d7}{S\+E\+R\+I\+A\+L\+\_\+\+W\+A\+R\+N\+I\+NG}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+NT(N\+U\+LL, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print warning message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a88786fa81c01cbd6b3d23db370ae8c56}\label{debug_8h_a88786fa81c01cbd6b3d23db370ae8c56}} 
+\#define \hyperlink{debug_8h_a88786fa81c01cbd6b3d23db370ae8c56}{S\+E\+R\+I\+A\+L\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+A\+R\+R\+AY}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+A\+R\+R\+AY(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print warning array error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_af211c01186da8b757a0921c0452dbfa6}\label{debug_8h_af211c01186da8b757a0921c0452dbfa6}} 
+\#define \hyperlink{debug_8h_af211c01186da8b757a0921c0452dbfa6}{S\+E\+R\+I\+A\+L\+\_\+\+I\+N\+FO}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+NT(N\+U\+LL, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print info message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_af87b98474a3dd17abcdaa43ddc463152}\label{debug_8h_af87b98474a3dd17abcdaa43ddc463152}} 
+\#define \hyperlink{debug_8h_af87b98474a3dd17abcdaa43ddc463152}{S\+E\+R\+I\+A\+L\+\_\+\+I\+N\+F\+O\+\_\+\+A\+R\+R\+AY}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+A\+R\+R\+AY(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print info array error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a31b291f78b1470a777a26c1ef53ad7c5}\label{debug_8h_a31b291f78b1470a777a26c1ef53ad7c5}} 
+\#define \hyperlink{debug_8h_a31b291f78b1470a777a26c1ef53ad7c5}{S\+E\+R\+I\+A\+L\+\_\+\+D\+E\+B\+UG}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+NT(N\+U\+LL, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print verbose message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_af2fff35f0152a2839d21d4c838904fca}\label{debug_8h_af2fff35f0152a2839d21d4c838904fca}} 
+\#define \hyperlink{debug_8h_af2fff35f0152a2839d21d4c838904fca}{S\+E\+R\+I\+A\+L\+\_\+\+D\+E\+B\+U\+G\+\_\+\+A\+R\+R\+AY}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+A\+R\+R\+AY(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print verbose array error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ab4302572ca631f772801a7742347deb1}\label{debug_8h_ab4302572ca631f772801a7742347deb1}} 
+\#define \hyperlink{debug_8h_ab4302572ca631f772801a7742347deb1}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+CE}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+NT(N\+U\+LL, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print all verbose message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ac73a903b423d9925e298732c299d946b}\label{debug_8h_ac73a903b423d9925e298732c299d946b}} 
+\#define \hyperlink{debug_8h_ac73a903b423d9925e298732c299d946b}{S\+E\+R\+I\+A\+L\+\_\+\+T\+R\+A\+C\+E\+\_\+\+A\+R\+R\+AY}(...)~\+\_\+\+S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+A\+R\+R\+AY(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print all verbose array error message on serial port through serial print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_acb771fe8deeaa2fee1ad327c0c1be34f}\label{debug_8h_acb771fe8deeaa2fee1ad327c0c1be34f}} 
+\#define \hyperlink{debug_8h_acb771fe8deeaa2fee1ad327c0c1be34f}{L\+C\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+EL}~\hyperlink{debug__config_8h_ab40fd4608517cbf6acb6d6d369f43253}{L\+C\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+L\+E\+V\+E\+L\+\_\+\+O\+FF}
+\begin{DoxyCompactList}\small\item\em Lcd trace level is disable for default. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a2e398ce3ec4505784983cfdd9fd92952}\label{debug_8h_a2e398ce3ec4505784983cfdd9fd92952}} 
+\#define \hyperlink{debug_8h_a2e398ce3ec4505784983cfdd9fd92952}{L\+C\+D\+\_\+\+B\+E\+G\+IN}(...)
+\begin{DoxyCompactList}\small\item\em Useful macro for initialize lcd library. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a5132a5db535debb49fbe83393986fec0}\label{debug_8h_a5132a5db535debb49fbe83393986fec0}} 
+\#define \hyperlink{debug_8h_a5132a5db535debb49fbe83393986fec0}{L\+C\+D\+\_\+\+E\+R\+R\+OR}(...)~\+\_\+\+L\+C\+D\+\_\+\+P\+R\+I\+NT(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print error message on lcd port through lcd print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a94aa136503f794a227b75ed3cd4a1982}\label{debug_8h_a94aa136503f794a227b75ed3cd4a1982}} 
+\#define \hyperlink{debug_8h_a94aa136503f794a227b75ed3cd4a1982}{L\+C\+D\+\_\+\+W\+A\+R\+N\+I\+NG}(...)~\+\_\+\+L\+C\+D\+\_\+\+P\+R\+I\+NT( \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print warning message on lcd port through lcd print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_aae2acb78c87bcf0a1cc4d743c35efce9}\label{debug_8h_aae2acb78c87bcf0a1cc4d743c35efce9}} 
+\#define \hyperlink{debug_8h_aae2acb78c87bcf0a1cc4d743c35efce9}{L\+C\+D\+\_\+\+I\+N\+FO}(...)~\+\_\+\+L\+C\+D\+\_\+\+P\+R\+I\+NT(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print info message on lcd port through lcd print macro. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a5e8434ef334222b3659115f760e1ecc8}\label{debug_8h_a5e8434ef334222b3659115f760e1ecc8}} 
+\#define \hyperlink{debug_8h_a5e8434ef334222b3659115f760e1ecc8}{L\+C\+D\+\_\+\+D\+E\+B\+UG}(...)~\+\_\+\+L\+C\+D\+\_\+\+P\+R\+I\+NT( \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Useful macro for print verbose message on lcd port through lcd print macro. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}{serial\+\_\+printf} (char $\ast$ptr, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8h_adca6749b5a1f6f98748d17874f3060ae}{serial\+\_\+printf\+\_\+array} (void $\ast$data, int16\+\_\+t length, uint8\+\_\+t type, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print array of data over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+void \hyperlink{debug_8h_af5ec9e4b05706cb28aff868525e72d28}{lcd\+\_\+begin} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, uint8\+\_\+t max\+\_\+cols, uint8\+\_\+t max\+\_\+rows)
+\begin{DoxyCompactList}\small\item\em Initialize L\+CD library. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}{lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, char $\ast$ptr, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message on lcd preformatting it with a user defined values and parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{debug_8h_af5ec9e4b05706cb28aff868525e72d28}\label{debug_8h_af5ec9e4b05706cb28aff868525e72d28}} 
+\index{debug.\+h@{debug.\+h}!lcd\+\_\+begin@{lcd\+\_\+begin}}
+\index{lcd\+\_\+begin@{lcd\+\_\+begin}!debug.\+h@{debug.\+h}}
+\subsubsection{\texorpdfstring{lcd\+\_\+begin()}{lcd\_begin()}}
+{\footnotesize\ttfamily void lcd\+\_\+begin (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{uint8\+\_\+t}]{max\+\_\+cols,  }\item[{uint8\+\_\+t}]{max\+\_\+rows }\end{DoxyParamCaption})}
+
+
+
+Initialize L\+CD library. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+cols} & number of lcd columns. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+rows} & number of lcd rows. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}\label{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}} 
+\index{debug.\+h@{debug.\+h}!lcd\+\_\+printf@{lcd\+\_\+printf}}
+\index{lcd\+\_\+printf@{lcd\+\_\+printf}!debug.\+h@{debug.\+h}}
+\subsubsection{\texorpdfstring{lcd\+\_\+printf()}{lcd\_printf()}}
+{\footnotesize\ttfamily char$\ast$ lcd\+\_\+printf (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{bool}]{do\+\_\+clear,  }\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message on lcd preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em do\+\_\+clear} & if true, clear lcd before printing message \\
+\hline
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}\label{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}} 
+\index{debug.\+h@{debug.\+h}!serial\+\_\+printf@{serial\+\_\+printf}}
+\index{serial\+\_\+printf@{serial\+\_\+printf}!debug.\+h@{debug.\+h}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf()}{serial\_printf()}}
+{\footnotesize\ttfamily char$\ast$ serial\+\_\+printf (\begin{DoxyParamCaption}\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message over serial port preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_adca6749b5a1f6f98748d17874f3060ae}\label{debug_8h_adca6749b5a1f6f98748d17874f3060ae}} 
+\index{debug.\+h@{debug.\+h}!serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}}
+\index{serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}!debug.\+h@{debug.\+h}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf\+\_\+array()}{serial\_printf\_array()}}
+{\footnotesize\ttfamily char$\ast$ serial\+\_\+printf\+\_\+array (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{int16\+\_\+t}]{length,  }\item[{uint8\+\_\+t}]{type,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print array of data over serial port preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$data} & array of data to print. \\
+\hline
+\mbox{\tt in}  & {\em length} & length of array \\
+\hline
+\mbox{\tt in}  & {\em type} & type of array elements for correct printing (specified by I\+N\+T8, I\+N\+T16, I\+N\+T32, U\+I\+N\+T8, U\+I\+N\+T16, U\+I\+N\+T32 defines) \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}

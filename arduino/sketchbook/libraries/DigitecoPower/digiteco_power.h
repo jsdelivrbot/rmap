@@ -81,8 +81,8 @@ namespace DigitecoPower {
    /*!
    \fn bool de_read(uint8_t address, float *value)
    \brief Read value at specified i2c-address.
-   \param uint8_t address i2c-address.
-   \param float *value pointer to readed value.
+   \param[in] address i2c-address.
+   \param[out] *value pointer to readed value.
    \return true if success, false if not.
    */
    bool de_read(uint8_t address, float *value);
@@ -90,8 +90,8 @@ namespace DigitecoPower {
    /*!
    \fn bool de_send(uint8_t address, uint8_t data)
    \brief Send data at specified i2c-address.
-   \param uint8_t address i2c-address.
-   \param uint8_t data value (0-5) relative to 6 measurement of voltage and current.
+   \param[in] address i2c-address.
+   \param[in] data value (0-5) relative to 6 measurement of voltage and current.
    \return true if success, false if not.
    */
    bool de_send(uint8_t address, uint8_t data);

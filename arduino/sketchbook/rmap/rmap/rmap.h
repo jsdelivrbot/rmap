@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -102,6 +102,7 @@ typedef struct {
 /*********************************************************************
 * TYPEDEF for Finite State Machine
 *********************************************************************/
+
 /*!
 \enum state_t
 \brief Main loop finite state machine.
@@ -123,7 +124,7 @@ typedef enum {
    SUPERVISOR_INIT,                          //!< init task variables
    SUPERVISOR_CONNECTION_LEVEL_TASK,         //!< enable hardware related tasks for doing connection
    SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK,    //!< enable hardware related tasks for doing connection
-   SUPERVISOR_TIME_LEVEL_TASK,                //!< enable time task for sync time with ntp server
+   SUPERVISOR_TIME_LEVEL_TASK,               //!< enable time task for sync time with ntp server
    SUPERVISOR_MANAGE_LEVEL_TASK,             //!< enable tasks for manage data (mqtt)
    SUPERVISOR_END,                           //!< performs end operations and deactivate task
    SUPERVISOR_WAIT_STATE                     //!< non-blocking waiting time
@@ -155,8 +156,8 @@ typedef enum {
    GSM_START_CONNECTION,      //!< gsm open connection
    GSM_CHECK_OPERATION,       //!< check operations (ntp or mqtt)
    GSM_OPEN_UDP_SOCKET,       //!< open udp socket for ntp sync
-   GSM_STOP_CONNECTION,       //!< gsm close connection
    GSM_SUSPEND,               //!< wait other tasks for complete its operations with gsm
+   GSM_STOP_CONNECTION,       //!< gsm close connection
    GSM_WAIT_FOR_SWITCH_OFF,   //!< wait gsm for power off
    GSM_SWITCH_OFF,            //!< gsm power off
    GSM_END,                   //!< performs end operations and deactivate task
@@ -228,6 +229,7 @@ typedef enum {
    MQTT_OPEN,              //!< check mqtt client status
    MQTT_CHECK,             //!< check what kind of data to send: sdcard o current (sdcard fallback)
    MQTT_CONNECT,           //!< connect to mqtt server
+   MQTT_ON_CONNECT,        //!< doing on connect event routine
    MQTT_SUBSCRIBE,         //!< subscribe to mqtt topic
 
    MQTT_OPEN_DATA_FILE,    //!< open sdcard read data file
@@ -240,6 +242,7 @@ typedef enum {
    MQTT_CLOSE_DATA_FILE,   //!< close sdcard read data file
 
    MQTT_DISCONNECT,        //!< disconnect from mqtt server
+   MQTT_ON_DISCONNECT,     //!< doing on disconnect event routine
 
    MQTT_PTR_UPDATE,        //!< update mqtt data file pointer
    MQTT_CLOSE_PTR_FILE,    //!< close mqtt data file pointer
@@ -797,6 +800,12 @@ void data_saving_task(void);
 \brief Enable or disable the MQTT task.
 */
 bool is_event_mqtt;
+
+/*!
+\var is_event_mqtt_paused
+\brief If true, the MQTT task is in pause (need resume).
+*/
+bool is_event_mqtt_paused;
 
 /*!
 \fn void mqtt_task(void)

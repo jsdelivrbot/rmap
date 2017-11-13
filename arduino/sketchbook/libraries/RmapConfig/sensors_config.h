@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,34 +23,166 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SENSOR_CONFIG_H
 #define SENSOR_CONFIG_H
 
-#define USE_JSON                    (true)   // use json library for json response
+/*!
+\def USE_JSON
+\brief Enable if you want use json library for json response (getJson function in SensorDriver).
+*/
+#define USE_JSON                    (true)
 
-#define USE_SENSOR_ADT              (false)   // ADT7420
-#define USE_SENSOR_HIH              (false)   // HIH6100
-#define USE_SENSOR_HYT              (false)   // HYT271 - HYT221
-#define USE_SENSOR_DEP              (false)   // DigitEco Power
-#define USE_SENSOR_HI7              (false)   // SI7021
-#define USE_SENSOR_BMP              (false)   // Bmp085
-#define USE_SENSOR_DW1              (false)   // DW1
-#define USE_SENSOR_TBS              (false)   // Tipping bucket rain gauge
-#define USE_SENSOR_TBR              (true)   // Tipping bucket rain gauge
-#define USE_SENSOR_STH              (false)   // Temperature and humidity oneshot
-#define USE_SENSOR_ITH              (true)   // Temperature and humidity continuous istantaneous
-#define USE_SENSOR_NTH              (true)   // Temperature and humidity continuous minium
-#define USE_SENSOR_MTH              (true)   // Temperature and humidity continuous average
-#define USE_SENSOR_XTH              (true)   // Temperature and humidity continuous maximum
-#define USE_SENSOR_SSD              (false)   // SSD011 oneshot
-#define USE_SENSOR_ISD              (false)   // SSD011 report istantaneous
-#define USE_SENSOR_NSD              (false)   // SSD011 report minium
-#define USE_SENSOR_MSD              (false)   // SSD011 report average
-#define USE_SENSOR_XSD              (false)   // SSD011 report maximum
-#define USE_SENSOR_SMI              (false)   // MICS4514 oneshot
-#define USE_SENSOR_IMI              (false)   // MICS4514 report istantaneous
-#define USE_SENSOR_NMI              (false)   // MICS4514 report minium
-#define USE_SENSOR_MMI              (false)   // MICS4514 report average
-#define USE_SENSOR_XMI              (false)   // MICS4514 report maximum
-#define USE_SENSOR_RF24             (false)   // Radio RF24
+/*!
+\def USE_SENSOR_ADT
+\brief Enable if you want use ADT7420 sensor.
+*/
+#define USE_SENSOR_ADT              (false)
 
+/*!
+\def USE_SENSOR_HIH
+\brief Enable if you want use HIH6100 sensor.
+*/
+#define USE_SENSOR_HIH              (false)
+
+/*!
+\def USE_SENSOR_HYT
+\brief Enable if you want use HYT271 or HYT221 sensor.
+*/
+#define USE_SENSOR_HYT              (false)
+
+/*!
+\def USE_SENSOR_DEP
+\brief Enable if you want use DigitEco Power sensor.
+*/
+#define USE_SENSOR_DEP              (false)
+
+/*!
+\def USE_SENSOR_HI7
+\brief Enable if you want use SI7021 sensor.
+*/
+#define USE_SENSOR_HI7              (false)
+
+/*!
+\def USE_SENSOR_BMP
+\brief Enable if you want use Bmp085 sensor.
+*/
+#define USE_SENSOR_BMP              (false)
+
+/*!
+\def USE_SENSOR_DW1
+\brief Enable if you want use DW1 sensor.
+*/
+#define USE_SENSOR_DW1              (false)
+
+/*!
+\def USE_SENSOR_TBS
+\brief Enable if you want use Tipping bucket rain gauge sensor.
+*/
+#define USE_SENSOR_TBS              (false)
+
+/*!
+\def USE_SENSOR_TBR
+\brief Enable if you want use Tipping bucket rain gauge sensor.
+*/
+#define USE_SENSOR_TBR              (true)
+
+/*!
+\def USE_SENSOR_STH
+\brief Enable if you want use Temperature and humidity oneshot sensor.
+*/
+#define USE_SENSOR_STH              (false)
+
+/*!
+\def USE_SENSOR_ITH
+\brief Enable if you want use Temperature and humidity continuous istantaneous sensor.
+*/
+#define USE_SENSOR_ITH              (true)
+
+/*!
+\def USE_SENSOR_NTH
+\brief Enable if you want use Temperature and humidity continuous minium sensor.
+*/
+#define USE_SENSOR_NTH              (true)
+
+/*!
+\def USE_SENSOR_MTH
+\brief Enable if you want use Temperature and humidity continuous average sensor.
+*/
+#define USE_SENSOR_MTH              (true)
+
+/*!
+\def USE_SENSOR_XTH
+\brief Enable if you want use Temperature and humidity continuous maximum sensor.
+*/
+#define USE_SENSOR_XTH              (true)
+
+/*!
+\def USE_SENSOR_SSD
+\brief Enable if you want use SSD011 oneshot sensor.
+*/
+#define USE_SENSOR_SSD              (false)
+
+/*!
+\def USE_SENSOR_ISD
+\brief Enable if you want use SSD011 report istantaneous sensor.
+*/
+#define USE_SENSOR_ISD              (false)
+
+/*!
+\def USE_SENSOR_NSD
+\brief Enable if you want use SSD011 report minium sensor.
+*/
+#define USE_SENSOR_NSD              (false)
+
+/*!
+\def USE_SENSOR_MSD
+\brief Enable if you want use SSD011 report average sensor.
+*/
+#define USE_SENSOR_MSD              (false)
+
+/*!
+\def USE_SENSOR_XSD
+\brief Enable if you want use SSD011 report maximum sensor.
+*/
+#define USE_SENSOR_XSD              (false)
+
+/*!
+\def USE_SENSOR_SMI
+\brief Enable if you want use MICS4514 oneshot sensor.
+*/
+#define USE_SENSOR_SMI              (false)
+
+/*!
+\def USE_SENSOR_IMI
+\brief Enable if you want use MICS4514 report istantaneous sensor.
+*/
+#define USE_SENSOR_IMI              (false)
+
+/*!
+\def USE_SENSOR_NMI
+\brief Enable if you want use MICS4514 report minium sensor.
+*/
+#define USE_SENSOR_NMI              (false)
+
+/*!
+\def USE_SENSOR_MMI
+\brief Enable if you want use MICS4514 report average sensor.
+*/
+#define USE_SENSOR_MMI              (false)
+
+/*!
+\def USE_SENSOR_XMI
+\brief Enable if you want use MICS4514 report maximum sensor.
+*/
+#define USE_SENSOR_XMI              (false)
+
+/*!
+\def USE_SENSOR_RF24
+\brief Enable if you want use Radio RF24 sensor.
+*/
+#define USE_SENSOR_RF24             (false)
+
+/*!
+\def RAIN_FOR_TIP
+\brief How much mm of rain for one tip of tipping bucket rain gauge.
+*/
 #define RAIN_FOR_TIP                (2)
 
 /*!
@@ -66,10 +198,29 @@ Maximum number of values to be read by the sensors.
 
 // observations every 1-10 minutes (minutes for processing samples)
 // report every 5-60 minutes (minutes for report. > n * OBSERVATIONS_MINUTES)
-#define OBSERVATIONS_MINUTES                 (1)
-#define STATISTICAL_DATA_COUNT               (15)  // count for generating statistical processing: refers to OBSERVATIONS_MINUTES
 
+/*!
+\def OBSERVATIONS_MINUTES
+\brief How much minutes for calculate an observations by processing sampling. Tipically 1-10 minutes.
+*/
+#define OBSERVATIONS_MINUTES                 (1)
+
+/*!
+\def STATISTICAL_DATA_COUNT
+\brief How much observations are needed for generating a report.
+*/
+#define STATISTICAL_DATA_COUNT               (15)
+
+/*!
+\def OBSERVATION_COUNT
+\brief How much observations were stored in ram.
+*/
 #define OBSERVATION_COUNT                    (60)
+
+/*!
+\def OBSERVATION_COUNT_TOLLERANCE
+\brief Tolerance of observations for generating a valid report.
+*/
 #define OBSERVATION_COUNT_TOLLERANCE         (2)
 
 #if (OBSERVATION_COUNT < STATISTICAL_DATA_COUNT)

@@ -1,0 +1,136 @@
+\hypertarget{debug_8cpp}{}\section{sketchbook/libraries/\+Rmap/debug.cpp File Reference}
+\label{debug_8cpp}\index{sketchbook/libraries/\+Rmap/debug.\+cpp@{sketchbook/libraries/\+Rmap/debug.\+cpp}}
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+Include dependency graph for debug.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{debug_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{debug_8cpp_a9bcb9075bd69848b75520c3dcf0a54f3}{serial\+\_\+printf} (char $\ast$ptr, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8cpp_a3a8f00e7d21b847f78348cc9cae439da}{serial\+\_\+printf\+\_\+array} (void $\ast$data, int16\+\_\+t length, uint8\+\_\+t type, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print array of data over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+void \hyperlink{debug_8cpp_af5ec9e4b05706cb28aff868525e72d28}{lcd\+\_\+begin} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, uint8\+\_\+t max\+\_\+cols, uint8\+\_\+t max\+\_\+rows)
+\begin{DoxyCompactList}\small\item\em Initialize L\+CD library. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8cpp_aa9fbf2051e04774eb9f934238786eaa2}{lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, char $\ast$ptr, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message on lcd preformatting it with a user defined values and parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{debug_8cpp_adc837429453017966fe21ec8fb429485}\label{debug_8cpp_adc837429453017966fe21ec8fb429485}} 
+char \hyperlink{debug_8cpp_adc837429453017966fe21ec8fb429485}{serial\+\_\+buffer\+\_\+print} \mbox{[}\hyperlink{debug_8h_aaeec252c41b3be1d1bf272ce43b9b13f}{S\+E\+R\+I\+A\+L\+\_\+\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Serial data buffer for storing message before print. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8cpp_a375e98fe7985a5396ab4e498726ba898}\label{debug_8cpp_a375e98fe7985a5396ab4e498726ba898}} 
+int16\+\_\+t \hyperlink{debug_8cpp_a375e98fe7985a5396ab4e498726ba898}{serial\+\_\+buffer\+\_\+print\+\_\+written\+\_\+char}
+\begin{DoxyCompactList}\small\item\em Length in bytes of serial data buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8cpp_a65fe8e6ffea87a3b13b06b44602a107f}\label{debug_8cpp_a65fe8e6ffea87a3b13b06b44602a107f}} 
+char \hyperlink{debug_8cpp_a65fe8e6ffea87a3b13b06b44602a107f}{lcd\+\_\+buffer\+\_\+print} \mbox{[}\hyperlink{debug_8h_a05952bc8be9df24d159e158fa7e37aa9}{L\+C\+D\+\_\+\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Lcd data buffer for storing message before print. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8cpp_a8e7c72370a12c8df2de628fe4e47d802}\label{debug_8cpp_a8e7c72370a12c8df2de628fe4e47d802}} 
+uint8\+\_\+t \hyperlink{debug_8cpp_a8e7c72370a12c8df2de628fe4e47d802}{lcd\+\_\+current\+\_\+row}
+\begin{DoxyCompactList}\small\item\em Indicate the \char`\"{}free to print\char`\"{} lcd row. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8cpp_a3a35c553d138e96f0b2d5850d6a1f8d4}\label{debug_8cpp_a3a35c553d138e96f0b2d5850d6a1f8d4}} 
+uint8\+\_\+t \hyperlink{debug_8cpp_a3a35c553d138e96f0b2d5850d6a1f8d4}{lcd\+\_\+max\+\_\+cols}
+\begin{DoxyCompactList}\small\item\em Number of lcd columns. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8cpp_a8a5985b489c245c2ff62a3a11e835f95}\label{debug_8cpp_a8a5985b489c245c2ff62a3a11e835f95}} 
+uint8\+\_\+t \hyperlink{debug_8cpp_a8a5985b489c245c2ff62a3a11e835f95}{lcd\+\_\+max\+\_\+rows}
+\begin{DoxyCompactList}\small\item\em Number of lcd rows. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{debug_8cpp_af5ec9e4b05706cb28aff868525e72d28}\label{debug_8cpp_af5ec9e4b05706cb28aff868525e72d28}} 
+\index{debug.\+cpp@{debug.\+cpp}!lcd\+\_\+begin@{lcd\+\_\+begin}}
+\index{lcd\+\_\+begin@{lcd\+\_\+begin}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{lcd\+\_\+begin()}{lcd\_begin()}}
+{\footnotesize\ttfamily void lcd\+\_\+begin (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{uint8\+\_\+t}]{max\+\_\+cols,  }\item[{uint8\+\_\+t}]{max\+\_\+rows }\end{DoxyParamCaption})}
+
+
+
+Initialize L\+CD library. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+cols} & number of lcd columns. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+rows} & number of lcd rows. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8cpp_aa9fbf2051e04774eb9f934238786eaa2}\label{debug_8cpp_aa9fbf2051e04774eb9f934238786eaa2}} 
+\index{debug.\+cpp@{debug.\+cpp}!lcd\+\_\+printf@{lcd\+\_\+printf}}
+\index{lcd\+\_\+printf@{lcd\+\_\+printf}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{lcd\+\_\+printf()}{lcd\_printf()}}
+{\footnotesize\ttfamily char $\ast$ lcd\+\_\+printf (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{bool}]{do\+\_\+clear,  }\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message on lcd preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em do\+\_\+clear} & if true, clear lcd before printing message \\
+\hline
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8cpp_a9bcb9075bd69848b75520c3dcf0a54f3}\label{debug_8cpp_a9bcb9075bd69848b75520c3dcf0a54f3}} 
+\index{debug.\+cpp@{debug.\+cpp}!serial\+\_\+printf@{serial\+\_\+printf}}
+\index{serial\+\_\+printf@{serial\+\_\+printf}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf()}{serial\_printf()}}
+{\footnotesize\ttfamily char $\ast$ serial\+\_\+printf (\begin{DoxyParamCaption}\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message over serial port preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8cpp_a3a8f00e7d21b847f78348cc9cae439da}\label{debug_8cpp_a3a8f00e7d21b847f78348cc9cae439da}} 
+\index{debug.\+cpp@{debug.\+cpp}!serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}}
+\index{serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf\+\_\+array()}{serial\_printf\_array()}}
+{\footnotesize\ttfamily char $\ast$ serial\+\_\+printf\+\_\+array (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{int16\+\_\+t}]{length,  }\item[{uint8\+\_\+t}]{type,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print array of data over serial port preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$data} & array of data to print. \\
+\hline
+\mbox{\tt in}  & {\em length} & length of array \\
+\hline
+\mbox{\tt in}  & {\em type} & type of array elements for correct printing (specified by I\+N\+T8, I\+N\+T16, I\+N\+T32, U\+I\+N\+T8, U\+I\+N\+T16, U\+I\+N\+T32 defines) \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}

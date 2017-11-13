@@ -1,0 +1,40 @@
+\hypertarget{registers_8h}{}\section{sketchbook/libraries/\+Rmap/registers.h File Reference}
+\label{registers_8h}\index{sketchbook/libraries/\+Rmap/registers.\+h@{sketchbook/libraries/\+Rmap/registers.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{registers_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{registers_8h_ad04d1b7c138bbfcc7672f00defb5f312}\label{registers_8h_ad04d1b7c138bbfcc7672f00defb5f312}} 
+\#define \hyperlink{registers_8h_ad04d1b7c138bbfcc7672f00defb5f312}{I2\+C\+\_\+\+R\+E\+A\+D\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x00)
+\begin{DoxyCompactList}\small\item\em First i2c read register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_a6c89d353714d3f9241253a90808e93e6}\label{registers_8h_a6c89d353714d3f9241253a90808e93e6}} 
+\#define \hyperlink{registers_8h_a6c89d353714d3f9241253a90808e93e6}{I2\+C\+\_\+\+R\+E\+A\+D\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+E\+N\+D\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x1\+E)
+\begin{DoxyCompactList}\small\item\em Last i2c read register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_ad980dee82f83659f0a84e3e1f3c177bb}\label{registers_8h_ad980dee82f83659f0a84e3e1f3c177bb}} 
+\#define \hyperlink{registers_8h_ad980dee82f83659f0a84e3e1f3c177bb}{I2\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x1\+F)
+\begin{DoxyCompactList}\small\item\em First i2c write register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_a9e85c852f1a1891169a1b2db93b90b29}\label{registers_8h_a9e85c852f1a1891169a1b2db93b90b29}} 
+\#define \hyperlink{registers_8h_a9e85c852f1a1891169a1b2db93b90b29}{I2\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+E\+N\+D\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x\+F\+E)
+\begin{DoxyCompactList}\small\item\em Last i2c write register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_a4398508f5478199f28b55113dd59c89e}\label{registers_8h_a4398508f5478199f28b55113dd59c89e}} 
+\#define \hyperlink{registers_8h_a4398508f5478199f28b55113dd59c89e}{C\+O\+N\+F\+I\+G\+U\+R\+A\+T\+I\+O\+N\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x00)
+\begin{DoxyCompactList}\small\item\em First configuration register address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_ac14ef363cf694921e9cf4ec6ee480c47}\label{registers_8h_ac14ef363cf694921e9cf4ec6ee480c47}} 
+\#define \hyperlink{registers_8h_ac14ef363cf694921e9cf4ec6ee480c47}{I2\+C\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+ID}~(0x\+F\+F)
+\begin{DoxyCompactList}\small\item\em ID for i2c command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_a48bf9e91501e3daa29e789df9d0fc130}\label{registers_8h_a48bf9e91501e3daa29e789df9d0fc130}} 
+\#define \hyperlink{registers_8h_a48bf9e91501e3daa29e789df9d0fc130}{is\+\_\+readable\+\_\+register}(register)~(register $<$= \hyperlink{registers_8h_a6c89d353714d3f9241253a90808e93e6}{I2\+C\+\_\+\+R\+E\+A\+D\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+E\+N\+D\+\_\+\+A\+D\+D\+R\+E\+SS})
+\begin{DoxyCompactList}\small\item\em Check if register is a readable register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_ad9e7ccb74eccc729a7cd7d1ef63fc98e}\label{registers_8h_ad9e7ccb74eccc729a7cd7d1ef63fc98e}} 
+\#define \hyperlink{registers_8h_ad9e7ccb74eccc729a7cd7d1ef63fc98e}{is\+\_\+writable\+\_\+register}(register)~(\hyperlink{registers_8h_ad980dee82f83659f0a84e3e1f3c177bb}{I2\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS} $<$= register \&\& register $<$= \hyperlink{registers_8h_a9e85c852f1a1891169a1b2db93b90b29}{I2\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+E\+N\+D\+\_\+\+A\+D\+D\+R\+E\+SS})
+\begin{DoxyCompactList}\small\item\em Check if register is a writable register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{registers_8h_ad060a6b32189d637422f26c548c31e5a}\label{registers_8h_ad060a6b32189d637422f26c548c31e5a}} 
+\#define \hyperlink{registers_8h_ad060a6b32189d637422f26c548c31e5a}{is\+\_\+command}(value)~(value == \hyperlink{registers_8h_ac14ef363cf694921e9cf4ec6ee480c47}{I2\+C\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+ID})
+\begin{DoxyCompactList}\small\item\em Check if value is an i2c command. \end{DoxyCompactList}\end{DoxyCompactItemize}

@@ -3,7 +3,7 @@
 /*********************************************************************
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
-Paolo patruno <p.patruno@iperbole.bologna.it>
+Paolo Patruno <p.patruno@iperbole.bologna.it>
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
@@ -23,8 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _NTP_CONFIG_H
 #define _NTP_CONFIG_H
 
+/*!
+\def NTP_SERVER_LENGTH
+\brief Length in bytes for ntp server data buffer.
+*/
 #define NTP_SERVER_LENGTH     (30)
 
+/*!
+\def NTP_DEFAULT_SERVER
+\brief Default NTP server.
+*/
 #define NTP_DEFAULT_SERVER    ("pool.ntp.org")
 
 #endif

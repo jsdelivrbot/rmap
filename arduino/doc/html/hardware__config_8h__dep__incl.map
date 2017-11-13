@@ -1,0 +1,8 @@
+<map id="sketchbook/libraries/RmapConfig/hardware_config.h" name="sketchbook/libraries/RmapConfig/hardware_config.h">
+<area shape="rect" id="node2" href="$i2c-rain_8h.html" title="sketchbook/rmap/i2c\l&#45;rain/i2c&#45;rain.h" alt="" coords="5,109,148,151"/>
+<area shape="rect" id="node4" href="$i2c-th_8h.html" title="sketchbook/rmap/i2c\l&#45;th/i2c&#45;th.h" alt="" coords="172,109,315,151"/>
+<area shape="rect" id="node6" href="$rmap_8h.html" title="sketchbook/rmap/rmap\l/rmap.h" alt="" coords="339,109,494,151"/>
+<area shape="rect" id="node3" href="$i2c-rain_8ino.html" title="sketchbook/rmap/i2c\l&#45;rain/i2c&#45;rain.ino" alt="" coords="5,199,148,240"/>
+<area shape="rect" id="node5" href="$i2c-th_8ino.html" title="sketchbook/rmap/i2c\l&#45;th/i2c&#45;th.ino" alt="" coords="172,199,315,240"/>
+<area shape="rect" id="node7" href="$rmap_8ino.html" title="sketchbook/rmap/rmap\l/rmap.ino" alt="" coords="339,199,494,240"/>
+</map>

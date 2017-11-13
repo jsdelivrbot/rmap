@@ -1,0 +1,405 @@
+\hypertarget{classSensorDriver}{}\section{Sensor\+Driver Class Reference}
+\label{classSensorDriver}\index{Sensor\+Driver@{Sensor\+Driver}}
+
+
+\hyperlink{classSensorDriver}{Sensor\+Driver} class.  
+
+
+
+
+{\ttfamily \#include $<$Sensor\+Driver.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSensorDriver_ab09b984c0201774e2e1eba23d2fb775d}{Sensor\+Driver} (const char $\ast$driver, const char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Constructor for \hyperlink{classSensorDriver}{Sensor\+Driver}. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSensorDriver_ad6d2e1e9bf26944f102af3042ba1c615}{setup} (const uint8\+\_\+t address, const uint8\+\_\+t node=0)
+\begin{DoxyCompactList}\small\item\em Setup sensor. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSensorDriver_a19e0acad6518cf382fe7e71a7b915506}{prepare} ()
+\begin{DoxyCompactList}\small\item\em Prepare sensor. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSensorDriver_a2d9da1147c103028eff6756c3467f486}{get} (int32\+\_\+t $\ast$\hyperlink{classSensorDriver_a133e97d4b06f8b4d12265df0ac0bf9ed}{values}, uint8\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Get value from sensor. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{classSensorDriver_a5056f9f058d069b9840a6045c1a652d3}{get\+Driver} ()
+\begin{DoxyCompactList}\small\item\em Get the sensor\textquotesingle{}s driver. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{classSensorDriver_a3d87944d9f86320f645af7dad549e4a8}{get\+Type} ()
+\begin{DoxyCompactList}\small\item\em Get the sensor\textquotesingle{}s type. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classSensorDriver_a3f0ac74e7502159bac092a1fd4d05dda}{get\+Address} ()
+\begin{DoxyCompactList}\small\item\em Get the sensor\textquotesingle{}s address. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classSensorDriver_a30e20150ec52e3ec3a7257978e533618}{get\+Node} ()
+\begin{DoxyCompactList}\small\item\em Get the sensor\textquotesingle{}s node. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{classSensorDriver_a8636758f202044a24e916d10bf339f10}{get\+Start\+Time} ()
+\begin{DoxyCompactList}\small\item\em Get the last setted sensor\textquotesingle{}s start time. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{classSensorDriver_a432c4878ec9ca5145a4bdd827ebbc7d7}{get\+Delay} ()
+\begin{DoxyCompactList}\small\item\em Get the last setted sensor\textquotesingle{}s delay. \end{DoxyCompactList}\item 
+bool \hyperlink{classSensorDriver_a8ababf180e52d684416bc6f4c4f90e59}{is\+End} ()
+\begin{DoxyCompactList}\small\item\em Check if get sequence is complete. \end{DoxyCompactList}\item 
+bool \hyperlink{classSensorDriver_af8d094335bc75fbf1390ee5b498eec69}{is\+Success} ()
+\begin{DoxyCompactList}\small\item\em Check if get sequence is complete with success. \end{DoxyCompactList}\item 
+bool \hyperlink{classSensorDriver_a65f1930e35568439dee39259a23a5670}{is\+Readed} ()
+\begin{DoxyCompactList}\small\item\em Check if values were readed from sensor. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSensorDriver_a0f64839cf7719b5782c93e54485d3b11}{is\+Setted} ()
+\begin{DoxyCompactList}\small\item\em Check if sensor was setted. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSensorDriver_a17672e5f12749c3dca5d6c2c4b73b7c3}{is\+Prepared} ()
+\begin{DoxyCompactList}\small\item\em Check if sensor was preapared. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSensorDriver_a2b347ee438af49b939cb1e79c068681f}{reset\+Prepared} ()
+\begin{DoxyCompactList}\small\item\em Reset preapred internal state of sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$ \hyperlink{classSensorDriver_a42e3b501ef28a0a8ba7e045f84e3d76a}{create} (const char $\ast$driver, const char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Create an instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specific sensor. \end{DoxyCompactList}\item 
+static void \hyperlink{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}{create\+And\+Setup} (const char $\ast$driver, const char $\ast$type, uint8\+\_\+t address, \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$\hyperlink{i2c-th_8h_ac07b59f913caef2eaea4e4bb93c901e9}{sensors}\mbox{[}$\,$\mbox{]}, uint8\+\_\+t $\ast$\hyperlink{i2c-th_8h_a7727577f63dfa4aa55feb7ddd0739f83}{sensors\+\_\+count})
+\begin{DoxyCompactList}\small\item\em Create and setup the specified sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classSensorDriver_acaeaeab0b4536073c812bf53582a9e08}{print\+Info} (const char $\ast$driver, const char $\ast$type, const uint8\+\_\+t address=0, const uint8\+\_\+t node=0)
+\begin{DoxyCompactList}\small\item\em Print information about sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSensorDriver_af4563562f35c54710cdff4d41d596100}\label{classSensorDriver_af4563562f35c54710cdff4d41d596100}} 
+const char $\ast$ \hyperlink{classSensorDriver_af4563562f35c54710cdff4d41d596100}{\+\_\+driver}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for driver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a545ce08f6016a2fa0e3aebcca51edcbd}\label{classSensorDriver_a545ce08f6016a2fa0e3aebcca51edcbd}} 
+const char $\ast$ \hyperlink{classSensorDriver_a545ce08f6016a2fa0e3aebcca51edcbd}{\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a13853dc3219d536dd19553768f053688}\label{classSensorDriver_a13853dc3219d536dd19553768f053688}} 
+uint8\+\_\+t \hyperlink{classSensorDriver_a13853dc3219d536dd19553768f053688}{\+\_\+address}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}\label{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}} 
+int8\+\_\+t \hyperlink{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}{\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for node. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}\label{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}} 
+uint32\+\_\+t \hyperlink{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}{\+\_\+delay\+\_\+ms}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for delay. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a542b221f1e79b72badf2b4c68883111b}\label{classSensorDriver_a542b221f1e79b72badf2b4c68883111b}} 
+uint32\+\_\+t \hyperlink{classSensorDriver_a542b221f1e79b72badf2b4c68883111b}{\+\_\+start\+\_\+time\+\_\+ms}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for start time milliseconds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a133e97d4b06f8b4d12265df0ac0bf9ed}\label{classSensorDriver_a133e97d4b06f8b4d12265df0ac0bf9ed}} 
+int32\+\_\+t \hyperlink{classSensorDriver_a133e97d4b06f8b4d12265df0ac0bf9ed}{values} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for values readed from sensors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_ab3c5ceebf49b96af8a9f96d7cc6fdef8}\label{classSensorDriver_ab3c5ceebf49b96af8a9f96d7cc6fdef8}} 
+bool \hyperlink{classSensorDriver_ab3c5ceebf49b96af8a9f96d7cc6fdef8}{\+\_\+is\+\_\+end}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for save end of reading values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a80a57f982b9d5eb776a34ecc601334b3}\label{classSensorDriver_a80a57f982b9d5eb776a34ecc601334b3}} 
+bool \hyperlink{classSensorDriver_a80a57f982b9d5eb776a34ecc601334b3}{\+\_\+is\+\_\+success}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for save if readed was successful. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSensorDriver_a7a418701714073a0768c2b1ce1104c2b}\label{classSensorDriver_a7a418701714073a0768c2b1ce1104c2b}} 
+bool \hyperlink{classSensorDriver_a7a418701714073a0768c2b1ce1104c2b}{\+\_\+is\+\_\+readed}
+\begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for save is readed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classSensorDriver}{Sensor\+Driver} class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSensorDriver_ab09b984c0201774e2e1eba23d2fb775d}\label{classSensorDriver_ab09b984c0201774e2e1eba23d2fb775d}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!Sensor\+Driver@{Sensor\+Driver}}
+\index{Sensor\+Driver@{Sensor\+Driver}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{Sensor\+Driver()}{SensorDriver()}}
+{\footnotesize\ttfamily Sensor\+Driver\+::\+Sensor\+Driver (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Constructor for \hyperlink{classSensorDriver}{Sensor\+Driver}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$driver} & driver\textquotesingle{}s type. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & sensor\textquotesingle{}s type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSensorDriver_a42e3b501ef28a0a8ba7e045f84e3d76a}\label{classSensorDriver_a42e3b501ef28a0a8ba7e045f84e3d76a}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!create@{create}}
+\index{create@{create}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$ Sensor\+Driver\+::create (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create an instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specific sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$driver} & driver\textquotesingle{}s type. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & sensor\textquotesingle{}s type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specified sensor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}\label{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!create\+And\+Setup@{create\+And\+Setup}}
+\index{create\+And\+Setup@{create\+And\+Setup}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{create\+And\+Setup()}{createAndSetup()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::create\+And\+Setup (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type,  }\item[{uint8\+\_\+t}]{address,  }\item[{\hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$}]{sensors\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t $\ast$}]{sensors\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create and setup the specified sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$driver} & driver\textquotesingle{}s type. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & sensor\textquotesingle{}s type. \\
+\hline
+\mbox{\tt in}  & {\em address} & sensor\textquotesingle{}s address. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$sensors\mbox{[}$\,$\mbox{]}} & array of sensors. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$sensors\+\_\+count} & setted sensors count. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a2d9da1147c103028eff6756c3467f486}\label{classSensorDriver_a2d9da1147c103028eff6756c3467f486}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get@{get}}
+\index{get@{get}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::get (\begin{DoxyParamCaption}\item[{int32\+\_\+t $\ast$}]{values,  }\item[{uint8\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get value from sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$values} & pointer to array for getting multiple sensor\textquotesingle{}s value. \\
+\hline
+\mbox{\tt in}  & {\em length} & number of values readed from sensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a3f0ac74e7502159bac092a1fd4d05dda}\label{classSensorDriver_a3f0ac74e7502159bac092a1fd4d05dda}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Address@{get\+Address}}
+\index{get\+Address@{get\+Address}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Address()}{getAddress()}}
+{\footnotesize\ttfamily uint8\+\_\+t Sensor\+Driver\+::get\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the sensor\textquotesingle{}s address. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s address. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a432c4878ec9ca5145a4bdd827ebbc7d7}\label{classSensorDriver_a432c4878ec9ca5145a4bdd827ebbc7d7}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Delay@{get\+Delay}}
+\index{get\+Delay@{get\+Delay}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Delay()}{getDelay()}}
+{\footnotesize\ttfamily uint32\+\_\+t Sensor\+Driver\+::get\+Delay (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the last setted sensor\textquotesingle{}s delay. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s delay. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a5056f9f058d069b9840a6045c1a652d3}\label{classSensorDriver_a5056f9f058d069b9840a6045c1a652d3}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Driver@{get\+Driver}}
+\index{get\+Driver@{get\+Driver}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Driver()}{getDriver()}}
+{\footnotesize\ttfamily char $\ast$ Sensor\+Driver\+::get\+Driver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the sensor\textquotesingle{}s driver. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s driver. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a30e20150ec52e3ec3a7257978e533618}\label{classSensorDriver_a30e20150ec52e3ec3a7257978e533618}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Node@{get\+Node}}
+\index{get\+Node@{get\+Node}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Node()}{getNode()}}
+{\footnotesize\ttfamily uint8\+\_\+t Sensor\+Driver\+::get\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the sensor\textquotesingle{}s node. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a8636758f202044a24e916d10bf339f10}\label{classSensorDriver_a8636758f202044a24e916d10bf339f10}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Start\+Time@{get\+Start\+Time}}
+\index{get\+Start\+Time@{get\+Start\+Time}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Start\+Time()}{getStartTime()}}
+{\footnotesize\ttfamily uint32\+\_\+t Sensor\+Driver\+::get\+Start\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the last setted sensor\textquotesingle{}s start time. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s start time. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a3d87944d9f86320f645af7dad549e4a8}\label{classSensorDriver_a3d87944d9f86320f645af7dad549e4a8}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{get\+Type()}{getType()}}
+{\footnotesize\ttfamily char $\ast$ Sensor\+Driver\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the sensor\textquotesingle{}s type. 
+
+\begin{DoxyReturn}{Returns}
+the sensor\textquotesingle{}s type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a8ababf180e52d684416bc6f4c4f90e59}\label{classSensorDriver_a8ababf180e52d684416bc6f4c4f90e59}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!is\+End@{is\+End}}
+\index{is\+End@{is\+End}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{is\+End()}{isEnd()}}
+{\footnotesize\ttfamily bool Sensor\+Driver\+::is\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if get sequence is complete. 
+
+\begin{DoxyReturn}{Returns}
+true if complete, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a17672e5f12749c3dca5d6c2c4b73b7c3}\label{classSensorDriver_a17672e5f12749c3dca5d6c2c4b73b7c3}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!is\+Prepared@{is\+Prepared}}
+\index{is\+Prepared@{is\+Prepared}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{is\+Prepared()}{isPrepared()}}
+{\footnotesize\ttfamily bool Sensor\+Driver\+::is\+Prepared (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Check if sensor was preapared. 
+
+\begin{DoxyReturn}{Returns}
+true if preapared, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a65f1930e35568439dee39259a23a5670}\label{classSensorDriver_a65f1930e35568439dee39259a23a5670}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!is\+Readed@{is\+Readed}}
+\index{is\+Readed@{is\+Readed}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{is\+Readed()}{isReaded()}}
+{\footnotesize\ttfamily bool Sensor\+Driver\+::is\+Readed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if values were readed from sensor. 
+
+\begin{DoxyReturn}{Returns}
+true if readed, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a0f64839cf7719b5782c93e54485d3b11}\label{classSensorDriver_a0f64839cf7719b5782c93e54485d3b11}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!is\+Setted@{is\+Setted}}
+\index{is\+Setted@{is\+Setted}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{is\+Setted()}{isSetted()}}
+{\footnotesize\ttfamily bool Sensor\+Driver\+::is\+Setted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Check if sensor was setted. 
+
+\begin{DoxyReturn}{Returns}
+true if setted, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_af8d094335bc75fbf1390ee5b498eec69}\label{classSensorDriver_af8d094335bc75fbf1390ee5b498eec69}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!is\+Success@{is\+Success}}
+\index{is\+Success@{is\+Success}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{is\+Success()}{isSuccess()}}
+{\footnotesize\ttfamily bool Sensor\+Driver\+::is\+Success (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if get sequence is complete with success. 
+
+\begin{DoxyReturn}{Returns}
+true if success, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a19e0acad6518cf382fe7e71a7b915506}\label{classSensorDriver_a19e0acad6518cf382fe7e71a7b915506}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!prepare@{prepare}}
+\index{prepare@{prepare}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{prepare()}{prepare()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::prepare (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Prepare sensor. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_acaeaeab0b4536073c812bf53582a9e08}\label{classSensorDriver_acaeaeab0b4536073c812bf53582a9e08}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!print\+Info@{print\+Info}}
+\index{print\+Info@{print\+Info}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{print\+Info()}{printInfo()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::print\+Info (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type,  }\item[{const uint8\+\_\+t}]{address = {\ttfamily 0},  }\item[{const uint8\+\_\+t}]{node = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Print information about sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$driver} & the sensor\textquotesingle{}s driver. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & the sensor\textquotesingle{}s type. \\
+\hline
+\mbox{\tt in}  & {\em address} & the sensor\textquotesingle{}s address. \\
+\hline
+\mbox{\tt in}  & {\em node} & the sensor\textquotesingle{}s node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_a2b347ee438af49b939cb1e79c068681f}\label{classSensorDriver_a2b347ee438af49b939cb1e79c068681f}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!reset\+Prepared@{reset\+Prepared}}
+\index{reset\+Prepared@{reset\+Prepared}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{reset\+Prepared()}{resetPrepared()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::reset\+Prepared (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset preapred internal state of sensor. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSensorDriver_ad6d2e1e9bf26944f102af3042ba1c615}\label{classSensorDriver_ad6d2e1e9bf26944f102af3042ba1c615}} 
+\index{Sensor\+Driver@{Sensor\+Driver}!setup@{setup}}
+\index{setup@{setup}!Sensor\+Driver@{Sensor\+Driver}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::setup (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{address,  }\item[{const uint8\+\_\+t}]{node = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Setup sensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em address} & sensor\textquotesingle{}s address. \\
+\hline
+\mbox{\tt in}  & {\em node} & sensors\textquotesingle{}node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+sketchbook/libraries/\+Sensor\+Driver/\hyperlink{SensorDriver_8h}{Sensor\+Driver.\+h}\item 
+sketchbook/libraries/\+Sensor\+Driver/\hyperlink{SensorDriver_8cpp}{Sensor\+Driver.\+cpp}\end{DoxyCompactItemize}

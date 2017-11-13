@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <debug_config.h>
 
+/*!
+\def SERIAL_TRACE_LEVEL
+\brief Serial debug level for this library.
+*/
 #define SERIAL_TRACE_LEVEL SENSOR_DRIVER_SERIAL_TRACE_LEVEL
 
 #include "SensorDriver.h"
@@ -48,9 +52,9 @@ namespace _SensorDriver {
    #endif
 }
 
-//------------------------------------------------------------------------------
-// SensorDriver
-//------------------------------------------------------------------------------
+/*********************************************************************
+* SensorDriver
+*********************************************************************/
 
 SensorDriver::SensorDriver(const char* driver, const char* type) {
    _driver = driver;

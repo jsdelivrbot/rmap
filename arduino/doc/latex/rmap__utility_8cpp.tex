@@ -1,0 +1,66 @@
+\hypertarget{rmap__utility_8cpp}{}\section{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.cpp File Reference}
+\label{rmap__utility_8cpp}\index{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+cpp@{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+cpp}}
+{\ttfamily \#include \char`\"{}rmap\+\_\+utility.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+Include dependency graph for rmap\+\_\+utility.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rmap__utility_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}{get\+Stima\+Name\+By\+Type} (char $\ast$name, uint8\+\_\+t type)
+\begin{DoxyCompactList}\small\item\em Return a S\+T\+I\+MA\textquotesingle{}s name starting from a module type stored in configuration. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8cpp_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array} (uint8\+\_\+t $\ast$array, char $\ast$string, const char $\ast$delimiter, uint8\+\_\+t base)
+\begin{DoxyCompactList}\small\item\em Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}\label{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}} 
+\index{rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}!get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}}
+\index{get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}!rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{get\+Stima\+Name\+By\+Type()}{getStimaNameByType()}}
+{\footnotesize\ttfamily void get\+Stima\+Name\+By\+Type (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{uint8\+\_\+t}]{type }\end{DoxyParamCaption})}
+
+
+
+Return a S\+T\+I\+MA\textquotesingle{}s name starting from a module type stored in configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$name} & S\+T\+I\+MA\textquotesingle{}s name. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$type} & module type stored in configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8cpp_a4135881294cb3a89e74548c2a706e559}\label{rmap__utility_8cpp_a4135881294cb3a89e74548c2a706e559}} 
+\index{rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}!string\+To\+Array@{string\+To\+Array}}
+\index{string\+To\+Array@{string\+To\+Array}!rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{string\+To\+Array()}{stringToArray()}}
+{\footnotesize\ttfamily void string\+To\+Array (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{array,  }\item[{char $\ast$}]{string,  }\item[{const char $\ast$}]{delimiter,  }\item[{uint8\+\_\+t}]{base }\end{DoxyParamCaption})}
+
+
+
+Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$array} & pointer to array obtained from string. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$string} & source string to divide searching by delimiter. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$delimiter} & a delimiter for divide string in multiple values. \\
+\hline
+\mbox{\tt in}  & {\em base} & it is a base for strtol function\+: numerical base (radix) that determines the valid characters and their interpretation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}

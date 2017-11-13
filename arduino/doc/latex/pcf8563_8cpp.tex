@@ -1,0 +1,87 @@
+\hypertarget{pcf8563_8cpp}{}\section{sketchbook/libraries/\+P\+C\+F8563/pcf8563.cpp File Reference}
+\label{pcf8563_8cpp}\index{sketchbook/libraries/\+P\+C\+F8563/pcf8563.\+cpp@{sketchbook/libraries/\+P\+C\+F8563/pcf8563.\+cpp}}
+{\ttfamily \#include \char`\"{}pcf8563.\+h\char`\"{}}\newline
+Include dependency graph for pcf8563.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{pcf8563_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacePcf8563}{Pcf8563}
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespacePcf8563}{Pcf8563} namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_aae506e83df33a718bdd0dd184d42c19a}{Pcf8563\+::bcd\+To\+Dec} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from B\+CD format into decimal format. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{namespacePcf8563_a3519616ff3c2de84e2ea54442ef0ed0c}{Pcf8563\+::dec\+To\+Bcd} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Convert a value from decimal format into B\+CD format. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_abe54082b4f23e40ef4f5be845b5cf008}{Pcf8563\+::reset} ()
+\begin{DoxyCompactList}\small\item\em Reset P\+C\+F8563. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a32420d263d406b766b21bc00dccdc333}{Pcf8563\+::enable} ()
+\begin{DoxyCompactList}\small\item\em Enable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a1920171d3aec259327a124b712299a04}{Pcf8563\+::disable} ()
+\begin{DoxyCompactList}\small\item\em Disable P\+C\+F8563 counter. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a098f161f3396c8ed0c2f11c7193f5b0d}{Pcf8563\+::get\+Control\+Status1} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Read control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a17680b8e68d064bb39007b4a6afc240e}{Pcf8563\+::set\+Control\+Status1} (uint8\+\_\+t control\+\_\+status\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Write control status 1 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6cf47400c4e974b9d9a1bf1d1a9e463d}{Pcf8563\+::get\+Control\+Status2} (uint8\+\_\+t $\ast$control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Read control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac23ff9ec298a4ec5a777139d972b5e4b}{Pcf8563\+::set\+Control\+Status2} (uint8\+\_\+t control\+\_\+status\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Write control status 2 register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa6afef0bd9005fc8b8332c7cb82ec6ce}{Pcf8563\+::get\+Clockout\+Control} (uint8\+\_\+t $\ast$clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a52b2a6f5b28f961e7e4bece212c7bdd6}{Pcf8563\+::set\+Clockout\+Control} (uint8\+\_\+t clockout\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write clockout control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a0aad62263917a9ceec3c12c88a29b835}{Pcf8563\+::get\+Timer\+Control} (uint8\+\_\+t $\ast$timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Read timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a112b6debc61100cd3ab737af9d31e119}{Pcf8563\+::set\+Timer\+Control} (uint8\+\_\+t timer\+\_\+control)
+\begin{DoxyCompactList}\small\item\em Write timer control register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}{Pcf8563\+::get\+Date} (uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$month, uint8\+\_\+t $\ast$year, uint8\+\_\+t $\ast$weekday, uint8\+\_\+t $\ast$century)
+\begin{DoxyCompactList}\small\item\em Read date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}{Pcf8563\+::set\+Date} (uint8\+\_\+t day, uint8\+\_\+t month, uint8\+\_\+t year, uint8\+\_\+t weekday, uint8\+\_\+t century)
+\begin{DoxyCompactList}\small\item\em Write date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}{Pcf8563\+::get\+Time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds)
+\begin{DoxyCompactList}\small\item\em Read time register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a797213f5e675582765df0b42ab921999}{Pcf8563\+::set\+Time} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t seconds)
+\begin{DoxyCompactList}\small\item\em Write time register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a03e4ea0f00fd48664537788ba491fa60}{Pcf8563\+::enable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Enable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a76c81b3e0f59f5e4e80dd8807c199856}{Pcf8563\+::disable\+Clockout} ()
+\begin{DoxyCompactList}\small\item\em Disable clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a4bc96bd7ccbd30db659536befb3da1fe}{Pcf8563\+::set\+Clockout\+Frequency} (uint8\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Set clockout frequency. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ab8ff6484e7a5636187e0212a98f623bf}{Pcf8563\+::is\+Clockout\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if clockout frequency is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6e196fe410c080e4f6e20aadbe279637}{Pcf8563\+::enable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Enable Alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad9dd3fe9bf1ab196090357b717c7207d}{Pcf8563\+::disable\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Disable alarm interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ae554435cc17a3e49d9d731b97e3fc0be}{Pcf8563\+::reset\+Alarm} ()
+\begin{DoxyCompactList}\small\item\em Reset alarm. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a23086671303b630318e82e9bef662b44}{Pcf8563\+::is\+Alarm\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if alarm interrupt is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a687f6854cf03080456bdd8596c1c60ff}{Pcf8563\+::get\+Alarm} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$weekday)
+\begin{DoxyCompactList}\small\item\em Read alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ad82df13e3625c1b975f2cc2e7e356f0e}{Pcf8563\+::set\+Alarm} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t day, uint8\+\_\+t weekday)
+\begin{DoxyCompactList}\small\item\em Write alarm register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_af4cc94d1ea73bbff5d44e1b716111cdb}{Pcf8563\+::enable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Enable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_ac2c3ca7f3a13516c6549bfc0f6527c6a}{Pcf8563\+::disable\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Disable timer interrupt. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a6fd0509d12fd312b5dbed8506b9315c9}{Pcf8563\+::reset\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Reset timer. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aab079fef811171abcba7e80b8595a8d1}{Pcf8563\+::is\+Timer\+Active} ()
+\begin{DoxyCompactList}\small\item\em Check if timer is enabled. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_a338898a456015e796d48b82738d5a8c4}{Pcf8563\+::set\+Timer} (uint8\+\_\+t frequency, uint8\+\_\+t timer)
+\begin{DoxyCompactList}\small\item\em Write timer register. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{namespacePcf8563_a7ffd9819a4946feda4117a90ef176ab9}{Pcf8563\+::get\+Days\+From\+Two\+Date} (int16\+\_\+t d1, int16\+\_\+t m1, int16\+\_\+t y1, int16\+\_\+t d2, int16\+\_\+t m2, int16\+\_\+t y2)
+\begin{DoxyCompactList}\small\item\em Calculate numbers of days from two date. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{namespacePcf8563_a2824a08aaed53b49a8fc1aa77cab629d}{Pcf8563\+::get\+Time} ()
+\begin{DoxyCompactList}\small\item\em Read date and time and return they as seconds elapsed from 00\+:00\+:00 01/01/1970. \end{DoxyCompactList}\end{DoxyCompactItemize}
