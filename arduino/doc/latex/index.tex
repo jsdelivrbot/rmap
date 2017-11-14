@@ -5,14 +5,23 @@ software to collect weather data contributed by citizens; to make these data ava
 \hypertarget{index_report_eth}{}\subsection{S\+T\+I\+M\+A Report over Ethernet\+:}\label{index_report_eth}
 1) open sketch \hyperlink{rmap_8ino}{arduino/sketchbook/rmap/rmap/rmap.\+ino}
 
-2) in \hyperlink{rmap-config_8h}{rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+E\+TH in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
+2) in \hyperlink{rmap-config_8h}{arduino/sketchbook/rmap/rmap/rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+E\+TH in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
 
-3) open arduino/sketchbook/library/\+Rmap\+Config/sensors\+\_\+config.\+h and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor driver and library\hypertarget{index_report_gsm}{}\subsection{S\+T\+I\+M\+A Report over G\+S\+M/\+G\+P\+R\+S\+:}\label{index_report_gsm}
+3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_report_gsm}{}\subsection{S\+T\+I\+M\+A Report over G\+S\+M/\+G\+P\+R\+S\+:}\label{index_report_gsm}
 1) open sketch \hyperlink{rmap_8ino}{arduino/sketchbook/rmap/rmap/rmap.\+ino}
 
-2) in \hyperlink{rmap-config_8h}{rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+G\+SM in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
+2) in \hyperlink{rmap-config_8h}{arduino/sketchbook/rmap/rmap/rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+G\+SM in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
 
-3) open arduino/sketchbook/library/\+Rmap\+Config/sensors\+\_\+config.\+h and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor driver and library\hypertarget{index_RmapConfig}{}\section{Rmap\+Config library}\label{index_RmapConfig}
+3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_i2c-th}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+T\+H\+:}\label{index_i2c-th}
+1) open sketch \hyperlink{i2c-th_8ino}{arduino/sketchbook/rmap/i2c-\/th/i2c-\/th.\+ino}
+
+2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_i2c-rain}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+Rain\+:}\label{index_i2c-rain}
+1) open sketch \hyperlink{i2c-rain_8ino}{arduino/sketchbook/rmap/i2c-\/rain/i2c-\/rain.\+ino}
+
+2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set false in all sensors\textquotesingle{}s define and json\textquotesingle{}s define\hypertarget{index_library}{}\section{Project Library}\label{index_library}
+For details, look at the specific library files.\hypertarget{index_RmapConfig}{}\subsection{Rmap\+Config}\label{index_RmapConfig}
+This library contains the definitions that are useful for configuring some default values. Below is a list of the files contained therein.
+
 \hyperlink{debug__config_8h}{debug\+\_\+config.\+h}\+: Enable or disable debug in sketch and library
 
 \hyperlink{ethernet__config_8h}{ethernet\+\_\+config.\+h}\+: Ethernet configuration\textquotesingle{}s parameters
@@ -31,7 +40,9 @@ software to collect weather data contributed by citizens; to make these data ava
 
 \hyperlink{sdcard__config_8h}{sdcard\+\_\+config.\+h}\+: S\+D\+C\+A\+RD configuration\textquotesingle{}s parameters
 
-\hyperlink{sensors__config_8h}{sensors\+\_\+config.\+h}\+: Enable or disable sensor driver sensors for specific sketch\hypertarget{index_Rmap}{}\section{Rmap library}\label{index_Rmap}
+\hyperlink{sensors__config_8h}{sensors\+\_\+config.\+h}\+: Enable or disable sensor driver sensors for specific sketch\hypertarget{index_Rmap}{}\subsection{Rmap}\label{index_Rmap}
+This library contains generic utility features. Below is a list of the files contained therein.
+
 \hyperlink{debug_8h}{debug.\+h} \hyperlink{debug_8cpp}{debug.\+cpp}\+: Debugging functions for print debug message on serial port or L\+CD
 
 \hyperlink{eeprom__utility_8h}{eeprom\+\_\+utility.\+h} eeprom\+\_\+utility.\+cpp\+: E\+E\+P\+R\+OM utility for write and read eeprom
@@ -50,4 +61,45 @@ software to collect weather data contributed by citizens; to make these data ava
 
 \hyperlink{stima__module_8h}{stima\+\_\+module.\+h}\+: S\+T\+I\+MA station\textquotesingle{}s definition
 
-\hyperlink{typedef_8h}{typedef.\+h}\+: Useful project typedef 
+\hyperlink{typedef_8h}{typedef.\+h}\+: Useful project typedef\hypertarget{index_SensorDriver}{}\subsection{Sensor\+Driver}\label{index_SensorDriver}
+This library is provided to read measurements from I2C sensors.
+
+\hyperlink{SensorDriverSensors_8h}{Sensor\+Driver\+Sensors.\+h}\+: define list with sensor names in \hyperlink{classSensorDriver}{Sensor\+Driver}
+
+\hyperlink{SensorDriver_8h}{Sensor\+Driver.\+h} \hyperlink{SensorDriver_8cpp}{Sensor\+Driver.\+cpp}\+: \hyperlink{classSensorDriver}{Sensor\+Driver} library files\hypertarget{index_HYT2X1}{}\subsection{H\+Y\+T2\+X1}\label{index_HYT2X1}
+This library implements functions for read and configure H\+Y\+T271 and H\+Y\+T221 sensors.
+
+\hyperlink{hyt2x1_8h}{hyt2x1.\+h} \hyperlink{hyt2x1_8cpp}{hyt2x1.\+cpp}\+: H\+Y\+T2\+X1 library files\hypertarget{index_NTP}{}\subsection{N\+TP}\label{index_NTP}
+This library implements N\+TP functions for read time over N\+TP server with ethernet client or sim800 client.
+
+\hyperlink{ntp_8h}{ntp.\+h} \hyperlink{ntp_8cpp}{ntp.\+cpp}\+: N\+TP library files\hypertarget{index_PCF8563}{}\subsection{P\+C\+F8563}\label{index_PCF8563}
+This library implements P\+C\+F8563 functions for communicate with pcf8563 real time clock.
+
+\hyperlink{pcf8563_8h}{pcf8563.\+h} \hyperlink{pcf8563_8cpp}{pcf8563.\+cpp}\+: P\+C\+F8563 library files\hypertarget{index_SIM800}{}\subsection{S\+I\+M800}\label{index_SIM800}
+This library implements \hyperlink{classSIM800}{S\+I\+M800} functions for communicate with S\+I\+M800\+C/\+S\+I\+M800L G\+S\+M/\+G\+P\+RS module.
+
+\hyperlink{sim800_8h}{sim800.\+h} \hyperlink{sim800_8cpp}{sim800.\+cpp}\+: \hyperlink{classSIM800}{S\+I\+M800} library files
+
+\hyperlink{sim800Client_8h}{sim800\+Client.\+h}\+: \hyperlink{classSIM800}{S\+I\+M800} library interface for Arduino Client.\hypertarget{index_implemented}{}\subsection{Implemented features}\label{index_implemented}
+\hypertarget{index_transport}{}\subsubsection{Transport}\label{index_transport}
+o) Serial\+: yes
+
+o) Ethernet\+: partial (basic functions are present but need to interface with Ethernet Client)
+
+o) M\+Q\+TT\+: partial (subscribe functions are present but need to interface with rpc process function)
+
+See stream\+\_\+task and rpc\+\_\+process functions in \hyperlink{rmap_8ino}{rmap.\+ino}\hypertarget{index_files}{}\subsubsection{S\+D-\/\+Card files}\label{index_files}
+On the sdcard there is a file called mqtt\+\_\+ptr.\+txt containing a binary data in uint32\+\_\+t format corresponding to the seconds passed since 00\+:00\+:00 01/01/1970 indicating the last data sent by M\+Q\+TT.
+
+The data is recorded on files (one file for each recording day) named in the format yyyy\+\_\+mm\+\_\+dd.\+txt and each data recorded on sd card is M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH + M\+Q\+T\+T\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+L\+E\+N\+G\+TH bytes long (look at the \hyperlink{mqtt__config_8h}{mqtt\+\_\+config.\+h} file).
+
+Each recorded data has the format of the type\+: T\+R\+A\+N\+G\+E/\+L\+E\+V\+E\+L/\+V\+AR \{ “v”\+: V\+A\+L\+UE, “t”\+: T\+I\+ME\}\hypertarget{index_SensorDriver}{}\subsubsection{Sensor\+Driver}\label{index_SensorDriver}
+o) H\+Y\+T221 and H\+Y\+T271\+: Temperature and humidity sensors
+
+o) \hyperlink{namespaceDigitecoPower}{Digiteco\+Power}\+: Power parameters sensor (battery voltage, current and charge percentage, source voltage and current, load voltage)
+
+o) I2\+C-\/\+TH\+: oneshot and continuous mode
+
+o) I2\+C-\/\+Rain\+: oneshot mode
+
+other sensors can be easily integrated (see \hyperlink{classSensorDriver}{Sensor\+Driver} library). 

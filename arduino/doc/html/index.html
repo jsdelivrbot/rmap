@@ -72,15 +72,27 @@ Howto</h1>
 <h2><a class="anchor" id="report_eth"></a>
 STIMA Report over Ethernet:</h2>
 <p>1) open sketch <a class="el" href="rmap_8ino.html">arduino/sketchbook/rmap/rmap/rmap.ino</a></p>
-<p>2) in <a class="el" href="rmap-config_8h.html">rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_ETH in MODULE_VERSION define</p>
-<p>3) open arduino/sketchbook/library/RmapConfig/sensors_config.h and set true or false sensors's define and json's define in order to enable or disable relative sensor driver and library</p>
+<p>2) in <a class="el" href="rmap-config_8h.html">arduino/sketchbook/rmap/rmap/rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_ETH in MODULE_VERSION define</p>
+<p>3) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
 <h2><a class="anchor" id="report_gsm"></a>
 STIMA Report over GSM/GPRS:</h2>
 <p>1) open sketch <a class="el" href="rmap_8ino.html">arduino/sketchbook/rmap/rmap/rmap.ino</a></p>
-<p>2) in <a class="el" href="rmap-config_8h.html">rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_GSM in MODULE_VERSION define</p>
-<p>3) open arduino/sketchbook/library/RmapConfig/sensors_config.h and set true or false sensors's define and json's define in order to enable or disable relative sensor driver and library</p>
-<h1><a class="anchor" id="RmapConfig"></a>
-RmapConfig library</h1>
+<p>2) in <a class="el" href="rmap-config_8h.html">arduino/sketchbook/rmap/rmap/rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_GSM in MODULE_VERSION define</p>
+<p>3) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<h2><a class="anchor" id="i2c-th"></a>
+STIMA I2C-TH:</h2>
+<p>1) open sketch <a class="el" href="i2c-th_8ino.html">arduino/sketchbook/rmap/i2c-th/i2c-th.ino</a></p>
+<p>2) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<h2><a class="anchor" id="i2c-rain"></a>
+STIMA I2C-Rain:</h2>
+<p>1) open sketch <a class="el" href="i2c-rain_8ino.html">arduino/sketchbook/rmap/i2c-rain/i2c-rain.ino</a></p>
+<p>2) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set false in all sensors's define and json's define</p>
+<h1><a class="anchor" id="library"></a>
+Project Library</h1>
+<p>For details, look at the specific library files.</p>
+<h2><a class="anchor" id="RmapConfig"></a>
+RmapConfig</h2>
+<p>This library contains the definitions that are useful for configuring some default values. Below is a list of the files contained therein.</p>
 <p><a class="el" href="debug__config_8h.html">debug_config.h</a>: Enable or disable debug in sketch and library</p>
 <p><a class="el" href="ethernet__config_8h.html">ethernet_config.h</a>: Ethernet configuration's parameters</p>
 <p><a class="el" href="gsm__config_8h.html">gsm_config.h</a>: GSM configuration's parameters</p>
@@ -91,8 +103,9 @@ RmapConfig library</h1>
 <p><a class="el" href="ntp__config_8h.html">ntp_config.h</a>: NTP configuration's parameters</p>
 <p><a class="el" href="sdcard__config_8h.html">sdcard_config.h</a>: SDCARD configuration's parameters</p>
 <p><a class="el" href="sensors__config_8h.html">sensors_config.h</a>: Enable or disable sensor driver sensors for specific sketch</p>
-<h1><a class="anchor" id="Rmap"></a>
-Rmap library</h1>
+<h2><a class="anchor" id="Rmap"></a>
+Rmap</h2>
+<p>This library contains generic utility features. Below is a list of the files contained therein.</p>
 <p><a class="el" href="debug_8h.html">debug.h</a> <a class="el" href="debug_8cpp.html">debug.cpp</a>: Debugging functions for print debug message on serial port or LCD</p>
 <p><a class="el" href="eeprom__utility_8h.html">eeprom_utility.h</a> eeprom_utility.cpp: EEPROM utility for write and read eeprom</p>
 <p><a class="el" href="i2c__utility_8h.html">i2c_utility.h</a> <a class="el" href="i2c__utility_8cpp.html">i2c_utility.cpp</a>: I2C utility</p>
@@ -102,7 +115,49 @@ Rmap library</h1>
 <p><a class="el" href="rmap__utility_8h.html">rmap_utility.h</a> <a class="el" href="rmap__utility_8cpp.html">rmap_utility.cpp</a>: RMAP useful functions</p>
 <p><a class="el" href="sdcard__utility_8h.html">sdcard_utility.h</a> <a class="el" href="sdcard__utility_8cpp.html">sdcard_utility.cpp</a>: SD-Card useful functions</p>
 <p><a class="el" href="stima__module_8h.html">stima_module.h</a>: STIMA station's definition</p>
-<p><a class="el" href="typedef_8h.html">typedef.h</a>: Useful project typedef </p>
+<p><a class="el" href="typedef_8h.html">typedef.h</a>: Useful project typedef</p>
+<h2><a class="anchor" id="SensorDriver"></a>
+SensorDriver</h2>
+<p>This library is provided to read measurements from I2C sensors.</p>
+<p><a class="el" href="SensorDriverSensors_8h.html">SensorDriverSensors.h</a>: define list with sensor names in <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a></p>
+<p><a class="el" href="SensorDriver_8h.html">SensorDriver.h</a> <a class="el" href="SensorDriver_8cpp.html">SensorDriver.cpp</a>: <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a> library files</p>
+<h2><a class="anchor" id="HYT2X1"></a>
+HYT2X1</h2>
+<p>This library implements functions for read and configure HYT271 and HYT221 sensors.</p>
+<p><a class="el" href="hyt2x1_8h.html">hyt2x1.h</a> <a class="el" href="hyt2x1_8cpp.html">hyt2x1.cpp</a>: HYT2X1 library files</p>
+<h2><a class="anchor" id="NTP"></a>
+NTP</h2>
+<p>This library implements NTP functions for read time over NTP server with ethernet client or sim800 client.</p>
+<p><a class="el" href="ntp_8h.html">ntp.h</a> <a class="el" href="ntp_8cpp.html">ntp.cpp</a>: NTP library files</p>
+<h2><a class="anchor" id="PCF8563"></a>
+PCF8563</h2>
+<p>This library implements PCF8563 functions for communicate with pcf8563 real time clock.</p>
+<p><a class="el" href="pcf8563_8h.html">pcf8563.h</a> <a class="el" href="pcf8563_8cpp.html">pcf8563.cpp</a>: PCF8563 library files</p>
+<h2><a class="anchor" id="SIM800"></a>
+SIM800</h2>
+<p>This library implements <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> functions for communicate with SIM800C/SIM800L GSM/GPRS module.</p>
+<p><a class="el" href="sim800_8h.html">sim800.h</a> <a class="el" href="sim800_8cpp.html">sim800.cpp</a>: <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> library files</p>
+<p><a class="el" href="sim800Client_8h.html">sim800Client.h</a>: <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> library interface for Arduino Client.</p>
+<h2><a class="anchor" id="implemented"></a>
+Implemented features</h2>
+<h3><a class="anchor" id="transport"></a>
+Transport</h3>
+<p>o) Serial: yes</p>
+<p>o) Ethernet: partial (basic functions are present but need to interface with Ethernet Client)</p>
+<p>o) MQTT: partial (subscribe functions are present but need to interface with rpc process function)</p>
+<p>See stream_task and rpc_process functions in <a class="el" href="rmap_8ino.html">rmap.ino</a></p>
+<h3><a class="anchor" id="files"></a>
+SD-Card files</h3>
+<p>On the sdcard there is a file called mqtt_ptr.txt containing a binary data in uint32_t format corresponding to the seconds passed since 00:00:00 01/01/1970 indicating the last data sent by MQTT.</p>
+<p>The data is recorded on files (one file for each recording day) named in the format yyyy_mm_dd.txt and each data recorded on sd card is MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH bytes long (look at the <a class="el" href="mqtt__config_8h.html">mqtt_config.h</a> file).</p>
+<p>Each recorded data has the format of the type: TRANGE/LEVEL/VAR { “v”: VALUE, “t”: TIME}</p>
+<h3><a class="anchor" id="SensorDriver"></a>
+SensorDriver</h3>
+<p>o) HYT221 and HYT271: Temperature and humidity sensors</p>
+<p>o) <a class="el" href="namespaceDigitecoPower.html" title="DigitecoPower namespace. ">DigitecoPower</a>: Power parameters sensor (battery voltage, current and charge percentage, source voltage and current, load voltage)</p>
+<p>o) I2C-TH: oneshot and continuous mode</p>
+<p>o) I2C-Rain: oneshot mode</p>
+<p>other sensors can be easily integrated (see <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a> library). </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
