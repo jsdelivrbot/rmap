@@ -341,12 +341,20 @@ void setNextTimeForSensorReading (time_t *next_time) {
 }
 
 bool mqttConnect(char *username, char *password) {
+   char lon[10];
+   char lat[10];
+   char client_id[20];
+   getLonLatFromMqttTopic(readable_configuration.mqtt_root_topic, lon, lat);
+   snprintf(client_id, 20, "%s_%s", lon, lat);
+
    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
    data.MQTTVersion = 3;
-   data.clientID.cstring = (char*) "rmapclient";
+   data.clientID.cstring = (char*) client_id;
    data.username.cstring = (char*) username;
    data.password.cstring = (char*) password;
    data.cleansession = false;
+
+   SERIAL_DEBUG("MQTT clientID: %s\r\n", data.clientID.cstring);
 
    return (mqtt_client.connect(data) == 0);
 }

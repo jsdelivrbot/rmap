@@ -61,6 +61,19 @@ void stringToArray(uint8_t *array, char *string, const char *delimiter, uint8_t 
    }
 }
 
+void getLonLatFromMqttTopic(const char *topic, char *lon, char *lat) {
+    char *temp;
+    char string[MQTT_ROOT_TOPIC_LENGTH];
+    strncpy(string, topic, MQTT_ROOT_TOPIC_LENGTH);
+    char *token = strtok(string, "/");
+    token = strtok(NULL, "/");
+    token = strtok(NULL, "/");
+    temp = strtok(token, ",");
+    strcpy(lon, temp);
+    temp = strtok(NULL, ",");
+    strcpy(lat, temp);
+}
+
 #include <Arduino.h>
 
 #if (USE_JSON)

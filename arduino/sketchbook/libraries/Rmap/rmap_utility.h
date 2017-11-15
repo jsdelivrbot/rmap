@@ -115,6 +115,16 @@ void getStimaNameByType(char *name, uint8_t type);
 void stringToArray(uint8_t *array, char *string, const char *delimiter, uint8_t base);
 
 /*!
+\fn void getLonLatFromMqttTopic(const char *topic, char *lon, char *lat)
+\brief Extract longitue and latitude from mqtt root topic.
+\param[in] *topic mqtt topic.
+\param[out] *lon longitue buffer.
+\param[out] *lat latitude buffer.
+\return void.
+*/
+void getLonLatFromMqttTopic(const char *topic, char *lon, char *lat);
+
+/*!
 \def macStringToArray(mac, string)
 \brief Return an array of value rappresenting a mac address value extracted by its canonical string (xx:xx:xx:xx:xx:xx).
 */
