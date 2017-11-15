@@ -45,7 +45,7 @@ in all sensors's define and json's define
 
 For details, look at the specific library files.
 
-\subsection RmapConfig RmapConfig
+\subsection rmapconfig RmapConfig
 
 This library contains the definitions that are useful for configuring some default values.
 Below is a list of the files contained therein.
@@ -70,7 +70,7 @@ sdcard_config.h: SDCARD configuration's parameters
 
 sensors_config.h: Enable or disable sensor driver sensors for specific sketch
 
-\subsection Rmap Rmap
+\subsection rmap Rmap
 
 This library contains generic utility features. Below is a list of the files contained therein.
 
@@ -94,7 +94,7 @@ stima_module.h: STIMA station's definition
 
 typedef.h: Useful project typedef
 
-\subsection SensorDriver SensorDriver
+\subsection sensordriver SensorDriver
 
 This library is provided to read measurements from I2C sensors.
 
@@ -102,31 +102,33 @@ SensorDriverSensors.h: define list with sensor names in SensorDriver
 
 SensorDriver.h SensorDriver.cpp: SensorDriver library files
 
-\subsection HYT2X1 HYT2X1
+\subsection hyt2x1 HYT2X1
 
 This library implements functions for read and configure HYT271 and HYT221 sensors.
 
 hyt2x1.h hyt2x1.cpp: HYT2X1 library files
 
-\subsection NTP NTP
+\subsection ntp NTP
 
 This library implements NTP functions for read time over NTP server with ethernet client or sim800 client.
 
 ntp.h ntp.cpp: NTP library files
 
-\subsection PCF8563 PCF8563
+\subsection pcf8563 PCF8563
 
 This library implements PCF8563 functions for communicate with pcf8563 real time clock.
 
 pcf8563.h pcf8563.cpp: PCF8563 library files
 
-\subsection SIM800 SIM800
+\subsection sim800 SIM800
 
 This library implements SIM800 functions for communicate with SIM800C/SIM800L GSM/GPRS module.
 
 sim800.h sim800.cpp: SIM800 library files
 
 sim800Client.h: SIM800 library interface for Arduino Client.
+
+SIM800C is fully supported, SIM800L is partially supported (coming soon...)
 
 \subsection implemented Implemented features
 
@@ -150,7 +152,7 @@ and each data recorded on sd card is MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LEN
 
 Each recorded data has the format of the type: TRANGE/LEVEL/VAR { “v”: VALUE, “t”: TIME}
 
-\subsubsection SensorDriver SensorDriver sensors
+\subsubsection sensordriversensors SensorDriver's sensors
 
 o) HYT221 and HYT271: Temperature and humidity sensors
 

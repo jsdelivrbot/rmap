@@ -16,10 +16,34 @@ Include dependency graph for rmap\+\_\+utility.\+cpp\+:
 void \hyperlink{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}{get\+Stima\+Name\+By\+Type} (char $\ast$name, uint8\+\_\+t type)
 \begin{DoxyCompactList}\small\item\em Return a S\+T\+I\+MA\textquotesingle{}s name starting from a module type stored in configuration. \end{DoxyCompactList}\item 
 void \hyperlink{rmap__utility_8cpp_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array} (uint8\+\_\+t $\ast$array, char $\ast$string, const char $\ast$delimiter, uint8\+\_\+t base)
-\begin{DoxyCompactList}\small\item\em Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8cpp_aa35bbd93345decfeab85c249c5e147ce}{get\+Lon\+Lat\+From\+Mqtt\+Topic} (const char $\ast$topic, char $\ast$lon, char $\ast$lat)
+\begin{DoxyCompactList}\small\item\em Extract longitue and latitude from mqtt root topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
+\mbox{\Hypertarget{rmap__utility_8cpp_aa35bbd93345decfeab85c249c5e147ce}\label{rmap__utility_8cpp_aa35bbd93345decfeab85c249c5e147ce}} 
+\index{rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}!get\+Lon\+Lat\+From\+Mqtt\+Topic@{get\+Lon\+Lat\+From\+Mqtt\+Topic}}
+\index{get\+Lon\+Lat\+From\+Mqtt\+Topic@{get\+Lon\+Lat\+From\+Mqtt\+Topic}!rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}}
+\subsubsection{\texorpdfstring{get\+Lon\+Lat\+From\+Mqtt\+Topic()}{getLonLatFromMqttTopic()}}
+{\footnotesize\ttfamily void get\+Lon\+Lat\+From\+Mqtt\+Topic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{char $\ast$}]{lon,  }\item[{char $\ast$}]{lat }\end{DoxyParamCaption})}
+
+
+
+Extract longitue and latitude from mqtt root topic. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$topic} & mqtt topic. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$lon} & longitue buffer. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$lat} & latitude buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}\label{rmap__utility_8cpp_a243e9cf63ae67cde49acbcf4a9951288}} 
 \index{rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}!get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}}
 \index{get\+Stima\+Name\+By\+Type@{get\+Stima\+Name\+By\+Type}!rmap\+\_\+utility.\+cpp@{rmap\+\_\+utility.\+cpp}}

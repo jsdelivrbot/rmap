@@ -19,7 +19,7 @@ software to collect weather data contributed by citizens; to make these data ava
 1) open sketch \hyperlink{i2c-rain_8ino}{arduino/sketchbook/rmap/i2c-\/rain/i2c-\/rain.\+ino}
 
 2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set false in all sensors\textquotesingle{}s define and json\textquotesingle{}s define\hypertarget{index_library}{}\section{Project Library}\label{index_library}
-For details, look at the specific library files.\hypertarget{index_RmapConfig}{}\subsection{Rmap\+Config}\label{index_RmapConfig}
+For details, look at the specific library files.\hypertarget{index_rmapconfig}{}\subsection{Rmap\+Config}\label{index_rmapconfig}
 This library contains the definitions that are useful for configuring some default values. Below is a list of the files contained therein.
 
 \hyperlink{debug__config_8h}{debug\+\_\+config.\+h}\+: Enable or disable debug in sketch and library
@@ -40,7 +40,7 @@ This library contains the definitions that are useful for configuring some defau
 
 \hyperlink{sdcard__config_8h}{sdcard\+\_\+config.\+h}\+: S\+D\+C\+A\+RD configuration\textquotesingle{}s parameters
 
-\hyperlink{sensors__config_8h}{sensors\+\_\+config.\+h}\+: Enable or disable sensor driver sensors for specific sketch\hypertarget{index_Rmap}{}\subsection{Rmap}\label{index_Rmap}
+\hyperlink{sensors__config_8h}{sensors\+\_\+config.\+h}\+: Enable or disable sensor driver sensors for specific sketch\hypertarget{index_rmap}{}\subsection{Rmap}\label{index_rmap}
 This library contains generic utility features. Below is a list of the files contained therein.
 
 \hyperlink{debug_8h}{debug.\+h} \hyperlink{debug_8cpp}{debug.\+cpp}\+: Debugging functions for print debug message on serial port or L\+CD
@@ -61,26 +61,28 @@ This library contains generic utility features. Below is a list of the files con
 
 \hyperlink{stima__module_8h}{stima\+\_\+module.\+h}\+: S\+T\+I\+MA station\textquotesingle{}s definition
 
-\hyperlink{typedef_8h}{typedef.\+h}\+: Useful project typedef\hypertarget{index_SensorDriver}{}\subsection{Sensor\+Driver}\label{index_SensorDriver}
+\hyperlink{typedef_8h}{typedef.\+h}\+: Useful project typedef\hypertarget{index_sensordriver}{}\subsection{Sensor\+Driver}\label{index_sensordriver}
 This library is provided to read measurements from I2C sensors.
 
 \hyperlink{SensorDriverSensors_8h}{Sensor\+Driver\+Sensors.\+h}\+: define list with sensor names in \hyperlink{classSensorDriver}{Sensor\+Driver}
 
-\hyperlink{SensorDriver_8h}{Sensor\+Driver.\+h} \hyperlink{SensorDriver_8cpp}{Sensor\+Driver.\+cpp}\+: \hyperlink{classSensorDriver}{Sensor\+Driver} library files\hypertarget{index_HYT2X1}{}\subsection{H\+Y\+T2\+X1}\label{index_HYT2X1}
+\hyperlink{SensorDriver_8h}{Sensor\+Driver.\+h} \hyperlink{SensorDriver_8cpp}{Sensor\+Driver.\+cpp}\+: \hyperlink{classSensorDriver}{Sensor\+Driver} library files\hypertarget{index_hyt2x1}{}\subsection{H\+Y\+T2\+X1}\label{index_hyt2x1}
 This library implements functions for read and configure H\+Y\+T271 and H\+Y\+T221 sensors.
 
-\hyperlink{hyt2x1_8h}{hyt2x1.\+h} \hyperlink{hyt2x1_8cpp}{hyt2x1.\+cpp}\+: H\+Y\+T2\+X1 library files\hypertarget{index_NTP}{}\subsection{N\+TP}\label{index_NTP}
+\hyperlink{hyt2x1_8h}{hyt2x1.\+h} \hyperlink{hyt2x1_8cpp}{hyt2x1.\+cpp}\+: H\+Y\+T2\+X1 library files\hypertarget{index_ntp}{}\subsection{N\+TP}\label{index_ntp}
 This library implements N\+TP functions for read time over N\+TP server with ethernet client or sim800 client.
 
-\hyperlink{ntp_8h}{ntp.\+h} \hyperlink{ntp_8cpp}{ntp.\+cpp}\+: N\+TP library files\hypertarget{index_PCF8563}{}\subsection{P\+C\+F8563}\label{index_PCF8563}
+\hyperlink{ntp_8h}{ntp.\+h} \hyperlink{ntp_8cpp}{ntp.\+cpp}\+: N\+TP library files\hypertarget{index_pcf8563}{}\subsection{P\+C\+F8563}\label{index_pcf8563}
 This library implements P\+C\+F8563 functions for communicate with pcf8563 real time clock.
 
-\hyperlink{pcf8563_8h}{pcf8563.\+h} \hyperlink{pcf8563_8cpp}{pcf8563.\+cpp}\+: P\+C\+F8563 library files\hypertarget{index_SIM800}{}\subsection{S\+I\+M800}\label{index_SIM800}
+\hyperlink{pcf8563_8h}{pcf8563.\+h} \hyperlink{pcf8563_8cpp}{pcf8563.\+cpp}\+: P\+C\+F8563 library files\hypertarget{index_sim800}{}\subsection{S\+I\+M800}\label{index_sim800}
 This library implements \hyperlink{classSIM800}{S\+I\+M800} functions for communicate with S\+I\+M800\+C/\+S\+I\+M800L G\+S\+M/\+G\+P\+RS module.
 
 \hyperlink{sim800_8h}{sim800.\+h} \hyperlink{sim800_8cpp}{sim800.\+cpp}\+: \hyperlink{classSIM800}{S\+I\+M800} library files
 
-\hyperlink{sim800Client_8h}{sim800\+Client.\+h}\+: \hyperlink{classSIM800}{S\+I\+M800} library interface for Arduino Client.\hypertarget{index_implemented}{}\subsection{Implemented features}\label{index_implemented}
+\hyperlink{sim800Client_8h}{sim800\+Client.\+h}\+: \hyperlink{classSIM800}{S\+I\+M800} library interface for Arduino Client.
+
+S\+I\+M800C is fully supported, S\+I\+M800L is partially supported (coming soon...)\hypertarget{index_implemented}{}\subsection{Implemented features}\label{index_implemented}
 \hypertarget{index_transport}{}\subsubsection{Transport}\label{index_transport}
 o) Serial\+: yes
 
@@ -93,7 +95,7 @@ On the sdcard there is a file called mqtt\+\_\+ptr.\+txt containing a binary dat
 
 The data is recorded on files (one file for each recording day) named in the format yyyy\+\_\+mm\+\_\+dd.\+txt and each data recorded on sd card is M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH + M\+Q\+T\+T\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+L\+E\+N\+G\+TH bytes long (look at the \hyperlink{mqtt__config_8h}{mqtt\+\_\+config.\+h} file).
 
-Each recorded data has the format of the type\+: T\+R\+A\+N\+G\+E/\+L\+E\+V\+E\+L/\+V\+AR \{ “v”\+: V\+A\+L\+UE, “t”\+: T\+I\+ME\}\hypertarget{index_SensorDriver}{}\subsubsection{Sensor\+Driver}\label{index_SensorDriver}
+Each recorded data has the format of the type\+: T\+R\+A\+N\+G\+E/\+L\+E\+V\+E\+L/\+V\+AR \{ “v”\+: V\+A\+L\+UE, “t”\+: T\+I\+ME\}\hypertarget{index_sensordriversensors}{}\subsubsection{Sensor\+Driver\textquotesingle{}s sensors}\label{index_sensordriversensors}
 o) H\+Y\+T221 and H\+Y\+T271\+: Temperature and humidity sensors
 
 o) \hyperlink{namespaceDigitecoPower}{Digiteco\+Power}\+: Power parameters sensor (battery voltage, current and charge percentage, source voltage and current, load voltage)

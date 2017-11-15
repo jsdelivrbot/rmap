@@ -91,8 +91,56 @@ Functions</h2></td></tr>
 <tr class="memitem:a4135881294cb3a89e74548c2a706e559"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap__utility_8cpp.html#a4135881294cb3a89e74548c2a706e559">stringToArray</a> (uint8_t *array, char *string, const char *delimiter, uint8_t base)</td></tr>
 <tr class="memdesc:a4135881294cb3a89e74548c2a706e559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array.  <a href="#a4135881294cb3a89e74548c2a706e559">More...</a><br /></td></tr>
 <tr class="separator:a4135881294cb3a89e74548c2a706e559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35bbd93345decfeab85c249c5e147ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap__utility_8cpp.html#aa35bbd93345decfeab85c249c5e147ce">getLonLatFromMqttTopic</a> (const char *topic, char *lon, char *lat)</td></tr>
+<tr class="memdesc:aa35bbd93345decfeab85c249c5e147ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract longitue and latitude from mqtt root topic.  <a href="#aa35bbd93345decfeab85c249c5e147ce">More...</a><br /></td></tr>
+<tr class="separator:aa35bbd93345decfeab85c249c5e147ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aa35bbd93345decfeab85c249c5e147ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa35bbd93345decfeab85c249c5e147ce">&#9670;&nbsp;</a></span>getLonLatFromMqttTopic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getLonLatFromMqttTopic </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>topic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>lat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract longitue and latitude from mqtt root topic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*topic</td><td>mqtt topic. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*lon</td><td>longitue buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*lat</td><td>latitude buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+
+</div>
+</div>
 <a id="a243e9cf63ae67cde49acbcf4a9951288"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a243e9cf63ae67cde49acbcf4a9951288">&#9670;&nbsp;</a></span>getStimaNameByType()</h2>
 

@@ -90,7 +90,7 @@ STIMA I2C-Rain:</h2>
 <h1><a class="anchor" id="library"></a>
 Project Library</h1>
 <p>For details, look at the specific library files.</p>
-<h2><a class="anchor" id="RmapConfig"></a>
+<h2><a class="anchor" id="rmapconfig"></a>
 RmapConfig</h2>
 <p>This library contains the definitions that are useful for configuring some default values. Below is a list of the files contained therein.</p>
 <p><a class="el" href="debug__config_8h.html">debug_config.h</a>: Enable or disable debug in sketch and library</p>
@@ -103,7 +103,7 @@ RmapConfig</h2>
 <p><a class="el" href="ntp__config_8h.html">ntp_config.h</a>: NTP configuration's parameters</p>
 <p><a class="el" href="sdcard__config_8h.html">sdcard_config.h</a>: SDCARD configuration's parameters</p>
 <p><a class="el" href="sensors__config_8h.html">sensors_config.h</a>: Enable or disable sensor driver sensors for specific sketch</p>
-<h2><a class="anchor" id="Rmap"></a>
+<h2><a class="anchor" id="rmap"></a>
 Rmap</h2>
 <p>This library contains generic utility features. Below is a list of the files contained therein.</p>
 <p><a class="el" href="debug_8h.html">debug.h</a> <a class="el" href="debug_8cpp.html">debug.cpp</a>: Debugging functions for print debug message on serial port or LCD</p>
@@ -116,28 +116,29 @@ Rmap</h2>
 <p><a class="el" href="sdcard__utility_8h.html">sdcard_utility.h</a> <a class="el" href="sdcard__utility_8cpp.html">sdcard_utility.cpp</a>: SD-Card useful functions</p>
 <p><a class="el" href="stima__module_8h.html">stima_module.h</a>: STIMA station's definition</p>
 <p><a class="el" href="typedef_8h.html">typedef.h</a>: Useful project typedef</p>
-<h2><a class="anchor" id="SensorDriver"></a>
+<h2><a class="anchor" id="sensordriver"></a>
 SensorDriver</h2>
 <p>This library is provided to read measurements from I2C sensors.</p>
 <p><a class="el" href="SensorDriverSensors_8h.html">SensorDriverSensors.h</a>: define list with sensor names in <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a></p>
 <p><a class="el" href="SensorDriver_8h.html">SensorDriver.h</a> <a class="el" href="SensorDriver_8cpp.html">SensorDriver.cpp</a>: <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a> library files</p>
-<h2><a class="anchor" id="HYT2X1"></a>
+<h2><a class="anchor" id="hyt2x1"></a>
 HYT2X1</h2>
 <p>This library implements functions for read and configure HYT271 and HYT221 sensors.</p>
 <p><a class="el" href="hyt2x1_8h.html">hyt2x1.h</a> <a class="el" href="hyt2x1_8cpp.html">hyt2x1.cpp</a>: HYT2X1 library files</p>
-<h2><a class="anchor" id="NTP"></a>
+<h2><a class="anchor" id="ntp"></a>
 NTP</h2>
 <p>This library implements NTP functions for read time over NTP server with ethernet client or sim800 client.</p>
 <p><a class="el" href="ntp_8h.html">ntp.h</a> <a class="el" href="ntp_8cpp.html">ntp.cpp</a>: NTP library files</p>
-<h2><a class="anchor" id="PCF8563"></a>
+<h2><a class="anchor" id="pcf8563"></a>
 PCF8563</h2>
 <p>This library implements PCF8563 functions for communicate with pcf8563 real time clock.</p>
 <p><a class="el" href="pcf8563_8h.html">pcf8563.h</a> <a class="el" href="pcf8563_8cpp.html">pcf8563.cpp</a>: PCF8563 library files</p>
-<h2><a class="anchor" id="SIM800"></a>
+<h2><a class="anchor" id="sim800"></a>
 SIM800</h2>
 <p>This library implements <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> functions for communicate with SIM800C/SIM800L GSM/GPRS module.</p>
 <p><a class="el" href="sim800_8h.html">sim800.h</a> <a class="el" href="sim800_8cpp.html">sim800.cpp</a>: <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> library files</p>
 <p><a class="el" href="sim800Client_8h.html">sim800Client.h</a>: <a class="el" href="classSIM800.html" title="SIM800 class. ">SIM800</a> library interface for Arduino Client.</p>
+<p>SIM800C is fully supported, SIM800L is partially supported (coming soon...)</p>
 <h2><a class="anchor" id="implemented"></a>
 Implemented features</h2>
 <h3><a class="anchor" id="transport"></a>
@@ -151,8 +152,8 @@ SD-Card files</h3>
 <p>On the sdcard there is a file called mqtt_ptr.txt containing a binary data in uint32_t format corresponding to the seconds passed since 00:00:00 01/01/1970 indicating the last data sent by MQTT.</p>
 <p>The data is recorded on files (one file for each recording day) named in the format yyyy_mm_dd.txt and each data recorded on sd card is MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH bytes long (look at the <a class="el" href="mqtt__config_8h.html">mqtt_config.h</a> file).</p>
 <p>Each recorded data has the format of the type: TRANGE/LEVEL/VAR { “v”: VALUE, “t”: TIME}</p>
-<h3><a class="anchor" id="SensorDriver"></a>
-SensorDriver</h3>
+<h3><a class="anchor" id="sensordriversensors"></a>
+SensorDriver's sensors</h3>
 <p>o) HYT221 and HYT271: Temperature and humidity sensors</p>
 <p>o) <a class="el" href="namespaceDigitecoPower.html" title="DigitecoPower namespace. ">DigitecoPower</a>: Power parameters sensor (battery voltage, current and charge percentage, source voltage and current, load voltage)</p>
 <p>o) I2C-TH: oneshot and continuous mode</p>
