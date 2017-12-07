@@ -300,7 +300,7 @@ public:
       *_is_prepared = false;
 
       SensorDriver::printInfo(driver, type);
-      SERIAL_DEBUG(" create... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" create... [ %s ]\r\n"), OK_STRING);
    };
    void setup(const uint8_t address, const uint8_t node = 0);
    void prepare();
@@ -340,7 +340,7 @@ public:
       *_is_prepared = false;
 
       SensorDriver::printInfo(driver, type);
-      SERIAL_DEBUG(" create... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" create... [ %s ]\r\n"), OK_STRING);
    };
    void setup(const uint8_t address, const uint8_t node = 0);
    void prepare();
@@ -383,7 +383,7 @@ public:
       *_is_prepared = false;
 
       SensorDriver::printInfo(driver, type);
-      SERIAL_DEBUG(" create... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" create... [ %S ]\r\n"), OK_STRING);
    };
    void setup(const uint8_t address, const uint8_t node = 0);
    void prepare();
@@ -414,18 +414,18 @@ protected:
 
 #if (USE_SENSOR_DEP)
 #include "digiteco_power.h"
-#define SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V       (0 * 100)
-#define SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V       (30 * 100)
+#define SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V       (0 * 10)
+#define SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V       (30 * 10)
 #define SENSOR_DRIVER_INPUT_CURRENT_MIN_mA      (0)
-#define SENSOR_DRIVER_INPUT_CURRENT_MAX_mA      (3000)
-#define SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V     (0 * 100)
-#define SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V     (16 * 100)
-#define SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA    (-3000)
-#define SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA    (3000)
-#define SENSOR_DRIVER_BATTERY_PERCENTAGE_MIN    (0)
-#define SENSOR_DRIVER_BATTERY_PERCENTAGE_MAX    (100)
-#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V      (0 * 100)
-#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V      (6 * 100)
+#define SENSOR_DRIVER_INPUT_CURRENT_MAX_mA      (5000)
+#define SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V     (0 * 10)
+#define SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V     (16 * 10)
+#define SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA    (-5000)
+#define SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA    (5000)
+#define SENSOR_DRIVER_BATTERY_CHARGE_MIN        (0)
+#define SENSOR_DRIVER_BATTERY_CHARGE_MAX        (100)
+#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V      (0 * 10)
+#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V      (6 * 10)
 
 class SensorDriverDigitecoPower : public SensorDriver {
 public:
@@ -437,7 +437,7 @@ public:
       *_is_prepared = false;
 
       SensorDriver::printInfo(driver, type);
-      SERIAL_DEBUG(" create... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" create... [ %s ]\r\n"), OK_STRING);
    };
    void setup(const uint8_t address, const uint8_t node = 0);
    void prepare();
@@ -457,8 +457,8 @@ protected:
 
    enum {
       INIT,
-      SET_BATTERY_PERCENTAGE_ADDRESS,
-      READ_BATTERY_PERCENTAGE,
+      SET_BATTERY_CHARGE_ADDRESS,
+      READ_BATTERY_CHARGE,
       SET_BATTERY_VOLTAGE_ADDRESS,
       READ_BATTERY_VOLTAGE,
       SET_BATTERY_CURRENT_ADDRESS,

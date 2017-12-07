@@ -63,7 +63,7 @@ SensorDriver::SensorDriver(const char* driver, const char* type) {
 
 SensorDriver *SensorDriver::create(const char* driver, const char* type) {
    if (strlen(driver) == 0 || strlen(type) == 0) {
-      SERIAL_ERROR("SensorDriver %s-%s create... [ FAIL ]\r\n--> driver or type is null.\r\n", driver, type);
+      SERIAL_ERROR(F("SensorDriver %s-%s create... [ %s ]\r\n--> driver or type is null.\r\n"), driver, type, FAIL_STRING);
       return NULL;
    }
 
@@ -138,7 +138,7 @@ SensorDriver *SensorDriver::create(const char* driver, const char* type) {
    #endif
 
    else {
-      SERIAL_ERROR("SensorDriver %s-%s create... [ FAIL ]\r\n--> driver or type not found.\r\n", driver, type);
+      SERIAL_ERROR(F("SensorDriver %s-%s create... [ FAIL ]\r\n--> driver or type not found.\r\n"), driver, type);
       return NULL;
    }
 }
@@ -194,14 +194,14 @@ void SensorDriver::createAndSetup(const char* driver, const char* type, uint8_t 
 }
 
 void SensorDriver::printInfo(const char* driver, const char* type, const uint8_t address, const uint8_t node) {
-   SERIAL_DEBUG("SensorDriver %s-%s", driver, type);
+   SERIAL_DEBUG(F("SensorDriver %s-%s"), driver, type);
 
    if (address) {
-      SERIAL_DEBUG(" 0x%x (%d)", address, address);
+      SERIAL_DEBUG(F(" 0x%x (%d)"), address, address);
    }
 
    if (node) {
-      SERIAL_DEBUG(" on node %d", node);
+      SERIAL_DEBUG(F(" on node %d"), node);
    }
 }
 
@@ -228,7 +228,7 @@ void SensorDriverHyt2X1::setup(const uint8_t address, const uint8_t node) {
 
    *_is_setted = true;
 
-   SERIAL_DEBUG(" setup... [ OK ]\r\n");
+   SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
 void SensorDriverHyt2X1::prepare() {
@@ -237,11 +237,11 @@ void SensorDriverHyt2X1::prepare() {
    if (!*_is_prepared) {
       *_is_prepared = true;
       _delay_ms = Hyt2X1::initRead(_address);
-      SERIAL_DEBUG(" prepare... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
    }
    else {
       _delay_ms = 0;
-      SERIAL_DEBUG(" prepare... [ YES ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
    }
 
    _start_time_ms = millis();
@@ -300,27 +300,23 @@ void SensorDriverHyt2X1::get(int32_t *values, uint8_t length) {
          }
 
          SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (_is_success) {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", OK_STRING);
-
-            if (length >= 1) {
-               SERIAL_DEBUG("--> humidity: %u\r\n", values[0]);
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[0]);
             }
-
-            if (length >= 2) {
-               SERIAL_DEBUG("--> temperature: %u\r\n", values[1]);
+            else {
+              SERIAL_DEBUG(F("--> humidity: ---\r\n"));
             }
          }
-         else {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", FAIL_STRING);
 
-            if (length >= 1) {
-               SERIAL_DEBUG("--> humidity: ---\r\n");
+         if (length >= 2) {
+            if (values[1] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[1]);
             }
-
-            if (length >= 2) {
-               SERIAL_DEBUG("--> temperature: ---\r\n");
+            else {
+              SERIAL_DEBUG(F("--> temperature: ---\r\n"));
             }
          }
 
@@ -386,7 +382,7 @@ void SensorDriverRain::setup(const uint8_t address, const uint8_t node) {
    SensorDriver::setup(address, node);
    SensorDriver::printInfo(_driver, _type, _address, _node);
    *_is_setted = true;
-   SERIAL_DEBUG(" setup... [ OK ]\r\n");
+   SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
 void SensorDriverRain::prepare() {
@@ -402,21 +398,21 @@ void SensorDriverRain::prepare() {
       }
       else {
          _delay_ms = 0;
-         SERIAL_DEBUG(" prepare... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       if (Wire.endTransmission()) {
-         SERIAL_DEBUG(" prepare... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       *_is_prepared = true;
 
-      SERIAL_DEBUG(" prepare... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
    }
    else {
-      SERIAL_DEBUG(" prepare... [ YES ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
       _delay_ms = 0;
    }
 
@@ -504,27 +500,23 @@ void SensorDriverRain::get(int32_t *values, uint8_t length) {
       case END:
          if (length >= 1) {
             values[0] = (uint16_t)(rain_data[1] << 8) | (rain_data[0]);
+            values[0] *= RAIN_FOR_TIP;
 
-            if (!_is_success || values[0] < SENSOR_DRIVER_RAIN_MIN || values[0] > SENSOR_DRIVER_RAIN_MAX) {
+            if (values[0] < SENSOR_DRIVER_RAIN_MIN || values[0] > SENSOR_DRIVER_RAIN_MAX) {
                _is_success = false;
                values[0] = UINT16_MAX;
             }
          }
 
          SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (_is_success) {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", OK_STRING);
-
-            if (length >= 1) {
-               SERIAL_DEBUG("--> rain tips: %u\r\n", values[0]);
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> rain tips: %u\r\n"), values[0]);
             }
-         }
-         else {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", FAIL_STRING);
-
-            if (length >= 1) {
-               SERIAL_DEBUG("--> rain tips: ---\r\n");
+            else {
+              SERIAL_DEBUG(F("--> rain tips: ---\r\n"));
             }
          }
 
@@ -593,21 +585,21 @@ void SensorDriverTh::setup(const uint8_t address, const uint8_t node) {
       if (strcmp(_type, SENSOR_TYPE_ITH) == 0 || strcmp(_type, SENSOR_TYPE_MTH) == 0 || strcmp(_type, SENSOR_TYPE_NTH) == 0 || strcmp(_type, SENSOR_TYPE_XTH) == 0)
       Wire.write(I2C_TH_COMMAND_CONTINUOUS_START);
       else {
-         SERIAL_DEBUG(" setup... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       if (Wire.endTransmission()) {
-         SERIAL_DEBUG(" setup... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       *_is_setted = true;
 
-      SERIAL_DEBUG(" setup... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
    }
    else {
-      SERIAL_DEBUG(" setup... [ YES ]\r\n");
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), YES_STRING);
    }
 }
 
@@ -627,21 +619,21 @@ void SensorDriverTh::prepare() {
          _delay_ms = 0;
       }
       else {
-         SERIAL_DEBUG(" prepare... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       if (Wire.endTransmission()) {
-         SERIAL_DEBUG(" prepare... [ FAIL ]\r\n");
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
          return;
       }
 
       *_is_prepared = true;
 
-      SERIAL_DEBUG(" prepare... [ OK ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
    }
    else {
-      SERIAL_DEBUG(" prepare... [ YES ]\r\n");
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
       _delay_ms = 0;
    }
 
@@ -833,7 +825,7 @@ void SensorDriverTh::get(int32_t *values, uint8_t length) {
          if (length >= 1) {
             values[0] = (uint16_t)(temperature_data[1] << 8) | (temperature_data[0]);
 
-            if (!_is_success || values[0] < SENSOR_DRIVER_TEMPERATURE_MIN || values[0] > SENSOR_DRIVER_TEMPERATURE_MAX) {
+            if (values[0] < SENSOR_DRIVER_TEMPERATURE_MIN || values[0] > SENSOR_DRIVER_TEMPERATURE_MAX) {
                _is_success = false;
                values[0] = UINT16_MAX;
             }
@@ -842,33 +834,30 @@ void SensorDriverTh::get(int32_t *values, uint8_t length) {
          if (length >= 2) {
             values[1] = (uint16_t)(humidity_data[1] << 8) | (humidity_data[0]);
 
-            if (!_is_success || values[1] < SENSOR_DRIVER_HUMIDITY_MIN || values[1] > SENSOR_DRIVER_HUMIDITY_MAX) {
+            if (values[1] < SENSOR_DRIVER_HUMIDITY_MIN || values[1] > SENSOR_DRIVER_HUMIDITY_MAX) {
                _is_success = false;
                values[1] = UINT16_MAX;
             }
          }
 
          SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (_is_success) {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", OK_STRING);
-
-            if (length >= 1) {
-               SERIAL_DEBUG("--> temperature: %u\r\n", values[0]);
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[0]);
             }
-
-            if (length >= 2) {
-               SERIAL_DEBUG("--> humidity: %u\r\n", values[1]);
+            else {
+              SERIAL_DEBUG(F("--> temperature: ---\r\n"));
             }
          }
-         else {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", FAIL_STRING);
-            if (length >= 1) {
-               SERIAL_DEBUG("--> temperature: ---\r\n");
-            }
 
-            if (length >= 2) {
-               SERIAL_DEBUG("--> humidity: ---\r\n");
+         if (length >= 2) {
+            if (values[1] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[1]);
+            }
+            else {
+              SERIAL_DEBUG(F("--> humidity: ---\r\n"));
             }
          }
 
@@ -932,7 +921,7 @@ void SensorDriverDigitecoPower::setup(const uint8_t address, const uint8_t node)
    SensorDriver::setup(address, node);
    SensorDriver::printInfo(_driver, _type, _address, _node);
    *_is_setted = true;
-   SERIAL_DEBUG(" setup... [ OK ]\r\n");
+   SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
 void SensorDriverDigitecoPower::prepare() {
@@ -940,11 +929,11 @@ void SensorDriverDigitecoPower::prepare() {
    _delay_ms = 0;
    *_is_prepared = true;
    _start_time_ms = millis();
-   SERIAL_DEBUG(" prepare... [ OK ]\r\n");
+   SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
 }
 
 void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
-   static float battery_percentage;
+   static float battery_charge;
    static float battery_voltage;
    static float battery_current;
    static float input_voltage;
@@ -960,7 +949,7 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
 
          if (*_is_prepared && length >= 1) {
             _is_success = true;
-            _get_state = SET_BATTERY_PERCENTAGE_ADDRESS;
+            _get_state = SET_BATTERY_CHARGE_ADDRESS;
          }
          else {
             _is_success = false;
@@ -971,21 +960,21 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
          _start_time_ms = millis();
       break;
 
-      case SET_BATTERY_PERCENTAGE_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS);
+      case SET_BATTERY_CHARGE_ADDRESS:
+         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CHARGE_ADDRESS);
          _delay_ms = 0;
          _start_time_ms = millis();
 
          if (_is_success) {
-            _get_state = READ_BATTERY_PERCENTAGE;
+            _get_state = READ_BATTERY_CHARGE;
          }
          else {
             _get_state = END;
          }
       break;
 
-      case READ_BATTERY_PERCENTAGE:
-         _is_success = DigitecoPower::de_read(_address, &battery_percentage);
+      case READ_BATTERY_CHARGE:
+         _is_success = DigitecoPower::de_read(_address, &battery_charge);
          _delay_ms = 0;
          _start_time_ms = millis();
 
@@ -1123,16 +1112,16 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
 
       case END:
          if (length >= 1) {
-            values[0] = battery_percentage;
+            values[0] = battery_charge;
 
-            if (!_is_success || values[0] < SENSOR_DRIVER_BATTERY_PERCENTAGE_MIN || values[0] > SENSOR_DRIVER_BATTERY_PERCENTAGE_MAX) {
+            if (!_is_success || values[0] < SENSOR_DRIVER_BATTERY_CHARGE_MIN || values[0] > SENSOR_DRIVER_BATTERY_CHARGE_MAX) {
                _is_success = false;
                values[0] = UINT16_MAX;
             }
          }
 
          if (length >= 2) {
-            values[1] = battery_voltage * 100;
+            values[1] = battery_voltage * 10;
 
             if (!_is_success || values[1] < SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V || values[1] > SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V) {
                _is_success = false;
@@ -1141,7 +1130,7 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
          }
 
          if (length >= 3) {
-            values[2] = battery_current * 1000;
+            values[2] = battery_current;
 
             if (!_is_success || values[2] < SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA || values[2] > SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA) {
                _is_success = false;
@@ -1150,7 +1139,7 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
          }
 
          if (length >= 4) {
-            values[3] = input_voltage * 100;
+            values[3] = input_voltage * 10;
 
             if (!_is_success || values[3] < SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V || values[3] > SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V) {
                _is_success = false;
@@ -1168,7 +1157,7 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
          }
 
          if (length >= 6) {
-            values[5] = output_voltage * 100;
+            values[5] = output_voltage * 10;
 
             if (!_is_success || values[5] < SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V || values[5] > SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V) {
                _is_success = false;
@@ -1177,58 +1166,59 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
          }
 
          SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (_is_success) {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", OK_STRING);
-
-            if (length >= 1) {
-               SERIAL_DEBUG("--> battery percentage: %ld %%\r\n", values[0]);
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> battery charge: %ld %%\r\n"), values[0]);
             }
-
-            if (length >= 2) {
-               SERIAL_DEBUG("--> battery voltage: %ld V\r\n", values[1]);
-            }
-
-            if (length >= 3) {
-               SERIAL_DEBUG("--> battery current: %ld mA\r\n", values[2]);
-            }
-
-            if (length >= 4) {
-               SERIAL_DEBUG("--> input voltage: %ld V\r\n", values[3]);
-            }
-
-            if (length >= 5) {
-               SERIAL_DEBUG("--> input current: %ld mA\r\n", values[4]);
-            }
-
-            if (length >= 6) {
-               SERIAL_DEBUG("--> output voltage: %ld V\r\n", values[5]);
+            else {
+              SERIAL_DEBUG(F("--> battery charge: ---\r\n"));
             }
          }
-         else {
-            SERIAL_DEBUG(" get... [ %s ]\r\n", FAIL_STRING);
-            if (length >= 1) {
-               SERIAL_DEBUG("--> battery percentage: ---\r\n");
-            }
 
-            if (length >= 2) {
-               SERIAL_DEBUG("--> battery voltage: ---\r\n");
+         if (length >= 2) {
+            if (values[1] != UINT16_MAX) {
+              SERIAL_DEBUG(F("--> battery voltage: %ld V\r\n"), values[1]);
             }
-
-            if (length >= 3) {
-               SERIAL_DEBUG("--> battery current: ---\r\n");
+            else {
+              SERIAL_DEBUG(F("--> battery voltage: ---\r\n"));
             }
+         }
 
-            if (length >= 4) {
-               SERIAL_DEBUG("--> input voltage: ---\r\n");
+         if (length >= 3) {
+            if (values[2] != UINT16_MAX) {
+              SERIAL_DEBUG(F("--> battery current: %ld mA\r\n"), values[2]);
             }
-
-            if (length >= 5) {
-               SERIAL_DEBUG("--> input current: ---\r\n");
+            else {
+              SERIAL_DEBUG(F("--> battery current: ---\r\n"));
             }
+         }
 
-            if (length >= 6) {
-               SERIAL_DEBUG("--> output voltage: ---\r\n");
+         if (length >= 4) {
+            if (values[3] != UINT16_MAX) {
+              SERIAL_DEBUG(F("--> input voltage: %ld V\r\n"), values[3]);
+            }
+            else {
+              SERIAL_DEBUG(F("--> input voltage: ---\r\n"));
+            }
+         }
+
+         if (length >= 5) {
+            if (values[4] != UINT16_MAX) {
+              SERIAL_DEBUG(F("--> input current: %ld mA\r\n"), values[4]);
+            }
+            else {
+              SERIAL_DEBUG(F("--> input current: ---\r\n"));
+            }
+         }
+
+         if (length >= 6) {
+            if (values[5] != UINT16_MAX) {
+              SERIAL_DEBUG(F("--> output voltage: %ld V\r\n"), values[5]);
+            }
+            else {
+              SERIAL_DEBUG(F("--> output voltage: ---\r\n"));
             }
          }
 
@@ -1251,23 +1241,23 @@ void SensorDriverDigitecoPower::getJson(int32_t *values, uint8_t length, char *j
 
       if (length >= 1) {
          if (_is_success) {
-            json["B00001"] = values[0];
+            json["B25192"] = values[0];
          }
-         else json["B00001"] = RawJson("null");
+         else json["B25192"] = RawJson("null");
       }
 
       if (length >= 2) {
          if (_is_success) {
-            json["B00002"] = values[1];
+            json["B25025"] = values[1];
          }
-         else json["B00002"] = RawJson("null");
+         else json["B25025"] = RawJson("null");
       }
 
       if (length >= 3) {
          if (_is_success) {
-            json["B00003"] = values[2];
+            json["B25193"] = values[2];
          }
-         else json["B00003"] = RawJson("null");
+         else json["B25193"] = RawJson("null");
       }
 
       if (length >= 4) {
