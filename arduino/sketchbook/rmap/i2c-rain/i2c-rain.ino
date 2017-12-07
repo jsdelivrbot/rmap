@@ -66,13 +66,13 @@ void loop() {
 
       #if (USE_POWER_DOWN)
       case ENTER_POWER_DOWN:
-         //! disable watchdog: the next awakening is given by an interrupt of rain and I do not know how long it will take place
+         // disable watchdog: the next awakening is given by an interrupt of rain and I do not know how long it will take place
          wdt_disable();
 
-         //! enter in power down mode only if DEBOUNCING_POWER_DOWN_TIME_MS milliseconds have passed since last time (awakened_event_occurred_time_ms)
+         // enter in power down mode only if DEBOUNCING_POWER_DOWN_TIME_MS milliseconds have passed since last time (awakened_event_occurred_time_ms)
          init_power_down(&awakened_event_occurred_time_ms, DEBOUNCING_POWER_DOWN_TIME_MS);
 
-         //! enable watchdog
+         // enable watchdog
          init_wdt(WDT_TIMER);
 
          state = TASKS_EXECUTION;
@@ -121,7 +121,7 @@ void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
 		noInterrupts ();
 		sleep_enable();
 
-		//! turn off brown-out
+		// turn off brown-out
 		MCUCR = bit (BODS) | bit (BODSE);
 		MCUCR = bit (BODS);
 		interrupts ();
@@ -154,14 +154,14 @@ void init_buffers() {
    readable_data_write_ptr->module_version = MODULE_VERSION;
    reset_buffers();
 
-   //! copy readable_data_2 in readable_data_1
+   // copy readable_data_2 in readable_data_1
    memcpy((void *) readable_data_read_ptr, (const void*) readable_data_write_ptr, sizeof(readable_data_t));
 }
 
 void init_tasks() {
    noInterrupts();
 
-   //! no tasks ready
+   // no tasks ready
    ready_tasks_count = 0;
 
    is_event_command_task = false;
@@ -169,7 +169,7 @@ void init_tasks() {
 
    tipping_bucket_state = TIPPING_BUCKET_INIT;
 
-   //! reset tipping bucket debounce value
+   // reset tipping bucket debounce value
    rain_tips_event_occurred_time_ms = -DEBOUNCING_TIPPING_BUCKET_TIME_MS;
    interrupts();
 }
@@ -181,26 +181,26 @@ void init_pins() {
 }
 
 void init_wire() {
-   //! clear the I2C bus first before calling Wire.begin()
+   // clear the I2C bus first before calling Wire.begin()
    uint8_t i2c_bus_state = I2C_ClearBus();
 
    if (i2c_bus_state) {
-      SERIAL_ERROR("I2C bus error: Could not clear!!!\r\n");
-      //! wait for watchdog reboot
+      SERIAL_ERROR(F("I2C bus error: Could not clear!!!\r\n"));
+      // wait for watchdog reboot
       while(1);
    }
 
    switch (i2c_bus_state) {
       case 1:
-         SERIAL_ERROR("SCL clock line held low\r\n");
+         SERIAL_ERROR(F("SCL clock line held low\r\n"));
       break;
 
       case 2:
-         SERIAL_ERROR("SCL clock line held low by slave clock stretch\r\n");
+         SERIAL_ERROR(F("SCL clock line held low by slave clock stretch\r\n"));
       break;
 
       case 3:
-         SERIAL_ERROR("SDA data line held low\r\n");
+         SERIAL_ERROR(F("SDA data line held low\r\n"));
       break;
    }
 
@@ -227,7 +227,7 @@ void init_system() {
    awakened_event_occurred_time_ms = millis();
    #endif
 
-   //! main loop state
+   // main loop state
    state = INIT;
 }
 
@@ -237,16 +237,16 @@ void init_sensors () {
 void print_configuration() {
    char stima_name[20];
    getStimaNameByType(stima_name, configuration.module_type);
-   SERIAL_INFO("--> type: %s\r\n", stima_name);
-   SERIAL_INFO("--> version: %d\r\n", configuration.module_version);
-   SERIAL_INFO("--> i2c address: 0x%x (%d)\r\n", configuration.i2c_address, configuration.i2c_address);
-   SERIAL_INFO("--> oneshot: %s\r\n", configuration.is_oneshot ? "on" : "off");
-   SERIAL_INFO("--> continuous: %s\r\n", configuration.is_continuous ? "on" : "off");
+   SERIAL_INFO(F("--> type: %s\r\n"), stima_name);
+   SERIAL_INFO(F("--> version: %d\r\n"), configuration.module_version);
+   SERIAL_INFO(F("--> i2c address: 0x%X (%d)\r\n"), configuration.i2c_address, configuration.i2c_address);
+   SERIAL_INFO(F("--> oneshot: %s\r\n"), configuration.is_oneshot ? ON_STRING : OFF_STRING);
+   SERIAL_INFO(F("--> continuous: %s\r\n"), configuration.is_continuous ? ON_STRING : OFF_STRING);
 }
 
 void save_configuration(bool is_default) {
    if (is_default) {
-      SERIAL_INFO("Save default configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Save default configuration... [ %s ]\r\n"), OK_STRING);
       configuration.module_type = MODULE_TYPE;
       configuration.module_version = MODULE_VERSION;
       configuration.i2c_address = CONFIGURATION_DEFAULT_I2C_ADDRESS;
@@ -254,40 +254,40 @@ void save_configuration(bool is_default) {
       configuration.is_continuous = CONFIGURATION_DEFAULT_IS_CONTINUOUS;
    }
    else {
-      SERIAL_INFO("Save configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Save configuration... [ %s ]\r\n"), OK_STRING);
       configuration.i2c_address = writable_data.i2c_address;
       configuration.is_oneshot = writable_data.is_oneshot;
       configuration.is_continuous = writable_data.is_continuous;
    }
 
-   //! write configuration to eeprom
+   // write configuration to eeprom
    ee_write(&configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration));
 
    print_configuration();
 }
 
 void load_configuration() {
-   //! read configuration from eeprom
+   // read configuration from eeprom
    ee_read(&configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration));
 
    if (configuration.module_type != MODULE_TYPE || configuration.module_version != MODULE_VERSION || digitalRead(CONFIGURATION_RESET_PIN) == LOW) {
       save_configuration(CONFIGURATION_DEFAULT);
    }
    else {
-      SERIAL_INFO("Load configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Load configuration... [ %s ]\r\n"), OK_STRING);
       print_configuration();
    }
 
-   //! set configuration value to writable register
+   // set configuration value to writable register
    writable_data.i2c_address = configuration.i2c_address;
    writable_data.is_oneshot = configuration.is_oneshot;
 }
 
 void tipping_bucket_interrupt_handler() {
-   //! reading TIPPING_BUCKET_PIN value to be sure the interrupt has occurred
+   // reading TIPPING_BUCKET_PIN value to be sure the interrupt has occurred
    if (digitalRead(TIPPING_BUCKET_PIN) == LOW) {
       noInterrupts();
-      //! enable Tipping bucket task
+      // enable Tipping bucket task
       if (!is_event_tipping_bucket) {
          is_event_tipping_bucket = true;
          ready_tasks_count++;
@@ -297,39 +297,53 @@ void tipping_bucket_interrupt_handler() {
 }
 
 void i2c_request_interrupt_handler() {
-   //! write readable_data_length bytes of data stored in readable_data_read_ptr (base) + readable_data_address (offset) on i2c bus
+   // write readable_data_length bytes of data stored in readable_data_read_ptr (base) + readable_data_address (offset) on i2c bus
    Wire.write((uint8_t *)readable_data_read_ptr+readable_data_address, readable_data_length);
 }
 
 void i2c_receive_interrupt_handler(int rx_data_length) {
-   //! read rx_data_length bytes of data from i2c bus
+   bool is_i2c_data_ok = false;
+
+   // read rx_data_length bytes of data from i2c bus
    for (uint8_t i=0; i<rx_data_length; i++) {
       i2c_rx_data[i] = Wire.read();
    }
 
-   //! it is a registers read?
+   // it is a registers read?
    if (rx_data_length == 2 && is_readable_register(i2c_rx_data[0])) {
-      //! offset in readable_data_read_ptr buffer
+      // offset in readable_data_read_ptr buffer
       readable_data_address = i2c_rx_data[0];
 
-      //! length (in butes) of data to be read in readable_data_read_ptr
+      // length (in bytes) of data to be read in readable_data_read_ptr
       readable_data_length = i2c_rx_data[1];
    }
-   //! it is a command?
+   // it is a command?
    else if (rx_data_length == 2 && is_command(i2c_rx_data[0])) {
       noInterrupts();
-      //! enable Command task
+      // enable Command task
       if (!is_event_command_task) {
          is_event_command_task = true;
          ready_tasks_count++;
       }
       interrupts();
    }
-   //! it is a registers write?
+   // it is a registers write?
    else if (is_writable_register(i2c_rx_data[0])) {
-      for (uint8_t i=1; i<rx_data_length; i++) {
-         //! write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
-         ((uint8_t *)writable_data_ptr)[i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+      if (i2c_rx_data[0] == I2C_RAIN_ADDRESS_ADDRESS && rx_data_length == (I2C_RAIN_ADDRESS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_RAIN_ONESHOT_ADDRESS && rx_data_length == (I2C_RAIN_ONESHOT_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_RAIN_CONTINUOUS_ADDRESS && rx_data_length == (I2C_RAIN_CONTINUOUS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+
+      if (is_i2c_data_ok) {
+         for (uint8_t i=2; i<rx_data_length; i++) {
+            // write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
+            ((uint8_t *)writable_data_ptr)[i2c_rx_data[0] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+         }
       }
    }
 }
@@ -341,7 +355,7 @@ void tipping_bucket_task () {
 
    switch (tipping_bucket_state) {
       case TIPPING_BUCKET_INIT:
-         //! check if last tipping bucket event has happened for more than DEBOUNCING_TIPPING_BUCKET_TIME_MS ms
+         // check if last tipping bucket event has happened for more than DEBOUNCING_TIPPING_BUCKET_TIME_MS ms
          if (millis() - rain_tips_event_occurred_time_ms > DEBOUNCING_TIPPING_BUCKET_TIME_MS) {
             rain_tips_event_occurred_time_ms = millis();
             tipping_bucket_state = TIPPING_BUCKET_READ;
@@ -351,13 +365,13 @@ void tipping_bucket_task () {
       break;
 
       case TIPPING_BUCKET_READ:
-         //! increment rain tips if oneshot mode is on and oneshot start command It has been received
+         // increment rain tips if oneshot mode is on and oneshot start command It has been received
          if (configuration.is_oneshot && is_oneshot && is_start) {
             rain.tips_count++;
-            SERIAL_INFO("Rain tips count: %u\r\n", rain.tips_count);
+            SERIAL_INFO(F("Rain tips count: %u\r\n"), rain.tips_count);
          }
          else {
-            SERIAL_INFO("Rain tips!\r\n");
+            SERIAL_INFO(F("Rain tips!\r\n"));
          }
 
          tipping_bucket_state = TIPPING_BUCKET_END;
@@ -430,21 +444,22 @@ void command_task() {
       break;
 
       case I2C_RAIN_COMMAND_SAVE:
+         SERIAL_DEBUG(F("Execute [ %s ]\r\n"), SAVE_STRING);
          is_oneshot = false;
          is_continuous = false;
          is_start = false;
          is_stop = false;
-         SERIAL_DEBUG("Execute command [ SAVE ]\r\n");
          save_configuration(CONFIGURATION_CURRENT);
+         init_wire();
       break;
    }
 
    #if (SERIAL_TRACE_LEVEL > SERIAL_TRACE_LEVEL_OFF)
    if (configuration.is_oneshot == is_oneshot || configuration.is_continuous == is_continuous) {
-      SERIAL_DEBUG("Execute [ %s ]\r\n", buffer);
+      SERIAL_DEBUG(F("Execute [ %s ]\r\n"), buffer);
    }
    else if (configuration.is_oneshot == is_continuous || configuration.is_continuous == is_oneshot) {
-      SERIAL_DEBUG("Ignore [ %s ]\r\n", buffer);
+      SERIAL_DEBUG(F("Ignore [ %s ]\r\n"), buffer);
    }
    #endif
 
@@ -458,8 +473,7 @@ void commands() {
    noInterrupts();
 
    if (configuration.is_oneshot && is_oneshot && is_stop) {
-      readable_data_write_ptr->rain.tips_count = rain.tips_count * RAIN_FOR_TIP;
-      SERIAL_INFO("Total rain : %u\r\n", readable_data_write_ptr->rain.tips_count);
+      readable_data_write_ptr->rain.tips_count = rain.tips_count;
       exchange_buffers();
    }
 
@@ -472,4 +486,5 @@ void commands() {
    }
 
    interrupts();
+   SERIAL_INFO(F("Total rain : %u\r\n"), readable_data_read_ptr->rain.tips_count);
 }
