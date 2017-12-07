@@ -60,9 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*!
 \def NTP_TIMEZONE
-\brief NTP timezone.
+\brief NTP timezone is set to GMT.
 */
-#define NTP_TIMEZONE                   (1)
+#define NTP_TIMEZONE                   (0)
 
 #include <stdint.h>
 #include <string.h>
