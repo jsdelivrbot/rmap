@@ -17,6 +17,11 @@ $CMP GS4
 D Selettore 4 vie
 $ENDCMP
 #
+$CMP MIC29302-ADJ
+D High-Current Low Dropout Regulators in SOT Package SOT263-5
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005685A.pdf
+$ENDCMP
+#
 $CMP PCA9517
 D 5 channels I2C Hub, SO/TSSOP16
 K I2C Hub

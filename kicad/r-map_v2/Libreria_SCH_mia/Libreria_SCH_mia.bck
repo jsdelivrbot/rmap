@@ -17,6 +17,11 @@ $CMP GS4
 D Selettore 4 vie
 $ENDCMP
 #
+$CMP MIC29302-ADJ
+D High Efficiency Synchronous Buck Converter in SOT Package SOT23-5
+F http://www.ti.com/lit/ds/symlink/tlv62569.pdf
+$ENDCMP
+#
 $CMP PCA9517
 D 5 channels I2C Hub, SO/TSSOP16
 K I2C Hub
@@ -26,7 +31,7 @@ $ENDCMP
 $CMP PIC16F88
 D 8 bit microcontroller
 K PIC
-F http://ww1.microchip.com/downloads/en/DeviceDoc/20090C.pdf
+F http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf
 $ENDCMP
 #
 $CMP SIM-CARD
