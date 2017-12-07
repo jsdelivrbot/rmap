@@ -295,13 +295,13 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 \def DATA_SAVING_RETRY_COUNT_MAX
 \brief Maximum number of retry for saving data on SD-Card.
 */
-#define DATA_SAVING_RETRY_COUNT_MAX                   (3)
+#define DATA_SAVING_RETRY_COUNT_MAX                   (2)
 
 /*!
 \def DATA_SAVING_DELAY_MS
 \brief Wait time between two attempts.
 */
-#define DATA_SAVING_DELAY_MS                          (1000)
+#define DATA_SAVING_DELAY_MS                          (100)
 
 /*!
 \def MQTT_RETRY_COUNT_MAX

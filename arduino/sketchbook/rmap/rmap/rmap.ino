@@ -247,21 +247,21 @@ void init_wire() {
    uint8_t i2c_bus_state = I2C_ClearBus(); // clear the I2C bus first before calling Wire.begin()
 
    if (i2c_bus_state) {
-      SERIAL_ERROR("I2C bus error: Could not clear!!!\r\n");
+      SERIAL_ERROR(F("I2C bus error: Could not clear!!!\r\n"));
       while(1);
    }
 
    switch (i2c_bus_state) {
       case 1:
-         SERIAL_ERROR("SCL clock line held low\r\n");
+         SERIAL_ERROR(F("SCL clock line held low\r\n"));
       break;
 
       case 2:
-         SERIAL_ERROR("SCL clock line held low by slave clock stretch\r\n");
+         SERIAL_ERROR(F("SCL clock line held low by slave clock stretch\r\n"));
       break;
 
       case 3:
-         SERIAL_ERROR("SDA data line held low\r\n");
+         SERIAL_ERROR(F("SDA data line held low\r\n"));
       break;
    }
 
@@ -306,33 +306,23 @@ void init_timer1() {
 void init_sensors () {
    is_first_run = true;
    uint8_t sensors_count = 0;
-   uint8_t sensors_name_length = 20;
-   char sensors_name[20];
-   sensors_name[0] = 0;
 
-   LCD_INFO(&lcd, false, "--- www.rmap.cc ---");
-   LCD_INFO(&lcd, false, "%s v. %u", stima_name, readable_configuration.module_version);
+   LCD_INFO(&lcd, false, true, F("--- www.rmap.cc ---"));
+   LCD_INFO(&lcd, false, true, F("%s v. %u"), stima_name, readable_configuration.module_version);
 
-   SERIAL_INFO("Sensors... [ %s ]\r\n", readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
+   SERIAL_INFO(F("Sensors... [ %s ]\r\n"), readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
 
    if (readable_configuration.sensors_count == 0) {
-      LCD_INFO(&lcd, false, "Sensors not found!");
+      LCD_INFO(&lcd, false, true, F("Sensors not found!"));
    }
 
    // read sensors configuration, create and setup
    for (uint8_t i=0; i<readable_configuration.sensors_count; i++) {
       SensorDriver::createAndSetup(readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, sensors, &sensors_count);
-      SERIAL_INFO("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n", sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
-      sensors_name_length -= snprintf(sensors_name + strlen(sensors_name), sensors_name_length, "%s ", readable_configuration.sensors[i].type);
-
-      if (sensors_name_length < 3) {
-         LCD_INFO(&lcd, false, "%s", sensors_name);
-         sensors_name[0] = 0;
-         sensors_name_length = 20;
-      }
+      SERIAL_INFO(F("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n"), sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
    }
 
-   SERIAL_INFO("\r\n");
+   SERIAL_INFO(F("\r\n"));
 }
 
 void setNextTimeForSensorReading (time_t *next_time) {
@@ -341,28 +331,29 @@ void setNextTimeForSensorReading (time_t *next_time) {
 }
 
 bool mqttConnect(char *username, char *password) {
-   char lon[10];
-   char lat[10];
-   char client_id[20];
-   getLonLatFromMqttTopic(readable_configuration.mqtt_root_topic, lon, lat);
-   snprintf(client_id, 20, "%s_%s", lon, lat);
-
    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
    data.MQTTVersion = 3;
-   data.clientID.cstring = (char*) client_id;
-   data.username.cstring = (char*) username;
-   data.password.cstring = (char*) password;
+   // data.will.topicName.cstring = will_topic;
+   // data.will.message.cstring = MQTT_ON_ERROR_MESSAGE;
+   // data.will.retained = true;
+   // data.will.qos = MQTT::QOS1;
+   // data.willFlag = true;
+   data.clientID.cstring = client_id;
+   data.username.cstring = username;
+   data.password.cstring = password;
    data.cleansession = false;
 
-   SERIAL_DEBUG("MQTT clientID: %s\r\n", data.clientID.cstring);
+   SERIAL_DEBUG(F("MQTT clientID: %s\r\n"), data.clientID.cstring);
+   // SERIAL_DEBUG(F("MQTT will message: %s\r\n"), data.will.message.cstring);
+   // SERIAL_DEBUG(F("MQTT will topic: %s\r\n"), data.will.topicName.cstring);
 
    return (mqtt_client.connect(data) == 0);
 }
 
-bool mqttPublish(const char *topic, const char *message) {
+bool mqttPublish(const char *topic, const char *message, bool is_retained) {
    MQTT::Message tx_message;
    tx_message.qos = MQTT::QOS1;
-   tx_message.retained = false;
+   tx_message.retained = is_retained;
    tx_message.dup = false;
    tx_message.payload = (void*) message;
    tx_message.payloadlen = strlen(message);
@@ -372,38 +363,38 @@ bool mqttPublish(const char *topic, const char *message) {
 
 void mqttRxCallback(MQTT::MessageData &md) {
    MQTT::Message &rx_message = md.message;
-   SERIAL_DEBUG("%s\r\n", (char*)rx_message.payload);
-   SERIAL_DEBUG("--> qos %u\r\n", rx_message.qos);
-   SERIAL_DEBUG("--> retained %u\r\n", rx_message.retained);
-   SERIAL_DEBUG("--> dup %u\r\n", rx_message.dup);
-   SERIAL_DEBUG("--> id %u\r\n", rx_message.id);
+   SERIAL_DEBUG(F("MQTT RX: %s\r\n"), (char*)rx_message.payload);
+   SERIAL_DEBUG(F("--> qos %u\r\n"), rx_message.qos);
+   SERIAL_DEBUG(F("--> retained %u\r\n"), rx_message.retained);
+   SERIAL_DEBUG(F("--> dup %u\r\n"), rx_message.dup);
+   SERIAL_DEBUG(F("--> id %u\r\n"), rx_message.id);
 }
 
 void print_configuration() {
    getStimaNameByType(stima_name, readable_configuration.module_type);
-   SERIAL_INFO("--> type: %s\r\n", stima_name);
-   SERIAL_INFO("--> version: %d\r\n", readable_configuration.module_version);
-   SERIAL_INFO("--> sensors: %d\r\n", readable_configuration.sensors_count);
+   SERIAL_INFO(F("--> type: %s\r\n"), stima_name);
+   SERIAL_INFO(F("--> version: %d\r\n"), readable_configuration.module_version);
+   SERIAL_INFO(F("--> sensors: %d\r\n"), readable_configuration.sensors_count);
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-   SERIAL_INFO("--> dhcp: %s\r\n", readable_configuration.is_dhcp_enable ? "on" : "off");
-   SERIAL_INFO("--> ethernet mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", readable_configuration.ethernet_mac[0], readable_configuration.ethernet_mac[1], readable_configuration.ethernet_mac[2], readable_configuration.ethernet_mac[3], readable_configuration.ethernet_mac[4], readable_configuration.ethernet_mac[5]);
+   SERIAL_INFO(F("--> dhcp: %s\r\n"), readable_configuration.is_dhcp_enable ? "on" : "off");
+   SERIAL_INFO(F("--> ethernet mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n"), readable_configuration.ethernet_mac[0], readable_configuration.ethernet_mac[1], readable_configuration.ethernet_mac[2], readable_configuration.ethernet_mac[3], readable_configuration.ethernet_mac[4], readable_configuration.ethernet_mac[5]);
 
    #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-   SERIAL_INFO("--> gsm apn: %s\r\n", readable_configuration.gsm_apn);
-   SERIAL_INFO("--> gsm username: %s\r\n", readable_configuration.gsm_username);
-   SERIAL_INFO("--> gsm password: %s\r\n", readable_configuration.gsm_password);
+   SERIAL_INFO(F("--> gsm apn: %s\r\n"), readable_configuration.gsm_apn);
+   SERIAL_INFO(F("--> gsm username: %s\r\n"), readable_configuration.gsm_username);
+   SERIAL_INFO(F("--> gsm password: %s\r\n"), readable_configuration.gsm_password);
 
    #endif
 
-   SERIAL_INFO("--> ntp server: %s\r\n", readable_configuration.ntp_server);
+   SERIAL_INFO(F("--> ntp server: %s\r\n"), readable_configuration.ntp_server);
 
-   SERIAL_INFO("--> mqtt server: %s\r\n", readable_configuration.mqtt_server);
-   SERIAL_INFO("--> mqtt port: %u\r\n", readable_configuration.mqtt_port);
-   SERIAL_INFO("--> mqtt root topic: %s\r\n", readable_configuration.mqtt_root_topic);
-   SERIAL_INFO("--> mqtt subscribe topic: %s\r\n", readable_configuration.mqtt_subscribe_topic);
-   SERIAL_INFO("--> mqtt username: %s\r\n", readable_configuration.mqtt_username);
-   SERIAL_INFO("--> mqtt password: %s\r\n\r\n", readable_configuration.mqtt_password);
+   SERIAL_INFO(F("--> mqtt server: %s\r\n"), readable_configuration.mqtt_server);
+   SERIAL_INFO(F("--> mqtt port: %u\r\n"), readable_configuration.mqtt_port);
+   SERIAL_INFO(F("--> mqtt root topic: %s\r\n"), readable_configuration.mqtt_root_topic);
+   SERIAL_INFO(F("--> mqtt subscribe topic: %s\r\n"), readable_configuration.mqtt_subscribe_topic);
+   SERIAL_INFO(F("--> mqtt username: %s\r\n"), readable_configuration.mqtt_username);
+   SERIAL_INFO(F("--> mqtt password: %s\r\n\r\n"), readable_configuration.mqtt_password);
 }
 
 void set_default_configuration() {
@@ -445,16 +436,16 @@ void set_default_configuration() {
    strcpy(writable_configuration.mqtt_username, CONFIGURATION_DEFAULT_MQTT_USERNAME);
    strcpy(writable_configuration.mqtt_password, CONFIGURATION_DEFAULT_MQTT_PASSWORD);
 
-   SERIAL_INFO("Reset configuration to default value... [ %s ]\r\n", OK_STRING);
+   SERIAL_INFO(F("Reset configuration to default value... [ %s ]\r\n"), OK_STRING);
 }
 
 void save_configuration(bool is_default) {
    if (is_default) {
       set_default_configuration();
-      SERIAL_INFO("Save default configuration... [ %s ]\r\n", OK_STRING);
+      SERIAL_INFO(F("Save default configuration... [ %s ]\r\n"), OK_STRING);
    }
    else {
-      SERIAL_INFO("Save configuration... [ %s ]\r\n", OK_STRING);
+      SERIAL_INFO(F("Save configuration... [ %s ]\r\n"), OK_STRING);
    }
 
    ee_write(&writable_configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration_t));
@@ -466,8 +457,8 @@ void load_configuration() {
    ee_read(&writable_configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration_t));
 
    if (digitalRead(CONFIGURATION_RESET_PIN) == LOW) {
-      SERIAL_INFO("Wait configuration...\r\n");
-      LCD_INFO(&lcd, false, "Wait configuration");
+      SERIAL_INFO(F("Wait configuration...\r\n"));
+      LCD_INFO(&lcd, false, true, F("Wait configuration"));
    }
 
    while (digitalRead(CONFIGURATION_RESET_PIN) == LOW && !is_configuration_done) {
@@ -476,7 +467,7 @@ void load_configuration() {
    }
 
    if (is_configuration_done) {
-      SERIAL_INFO("Configuration received... [ %s ]\r\n", OK_STRING);
+      SERIAL_INFO(F("Configuration received... [ %s ]\r\n"), OK_STRING);
    }
 
    if (writable_configuration.module_type != MODULE_TYPE || writable_configuration.module_version != MODULE_VERSION) {
@@ -485,7 +476,10 @@ void load_configuration() {
 
    ee_read(&readable_configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration_t));
 
-   SERIAL_INFO("Load configuration... [ %s ]\r\n", OK_STRING);
+   getMqttClientIdFromMqttTopic(readable_configuration.mqtt_root_topic, client_id);
+   getFullTopic(will_topic, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+
+   SERIAL_INFO(F("Load configuration... [ %s ]\r\n"), OK_STRING);
    print_configuration();
 }
 
@@ -506,13 +500,13 @@ char *rpc_process(char *json) {
             if (strcmp(it->key, "reset") == 0) {
                if (it->value.as<bool>() == true) {
                   set_default_configuration();
-                  LCD_INFO(&lcd, false, "Reset configuration");
+                  LCD_INFO(&lcd, false, true, F("Reset configuration"));
                }
             }
             else if (strcmp(it->key, "save") == 0) {
                if (it->value.as<bool>() == true) {
                   save_configuration(CONFIGURATION_CURRENT);
-                  LCD_INFO(&lcd, false, "Save configuration");
+                  LCD_INFO(&lcd, false, true, F("Save configuration"));
                }
             }
             else if (strcmp(it->key, "mqttserver") == 0) {
@@ -541,6 +535,10 @@ char *rpc_process(char *json) {
                for (uint8_t i=0; i<ETHERNET_MAC_LENGTH; i++) {
                   writable_configuration.ethernet_mac[i] = it->value.as<JsonArray>()[i];
                }
+            }
+            #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+            else if (strcmp(it->key, "gsmapn") == 0) {
+               strncpy(writable_configuration.gsm_apn, it->value.as<char*>(), GSM_APN_LENGTH);
             }
             #endif
             else if (strcmp(it->key, "driver") == 0) {
@@ -575,7 +573,7 @@ char *rpc_process(char *json) {
    }
    else {
       is_error = true;
-      SERIAL_ERROR("jsonRPC v. %s it isn't supported [ %s ]\r\n", root["jsonrpc"], ERROR_STRING);
+      SERIAL_ERROR(F("jsonRPC v. %s it isn't supported [ %s ]\r\n"), root["jsonrpc"], ERROR_STRING);
    }
 
    snprintf(json, STREAM_BUFFER_LENGTH, "{\"jsonrpc\":\"2.0\",\"result\":\"%s\",\"id\":%u}", is_error ? "error" : "ok", id);
@@ -654,19 +652,19 @@ void supervisor_task() {
             interrupts();
 
             supervisor_state = SUPERVISOR_END;
-            SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_END\r\n");
+            SERIAL_TRACE(F("SUPERVISOR_INIT ---> SUPERVISOR_END\r\n"));
          }
          else {
             // need ntp sync ?
             if (!do_ntp_sync && ((now() - last_ntp_sync > NTP_TIME_FOR_RESYNC_S) || !is_time_set)) {
                do_ntp_sync = true;
-               SERIAL_DEBUG("Requested NTP time sync...\r\n");
+               SERIAL_DEBUG(F("Requested NTP time sync...\r\n"));
             }
 
             start_time_ms = millis();
 
             supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
+            SERIAL_TRACE(F("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n"));
          }
       break;
 
@@ -679,7 +677,7 @@ void supervisor_task() {
          }
          interrupts();
          supervisor_state = SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK;
-         SERIAL_TRACE("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK\r\n");
+         SERIAL_TRACE(F("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK\r\n"));
       break;
 
       case SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK:
@@ -690,13 +688,13 @@ void supervisor_task() {
             if (is_client_udp_socket_open && do_ntp_sync) {
                is_event_time_executed = false;
                supervisor_state = SUPERVISOR_TIME_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n");
+               SERIAL_TRACE(F("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n"));
             }
             // doing other operations...
             else {
                do_ntp_sync = false;
                supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
+               SERIAL_TRACE(F("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n"));
             }
          }
 
@@ -706,12 +704,12 @@ void supervisor_task() {
             if ((++retry < SUPERVISOR_CONNECTION_RETRY_COUNT_MAX) || (millis() - start_time_ms < SUPERVISOR_CONNECTION_TIMEOUT_MS)) {
                is_event_client_executed = false;
                supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n");
+               SERIAL_TRACE(F("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n"));
             }
             // fail
             else {
                supervisor_state = SUPERVISOR_TIME_LEVEL_TASK;
-               SERIAL_TRACE("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n");
+               SERIAL_TRACE(F("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n"));
             }
          }
       break;
@@ -742,37 +740,37 @@ void supervisor_task() {
             }
 
             supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
-            SERIAL_TRACE("SUPERVISOR_TIME_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n");
+            SERIAL_TRACE(F("SUPERVISOR_TIME_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n"));
          }
       break;
 
       case SUPERVISOR_MANAGE_LEVEL_TASK:
          if (is_time_updated) {
-            SERIAL_INFO("Current date and time is: %02u/%02u/%04u %02u:%02u:%02u\r\n\r\n", day(), month(), year(), hour(), minute(), second());
+            SERIAL_INFO(F("Current date and time is: %02u/%02u/%04u %02u:%02u:%02u\r\n\r\n"), day(), month(), year(), hour(), minute(), second());
          }
 
          if (is_supervisor_first_run && is_time_set) {
             setNextTimeForSensorReading((time_t *) &next_ptr_time_for_sensors_reading);
 
-            SERIAL_INFO("Acquisition scheduling...\r\n");
-            SERIAL_INFO("--> observations every %u minutes\r\n", OBSERVATIONS_MINUTES);
+            SERIAL_INFO(F("Acquisition scheduling...\r\n"));
+            SERIAL_INFO(F("--> observations every %u minutes\r\n"), OBSERVATIONS_MINUTES);
 
             if (readable_configuration.report_seconds >= 60) {
                uint8_t mm = readable_configuration.report_seconds / 60;
                uint8_t ss = readable_configuration.report_seconds - mm * 60;
                if (ss) {
-                  SERIAL_INFO("--> report every %u minutes and %u seconds\r\n", mm, ss);
+                  SERIAL_INFO(F("--> report every %u minutes and %u seconds\r\n"), mm, ss);
                }
                else {
-                  SERIAL_INFO("--> report every %u minutes\r\n", mm);
+                  SERIAL_INFO(F("--> report every %u minutes\r\n"), mm);
                }
             }
             else {
-               SERIAL_INFO("--> report every %u seconds\r\n", readable_configuration.report_seconds);
+               SERIAL_INFO(F("--> report every %u seconds\r\n"), readable_configuration.report_seconds);
             }
 
-            SERIAL_INFO("--> starting at: %02u:%02u:%02u\r\n\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
-            LCD_INFO(&lcd, false, "start acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+            SERIAL_INFO(F("--> starting at: %02u:%02u:%02u\r\n\r\n"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+            LCD_INFO(&lcd, false, true, F("start acq %02u:%02u:%02u"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
          }
 
          // reinit lcd display
@@ -812,7 +810,7 @@ void supervisor_task() {
          #else
          supervisor_state = SUPERVISOR_END;
          #endif
-         SERIAL_TRACE("SUPERVISOR_MANAGE_LEVEL_TASK ---> SUPERVISOR_END\r\n");
+         SERIAL_TRACE(F("SUPERVISOR_MANAGE_LEVEL_TASK ---> SUPERVISOR_END\r\n"));
       break;
 
       case SUPERVISOR_END:
@@ -823,7 +821,7 @@ void supervisor_task() {
          interrupts();
 
          supervisor_state = SUPERVISOR_INIT;
-         SERIAL_TRACE("SUPERVISOR_END ---> SUPERVISOR_INIT\r\n");
+         SERIAL_TRACE(F("SUPERVISOR_END ---> SUPERVISOR_INIT\r\n"));
       break;
 
       case SUPERVISOR_WAIT_STATE:
@@ -838,20 +836,20 @@ void rtc_task() {
    if (is_time_set) {
       uint32_t current_time = Pcf8563::getTime();
 
-      if (current_time > now()) {
-         setTime(Pcf8563::getTime());
+      if (current_time - now() <= 10) {
+         setTime(current_time);
+
+         noInterrupts();
+         is_event_rtc = false;
+         ready_tasks_count--;
+         interrupts();
       }
 
       if (is_time_for_sensors_reading_updated) {
          is_time_for_sensors_reading_updated = false;
-         SERIAL_INFO("Next acquisition scheduled at: %02u:%02u:%02u\r\n", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
-         LCD_INFO(&lcd, true, "next acq %02u:%02u:%02u", hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+         SERIAL_INFO(F("Next acquisition scheduled at: %02u:%02u:%02u\r\n"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+         LCD_INFO(&lcd, true, true, F("next acq %02u:%02u:%02u"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
       }
-
-      noInterrupts();
-      is_event_rtc = false;
-      ready_tasks_count--;
-      interrupts();
    }
 }
 
@@ -861,13 +859,13 @@ void time_task() {
    static uint32_t delay_ms;
    static uint32_t start_time_ms;
    static bool is_set_rtc_ok;
-   static time_t seconds_since_1900;
+   static time_t current_ntp_time;
    bool is_ntp_request_ok;
 
    switch (time_state) {
       case TIME_INIT:
          is_set_rtc_ok = true;
-         seconds_since_1900 = 0;
+         current_ntp_time = 0;
          retry = 0;
          state_after_wait = TIME_INIT;
 
@@ -901,26 +899,25 @@ void time_task() {
          }
          // fail: use old rtc time
          else {
-            SERIAL_ERROR("NTP request... [ %s ]\r\n", FAIL_STRING);
+            SERIAL_ERROR(F("NTP request... [ %s ]\r\n"), FAIL_STRING);
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
          }
       break;
 
       case TIME_WAIT_ONLINE_RESPONSE:
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-         seconds_since_1900 = Ntp::getResponse(&eth_udp_client);
+         current_ntp_time = Ntp::getResponse(&eth_udp_client);
 
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-         seconds_since_1900 = Ntp::getResponse(&s800);
+         current_ntp_time = Ntp::getResponse(&s800);
 
          #endif
 
-         // success: 1483228800 seconds for 01/01/2017 00:00:00
-         if (seconds_since_1900 > NTP_VALID_START_TIME_S) {
+         if (current_ntp_time > NTP_VALID_START_TIME_S) {
             retry = 0;
-            setTime(seconds_since_1900);
-            last_ntp_sync = seconds_since_1900;
-            SERIAL_DEBUG("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
+            setTime(current_ntp_time);
+            last_ntp_sync = current_ntp_time;
+            SERIAL_DEBUG(F("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n"), day(), month(), year(), hour(), minute(), second());
             time_state = TIME_SET_SYNC_NTP_PROVIDER;
          }
          // retry
@@ -943,7 +940,7 @@ void time_task() {
          is_set_rtc_ok &= Pcf8563::setTime(hour(), minute(), second());
          is_set_rtc_ok &= Pcf8563::enable();
 
-         if (is_set_rtc_ok && now() >= seconds_since_1900) {
+         if (is_set_rtc_ok) {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
          }
@@ -965,7 +962,7 @@ void time_task() {
       case TIME_SET_SYNC_RTC_PROVIDER:
          setSyncInterval(NTP_TIME_FOR_RESYNC_S);
          setSyncProvider(Pcf8563::getTime);
-         SERIAL_DEBUG("Current RTC date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n", day(), month(), year(), hour(), minute(), second());
+         SERIAL_DEBUG(F("Current RTC date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n"), day(), month(), year(), hour(), minute(), second());
          time_state = TIME_END;
       break;
 
@@ -1001,20 +998,20 @@ void ethernet_task() {
          is_client_udp_socket_open = false;
          state_after_wait = ETHERNET_INIT;
          ethernet_state = ETHERNET_CONNECT;
-         SERIAL_TRACE("ETHERNET_INIT --> ETHERNET_CONNECT\r\n");
+         SERIAL_TRACE(F("ETHERNET_INIT --> ETHERNET_CONNECT\r\n"));
       break;
 
       case ETHERNET_CONNECT:
          if (readable_configuration.is_dhcp_enable) {
             if (Ethernet.begin(readable_configuration.ethernet_mac)) {
                is_client_connected = true;
-               SERIAL_INFO("Ethernet: DHCP [ %s ]\r\n", OK_STRING);
+               SERIAL_INFO(F("Ethernet: DHCP [ %s ]\r\n"), OK_STRING);
             }
          }
          else {
             Ethernet.begin(readable_configuration.ethernet_mac, IPAddress(readable_configuration.ip), IPAddress(readable_configuration.primary_dns), IPAddress(readable_configuration.gateway), IPAddress(readable_configuration.netmask));
             is_client_connected = true;
-            SERIAL_INFO("Ethernet: Static [ %s ]\r\n", OK_STRING);
+            SERIAL_INFO(F("Ethernet: Static [ %s ]\r\n"), OK_STRING);
          }
 
          // success
@@ -1022,15 +1019,15 @@ void ethernet_task() {
             w5500.setRetransmissionTime(ETHERNET_RETRY_TIME_MS);
             w5500.setRetransmissionCount(ETHERNET_RETRY_COUNT);
 
-            SERIAL_INFO("--> ip: %u.%u.%u.%u\r\n", Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
-            SERIAL_INFO("--> netmask: %u.%u.%u.%u\r\n", Ethernet.subnetMask()[0], Ethernet.subnetMask()[1], Ethernet.subnetMask()[2], Ethernet.subnetMask()[3]);
-            SERIAL_INFO("--> gateway: %u.%u.%u.%u\r\n", Ethernet.gatewayIP()[0], Ethernet.gatewayIP()[1], Ethernet.gatewayIP()[2], Ethernet.gatewayIP()[3]);
-            SERIAL_INFO("--> primary dns: %u.%u.%u.%u\r\n", Ethernet.dnsServerIP()[0], Ethernet.dnsServerIP()[1], Ethernet.dnsServerIP()[2], Ethernet.dnsServerIP()[3]);
+            SERIAL_INFO(F("--> ip: %u.%u.%u.%u\r\n"), Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
+            SERIAL_INFO(F("--> netmask: %u.%u.%u.%u\r\n"), Ethernet.subnetMask()[0], Ethernet.subnetMask()[1], Ethernet.subnetMask()[2], Ethernet.subnetMask()[3]);
+            SERIAL_INFO(F("--> gateway: %u.%u.%u.%u\r\n"), Ethernet.gatewayIP()[0], Ethernet.gatewayIP()[1], Ethernet.gatewayIP()[2], Ethernet.gatewayIP()[3]);
+            SERIAL_INFO(F("--> primary dns: %u.%u.%u.%u\r\n"), Ethernet.dnsServerIP()[0], Ethernet.dnsServerIP()[1], Ethernet.dnsServerIP()[2], Ethernet.dnsServerIP()[3]);
 
-            LCD_INFO(&lcd, false, "ip: %u.%u.%u.%u", Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
+            LCD_INFO(&lcd, false, true, F("ip: %u.%u.%u.%u"), Ethernet.localIP()[0], Ethernet.localIP()[1], Ethernet.localIP()[2], Ethernet.localIP()[3]);
 
             ethernet_state = ETHERNET_OPEN_UDP_SOCKET;
-            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_OPEN_UDP_SOCKET\r\n");
+            SERIAL_TRACE(F("ETHERNET_CONNECT --> ETHERNET_OPEN_UDP_SOCKET\r\n"));
          }
          // retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
@@ -1038,25 +1035,25 @@ void ethernet_task() {
             start_time_ms = millis();
             state_after_wait = ETHERNET_CONNECT;
             ethernet_state = ETHERNET_WAIT_STATE;
-            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("ETHERNET_CONNECT --> ETHERNET_WAIT_STATE\r\n"));
          }
          // fail
          else {
             retry = 0;
             ethernet_state = ETHERNET_END;
-            SERIAL_TRACE("ETHERNET_CONNECT --> ETHERNET_END\r\n");
-            SERIAL_ERROR("Ethernet %s: [ %s ]\r\n", ERROR_STRING, readable_configuration.is_dhcp_enable ? "DHCP" : "Static");
-            LCD_INFO(&lcd, false, "ethernet %s", ERROR_STRING);
+            SERIAL_TRACE(F("ETHERNET_CONNECT --> ETHERNET_END\r\n"));
+            SERIAL_ERROR(F("Ethernet %s: [ %s ]\r\n"), ERROR_STRING, readable_configuration.is_dhcp_enable ? "DHCP" : "Static");
+            LCD_INFO(&lcd, false, true, F("ethernet %s"), ERROR_STRING);
          }
       break;
 
       case ETHERNET_OPEN_UDP_SOCKET:
          // success
          if (eth_udp_client.begin(ETHERNET_DEFAULT_LOCAL_UDP_PORT)) {
-            SERIAL_TRACE("--> udp socket local port: %u [ OK ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
+            SERIAL_TRACE(F("--> udp socket local port: %u [ OK ]\r\n"), ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             is_client_udp_socket_open = true;
             ethernet_state = ETHERNET_END;
-            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_END\r\n");
+            SERIAL_TRACE(F("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_END\r\n"));
          }
          // retry
          else if ((++retry) < ETHERNET_RETRY_COUNT_MAX) {
@@ -1064,26 +1061,26 @@ void ethernet_task() {
             start_time_ms = millis();
             state_after_wait = ETHERNET_OPEN_UDP_SOCKET;
             ethernet_state = ETHERNET_WAIT_STATE;
-            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_WAIT_STATE\r\n"));
          }
          // fail
          else {
-            SERIAL_ERROR("--> udp socket on local port: %u [ FAIL ]\r\n", ETHERNET_DEFAULT_LOCAL_UDP_PORT);
+            SERIAL_ERROR(F("--> udp socket on local port: %u [ FAIL ]\r\n"), ETHERNET_DEFAULT_LOCAL_UDP_PORT);
             retry = 0;
             ethernet_state = ETHERNET_INIT;
-            SERIAL_TRACE("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_INIT\r\n");
+            SERIAL_TRACE(F("ETHERNET_OPEN_UDP_SOCKET --> ETHERNET_INIT\r\n"));
          }
       break;
 
       case ETHERNET_END:
-         SERIAL_INFO("\r\n");
+         SERIAL_INFO(F("\r\n"));
          is_event_client_executed = true;
          noInterrupts();
          is_event_ethernet = false;
          ready_tasks_count--;
          interrupts();
          ethernet_state = ETHERNET_INIT;
-         SERIAL_TRACE("ETHERNET_END --> ETHERNET_INIT\r\n");
+         SERIAL_TRACE(F("ETHERNET_END --> ETHERNET_INIT\r\n"));
       break;
 
       case ETHERNET_WAIT_STATE:
@@ -1290,11 +1287,15 @@ void sensors_reading_task () {
    static sensors_reading_state_t state_after_wait;
    static uint32_t delay_ms;
    static uint32_t start_time_ms;
-   static int32_t values_readed_from_sensor[VALUES_TO_READ_FROM_SENSOR_COUNT];
+   static int32_t values_readed_from_sensor[USE_SENSORS_COUNT][VALUES_TO_READ_FROM_SENSOR_COUNT];
+   #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
+   static char lcd_buffer[20];
+   static int lcd_count;
+   #endif
 
    switch (sensors_reading_state) {
       case SENSORS_READING_INIT:
-         SERIAL_INFO("Sensors reading...\r\n");
+         SERIAL_INFO(F("Sensors reading...\r\n"));
 
          for (i=0; i<readable_configuration.sensors_count; i++) {
             sensors[i]->resetPrepared();
@@ -1304,7 +1305,7 @@ void sensors_reading_task () {
          retry = 0;
          state_after_wait = SENSORS_READING_INIT;
          sensors_reading_state = SENSORS_READING_PREPARE;
-         SERIAL_TRACE("SENSORS_READING_INIT ---> SENSORS_READING_PREPARE\r\n");
+         SERIAL_TRACE(F("SENSORS_READING_INIT ---> SENSORS_READING_PREPARE\r\n"));
       break;
 
       case SENSORS_READING_PREPARE:
@@ -1315,11 +1316,11 @@ void sensors_reading_task () {
          if (delay_ms) {
             state_after_wait = SENSORS_READING_IS_PREPARED;
             sensors_reading_state = SENSORS_READING_WAIT_STATE;
-            SERIAL_TRACE("SENSORS_READING_PREPARE ---> SENSORS_READING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_PREPARE ---> SENSORS_READING_WAIT_STATE\r\n"));
          }
          else {
             sensors_reading_state = SENSORS_READING_IS_PREPARED;
-            SERIAL_TRACE("SENSORS_READING_PREPARE ---> SENSORS_READING_IS_PREPARED\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_PREPARE ---> SENSORS_READING_IS_PREPARED\r\n"));
          }
       break;
 
@@ -1328,7 +1329,7 @@ void sensors_reading_task () {
          if (sensors[i]->isPrepared()) {
             retry = 0;
             sensors_reading_state = SENSORS_READING_GET;
-            SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
          }
          // retry
          else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
@@ -1336,29 +1337,29 @@ void sensors_reading_task () {
             start_time_ms = millis();
             state_after_wait = SENSORS_READING_PREPARE;
             sensors_reading_state = SENSORS_READING_WAIT_STATE;
-            SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_WAIT_STATE\r\n"));
          }
          // fail
          else {
             retry = 0;
             sensors_reading_state = SENSORS_READING_GET;
-            SERIAL_TRACE("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
          }
       break;
 
       case SENSORS_READING_GET:
-         sensors[i]->getJson(values_readed_from_sensor, VALUES_TO_READ_FROM_SENSOR_COUNT, &json_sensors_data[i][0]);
+         sensors[i]->getJson(&values_readed_from_sensor[i][0], VALUES_TO_READ_FROM_SENSOR_COUNT, &json_sensors_data[i][0]);
          delay_ms = sensors[i]->getDelay();
          start_time_ms = sensors[i]->getStartTime();
 
          if (delay_ms) {
             state_after_wait = SENSORS_READING_IS_GETTED;
             sensors_reading_state = SENSORS_READING_WAIT_STATE;
-            SERIAL_TRACE("SENSORS_READING_GET ---> SENSORS_READING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_GET ---> SENSORS_READING_WAIT_STATE\r\n"));
          }
          else {
             sensors_reading_state = SENSORS_READING_IS_GETTED;
-            SERIAL_TRACE("SENSORS_READING_GET ---> SENSORS_READING_IS_GETTED\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_GET ---> SENSORS_READING_IS_GETTED\r\n"));
          }
       break;
 
@@ -1369,7 +1370,7 @@ void sensors_reading_task () {
             if (sensors[i]->isSuccess()) {
                retry = 0;
                sensors_reading_state = SENSORS_READING_READ;
-               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
+               SERIAL_TRACE(F("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n"));
             }
             // retry
             else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
@@ -1377,25 +1378,25 @@ void sensors_reading_task () {
                start_time_ms = millis();
                state_after_wait = SENSORS_READING_GET;
                sensors_reading_state = SENSORS_READING_WAIT_STATE;
-               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_WAIT_STATE\r\n");
+               SERIAL_TRACE(F("SENSORS_READING_IS_GETTED ---> SENSORS_READING_WAIT_STATE\r\n"));
             }
             // fail
             else {
                retry = 0;
                sensors_reading_state = SENSORS_READING_READ;
-               SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n");
+               SERIAL_TRACE(F("SENSORS_READING_IS_GETTED ---> SENSORS_READING_READ\r\n"));
             }
          }
          // not end
          else {
             sensors_reading_state = SENSORS_READING_GET;
-            SERIAL_TRACE("SENSORS_READING_IS_GETTED ---> SENSORS_READING_GET\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_IS_GETTED ---> SENSORS_READING_GET\r\n"));
          }
       break;
 
       case SENSORS_READING_READ:
          sensors_reading_state = SENSORS_READING_NEXT;
-         SERIAL_TRACE("SENSORS_READING_READ ---> SENSORS_READING_NEXT\r\n");
+         SERIAL_TRACE(F("SENSORS_READING_READ ---> SENSORS_READING_NEXT\r\n"));
       break;
 
       case SENSORS_READING_NEXT:
@@ -1403,7 +1404,7 @@ void sensors_reading_task () {
          if ((++i) < readable_configuration.sensors_count) {
             retry = 0;
             sensors_reading_state = SENSORS_READING_PREPARE;
-            SERIAL_TRACE("SENSORS_READING_NEXT ---> SENSORS_READING_PREPARE\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_PREPARE\r\n"));
          }
          // success: all sensors readed
          else {
@@ -1426,10 +1427,48 @@ void sensors_reading_task () {
                   ready_tasks_count++;
                }
                interrupts();
+
+               #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
+               for (i = 0; i < readable_configuration.sensors_count; i++) {
+                  if (strcmp(sensors[i]->getType(), "ITH") == 0) {
+                     if (values_readed_from_sensor[i][0] != UINT16_MAX) {
+                        lcd_count = snprintf(lcd_buffer, 20, "Tp %.1f C   ", ((values_readed_from_sensor[i][0] - SENSOR_DRIVER_C_TO_K) / 100.0));
+                     }
+                     else {
+                        lcd_count = snprintf(lcd_buffer, 20, "Tp --.- C   ");
+                     }
+
+                     if (values_readed_from_sensor[i][1] != UINT16_MAX) {
+                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Hm %ld %%", values_readed_from_sensor[i][1]);
+                     }
+                     else {
+                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Hm --- %%");
+                     }
+                     LCD_INFO(&lcd, false, true, F("%s"), lcd_buffer);
+                  }
+                  else if (strcmp(sensors[i]->getType(), "TBR") == 0) {
+                    if (values_readed_from_sensor[i][0] != UINT16_MAX) {
+                        lcd_count = snprintf(lcd_buffer, 20, "R %.1f mm ", (values_readed_from_sensor[i][0]/10.0));
+                     }
+                     else {
+                        lcd_count = snprintf(lcd_buffer, 20, "R --.- mm ");
+                     }
+                  }
+                  else if (strcmp(sensors[i]->getType(), "DEP") == 0) {
+                    if (values_readed_from_sensor[i][0] != UINT16_MAX) {
+                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Vb %.1f V", (values_readed_from_sensor[i][1]/ 10.0));
+                     }
+                     else {
+                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Vb --.- V");
+                     }
+                     LCD_INFO(&lcd, false, true, F("%s"), lcd_buffer);
+                  }
+               }
+               #endif
             }
 
             sensors_reading_state = SENSORS_READING_END;
-            SERIAL_TRACE("SENSORS_READING_NEXT ---> SENSORS_READING_END\r\n");
+            SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_END\r\n"));
          }
       break;
 
@@ -1439,7 +1478,7 @@ void sensors_reading_task () {
          ready_tasks_count--;
          interrupts();
          sensors_reading_state = SENSORS_READING_INIT;
-         SERIAL_TRACE("SENSORS_READING_END ---> SENSORS_READING_INIT\r\n");
+         SERIAL_TRACE(F("SENSORS_READING_END ---> SENSORS_READING_INIT\r\n"));
       break;
 
       case SENSORS_READING_WAIT_STATE:
@@ -1471,11 +1510,11 @@ void data_saving_task() {
 
          if (is_sdcard_open) {
             data_saving_state = DATA_SAVING_OPEN_FILE;
-            SERIAL_TRACE("DATA_SAVING_INIT ---> DATA_SAVING_OPEN_FILE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_INIT ---> DATA_SAVING_OPEN_FILE\r\n"));
          }
          else {
             data_saving_state = DATA_SAVING_OPEN_SDCARD;
-            SERIAL_TRACE("DATA_SAVING_INIT ---> DATA_SAVING_OPEN_SDCARD\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_INIT ---> DATA_SAVING_OPEN_SDCARD\r\n"));
          }
       break;
 
@@ -1484,7 +1523,7 @@ void data_saving_task() {
             retry = 0;
             is_sdcard_open = true;
             data_saving_state = DATA_SAVING_OPEN_FILE;
-            SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_OPEN_FILE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_OPEN_FILE\r\n"));
          }
          // retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
@@ -1492,16 +1531,16 @@ void data_saving_task() {
             start_time_ms = millis();
             state_after_wait = DATA_SAVING_OPEN_SDCARD;
             data_saving_state = DATA_SAVING_WAIT_STATE;
-            SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n"));
          }
          // fail
          else {
             is_sdcard_error = true;
             is_sdcard_open = false;
-            SERIAL_ERROR("SD Card... [ FAIL ]\r\n--> is card inserted?\r\n--> there is a valid FAT32 filesystem?\r\n\r\n");
+            SERIAL_ERROR(F("SD Card... [ FAIL ]\r\n--> is card inserted?\r\n--> there is a valid FAT32 filesystem?\r\n\r\n"));
 
             data_saving_state = DATA_SAVING_END;
-            SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_END\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_END\r\n"));
          }
       break;
 
@@ -1514,7 +1553,7 @@ void data_saving_task() {
             retry = 0;
             i = 0;
             data_saving_state = DATA_SAVING_SENSORS_LOOP;
-            SERIAL_TRACE("DATA_SAVING_OPEN_FILE ---> DATA_SAVING_SENSORS_LOOP\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_FILE ---> DATA_SAVING_SENSORS_LOOP\r\n"));
          }
          // retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
@@ -1522,14 +1561,14 @@ void data_saving_task() {
             start_time_ms = millis();
             state_after_wait = DATA_SAVING_OPEN_FILE;
             data_saving_state = DATA_SAVING_WAIT_STATE;
-            SERIAL_TRACE("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_SDCARD ---> DATA_SAVING_WAIT_STATE\r\n"));
          }
          // fail
          else {
-            SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", file_name);
+            SERIAL_ERROR(F("SD Card open file %s... [ FAIL ]\r\n"), file_name);
             is_sdcard_error = true;
             data_saving_state = DATA_SAVING_END;
-            SERIAL_TRACE("DATA_SAVING_OPEN_FILE ---> DATA_SAVING_END\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_OPEN_FILE ---> DATA_SAVING_END\r\n"));
          }
       break;
 
@@ -1538,12 +1577,12 @@ void data_saving_task() {
             k = 0;
             data_count = jsonToMqtt(&json_sensors_data[i][0], readable_configuration.sensors[i].mqtt_topic, topic_buffer, message_buffer, (tmElements_t *) &sensor_reading_time);
             data_saving_state = DATA_SAVING_DATA_LOOP;
-            SERIAL_TRACE("DATA_SAVING_SENSORS_LOOP ---> DATA_SAVING_DATA_LOOP\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_SENSORS_LOOP ---> DATA_SAVING_DATA_LOOP\r\n"));
          }
          else {
-            SERIAL_DEBUG("\r\n");
+            SERIAL_DEBUG(F("\r\n"));
             data_saving_state = DATA_SAVING_CLOSE_FILE;
-            SERIAL_TRACE("DATA_SAVING_SENSORS_LOOP ---> DATA_SAVING_CLOSE_FILE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_SENSORS_LOOP ---> DATA_SAVING_CLOSE_FILE\r\n"));
          }
       break;
 
@@ -1551,25 +1590,25 @@ void data_saving_task() {
          if (k < data_count) {
             mqttToSd(&topic_buffer[k][0], &message_buffer[k][0], sd_buffer);
             data_saving_state = DATA_SAVING_WRITE_FILE;
-            SERIAL_TRACE("DATA_SAVING_DATA_LOOP ---> DATA_SAVING_WRITE_FILE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_DATA_LOOP ---> DATA_SAVING_WRITE_FILE\r\n"));
          }
          else {
             i++;
             data_saving_state = DATA_SAVING_SENSORS_LOOP;
-            SERIAL_TRACE("DATA_SAVING_DATA_LOOP ---> DATA_SAVING_SENSORS_LOOP\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_DATA_LOOP ---> DATA_SAVING_SENSORS_LOOP\r\n"));
          }
       break;
 
       case DATA_SAVING_WRITE_FILE:
          // sdcard success
          if (write_data_file.write(sd_buffer, MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH) == (MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH)) {
-            SERIAL_DEBUG("SD <-- %s %s\r\n", &topic_buffer[k][0], &message_buffer[k][0]);
+            SERIAL_DEBUG(F("SD <-- %s %s\r\n"), &topic_buffer[k][0], &message_buffer[k][0]);
             write_data_file.flush();
             retry = 0;
             k++;
             sd_data_count++;
             data_saving_state = DATA_SAVING_DATA_LOOP;
-            SERIAL_TRACE("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_DATA_LOOP\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_DATA_LOOP\r\n"));
          }
          // retry
          else if ((++retry) < DATA_SAVING_RETRY_COUNT_MAX) {
@@ -1577,26 +1616,26 @@ void data_saving_task() {
             start_time_ms = millis();
             state_after_wait = DATA_SAVING_WRITE_FILE;
             data_saving_state = DATA_SAVING_WAIT_STATE;
-            SERIAL_TRACE("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_WAIT_STATE\r\n"));
          }
          // fail
          else {
-            SERIAL_ERROR("SD Card writing data on file %s... [ FAIL ]\r\n", file_name);
+            SERIAL_ERROR(F("SD Card writing data on file %s... [ FAIL ]\r\n"), file_name);
             is_sdcard_error = true;
             data_saving_state = DATA_SAVING_CLOSE_FILE;
-            SERIAL_TRACE("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_CLOSE_FILE\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_WRITE_FILE ---> DATA_SAVING_CLOSE_FILE\r\n"));
          }
       break;
 
       case DATA_SAVING_CLOSE_FILE:
             is_sdcard_error = !write_data_file.close();
             data_saving_state = DATA_SAVING_END;
-            SERIAL_TRACE("DATA_SAVING_CLOSE_FILE ---> DATA_SAVING_END\r\n");
+            SERIAL_TRACE(F("DATA_SAVING_CLOSE_FILE ---> DATA_SAVING_END\r\n"));
          break;
 
       case DATA_SAVING_END:
-         SERIAL_INFO("[ %u ] data stored in sdcard... [ %s ]\r\n", sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
-         LCD_INFO(&lcd, false, "sdcard %u data %s", sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
+         SERIAL_INFO(F("[ %u ] data stored in sdcard... [ %s ]\r\n"), sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
+         LCD_INFO(&lcd, false, true, F("sdcard %u data %s"), sd_data_count, is_sdcard_error ? ERROR_STRING : OK_STRING);
 
          noInterrupts();
          if (!is_event_supervisor) {
@@ -1609,7 +1648,7 @@ void data_saving_task() {
          interrupts();
 
          data_saving_state = DATA_SAVING_INIT;
-         SERIAL_TRACE("DATA_SAVING_END ---> DATA_SAVING_INIT\r\n");
+         SERIAL_TRACE(F("DATA_SAVING_END ---> DATA_SAVING_INIT\r\n"));
       break;
 
       case DATA_SAVING_WAIT_STATE:
@@ -1661,15 +1700,15 @@ void mqtt_task() {
 
          if (!is_sdcard_open && !is_sdcard_error) {
             mqtt_state = MQTT_OPEN_SDCARD;
-            SERIAL_TRACE("MQTT_PTR_DATA_INIT ---> MQTT_OPEN_SDCARD\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_DATA_INIT ---> MQTT_OPEN_SDCARD\r\n"));
          }
          else if (is_sdcard_open) {
             mqtt_state = MQTT_OPEN_PTR_FILE;
-            SERIAL_TRACE("MQTT_PTR_DATA_INIT ---> MQTT_OPEN_PTR_FILE\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_DATA_INIT ---> MQTT_OPEN_PTR_FILE\r\n"));
          }
          else {
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_PTR_DATA_INIT ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_DATA_INIT ---> MQTT_PTR_END\r\n"));
          }
       break;
 
@@ -1679,7 +1718,7 @@ void mqtt_task() {
             is_sdcard_open = true;
             is_sdcard_error = false;
             mqtt_state = MQTT_OPEN_PTR_FILE;
-            SERIAL_TRACE("MQTT_OPEN_SDCARD ---> MQTT_OPEN_PTR_FILE\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_SDCARD ---> MQTT_OPEN_PTR_FILE\r\n"));
          }
          // retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -1687,16 +1726,16 @@ void mqtt_task() {
             start_time_ms = millis();
             state_after_wait = MQTT_OPEN_SDCARD;
             mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_OPEN_SDCARD ---> MQTT_PTR_DATA_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_SDCARD ---> MQTT_PTR_DATA_WAIT_STATE\r\n"));
          }
          // fail
          else {
             is_sdcard_error = true;
             is_sdcard_open = false;
-            SERIAL_ERROR("SD Card... [ FAIL ]\r\n--> is card inserted?\r\n--> there is a valid FAT32 filesystem?\r\n\r\n");
+            SERIAL_ERROR(F("SD Card... [ FAIL ]\r\n--> is card inserted?\r\n--> there is a valid FAT32 filesystem?\r\n\r\n"));
 
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_OPEN_SDCARD ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_SDCARD ---> MQTT_PTR_END\r\n"));
          }
          break;
 
@@ -1705,7 +1744,7 @@ void mqtt_task() {
          if (sdcard_open_file(&SD, &mqtt_ptr_file, SDCARD_MQTT_PTR_FILE_NAME, O_RDWR | O_CREAT)) {
             retry = 0;
             mqtt_state = MQTT_PTR_READ;
-            SERIAL_TRACE("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_READ\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_READ\r\n"));
          }
          // retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -1713,14 +1752,14 @@ void mqtt_task() {
             start_time_ms = millis();
             state_after_wait = MQTT_OPEN_PTR_FILE;
             mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_DATA_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_DATA_WAIT_STATE\r\n"));
          }
          // fail
          else {
-            SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", SDCARD_MQTT_PTR_FILE_NAME);
+            SERIAL_ERROR(F("SD Card open file %s... [ FAIL ]\r\n"), SDCARD_MQTT_PTR_FILE_NAME);
             is_sdcard_error = true;
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_PTR_FILE ---> MQTT_PTR_END\r\n"));
          }
       break;
 
@@ -1733,11 +1772,11 @@ void mqtt_task() {
          if (read_bytes_count == sizeof(time_t) && ptr_time_data < now()) {
             is_ptr_found = true;
             mqtt_state = MQTT_PTR_FOUND;
-            SERIAL_TRACE("MQTT_PTR_READ ---> MQTT_PTR_FOUND\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_READ ---> MQTT_PTR_FOUND\r\n"));
          }
          // not found (no sdcard error): find it by starting from 1th January of this year
          else if (read_bytes_count >= 0) {
-            SERIAL_INFO("Data pointer... [ FIND ]\r\n");
+            SERIAL_INFO(F("Data pointer... [ FIND ]\r\n"));
             datetime.Year = CalendarYrToTm(year(now()));
             datetime.Month = 1;
             datetime.Day = 1;
@@ -1747,14 +1786,14 @@ void mqtt_task() {
             ptr_time_data = makeTime(datetime);
             is_ptr_found = false;
             mqtt_state = MQTT_PTR_FIND;
-            SERIAL_TRACE("MQTT_PTR_READ ---> MQTT_PTR_FIND\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_READ ---> MQTT_PTR_FIND\r\n"));
          }
          // not found (sdcard error)
          else {
             is_ptr_found = false;
             is_sdcard_error = true;
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_PTR_READ ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_READ ---> MQTT_PTR_END\r\n"));
          }
       break;
 
@@ -1768,16 +1807,16 @@ void mqtt_task() {
                is_ptr_found = true;
                is_ptr_updated = true;
                is_eof_data_read = false;
-               SERIAL_INFO("%s... [ FOUND ]\r\n", file_name);
+               SERIAL_INFO(F("%s... [ FOUND ]\r\n"), file_name);
                mqtt_state = MQTT_PTR_END;
-               SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n");
+               SERIAL_TRACE(F("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n"));
             }
             else {
-               SERIAL_INFO("%s... [ NOT FOUND ]\r\n", file_name);
+               SERIAL_INFO(F("%s... [ NOT FOUND ]\r\n"), file_name);
                ptr_time_data += SECS_PER_DAY;
             }
          }
-         // ptr not found: set ptr to yesterday at 23:60-(uint8_t)(readable_configuration.report_seconds / 60):00 time.
+         // ptr not found: set ptr to yesterday (today at 00:00:00 - readable_configuration.report_seconds time).
          else if (!is_ptr_found && ptr_time_data >= now()) {
             datetime.Year = CalendarYrToTm(year());
             datetime.Month = month();
@@ -1792,7 +1831,7 @@ void mqtt_task() {
          // ptr found: sooner or later the ptr will be set in any case
          else if (is_ptr_found) {
             mqtt_state = MQTT_PTR_FOUND;
-            SERIAL_TRACE("MQTT_PTR_FIND ---> MQTT_PTR_FOUND\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_FIND ---> MQTT_PTR_FOUND\r\n"));
          }
       break;
 
@@ -1800,7 +1839,7 @@ void mqtt_task() {
          // datafile read, reach eof and is today. END.
          if (is_eof_data_read && year() == year(ptr_time_data) && month() == month(ptr_time_data) && day() == day(ptr_time_data)) {
             mqtt_state = MQTT_CLOSE_DATA_FILE;
-            SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_CLOSE_DATA_FILE\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_FOUND ---> MQTT_CLOSE_DATA_FILE\r\n"));
          }
          // datafile read, reach eof and NOT is today. go to end of this day.
          else if (is_eof_data_read) {
@@ -1814,46 +1853,47 @@ void mqtt_task() {
             ptr_time_data -= readable_configuration.report_seconds;
             is_ptr_updated = true;
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n"));
          }
          else {
             is_eof_data_read = false;
             mqtt_state = MQTT_PTR_END;
-            SERIAL_TRACE("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_FOUND ---> MQTT_PTR_END\r\n"));
          }
       break;
 
       case MQTT_PTR_END:
          // ptr data is found: send data saved on sdcard
          if (is_ptr_found && is_sdcard_open && !is_sdcard_error) {
-            SERIAL_INFO("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n", day(ptr_time_data), month(ptr_time_data), year(ptr_time_data), hour(ptr_time_data), minute(ptr_time_data), second(ptr_time_data), OK_STRING);
+            last_correct_ptr_time_data = ptr_time_data;
+            SERIAL_INFO(F("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n"), day(ptr_time_data), month(ptr_time_data), year(ptr_time_data), hour(ptr_time_data), minute(ptr_time_data), second(ptr_time_data), OK_STRING);
             mqtt_state = MQTT_OPEN;
-            SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_END ---> MQTT_OPEN\r\n"));
          }
          // ptr data is NOT found: sd card fault fallback: send last acquired sensor data
          else {
-            SERIAL_INFO("Data pointer... [ --/--/---- --:--:-- ] [ %s ]\r\n", ERROR_STRING);
+            SERIAL_INFO(F("Data pointer... [ --/--/---- --:--:-- ] [ %s ]\r\n"), ERROR_STRING);
             is_sdcard_error = true;
             mqtt_state = MQTT_OPEN;
-            SERIAL_TRACE("MQTT_PTR_END ---> MQTT_OPEN\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_END ---> MQTT_OPEN\r\n"));
          }
       break;
 
       case MQTT_OPEN:
          if (is_client_connected && mqtt_client.isConnected()) {
             mqtt_state = MQTT_CHECK;
-            SERIAL_TRACE("MQTT_OPEN ---> MQTT_CHECK\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN ---> MQTT_CHECK\r\n"));
          }
          else if (is_client_connected) {
             ipstack_timeout_ms = 0;
             mqtt_state = MQTT_CONNECT;
-            SERIAL_TRACE("MQTT_OPEN ---> MQTT_CONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN ---> MQTT_CONNECT\r\n"));
          }
          // error: client not connected!
          else {
             is_mqtt_error = true;
             mqtt_state = MQTT_END;
-            SERIAL_TRACE("MQTT_OPEN ---> MQTT_END\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN ---> MQTT_END\r\n"));
          }
          break;
 
@@ -1867,9 +1907,9 @@ void mqtt_task() {
          // success
          if (ipstack_status == 1 && mqttConnect(readable_configuration.mqtt_username, readable_configuration.mqtt_password)) {
             retry = 0;
-            SERIAL_DEBUG("MQTT Connection... [ %s ]\r\n", OK_STRING);
+            SERIAL_DEBUG(F("MQTT Connection... [ %s ]\r\n"), OK_STRING);
             mqtt_state = MQTT_ON_CONNECT;
-            SERIAL_TRACE("MQTT_CONNECT ---> MQTT_ON_CONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_CONNECT ---> MQTT_ON_CONNECT\r\n"));
          }
          // retry
          else if (ipstack_status == 2 && (++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -1877,7 +1917,7 @@ void mqtt_task() {
             start_time_ms = millis();
             state_after_wait = MQTT_CONNECT;
             mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_CONNECT ---> MQTT_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("MQTT_CONNECT ---> MQTT_WAIT_STATE\r\n"));
          }
          // fail
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
@@ -1885,22 +1925,22 @@ void mqtt_task() {
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
          else if (ipstack_status == 2) {
          #endif
-            SERIAL_ERROR("MQTT Connection... [ %s ]\r\n", FAIL_STRING);
+            SERIAL_ERROR(F("MQTT Connection... [ %s ]\r\n"), FAIL_STRING);
             is_mqtt_error = true;
             mqtt_state = MQTT_ON_DISCONNECT;
-            SERIAL_TRACE("MQTT_CONNECT ---> MQTT_ON_DISCONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_CONNECT ---> MQTT_ON_DISCONNECT\r\n"));
          }
          // wait
       break;
 
       case MQTT_ON_CONNECT:
          getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
-         snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, "{\"v\":\"conn\"}");
+         snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, MQTT_ON_CONNECT_MESSAGE);
 
-         if (mqttPublish(full_topic_buffer, &message_buffer[k][0])) {
+         if (mqttPublish(full_topic_buffer, &message_buffer[0][0]), true) {
             retry = 0;
             mqtt_state = MQTT_SUBSCRIBE;
-            SERIAL_TRACE("MQTT_ON_CONNECT ---> MQTT_SUBSCRIBE\r\n");
+            SERIAL_TRACE(F("MQTT_ON_CONNECT ---> MQTT_SUBSCRIBE\r\n"));
          }
          // retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -1908,15 +1948,15 @@ void mqtt_task() {
             start_time_ms = millis();
             state_after_wait = MQTT_ON_CONNECT;
             mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_ON_CONNECT ---> MQTT_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("MQTT_ON_CONNECT ---> MQTT_WAIT_STATE\r\n"));
          }
          // fail
          else {
             retry = 0;
-            SERIAL_ERROR("MQTT on connect publish message... [ %s ]\r\n", FAIL_STRING);
+            SERIAL_ERROR(F("MQTT on connect publish message... [ %s ]\r\n"), FAIL_STRING);
             is_mqtt_error = true;
             mqtt_state = MQTT_ON_DISCONNECT;
-            SERIAL_TRACE("MQTT_ON_CONNECT ---> MQTT_ON_DISCONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_ON_CONNECT ---> MQTT_ON_DISCONNECT\r\n"));
          }
       break;
 
@@ -1924,11 +1964,11 @@ void mqtt_task() {
          if (!is_mqtt_subscribed) {
             is_mqtt_subscribed = (mqtt_client.subscribe(readable_configuration.mqtt_subscribe_topic, MQTT::QOS1, mqttRxCallback) == 0);
             is_mqtt_error = !is_mqtt_subscribed;
-            SERIAL_DEBUG("MQTT Subscription... [ %s ]\r\n", is_mqtt_subscribed ? OK_STRING : FAIL_STRING);
+            SERIAL_DEBUG(F("MQTT Subscription... [ %s ]\r\n"), is_mqtt_subscribed ? OK_STRING : FAIL_STRING);
          }
 
          mqtt_state = MQTT_CHECK;
-         SERIAL_TRACE("MQTT_SUBSCRIBE ---> MQTT_CHECK\r\n");
+         SERIAL_TRACE(F("MQTT_SUBSCRIBE ---> MQTT_CHECK\r\n"));
       break;
 
       case MQTT_CHECK:
@@ -1938,7 +1978,7 @@ void mqtt_task() {
             is_mqtt_processing_sdcard = true;
             is_eof_data_read = false;
             mqtt_state = MQTT_OPEN_DATA_FILE;
-            SERIAL_TRACE("MQTT_CHECK ---> MQTT_OPEN_DATA_FILE\r\n");
+            SERIAL_TRACE(F("MQTT_CHECK ---> MQTT_OPEN_DATA_FILE\r\n"));
          }
          // ptr data is NOT found: sd card fault fallback: send last acquired sensor data
          else {
@@ -1946,7 +1986,7 @@ void mqtt_task() {
             is_mqtt_processing_sdcard = false;
             i = 0;
             mqtt_state = MQTT_SENSORS_LOOP;
-            SERIAL_TRACE("MQTT_CHECK ---> MQTT_SENSORS_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_CHECK ---> MQTT_SENSORS_LOOP\r\n"));
          }
       break;
 
@@ -1955,29 +1995,26 @@ void mqtt_task() {
             k = 0;
             data_count = jsonToMqtt(&json_sensors_data[i][0], readable_configuration.sensors[i].mqtt_topic, topic_buffer, message_buffer, (tmElements_t *) &sensor_reading_time);
             mqtt_state = MQTT_DATA_LOOP;
-            SERIAL_TRACE("MQTT_SENSORS_LOOP ---> MQTT_DATA_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_SENSORS_LOOP ---> MQTT_DATA_LOOP\r\n"));
          }
          else if (is_mqtt_processing_json) {
             mqtt_state = MQTT_ON_DISCONNECT;
-            SERIAL_TRACE("MQTT_SENSORS_LOOP ---> MQTT_ON_DISCONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_SENSORS_LOOP ---> MQTT_ON_DISCONNECT\r\n"));
          }
       break;
 
       case MQTT_SD_LOOP:
          memset(sd_buffer, 0, MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH);
-         memset(topic_buffer, 0, sizeof(topic_buffer[0][0]) * VALUES_TO_READ_FROM_SENSOR_COUNT * MQTT_SENSOR_TOPIC_LENGTH);
-         memset(message_buffer, 0, sizeof(message_buffer[0][0]) * VALUES_TO_READ_FROM_SENSOR_COUNT * MQTT_MESSAGE_LENGTH);
-
          read_bytes_count = read_data_file.read(sd_buffer, MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH);
 
          if (read_bytes_count == MQTT_SENSOR_TOPIC_LENGTH + MQTT_MESSAGE_LENGTH) {
             sdToMqtt(sd_buffer, &topic_buffer[0][0], &message_buffer[0][0]);
             current_ptr_time_data = getDateFromMessage(&message_buffer[0][0]);
 
-            if (current_ptr_time_data >= ptr_time_data) {
+            if (current_ptr_time_data >= last_correct_ptr_time_data) {
                last_correct_ptr_time_data = current_ptr_time_data;
                mqtt_state = MQTT_DATA_LOOP;
-               SERIAL_TRACE("MQTT_SD_LOOP ---> MQTT_DATA_LOOP\r\n");
+               SERIAL_TRACE(F("MQTT_SD_LOOP ---> MQTT_DATA_LOOP\r\n"));
             }
          }
          // EOF: End of File
@@ -1988,20 +2025,25 @@ void mqtt_task() {
             }
             is_eof_data_read = true;
             mqtt_state = MQTT_PTR_FOUND;
-            SERIAL_TRACE("MQTT_SD_LOOP ---> MQTT_PTR_FOUND\r\n");
+            SERIAL_TRACE(F("MQTT_SD_LOOP ---> MQTT_PTR_FOUND\r\n"));
          }
       break;
 
       case MQTT_DATA_LOOP:
-         if ((k < data_count && is_mqtt_processing_json) || is_mqtt_processing_sdcard) {
+         if (k < data_count && is_mqtt_processing_json) {
             getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, &topic_buffer[k][0]);
             mqtt_state = MQTT_PUBLISH;
-            SERIAL_TRACE("MQTT_DATA_LOOP ---> MQTT_PUBLISH\r\n");
+            SERIAL_TRACE(F("MQTT_DATA_LOOP ---> MQTT_PUBLISH\r\n"));
+         }
+         else if (is_mqtt_processing_sdcard) {
+            getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, &topic_buffer[0][0]);
+            mqtt_state = MQTT_PUBLISH;
+            SERIAL_TRACE(F("MQTT_DATA_LOOP ---> MQTT_PUBLISH\r\n"));
          }
          else {
             i++;
             mqtt_state = MQTT_SENSORS_LOOP;
-            SERIAL_TRACE("MQTT_DATA_LOOP ---> MQTT_SENSORS_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_DATA_LOOP ---> MQTT_SENSORS_LOOP\r\n"));
          }
       break;
 
@@ -2010,20 +2052,20 @@ void mqtt_task() {
 
          // mqtt json success
          if (is_mqtt_processing_json && mqttPublish(full_topic_buffer, &message_buffer[k][0])) {
-            SERIAL_DEBUG("MQTT <-- %s %s\r\n", &topic_buffer[k][0], &message_buffer[k][0]);
+            SERIAL_DEBUG(F("MQTT <-- %s %s\r\n"), &topic_buffer[k][0], &message_buffer[k][0]);
             retry = 0;
             k++;
             mqtt_data_count++;
             mqtt_state = MQTT_DATA_LOOP;
-            SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_DATA_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_PUBLISH ---> MQTT_DATA_LOOP\r\n"));
          }
          // mqtt sdcard success
          else if (is_mqtt_processing_sdcard && mqttPublish(full_topic_buffer, &message_buffer[0][0])) {
-            SERIAL_DEBUG("MQTT <-- %s %s\r\n", &topic_buffer[0][0], &message_buffer[0][0]);
+            SERIAL_DEBUG(F("MQTT <-- %s %s\r\n"), &topic_buffer[0][0], &message_buffer[0][0]);
             retry = 0;
             mqtt_data_count++;
             mqtt_state = MQTT_SD_LOOP;
-            SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_SD_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_PUBLISH ---> MQTT_SD_LOOP\r\n"));
          }
          // retry
          else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -2031,7 +2073,7 @@ void mqtt_task() {
             start_time_ms = millis();
             state_after_wait = MQTT_PUBLISH;
             mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_WAIT_STATE\r\n");
+            SERIAL_TRACE(F("MQTT_PUBLISH ---> MQTT_WAIT_STATE\r\n"));
          }
          // fail
          else {
@@ -2040,48 +2082,48 @@ void mqtt_task() {
 
             is_eof_data_read = true;
             is_mqtt_error = true;
-            SERIAL_ERROR("MQTT publish... [ %s ]\r\n", FAIL_STRING);
+            SERIAL_ERROR(F("MQTT publish... [ %s ]\r\n"), FAIL_STRING);
 
             if (is_mqtt_processing_json) {
                mqtt_state = MQTT_ON_DISCONNECT;
-               SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_ON_DISCONNECT\r\n");
+               SERIAL_TRACE(F("MQTT_PUBLISH ---> MQTT_ON_DISCONNECT\r\n"));
             }
             else if (is_mqtt_processing_sdcard) {
                mqtt_state = MQTT_CLOSE_DATA_FILE;
-               SERIAL_TRACE("MQTT_PUBLISH ---> MQTT_CLOSE_DATA_FILE\r\n");
+               SERIAL_TRACE(F("MQTT_PUBLISH ---> MQTT_CLOSE_DATA_FILE\r\n"));
             }
          }
       break;
 
       case MQTT_OPEN_DATA_FILE:
          // open the file that corresponds to the next data to send
-         next_ptr_time_data = ptr_time_data + (uint8_t)(readable_configuration.report_seconds / 60) * 60;
+         next_ptr_time_data = ptr_time_data + readable_configuration.report_seconds;
          sdcard_make_filename(next_ptr_time_data, file_name);
 
          // open file for read data
          if (sdcard_open_file(&SD, &read_data_file, file_name, O_READ)) {
             retry = 0;
             mqtt_state = MQTT_SD_LOOP;
-            SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_SD_LOOP\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_DATA_FILE ---> MQTT_SD_LOOP\r\n"));
          }
          // error: file doesn't exist but if is today, end.
          else if (!is_sdcard_error && year(next_ptr_time_data) == year() && month(next_ptr_time_data) == month() && day(next_ptr_time_data) == day()) {
             mqtt_state = MQTT_PTR_UPDATE;
-            SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_UPDATE\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_UPDATE\r\n"));
          }
          // error: file doesn't exist and if it isn't today, jump to next day and search in it
          else if (!is_sdcard_error) {
             is_ptr_found = false;
             ptr_time_data = next_ptr_time_data;
             mqtt_state = MQTT_PTR_FIND;
-            SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_FIND\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_DATA_FILE ---> MQTT_PTR_FIND\r\n"));
          }
          // fail
          else {
-            SERIAL_ERROR("SD Card open file %s... [ FAIL ]\r\n", file_name);
+            SERIAL_ERROR(F("SD Card open file %s... [ FAIL ]\r\n"), file_name);
             is_sdcard_error = true;
             mqtt_state = MQTT_CHECK; // fallback
-            SERIAL_TRACE("MQTT_OPEN_DATA_FILE ---> MQTT_CHECK\r\n");
+            SERIAL_TRACE(F("MQTT_OPEN_DATA_FILE ---> MQTT_CHECK\r\n"));
          }
          break;
 
@@ -2089,50 +2131,61 @@ void mqtt_task() {
          if (is_mqtt_processing_sdcard) {
             is_sdcard_error = !read_data_file.close();
             mqtt_state = MQTT_ON_DISCONNECT;
-            SERIAL_TRACE("MQTT_CLOSE_DATA_FILE ---> MQTT_ON_DISCONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_CLOSE_DATA_FILE ---> MQTT_ON_DISCONNECT\r\n"));
          }
          break;
 
       case MQTT_ON_DISCONNECT:
-         getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
-         snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, "{\"v\":\"disconn\"}");
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         if (is_mqtt_error) {
+         #endif
 
-         if (mqttPublish(full_topic_buffer, &message_buffer[k][0])) {
-            retry = 0;
-            mqtt_state = MQTT_DISCONNECT;
-            SERIAL_TRACE("MQTT_ON_DISCONNECT ---> MQTT_DISCONNECT\r\n");
+            getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+            snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, MQTT_ON_DISCONNECT_MESSAGE);
+
+            if (mqttPublish(full_topic_buffer, &message_buffer[0][0]), true) {
+               retry = 0;
+               mqtt_state = MQTT_DISCONNECT;
+               SERIAL_TRACE(F("MQTT_ON_DISCONNECT ---> MQTT_DISCONNECT\r\n"));
+            }
+            // retry
+            else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
+               delay_ms = MQTT_DELAY_MS;
+               start_time_ms = millis();
+               state_after_wait = MQTT_ON_DISCONNECT;
+               mqtt_state = MQTT_WAIT_STATE;
+               SERIAL_TRACE(F("MQTT_ON_DISCONNECT ---> MQTT_WAIT_STATE\r\n"));
+            }
+            // fail
+            else {
+               SERIAL_ERROR(F("MQTT on disconnect publish message... [ %s ]\r\n"), FAIL_STRING);
+               retry = 0;
+               is_mqtt_error = true;
+               mqtt_state = MQTT_DISCONNECT;
+               SERIAL_TRACE(F("MQTT_ON_DISCONNECT ---> MQTT_DISCONNECT\r\n"));
+            }
+
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
          }
-         // retry
-         else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
-            delay_ms = MQTT_DELAY_MS;
-            start_time_ms = millis();
-            state_after_wait = MQTT_ON_DISCONNECT;
-            mqtt_state = MQTT_WAIT_STATE;
-            SERIAL_TRACE("MQTT_ON_DISCONNECT ---> MQTT_WAIT_STATE\r\n");
-         }
-         // fail
          else {
-            SERIAL_ERROR("MQTT on disconnect publish message... [ %s ]\r\n", FAIL_STRING);
-            retry = 0;
-            is_mqtt_error = true;
             mqtt_state = MQTT_DISCONNECT;
-            SERIAL_TRACE("MQTT_ON_DISCONNECT ---> MQTT_DISCONNECT\r\n");
+            SERIAL_TRACE(F("MQTT_ON_DISCONNECT ---> MQTT_DISCONNECT\r\n"));
          }
+         #endif
       break;
 
       case MQTT_DISCONNECT:
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-         // if (is_mqtt_error) {
+         if (is_mqtt_error) {
+         #endif
+
          mqtt_client.disconnect();
          ipstack.disconnect();
-         SERIAL_DEBUG("MQTT Disconnect... [ %s ]\r\n", OK_STRING);
-         // }
+         SERIAL_DEBUG(F("MQTT Disconnect... [ %s ]\r\n"), OK_STRING);
 
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         }
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-         mqtt_client.disconnect();
-         ipstack.disconnect();
-         SERIAL_DEBUG("MQTT Disconnect... [ %s ]\r\n", OK_STRING);
-
          // resume GSM task for closing connection
          noInterrupts();
          if (!is_event_gsm) {
@@ -2140,11 +2193,10 @@ void mqtt_task() {
             ready_tasks_count++;
          }
          interrupts();
-
          #endif
 
          mqtt_state = MQTT_PTR_UPDATE;
-         SERIAL_TRACE("MQTT_DISCONNECT ---> MQTT_PTR_UPDATE\r\n");
+         SERIAL_TRACE(F("MQTT_DISCONNECT ---> MQTT_PTR_UPDATE\r\n"));
 
       break;
 
@@ -2157,9 +2209,9 @@ void mqtt_task() {
             if (mqtt_ptr_file.seekSet(0) && mqtt_ptr_file.write(&ptr_time_data, sizeof(time_t)) == sizeof(time_t)) {
                mqtt_ptr_file.flush();
                breakTime(ptr_time_data, datetime);
-               SERIAL_INFO("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n", datetime.Day, datetime.Month, tmYearToCalendar(datetime.Year), datetime.Hour, datetime.Minute, datetime.Second, "UPDATE");
+               SERIAL_INFO(F("Data pointer... [ %02u/%02u/%04u %02u:%02u:%02u ] [ %s ]\r\n"), datetime.Day, datetime.Month, tmYearToCalendar(datetime.Year), datetime.Hour, datetime.Minute, datetime.Second, "UPDATE");
                mqtt_state = MQTT_CLOSE_PTR_FILE;
-               SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n");
+               SERIAL_TRACE(F("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n"));
             }
             // retry
             else if ((++retry) < MQTT_RETRY_COUNT_MAX) {
@@ -2167,38 +2219,38 @@ void mqtt_task() {
                start_time_ms = millis();
                state_after_wait = MQTT_PTR_UPDATE;
                mqtt_state = MQTT_WAIT_STATE;
-               SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_WAIT_STATE\r\n");
+               SERIAL_TRACE(F("MQTT_PTR_UPDATE ---> MQTT_WAIT_STATE\r\n"));
             }
             // fail
             else {
-               SERIAL_ERROR("SD Card writing ptr data on file %s... [ %s ]\r\n", SDCARD_MQTT_PTR_FILE_NAME, FAIL_STRING);
+               SERIAL_ERROR(F("SD Card writing ptr data on file %s... [ %s ]\r\n"), SDCARD_MQTT_PTR_FILE_NAME, FAIL_STRING);
                mqtt_state = MQTT_CLOSE_PTR_FILE;
-               SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n");
+               SERIAL_TRACE(F("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n"));
             }
          }
          else {
             mqtt_state = MQTT_CLOSE_PTR_FILE;
-            SERIAL_TRACE("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n");
+            SERIAL_TRACE(F("MQTT_PTR_UPDATE ---> MQTT_CLOSE_PTR_FILE\r\n"));
          }
          break;
 
       case MQTT_CLOSE_PTR_FILE:
          mqtt_ptr_file.close();
          mqtt_state = MQTT_CLOSE_SDCARD;
-         SERIAL_TRACE("MQTT_CLOSE_PTR_FILE ---> MQTT_CLOSE_SDCARD\r\n");
+         SERIAL_TRACE(F("MQTT_CLOSE_PTR_FILE ---> MQTT_CLOSE_SDCARD\r\n"));
          break;
 
       case MQTT_CLOSE_SDCARD:
          is_sdcard_error = false;
          is_sdcard_open = false;
          mqtt_state = MQTT_END;
-         SERIAL_TRACE("MQTT_CLOSE_SDCARD ---> DATA_PROCESSING_END\r\n");
+         SERIAL_TRACE(F("MQTT_CLOSE_SDCARD ---> MQTT_END\r\n"));
          break;
 
       case MQTT_END:
          if (is_mqtt_published_data) {
-            SERIAL_INFO("[ %u ] data published through mqtt... [ %s ]\r\n", mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
-            LCD_INFO(&lcd, false, "mqtt %u data %s", mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
+            SERIAL_INFO(F("[ %u ] data published through mqtt... [ %s ]\r\n"), mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
+            LCD_INFO(&lcd, false, true, F("mqtt %u data %s"), mqtt_data_count, is_mqtt_error ? ERROR_STRING : OK_STRING);
          }
 
          noInterrupts();
@@ -2208,7 +2260,7 @@ void mqtt_task() {
          interrupts();
 
          mqtt_state = MQTT_INIT;
-         SERIAL_TRACE("MQTT_END ---> MQTT_INIT\r\n");
+         SERIAL_TRACE(F("MQTT_END ---> MQTT_INIT\r\n"));
       break;
 
       case MQTT_WAIT_STATE:

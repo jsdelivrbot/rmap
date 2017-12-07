@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SdFat.h>
 #include <pcf8563.h>
 #include <ntp.h>
-#include <Time.h>
+#include <TimeLib.h>
 #include <SensorDriver.h>
 #include <eeprom_utility.h>
 #include <rmap_utility.h>
@@ -447,6 +447,18 @@ bool is_sdcard_error;
 bool is_mqtt_subscribed;
 
 /*!
+\var client_id
+\brief MQTT client id.
+*/
+char client_id[MQTT_CLIENT_ID_LENGTH];
+
+/*!
+\var will_topic
+\brief MQTT topic for publish will message.
+*/
+char will_topic[MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH];
+
+/*!
 \var json_sensors_data
 \brief buffer containing the data read by sensors in json text format.
 */
@@ -670,9 +682,10 @@ bool mqttConnect(char *username, char *password);
 \brief Publish message on topic
 \param *topic: Topic for mqtt publish
 \param *message: Message to be publish
+\param is_retained: retained message if true
 \return true if publish was succesful, false otherwise.
 */
-bool mqttPublish(const char *topic, const char *message);
+bool mqttPublish(const char *topic, const char *message, bool is_retained = false);
 
 /*!
 \fn void mqttRxCallback(MQTT::MessageData &md)
