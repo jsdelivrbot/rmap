@@ -102,6 +102,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a85772fcdfe85fa51f02f3045c0aa7764">MQTT_SENSOR_TOPIC_LENGTH</a>&#160;&#160;&#160;(30)</td></tr>
 <tr class="memdesc:a85772fcdfe85fa51f02f3045c0aa7764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length in bytes for mqtt sensor topic. <br /></td></tr>
 <tr class="separator:a85772fcdfe85fa51f02f3045c0aa7764"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16c3df993e6090c9e607113aaf5421f6"><td class="memItemLeft" align="right" valign="top"><a id="a16c3df993e6090c9e607113aaf5421f6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a16c3df993e6090c9e607113aaf5421f6">MQTT_CLIENT_ID_LENGTH</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a6d3b5b0f9c41b605e608f7d460491be6">MQTT_ROOT_TOPIC_LENGTH</a>)</td></tr>
+<tr class="memdesc:a16c3df993e6090c9e607113aaf5421f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length in bytes for mqtt client id. <br /></td></tr>
+<tr class="separator:a16c3df993e6090c9e607113aaf5421f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fff77926fd907aeb2c03f60600d136c"><td class="memItemLeft" align="right" valign="top"><a id="a0fff77926fd907aeb2c03f60600d136c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a0fff77926fd907aeb2c03f60600d136c">MQTT_MESSAGE_LENGTH</a>&#160;&#160;&#160;(50)</td></tr>
 <tr class="memdesc:a0fff77926fd907aeb2c03f60600d136c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length in bytes for mqtt message. <br /></td></tr>
@@ -147,9 +151,21 @@ Macros</h2></td></tr>
 <tr class="memdesc:a38f208acaf4f9f771cf7e707488f8c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default MQTT password. <br /></td></tr>
 <tr class="separator:a38f208acaf4f9f771cf7e707488f8c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56a2aaf2bf5e6cab81fc94e1d34612fa"><td class="memItemLeft" align="right" valign="top"><a id="a56a2aaf2bf5e6cab81fc94e1d34612fa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a56a2aaf2bf5e6cab81fc94e1d34612fa">MQTT_STATUS_TOPIC</a>&#160;&#160;&#160;(&quot;-,-,-/-,-,-,-/B01213&quot;)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a56a2aaf2bf5e6cab81fc94e1d34612fa">MQTT_STATUS_TOPIC</a>&#160;&#160;&#160;(&quot;254,0,0/265,0,-,-/B01213&quot;)</td></tr>
 <tr class="memdesc:a56a2aaf2bf5e6cab81fc94e1d34612fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default MQTT status topic for printing on connect/disconnect message. <br /></td></tr>
 <tr class="separator:a56a2aaf2bf5e6cab81fc94e1d34612fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e6eea562b741149863000b5cff942c8"><td class="memItemLeft" align="right" valign="top"><a id="a7e6eea562b741149863000b5cff942c8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a7e6eea562b741149863000b5cff942c8">MQTT_ON_CONNECT_MESSAGE</a>&#160;&#160;&#160;(&quot;{\&quot;v\&quot;:\&quot;conn\&quot;}&quot;)</td></tr>
+<tr class="memdesc:a7e6eea562b741149863000b5cff942c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT on connect message. <br /></td></tr>
+<tr class="separator:a7e6eea562b741149863000b5cff942c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11770741d8609eea434a9a7c10c533f0"><td class="memItemLeft" align="right" valign="top"><a id="a11770741d8609eea434a9a7c10c533f0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a11770741d8609eea434a9a7c10c533f0">MQTT_ON_DISCONNECT_MESSAGE</a>&#160;&#160;&#160;(&quot;{\&quot;v\&quot;:\&quot;disconn\&quot;}&quot;)</td></tr>
+<tr class="memdesc:a11770741d8609eea434a9a7c10c533f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT on disconnect message. <br /></td></tr>
+<tr class="separator:a11770741d8609eea434a9a7c10c533f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460f22ad7c7c1ff88cf6f9e79bc22ddc"><td class="memItemLeft" align="right" valign="top"><a id="a460f22ad7c7c1ff88cf6f9e79bc22ddc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mqtt__config_8h.html#a460f22ad7c7c1ff88cf6f9e79bc22ddc">MQTT_ON_ERROR_MESSAGE</a>&#160;&#160;&#160;(&quot;{\&quot;v\&quot;:\&quot;error01\&quot;}&quot;)</td></tr>
+<tr class="memdesc:a460f22ad7c7c1ff88cf6f9e79bc22ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT on error message. <br /></td></tr>
+<tr class="separator:a460f22ad7c7c1ff88cf6f9e79bc22ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

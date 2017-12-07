@@ -1,16 +1,16 @@
 <map id="sketchbook/rmap/i2c&#45;rain/i2c&#45;rain.ino" name="sketchbook/rmap/i2c&#45;rain/i2c&#45;rain.ino">
-<area shape="rect" id="node2" href="$debug__config_8h.html" title="debug_config.h" alt="" coords="875,95,985,121"/>
-<area shape="rect" id="node3" href="$i2c-rain_8h.html" title="i2c&#45;rain.h" alt="" coords="1010,95,1085,121"/>
-<area shape="rect" id="node4" href="$i2c-rain-config_8h.html" title="i2c&#45;rain&#45;config.h" alt="" coords="111,169,226,196"/>
-<area shape="rect" id="node6" href="$debug_8h.html" title="debug.h" alt="" coords="759,169,827,196"/>
-<area shape="rect" id="node10" href="$hardware__config_8h.html" title="hardware_config.h" alt="" coords="851,169,979,196"/>
-<area shape="rect" id="node14" href="$i2c__utility_8h.html" title="i2c_utility.h" alt="" coords="1331,169,1419,196"/>
-<area shape="rect" id="node16" href="$rmap__utility_8h.html" title="rmap_utility.h" alt="" coords="404,169,504,196"/>
-<area shape="rect" id="node23" href="$eeprom__utility_8h.html" title="eeprom_utility.h" alt="" coords="1443,169,1558,196"/>
-<area shape="rect" id="node26" href="$typedef_8h.html" title="typedef.h" alt="" coords="659,169,735,196"/>
-<area shape="rect" id="node27" href="$registers-rain_8h.html" title="registers&#45;rain.h" alt="" coords="1667,169,1775,196"/>
-<area shape="rect" id="node5" href="$sensors__config_8h.html" title="sensors_config.h" alt="" coords="5,244,127,271"/>
-<area shape="rect" id="node21" href="$stima__module_8h.html" title="stima_module.h" alt="" coords="238,244,353,271"/>
-<area shape="rect" id="node22" href="$mqtt__config_8h.html" title="mqtt_config.h" alt="" coords="646,244,747,271"/>
-<area shape="rect" id="node28" href="$registers_8h.html" title="registers.h" alt="" coords="1679,244,1762,271"/>
+<area shape="rect" id="node2" href="$debug__config_8h.html" title="debug_config.h" alt="" coords="719,95,830,121"/>
+<area shape="rect" id="node3" href="$i2c-rain_8h.html" title="i2c&#45;rain.h" alt="" coords="855,95,929,121"/>
+<area shape="rect" id="node4" href="$i2c-rain-config_8h.html" title="i2c&#45;rain&#45;config.h" alt="" coords="895,169,1009,196"/>
+<area shape="rect" id="node6" href="$debug_8h.html" title="debug.h" alt="" coords="134,169,202,196"/>
+<area shape="rect" id="node10" href="$hardware__config_8h.html" title="hardware_config.h" alt="" coords="415,169,543,196"/>
+<area shape="rect" id="node14" href="$i2c__utility_8h.html" title="i2c_utility.h" alt="" coords="303,169,391,196"/>
+<area shape="rect" id="node16" href="$rmap__utility_8h.html" title="rmap_utility.h" alt="" coords="1034,169,1134,196"/>
+<area shape="rect" id="node23" href="$eeprom__utility_8h.html" title="eeprom_utility.h" alt="" coords="1343,169,1457,196"/>
+<area shape="rect" id="node26" href="$typedef_8h.html" title="typedef.h" alt="" coords="1158,169,1234,196"/>
+<area shape="rect" id="node27" href="$registers-rain_8h.html" title="registers&#45;rain.h" alt="" coords="1482,169,1590,196"/>
+<area shape="rect" id="node5" href="$sensors__config_8h.html" title="sensors_config.h" alt="" coords="583,244,705,271"/>
+<area shape="rect" id="node21" href="$stima__module_8h.html" title="stima_module.h" alt="" coords="819,244,933,271"/>
+<area shape="rect" id="node22" href="$mqtt__config_8h.html" title="mqtt_config.h" alt="" coords="1239,244,1340,271"/>
+<area shape="rect" id="node28" href="$registers_8h.html" title="registers.h" alt="" coords="1495,244,1577,271"/>
 </map>

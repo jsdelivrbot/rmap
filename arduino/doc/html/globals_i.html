@@ -93,6 +93,12 @@ $(function() {
 <li>I2C_RAIN_COMMAND_SAVE
 : <a class="el" href="registers-rain_8h.html#a2317a1a8ab54f27bf55a2ddbbadeff89">registers-rain.h</a>
 </li>
+<li>I2C_RAIN_CONTINUOUS_ADDRESS
+: <a class="el" href="registers-rain_8h.html#a75ad23be11d22ec4f3b3d69fcdbf0a64">registers-rain.h</a>
+</li>
+<li>I2C_RAIN_CONTINUOUS_LENGTH
+: <a class="el" href="registers-rain_8h.html#af592a5990a1a7566488db79011795cef">registers-rain.h</a>
+</li>
 <li>I2C_RAIN_DEFAULT_ADDRESS
 : <a class="el" href="registers-rain_8h.html#a2aebb0ca4cdf424c57dee6f591c40e0c">registers-rain.h</a>
 </li>
@@ -137,14 +143,13 @@ $(function() {
 </li>
 <li>i2c_receive_interrupt_handler()
 : <a class="el" href="i2c-rain_8h.html#a7f81fcf39717baf18f2e7c2eee2051ae">i2c-rain.h</a>
-, <a class="el" href="i2c-rain_8ino.html#a6e27532df66f6bf186654355def5c9af">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8ino.html#a6e27532df66f6bf186654355def5c9af">i2c-th.ino</a>
 </li>
 <li>i2c_request_interrupt_handler()
-: <a class="el" href="i2c-th_8ino.html#ac816bd8aafe77e7a571574c8a26eead5">i2c-th.ino</a>
+: <a class="el" href="i2c-th_8h.html#ac1da31566bf05976ecb87372278a1ea8">i2c-th.h</a>
+, <a class="el" href="i2c-th_8ino.html#ac816bd8aafe77e7a571574c8a26eead5">i2c-th.ino</a>
 , <a class="el" href="i2c-rain_8h.html#ac1da31566bf05976ecb87372278a1ea8">i2c-rain.h</a>
 , <a class="el" href="i2c-rain_8ino.html#ac816bd8aafe77e7a571574c8a26eead5">i2c-rain.ino</a>
-, <a class="el" href="i2c-th_8h.html#ac1da31566bf05976ecb87372278a1ea8">i2c-th.h</a>
 </li>
 <li>i2c_rx_data
 : <a class="el" href="i2c-rain_8h.html#ae22f16db01d254c3709565e8347c05af">i2c-rain.h</a>
@@ -175,6 +180,12 @@ $(function() {
 </li>
 <li>I2C_TH_COMMAND_SAVE
 : <a class="el" href="registers-th_8h.html#afafbe31a0d6c332cd66e8a363b332daf">registers-th.h</a>
+</li>
+<li>I2C_TH_CONTINUOUS_ADDRESS
+: <a class="el" href="registers-th_8h.html#a4ae2bd254bf71c2c0296c2120ea6b793">registers-th.h</a>
+</li>
+<li>I2C_TH_CONTINUOUS_LENGTH
+: <a class="el" href="registers-th_8h.html#afc6e5dad5b47cad2a718e4bb29da4f65">registers-th.h</a>
 </li>
 <li>I2C_TH_DEFAULT_ADDRESS
 : <a class="el" href="registers-th_8h.html#a66906eb81e92beab5f2076ac49996132">registers-th.h</a>
@@ -322,76 +333,76 @@ $(function() {
 , <a class="el" href="rmap_8ino.html#ad241cc00b1a92e6d85827df96778e442">rmap.ino</a>
 </li>
 <li>init_pins()
-: <a class="el" href="i2c-rain_8h.html#aa9c113540346b54d49b2a596e6ba8480">i2c-rain.h</a>
+: <a class="el" href="rmap_8h.html#aa9c113540346b54d49b2a596e6ba8480">rmap.h</a>
+, <a class="el" href="i2c-rain_8h.html#aa9c113540346b54d49b2a596e6ba8480">i2c-rain.h</a>
 , <a class="el" href="i2c-rain_8ino.html#ad8b80a0c08f928106018edd6ea435b95">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8h.html#aa9c113540346b54d49b2a596e6ba8480">i2c-th.h</a>
 , <a class="el" href="i2c-th_8ino.html#ad8b80a0c08f928106018edd6ea435b95">i2c-th.ino</a>
-, <a class="el" href="rmap_8h.html#aa9c113540346b54d49b2a596e6ba8480">rmap.h</a>
 , <a class="el" href="rmap_8ino.html#ad8b80a0c08f928106018edd6ea435b95">rmap.ino</a>
 </li>
 <li>init_power_down()
-: <a class="el" href="rmap_8ino.html#afb98a0f07c30784284f48271ffe02b97">rmap.ino</a>
-, <a class="el" href="i2c-rain_8ino.html#afb98a0f07c30784284f48271ffe02b97">i2c-rain.ino</a>
+: <a class="el" href="i2c-th_8h.html#afb98a0f07c30784284f48271ffe02b97">i2c-th.h</a>
 , <a class="el" href="i2c-rain_8h.html#afb98a0f07c30784284f48271ffe02b97">i2c-rain.h</a>
-, <a class="el" href="i2c-th_8h.html#afb98a0f07c30784284f48271ffe02b97">i2c-th.h</a>
+, <a class="el" href="i2c-rain_8ino.html#afb98a0f07c30784284f48271ffe02b97">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8ino.html#afb98a0f07c30784284f48271ffe02b97">i2c-th.ino</a>
 , <a class="el" href="rmap_8h.html#afb98a0f07c30784284f48271ffe02b97">rmap.h</a>
+, <a class="el" href="rmap_8ino.html#afb98a0f07c30784284f48271ffe02b97">rmap.ino</a>
 </li>
 <li>init_rtc()
-: <a class="el" href="i2c-th_8ino.html#ab985cc69f5f573113405b4f118c96d33">i2c-th.ino</a>
-, <a class="el" href="i2c-rain_8h.html#a88533ad02465ce52d4e6de7b2095ec32">i2c-rain.h</a>
+: <a class="el" href="i2c-rain_8h.html#a88533ad02465ce52d4e6de7b2095ec32">i2c-rain.h</a>
 , <a class="el" href="i2c-rain_8ino.html#ab985cc69f5f573113405b4f118c96d33">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8h.html#a88533ad02465ce52d4e6de7b2095ec32">i2c-th.h</a>
+, <a class="el" href="i2c-th_8ino.html#ab985cc69f5f573113405b4f118c96d33">i2c-th.ino</a>
 , <a class="el" href="rmap_8h.html#a88533ad02465ce52d4e6de7b2095ec32">rmap.h</a>
 , <a class="el" href="rmap_8ino.html#ab985cc69f5f573113405b4f118c96d33">rmap.ino</a>
 </li>
 <li>init_sensors()
-: <a class="el" href="rmap_8ino.html#ac74850003fab6eb3269bfe043d0f939c">rmap.ino</a>
+: <a class="el" href="i2c-th_8h.html#ad7577ba7f06f417a019b69da8682ede5">i2c-th.h</a>
 , <a class="el" href="i2c-rain_8h.html#ad7577ba7f06f417a019b69da8682ede5">i2c-rain.h</a>
 , <a class="el" href="i2c-rain_8ino.html#ac74850003fab6eb3269bfe043d0f939c">i2c-rain.ino</a>
-, <a class="el" href="i2c-th_8h.html#ad7577ba7f06f417a019b69da8682ede5">i2c-th.h</a>
 , <a class="el" href="i2c-th_8ino.html#ac74850003fab6eb3269bfe043d0f939c">i2c-th.ino</a>
 , <a class="el" href="rmap_8h.html#ad7577ba7f06f417a019b69da8682ede5">rmap.h</a>
+, <a class="el" href="rmap_8ino.html#ac74850003fab6eb3269bfe043d0f939c">rmap.ino</a>
 </li>
 <li>init_spi()
-: <a class="el" href="i2c-th_8ino.html#a8eb9780a3438ec02c70314744f91f3c7">i2c-th.ino</a>
+: <a class="el" href="rmap_8ino.html#a8eb9780a3438ec02c70314744f91f3c7">rmap.ino</a>
 , <a class="el" href="i2c-rain_8h.html#a4454f968b2402a0e61deb15ab2571dab">i2c-rain.h</a>
+, <a class="el" href="rmap_8h.html#a4454f968b2402a0e61deb15ab2571dab">rmap.h</a>
 , <a class="el" href="i2c-rain_8ino.html#a8eb9780a3438ec02c70314744f91f3c7">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8h.html#a4454f968b2402a0e61deb15ab2571dab">i2c-th.h</a>
-, <a class="el" href="rmap_8h.html#a4454f968b2402a0e61deb15ab2571dab">rmap.h</a>
-, <a class="el" href="rmap_8ino.html#a8eb9780a3438ec02c70314744f91f3c7">rmap.ino</a>
+, <a class="el" href="i2c-th_8ino.html#a8eb9780a3438ec02c70314744f91f3c7">i2c-th.ino</a>
 </li>
 <li>init_system()
-: <a class="el" href="i2c-th_8h.html#a348d23d5899ce59d18975284dfb0afc0">i2c-th.h</a>
-, <a class="el" href="i2c-th_8ino.html#afceb890a6ab9be73cc5481369538c705">i2c-th.ino</a>
-, <a class="el" href="rmap_8h.html#a348d23d5899ce59d18975284dfb0afc0">rmap.h</a>
-, <a class="el" href="i2c-rain_8ino.html#afceb890a6ab9be73cc5481369538c705">i2c-rain.ino</a>
+: <a class="el" href="rmap_8h.html#a348d23d5899ce59d18975284dfb0afc0">rmap.h</a>
 , <a class="el" href="rmap_8ino.html#afceb890a6ab9be73cc5481369538c705">rmap.ino</a>
+, <a class="el" href="i2c-th_8h.html#a348d23d5899ce59d18975284dfb0afc0">i2c-th.h</a>
 , <a class="el" href="i2c-rain_8h.html#a348d23d5899ce59d18975284dfb0afc0">i2c-rain.h</a>
+, <a class="el" href="i2c-rain_8ino.html#afceb890a6ab9be73cc5481369538c705">i2c-rain.ino</a>
+, <a class="el" href="i2c-th_8ino.html#afceb890a6ab9be73cc5481369538c705">i2c-th.ino</a>
 </li>
 <li>init_tasks()
-: <a class="el" href="i2c-th_8h.html#a2aae2290a141fddcea3fb6009acbb445">i2c-th.h</a>
-, <a class="el" href="i2c-rain_8h.html#a2aae2290a141fddcea3fb6009acbb445">i2c-rain.h</a>
-, <a class="el" href="rmap_8h.html#a2aae2290a141fddcea3fb6009acbb445">rmap.h</a>
+: <a class="el" href="i2c-rain_8ino.html#ab4bf0a3d77da083f131d3fa35a37d2b1">i2c-rain.ino</a>
 , <a class="el" href="i2c-th_8ino.html#ab4bf0a3d77da083f131d3fa35a37d2b1">i2c-th.ino</a>
 , <a class="el" href="rmap_8ino.html#ab4bf0a3d77da083f131d3fa35a37d2b1">rmap.ino</a>
-, <a class="el" href="i2c-rain_8ino.html#ab4bf0a3d77da083f131d3fa35a37d2b1">i2c-rain.ino</a>
+, <a class="el" href="i2c-rain_8h.html#a2aae2290a141fddcea3fb6009acbb445">i2c-rain.h</a>
+, <a class="el" href="rmap_8h.html#a2aae2290a141fddcea3fb6009acbb445">rmap.h</a>
+, <a class="el" href="i2c-th_8h.html#a2aae2290a141fddcea3fb6009acbb445">i2c-th.h</a>
 </li>
 <li>init_wdt()
-: <a class="el" href="i2c-rain_8h.html#a980e73df66b14b1190bc25da430a4f12">i2c-rain.h</a>
-, <a class="el" href="i2c-th_8h.html#a980e73df66b14b1190bc25da430a4f12">i2c-th.h</a>
-, <a class="el" href="i2c-th_8ino.html#a980e73df66b14b1190bc25da430a4f12">i2c-th.ino</a>
+: <a class="el" href="i2c-th_8ino.html#a980e73df66b14b1190bc25da430a4f12">i2c-th.ino</a>
 , <a class="el" href="rmap_8h.html#a980e73df66b14b1190bc25da430a4f12">rmap.h</a>
 , <a class="el" href="i2c-rain_8ino.html#a980e73df66b14b1190bc25da430a4f12">i2c-rain.ino</a>
+, <a class="el" href="i2c-rain_8h.html#a980e73df66b14b1190bc25da430a4f12">i2c-rain.h</a>
+, <a class="el" href="i2c-th_8h.html#a980e73df66b14b1190bc25da430a4f12">i2c-th.h</a>
 , <a class="el" href="rmap_8ino.html#a980e73df66b14b1190bc25da430a4f12">rmap.ino</a>
 </li>
 <li>init_wire()
-: <a class="el" href="i2c-th_8h.html#a7c21452937863fa02a29654247eef09b">i2c-th.h</a>
-, <a class="el" href="i2c-rain_8h.html#a7c21452937863fa02a29654247eef09b">i2c-rain.h</a>
-, <a class="el" href="i2c-th_8ino.html#a2441543100bf8421f56edd622a2c1d9a">i2c-th.ino</a>
+: <a class="el" href="i2c-rain_8ino.html#a2441543100bf8421f56edd622a2c1d9a">i2c-rain.ino</a>
 , <a class="el" href="rmap_8ino.html#a2441543100bf8421f56edd622a2c1d9a">rmap.ino</a>
+, <a class="el" href="i2c-th_8h.html#a7c21452937863fa02a29654247eef09b">i2c-th.h</a>
+, <a class="el" href="i2c-th_8ino.html#a2441543100bf8421f56edd622a2c1d9a">i2c-th.ino</a>
 , <a class="el" href="rmap_8h.html#a7c21452937863fa02a29654247eef09b">rmap.h</a>
-, <a class="el" href="i2c-rain_8ino.html#a2441543100bf8421f56edd622a2c1d9a">i2c-rain.ino</a>
+, <a class="el" href="i2c-rain_8h.html#a7c21452937863fa02a29654247eef09b">i2c-rain.h</a>
 </li>
 <li>INT16
 : <a class="el" href="debug_8h.html#abc743ce126c3ada10501baffb3ca2295">debug.h</a>

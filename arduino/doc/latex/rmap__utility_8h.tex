@@ -1,22 +1,20 @@
 \hypertarget{rmap__utility_8h}{}\section{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.h File Reference}
 \label{rmap__utility_8h}\index{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+h@{sketchbook/libraries/\+Rmap/rmap\+\_\+utility.\+h}}
-{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include $<$Time\+Lib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}stima\+\_\+module.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$mqtt\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include $<$sensors\+\_\+config.\+h$>$}\newline
-Include dependency graph for rmap\+\_\+utility.\+h\+:
-\nopagebreak
+Include dependency graph for rmap\+\_\+utility.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{rmap__utility_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -55,7 +53,9 @@ void \hyperlink{rmap__utility_8h_a243e9cf63ae67cde49acbcf4a9951288}{get\+Stima\+
 void \hyperlink{rmap__utility_8h_a4135881294cb3a89e74548c2a706e559}{string\+To\+Array} (uint8\+\_\+t $\ast$array, char $\ast$string, const char $\ast$delimiter, uint8\+\_\+t base)
 \begin{DoxyCompactList}\small\item\em Divide string in multiple value, searching by delimiter. Then convert the value in numerical format specified by base and save the values in array. \end{DoxyCompactList}\item 
 void \hyperlink{rmap__utility_8h_aa35bbd93345decfeab85c249c5e147ce}{get\+Lon\+Lat\+From\+Mqtt\+Topic} (const char $\ast$topic, char $\ast$lon, char $\ast$lat)
-\begin{DoxyCompactList}\small\item\em Extract longitue and latitude from mqtt root topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Extract longitue and latitude from mqtt root topic. \end{DoxyCompactList}\item 
+void \hyperlink{rmap__utility_8h_a9603843d131fe06db8b236091877020d}{get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic} (const char $\ast$topic, char $\ast$\hyperlink{rmap_8h_a32f51b4770251d9a1f7a09084f0e33e8}{client\+\_\+id})
+\begin{DoxyCompactList}\small\item\em Extract mqtt client id from mqtt root topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -98,6 +98,26 @@ Extract longitue and latitude from mqtt root topic.
 \mbox{\tt out}  & {\em $\ast$lon} & longitue buffer. \\
 \hline
 \mbox{\tt out}  & {\em $\ast$lat} & latitude buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap__utility_8h_a9603843d131fe06db8b236091877020d}\label{rmap__utility_8h_a9603843d131fe06db8b236091877020d}} 
+\index{rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}!get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic@{get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic}}
+\index{get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic@{get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic}!rmap\+\_\+utility.\+h@{rmap\+\_\+utility.\+h}}
+\subsubsection{\texorpdfstring{get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic()}{getMqttClientIdFromMqttTopic()}}
+{\footnotesize\ttfamily void get\+Mqtt\+Client\+Id\+From\+Mqtt\+Topic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{char $\ast$}]{client\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Extract mqtt client id from mqtt root topic. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$topic} & mqtt topic. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$client\+\_\+id} & mqtt client id. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

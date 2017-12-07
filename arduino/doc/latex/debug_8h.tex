@@ -3,16 +3,14 @@
 {\ttfamily \#include $<$stdarg.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$Liquid\+Crystal\+\_\+\+I2\+C.\+h$>$}\newline
-Include dependency graph for debug.\+h\+:
-\nopagebreak
+Include dependency graph for debug.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=318pt]{debug_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -111,12 +109,18 @@ This graph shows which files directly or indirectly include this file\+:
 \item 
 char $\ast$ \hyperlink{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}{serial\+\_\+printf} (char $\ast$ptr, const char $\ast$fmt,...)
 \begin{DoxyCompactList}\small\item\em Print a message over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
-char $\ast$ \hyperlink{debug_8h_adca6749b5a1f6f98748d17874f3060ae}{serial\+\_\+printf\+\_\+array} (void $\ast$data, int16\+\_\+t length, uint8\+\_\+t type, const char $\ast$fmt,...)
+char $\ast$ \hyperlink{debug_8h_aeb1c209d589a4799fa4e1fc3f14cb77e}{serial\+\_\+printf} (char $\ast$ptr, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8h_a3b747bc953d57217b1f940a05cdb4caf}{serial\+\_\+printf\+\_\+array} (void $\ast$data, int16\+\_\+t length, uint8\+\_\+t type, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$fmt,...)
 \begin{DoxyCompactList}\small\item\em Print array of data over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
 void \hyperlink{debug_8h_af5ec9e4b05706cb28aff868525e72d28}{lcd\+\_\+begin} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, uint8\+\_\+t max\+\_\+cols, uint8\+\_\+t max\+\_\+rows)
 \begin{DoxyCompactList}\small\item\em Initialize L\+CD library. \end{DoxyCompactList}\item 
-char $\ast$ \hyperlink{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}{lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, char $\ast$ptr, const char $\ast$fmt,...)
-\begin{DoxyCompactList}\small\item\em Print a message on lcd preformatting it with a user defined values and parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{debug_8h_ae47a9edd316c68d2030312d22dd670e3}\label{debug_8h_ae47a9edd316c68d2030312d22dd670e3}} 
+char $\ast$ {\bfseries lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$fmt,...)
+\item 
+\mbox{\Hypertarget{debug_8h_a7b3b66011772f8225cfa3a545841d6d3}\label{debug_8h_a7b3b66011772f8225cfa3a545841d6d3}} 
+char $\ast$ {\bfseries lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -142,34 +146,10 @@ Initialize L\+CD library.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}\label{debug_8h_ad0b08aafe1bcb73147001b296a5356e9}} 
-\index{debug.\+h@{debug.\+h}!lcd\+\_\+printf@{lcd\+\_\+printf}}
-\index{lcd\+\_\+printf@{lcd\+\_\+printf}!debug.\+h@{debug.\+h}}
-\subsubsection{\texorpdfstring{lcd\+\_\+printf()}{lcd\_printf()}}
-{\footnotesize\ttfamily char$\ast$ lcd\+\_\+printf (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{bool}]{do\+\_\+clear,  }\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
-
-
-
-Print a message on lcd preformatting it with a user defined values and parameters. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
-\hline
-\mbox{\tt in}  & {\em do\+\_\+clear} & if true, clear lcd before printing message \\
-\hline
-\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
-\hline
-\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-pointer to data buffer filled with message by vsnprintf function. 
-\end{DoxyReturn}
 \mbox{\Hypertarget{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}\label{debug_8h_aa6e7889d3df8dce23e626b0e00925ed5}} 
 \index{debug.\+h@{debug.\+h}!serial\+\_\+printf@{serial\+\_\+printf}}
 \index{serial\+\_\+printf@{serial\+\_\+printf}!debug.\+h@{debug.\+h}}
-\subsubsection{\texorpdfstring{serial\+\_\+printf()}{serial\_printf()}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf()}{serial\_printf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily char$\ast$ serial\+\_\+printf (\begin{DoxyParamCaption}\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
@@ -186,11 +166,31 @@ Print a message over serial port preformatting it with a user defined values and
 \begin{DoxyReturn}{Returns}
 pointer to data buffer filled with message by vsnprintf function. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{debug_8h_adca6749b5a1f6f98748d17874f3060ae}\label{debug_8h_adca6749b5a1f6f98748d17874f3060ae}} 
+\mbox{\Hypertarget{debug_8h_aeb1c209d589a4799fa4e1fc3f14cb77e}\label{debug_8h_aeb1c209d589a4799fa4e1fc3f14cb77e}} 
+\index{debug.\+h@{debug.\+h}!serial\+\_\+printf@{serial\+\_\+printf}}
+\index{serial\+\_\+printf@{serial\+\_\+printf}!debug.\+h@{debug.\+h}}
+\subsubsection{\texorpdfstring{serial\+\_\+printf()}{serial\_printf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily char$\ast$ serial\+\_\+printf (\begin{DoxyParamCaption}\item[{char $\ast$}]{ptr,  }\item[{const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message over serial port preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & progmem for vsnprintf\+\_\+P function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a3b747bc953d57217b1f940a05cdb4caf}\label{debug_8h_a3b747bc953d57217b1f940a05cdb4caf}} 
 \index{debug.\+h@{debug.\+h}!serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}}
 \index{serial\+\_\+printf\+\_\+array@{serial\+\_\+printf\+\_\+array}!debug.\+h@{debug.\+h}}
 \subsubsection{\texorpdfstring{serial\+\_\+printf\+\_\+array()}{serial\_printf\_array()}}
-{\footnotesize\ttfamily char$\ast$ serial\+\_\+printf\+\_\+array (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{int16\+\_\+t}]{length,  }\item[{uint8\+\_\+t}]{type,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily char$\ast$ serial\+\_\+printf\+\_\+array (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{int16\+\_\+t}]{length,  }\item[{uint8\+\_\+t}]{type,  }\item[{const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 

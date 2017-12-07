@@ -15,7 +15,7 @@
 {\ttfamily \#include $<$Sd\+Fat.\+h$>$}\newline
 {\ttfamily \#include $<$pcf8563.\+h$>$}\newline
 {\ttfamily \#include $<$ntp.\+h$>$}\newline
-{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include $<$Time\+Lib.\+h$>$}\newline
 {\ttfamily \#include $<$Sensor\+Driver.\+h$>$}\newline
 {\ttfamily \#include $<$eeprom\+\_\+utility.\+h$>$}\newline
 {\ttfamily \#include $<$rmap\+\_\+utility.\+h$>$}\newline
@@ -26,16 +26,14 @@
 {\ttfamily \#include $<$I\+P\+Stack.\+h$>$}\newline
 {\ttfamily \#include $<$Countdown.\+h$>$}\newline
 {\ttfamily \#include $<$M\+Q\+T\+T\+Client.\+h$>$}\newline
-Include dependency graph for rmap.\+h\+:
-\nopagebreak
+Include dependency graph for rmap.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{rmap_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -213,8 +211,9 @@ void \hyperlink{rmap_8h_a1686e2719fa4a37ef933458673973d28}{set\+Next\+Time\+For\
 \begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
 bool \hyperlink{rmap_8h_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
 \begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
-bool \hyperlink{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}{mqtt\+Publish} (const char $\ast$topic, const char $\ast$message)
-\begin{DoxyCompactList}\small\item\em Publish message on topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a7f6838e898c168812aed181d700f2366}\label{rmap_8h_a7f6838e898c168812aed181d700f2366}} 
+bool {\bfseries mqtt\+Publish} (const char $\ast$topic, const char $\ast$message, bool is\+\_\+retained=false)
+\item 
 void \hyperlink{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}{mqtt\+Rx\+Callback} (M\+Q\+T\+T\+::\+Message\+Data \&md)
 \begin{DoxyCompactList}\small\item\em Register a receive callback for incoming mqtt message. \end{DoxyCompactList}\item 
 char $\ast$ \hyperlink{rmap_8h_afba6e70a8bee4b42785eaeca4fd566d3}{rpc\+\_\+process} (char $\ast$json)
@@ -315,6 +314,12 @@ bool \hyperlink{rmap_8h_a01167fb785c25e02aa85971cd3661c83}{is\+\_\+sdcard\+\_\+e
 \mbox{\Hypertarget{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}\label{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}} 
 bool \hyperlink{rmap_8h_ad357c442547dc2dffb84c3bb00ca598f}{is\+\_\+mqtt\+\_\+subscribed}
 \begin{DoxyCompactList}\small\item\em If true, M\+Q\+TT Client is subscribed to receive topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_a32f51b4770251d9a1f7a09084f0e33e8}\label{rmap_8h_a32f51b4770251d9a1f7a09084f0e33e8}} 
+char \hyperlink{rmap_8h_a32f51b4770251d9a1f7a09084f0e33e8}{client\+\_\+id} \mbox{[}\hyperlink{mqtt__config_8h_a16c3df993e6090c9e607113aaf5421f6}{M\+Q\+T\+T\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+I\+D\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT client id. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8h_aab9091d56127961a7b12439867a06207}\label{rmap_8h_aab9091d56127961a7b12439867a06207}} 
+char \hyperlink{rmap_8h_aab9091d56127961a7b12439867a06207}{will\+\_\+topic} \mbox{[}\hyperlink{mqtt__config_8h_a6d3b5b0f9c41b605e608f7d460491be6}{M\+Q\+T\+T\+\_\+\+R\+O\+O\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}+\hyperlink{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT topic for publish will message. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}\label{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}} 
 char \hyperlink{rmap_8h_aae72470afb2225cadcc08d0d8fc6d424}{json\+\_\+sensors\+\_\+data} \mbox{[}\hyperlink{rmap-config_8h_af18dc3de744722cb308451b7a705611b}{U\+S\+E\+\_\+\+S\+E\+N\+S\+O\+R\+S\+\_\+\+C\+O\+U\+NT}\mbox{]}\mbox{[}\hyperlink{json__config_8h_a0a84205906d82fe38eb136a6384fd1c8}{J\+S\+O\+N\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH}\mbox{]}
 \begin{DoxyCompactList}\small\item\em buffer containing the data read by sensors in json text format. \end{DoxyCompactList}\item 
@@ -852,10 +857,6 @@ void.
 \end{DoxyReturn}
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
 
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{rmap_8h_aa9c113540346b54d49b2a596e6ba8480}\label{rmap_8h_aa9c113540346b54d49b2a596e6ba8480}} 
 \index{rmap.\+h@{rmap.\+h}!init\+\_\+pins@{init\+\_\+pins}}
 \index{init\+\_\+pins@{init\+\_\+pins}!rmap.\+h@{rmap.\+h}}
@@ -889,10 +890,6 @@ Enter power down mode.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-turn off brown-\/out
-
-turn off brown-\/out
-
 turn off brown-\/out
 
 turn off brown-\/out \mbox{\Hypertarget{rmap_8h_a88533ad02465ce52d4e6de7b2095ec32}\label{rmap_8h_a88533ad02465ce52d4e6de7b2095ec32}} 
@@ -949,10 +946,6 @@ void.
 \end{DoxyReturn}
 main loop state
 
-main loop state
-
-main loop state
-
 main loop state \mbox{\Hypertarget{rmap_8h_a2aae2290a141fddcea3fb6009acbb445}\label{rmap_8h_a2aae2290a141fddcea3fb6009acbb445}} 
 \index{rmap.\+h@{rmap.\+h}!init\+\_\+tasks@{init\+\_\+tasks}}
 \index{init\+\_\+tasks@{init\+\_\+tasks}!rmap.\+h@{rmap.\+h}}
@@ -968,15 +961,7 @@ void.
 \end{DoxyReturn}
 no tasks ready
 
-reset tipping bucket debounce value
-
-no tasks ready
-
 reset samples\+\_\+count value
-
-no tasks ready
-
-reset tipping bucket debounce value
 
 no tasks ready
 
@@ -1011,14 +996,6 @@ Init wire (i2c) library and performs checks on the bus.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-clear the I2C bus first before calling Wire.\+begin()
-
-wait for watchdog reboot
-
-clear the I2C bus first before calling Wire.\+begin()
-
-wait for watchdog reboot
-
 clear the I2C bus first before calling Wire.\+begin()
 
 wait for watchdog reboot
@@ -1066,14 +1043,6 @@ void.
 \end{DoxyReturn}
 read configuration from eeprom
 
-set configuration value to writable register
-
-read configuration from eeprom
-
-read configuration from eeprom
-
-set configuration value to writable register
-
 read configuration from eeprom \mbox{\Hypertarget{rmap_8h_ad0a96c657cfe5d9ec637fbe1731a7bd6}\label{rmap_8h_ad0a96c657cfe5d9ec637fbe1731a7bd6}} 
 \index{rmap.\+h@{rmap.\+h}!mqtt\+\_\+task@{mqtt\+\_\+task}}
 \index{mqtt\+\_\+task@{mqtt\+\_\+task}!rmap.\+h@{rmap.\+h}}
@@ -1106,26 +1075,6 @@ Use a open tcp socket to connect to the mqtt server.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if connection was succesful, false otherwise. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}\label{rmap_8h_aa0d50218413a12917f8c70ef4e1e1e72}} 
-\index{rmap.\+h@{rmap.\+h}!mqtt\+Publish@{mqtt\+Publish}}
-\index{mqtt\+Publish@{mqtt\+Publish}!rmap.\+h@{rmap.\+h}}
-\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
-{\footnotesize\ttfamily bool mqtt\+Publish (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
-
-
-
-Publish message on topic. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em $\ast$topic} & Topic for mqtt publish \\
-\hline
-{\em $\ast$message} & Message to be publish \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-true if publish was succesful, false otherwise. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}\label{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}} 
 \index{rmap.\+h@{rmap.\+h}!mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}}
@@ -1220,10 +1169,6 @@ Save configuration to E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write configuration to eeprom
-
-write configuration to eeprom
-
 write configuration to eeprom
 
 write configuration to eeprom \mbox{\Hypertarget{rmap_8h_af0e8965583b124096972fe3a9e0e7954}\label{rmap_8h_af0e8965583b124096972fe3a9e0e7954}} 

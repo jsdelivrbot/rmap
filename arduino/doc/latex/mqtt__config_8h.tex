@@ -1,7 +1,6 @@
 \hypertarget{mqtt__config_8h}{}\section{sketchbook/libraries/\+Rmap\+Config/mqtt\+\_\+config.h File Reference}
 \label{mqtt__config_8h}\index{sketchbook/libraries/\+Rmap\+Config/mqtt\+\_\+config.\+h@{sketchbook/libraries/\+Rmap\+Config/mqtt\+\_\+config.\+h}}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -20,6 +19,9 @@ This graph shows which files directly or indirectly include this file\+:
 \mbox{\Hypertarget{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}\label{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}} 
 \#define \hyperlink{mqtt__config_8h_a85772fcdfe85fa51f02f3045c0aa7764}{M\+Q\+T\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH}~(30)
 \begin{DoxyCompactList}\small\item\em Length in bytes for mqtt sensor topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mqtt__config_8h_a16c3df993e6090c9e607113aaf5421f6}\label{mqtt__config_8h_a16c3df993e6090c9e607113aaf5421f6}} 
+\#define \hyperlink{mqtt__config_8h_a16c3df993e6090c9e607113aaf5421f6}{M\+Q\+T\+T\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+I\+D\+\_\+\+L\+E\+N\+G\+TH}~(\hyperlink{mqtt__config_8h_a6d3b5b0f9c41b605e608f7d460491be6}{M\+Q\+T\+T\+\_\+\+R\+O\+O\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+E\+N\+G\+TH})
+\begin{DoxyCompactList}\small\item\em Length in bytes for mqtt client id. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{mqtt__config_8h_a0fff77926fd907aeb2c03f60600d136c}\label{mqtt__config_8h_a0fff77926fd907aeb2c03f60600d136c}} 
 \#define \hyperlink{mqtt__config_8h_a0fff77926fd907aeb2c03f60600d136c}{M\+Q\+T\+T\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+L\+E\+N\+G\+TH}~(50)
 \begin{DoxyCompactList}\small\item\em Length in bytes for mqtt message. \end{DoxyCompactList}\item 
@@ -54,5 +56,14 @@ This graph shows which files directly or indirectly include this file\+:
 \#define \hyperlink{mqtt__config_8h_a38f208acaf4f9f771cf7e707488f8c29}{M\+Q\+T\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+S\+S\+W\+O\+RD}~(\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em Default M\+Q\+TT password. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{mqtt__config_8h_a56a2aaf2bf5e6cab81fc94e1d34612fa}\label{mqtt__config_8h_a56a2aaf2bf5e6cab81fc94e1d34612fa}} 
-\#define \hyperlink{mqtt__config_8h_a56a2aaf2bf5e6cab81fc94e1d34612fa}{M\+Q\+T\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+T\+O\+P\+IC}~(\char`\"{}-\/,-\/,-\//-\/,-\/,-\/,-\//B01213\char`\"{})
-\begin{DoxyCompactList}\small\item\em Default M\+Q\+TT status topic for printing on connect/disconnect message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\#define \hyperlink{mqtt__config_8h_a56a2aaf2bf5e6cab81fc94e1d34612fa}{M\+Q\+T\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+T\+O\+P\+IC}~(\char`\"{}254,0,0/265,0,-\/,-\//B01213\char`\"{})
+\begin{DoxyCompactList}\small\item\em Default M\+Q\+TT status topic for printing on connect/disconnect message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mqtt__config_8h_a7e6eea562b741149863000b5cff942c8}\label{mqtt__config_8h_a7e6eea562b741149863000b5cff942c8}} 
+\#define \hyperlink{mqtt__config_8h_a7e6eea562b741149863000b5cff942c8}{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+E\+S\+S\+A\+GE}~(\char`\"{}\{\textbackslash{}\char`\"{}v\textbackslash{}\char`\"{}\+:\textbackslash{}\char`\"{}conn\textbackslash{}\char`\"{}\}\char`\"{})
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT on connect message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mqtt__config_8h_a11770741d8609eea434a9a7c10c533f0}\label{mqtt__config_8h_a11770741d8609eea434a9a7c10c533f0}} 
+\#define \hyperlink{mqtt__config_8h_a11770741d8609eea434a9a7c10c533f0}{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+E\+S\+S\+A\+GE}~(\char`\"{}\{\textbackslash{}\char`\"{}v\textbackslash{}\char`\"{}\+:\textbackslash{}\char`\"{}disconn\textbackslash{}\char`\"{}\}\char`\"{})
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT on disconnect message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mqtt__config_8h_a460f22ad7c7c1ff88cf6f9e79bc22ddc}\label{mqtt__config_8h_a460f22ad7c7c1ff88cf6f9e79bc22ddc}} 
+\#define \hyperlink{mqtt__config_8h_a460f22ad7c7c1ff88cf6f9e79bc22ddc}{M\+Q\+T\+T\+\_\+\+O\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+M\+E\+S\+S\+A\+GE}~(\char`\"{}\{\textbackslash{}\char`\"{}v\textbackslash{}\char`\"{}\+:\textbackslash{}\char`\"{}error01\textbackslash{}\char`\"{}\}\char`\"{})
+\begin{DoxyCompactList}\small\item\em M\+Q\+TT on error message. \end{DoxyCompactList}\end{DoxyCompactItemize}

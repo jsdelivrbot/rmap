@@ -14,7 +14,6 @@ var searchData=
   ['lcd_5finfo',['LCD_INFO',['../debug_8h.html#aae2acb78c87bcf0a1cc4d743c35efce9',1,'debug.h']]],
   ['lcd_5fmax_5fcols',['lcd_max_cols',['../debug_8cpp.html#a3a35c553d138e96f0b2d5850d6a1f8d4',1,'debug.cpp']]],
   ['lcd_5fmax_5frows',['lcd_max_rows',['../debug_8cpp.html#a8a5985b489c245c2ff62a3a11e835f95',1,'debug.cpp']]],
-  ['lcd_5fprintf',['lcd_printf',['../debug_8cpp.html#aa9fbf2051e04774eb9f934238786eaa2',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt,...):&#160;debug.cpp'],['../debug_8h.html#ad0b08aafe1bcb73147001b296a5356e9',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt,...):&#160;debug.cpp']]],
   ['lcd_5fprintf_5fbuffer_5flength',['LCD_PRINTF_BUFFER_LENGTH',['../debug_8h.html#a05952bc8be9df24d159e158fa7e37aa9',1,'debug.h']]],
   ['lcd_5frows',['LCD_ROWS',['../lcd__config_8h.html#a9a59fc4d524d3519a6bd0cb451850a65',1,'lcd_config.h']]],
   ['lcd_5ftime_5ffor_5freinitialize_5fs',['LCD_TIME_FOR_REINITIALIZE_S',['../rmap-config_8h.html#af546d356bff5c682bba4aeeed199d5df',1,'rmap-config.h']]],
@@ -25,6 +24,5 @@ var searchData=
   ['lcd_5ftrace_5flevel_5foff',['LCD_TRACE_LEVEL_OFF',['../debug__config_8h.html#ab40fd4608517cbf6acb6d6d369f43253',1,'debug_config.h']]],
   ['lcd_5ftrace_5flevel_5fwarning',['LCD_TRACE_LEVEL_WARNING',['../debug__config_8h.html#a5df6cfd68b19362cf114761ca979fa7f',1,'debug_config.h']]],
   ['lcd_5fwarning',['LCD_WARNING',['../debug_8h.html#a94aa136503f794a227b75ed3cd4a1982',1,'debug.h']]],
-  ['load_5fconfiguration',['load_configuration',['../i2c-rain_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;i2c-rain.ino'],['../i2c-th_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;i2c-th.ino'],['../rmap_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../rmap_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;rmap.ino']]],
-  ['loop',['loop',['../i2c-rain_8ino.html#afe461d27b9c48d5921c00d521181f12f',1,'i2c-rain.ino']]]
+  ['load_5fconfiguration',['load_configuration',['../i2c-rain_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;i2c-rain.ino'],['../i2c-th_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;i2c-th.ino'],['../rmap_8h.html#a1be652e7d942160a14a560e0be837358',1,'load_configuration(void):&#160;i2c-rain.ino'],['../rmap_8ino.html#a32a64a2800c724fb28e10636f2ec20b9',1,'load_configuration():&#160;rmap.ino']]]
 ];

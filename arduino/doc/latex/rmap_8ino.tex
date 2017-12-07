@@ -2,8 +2,7 @@
 \label{rmap_8ino}\index{sketchbook/rmap/rmap/rmap.\+ino@{sketchbook/rmap/rmap/rmap.\+ino}}
 {\ttfamily \#include $<$debug\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}rmap.\+h\char`\"{}}\newline
-Include dependency graph for rmap.\+ino\+:
-\nopagebreak
+Include dependency graph for rmap.\+ino\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -52,8 +51,9 @@ void \hyperlink{rmap_8ino_a1686e2719fa4a37ef933458673973d28}{set\+Next\+Time\+Fo
 \begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
 bool \hyperlink{rmap_8ino_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
 \begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
-bool \hyperlink{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}{mqtt\+Publish} (const char $\ast$topic, const char $\ast$message)
-\begin{DoxyCompactList}\small\item\em Publish message on topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rmap_8ino_a9a46247768d3b87cbe261827b4f01e27}\label{rmap_8ino_a9a46247768d3b87cbe261827b4f01e27}} 
+bool {\bfseries mqtt\+Publish} (const char $\ast$topic, const char $\ast$message, bool is\+\_\+retained)
+\item 
 void \hyperlink{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}{mqtt\+Rx\+Callback} (M\+Q\+T\+T\+::\+Message\+Data \&md)
 \begin{DoxyCompactList}\small\item\em Register a receive callback for incoming mqtt message. \end{DoxyCompactList}\item 
 void \hyperlink{rmap_8ino_a65b2dadc0411e43874ec8ed7f73bc62a}{print\+\_\+configuration} ()
@@ -126,8 +126,6 @@ Init buffers.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{rmap_8ino_ad8b80a0c08f928106018edd6ea435b95}\label{rmap_8ino_ad8b80a0c08f928106018edd6ea435b95}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+pins@{init\+\_\+pins}}
 \index{init\+\_\+pins@{init\+\_\+pins}!rmap.\+ino@{rmap.\+ino}}
@@ -161,8 +159,6 @@ Enter power down mode.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-turn off brown-\/out
-
 turn off brown-\/out \mbox{\Hypertarget{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}\label{rmap_8ino_ab985cc69f5f573113405b4f118c96d33}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+rtc@{init\+\_\+rtc}}
 \index{init\+\_\+rtc@{init\+\_\+rtc}!rmap.\+ino@{rmap.\+ino}}
@@ -215,8 +211,6 @@ Init system.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-main loop state
-
 main loop state \mbox{\Hypertarget{rmap_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}\label{rmap_8ino_ab4bf0a3d77da083f131d3fa35a37d2b1}} 
 \index{rmap.\+ino@{rmap.\+ino}!init\+\_\+tasks@{init\+\_\+tasks}}
 \index{init\+\_\+tasks@{init\+\_\+tasks}!rmap.\+ino@{rmap.\+ino}}
@@ -230,10 +224,6 @@ Init tasks variable and state.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-no tasks ready
-
-reset tipping bucket debounce value
-
 no tasks ready
 
 reset samples\+\_\+count value \mbox{\Hypertarget{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}\label{rmap_8ino_a980e73df66b14b1190bc25da430a4f12}} 
@@ -269,10 +259,6 @@ void.
 \end{DoxyReturn}
 clear the I2C bus first before calling Wire.\+begin()
 
-wait for watchdog reboot
-
-clear the I2C bus first before calling Wire.\+begin()
-
 wait for watchdog reboot \mbox{\Hypertarget{rmap_8ino_a32a64a2800c724fb28e10636f2ec20b9}\label{rmap_8ino_a32a64a2800c724fb28e10636f2ec20b9}} 
 \index{rmap.\+ino@{rmap.\+ino}!load\+\_\+configuration@{load\+\_\+configuration}}
 \index{load\+\_\+configuration@{load\+\_\+configuration}!rmap.\+ino@{rmap.\+ino}}
@@ -286,10 +272,6 @@ Load configuration from E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-read configuration from eeprom
-
-set configuration value to writable register
-
 read configuration from eeprom \mbox{\Hypertarget{rmap_8ino_a161bca6629368a46242fec07a965966a}\label{rmap_8ino_a161bca6629368a46242fec07a965966a}} 
 \index{rmap.\+ino@{rmap.\+ino}!mqtt\+\_\+task@{mqtt\+\_\+task}}
 \index{mqtt\+\_\+task@{mqtt\+\_\+task}!rmap.\+ino@{rmap.\+ino}}
@@ -322,26 +304,6 @@ Use a open tcp socket to connect to the mqtt server.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if connection was succesful, false otherwise. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}\label{rmap_8ino_aa0d50218413a12917f8c70ef4e1e1e72}} 
-\index{rmap.\+ino@{rmap.\+ino}!mqtt\+Publish@{mqtt\+Publish}}
-\index{mqtt\+Publish@{mqtt\+Publish}!rmap.\+ino@{rmap.\+ino}}
-\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
-{\footnotesize\ttfamily bool mqtt\+Publish (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
-
-
-
-Publish message on topic. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em $\ast$topic} & Topic for mqtt publish \\
-\hline
-{\em $\ast$message} & Message to be publish \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-true if publish was succesful, false otherwise. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}\label{rmap_8ino_a4fe2f970295d296f7f6725fe9e946933}} 
 \index{rmap.\+ino@{rmap.\+ino}!mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}}
@@ -436,8 +398,6 @@ Save configuration to E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write configuration to eeprom
-
 write configuration to eeprom \mbox{\Hypertarget{rmap_8ino_ad3efe51e17cb8205a24267c2992a12d4}\label{rmap_8ino_ad3efe51e17cb8205a24267c2992a12d4}} 
 \index{rmap.\+ino@{rmap.\+ino}!sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}}
 \index{sensors\+\_\+reading\+\_\+task@{sensors\+\_\+reading\+\_\+task}!rmap.\+ino@{rmap.\+ino}}

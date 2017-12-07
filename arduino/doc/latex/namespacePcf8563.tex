@@ -38,6 +38,8 @@ bool \hyperlink{namespacePcf8563_aa852ae63d80f0a9137b3910a3b193d89}{get\+Date} (
 \begin{DoxyCompactList}\small\item\em Read date register. \end{DoxyCompactList}\item 
 bool \hyperlink{namespacePcf8563_aa8a735e59aae37d9184b17cb84de4f85}{set\+Date} (uint8\+\_\+t day, uint8\+\_\+t month, uint8\+\_\+t year, uint8\+\_\+t weekday, uint8\+\_\+t century)
 \begin{DoxyCompactList}\small\item\em Write date register. \end{DoxyCompactList}\item 
+bool \hyperlink{namespacePcf8563_aaa1099008bec7e232d47ca6056777c23}{get\+Date\+Time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds, uint8\+\_\+t $\ast$day, uint8\+\_\+t $\ast$month, uint8\+\_\+t $\ast$year, uint8\+\_\+t $\ast$weekday, uint8\+\_\+t $\ast$century)
+\begin{DoxyCompactList}\small\item\em Read date and time register. \end{DoxyCompactList}\item 
 bool \hyperlink{namespacePcf8563_aeb90b131ae770b2dcb9b167ea3856ed4}{get\+Time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds)
 \begin{DoxyCompactList}\small\item\em Read time register. \end{DoxyCompactList}\item 
 bool \hyperlink{namespacePcf8563_a797213f5e675582765df0b42ab921999}{set\+Time} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t seconds)
@@ -321,6 +323,38 @@ Read date register.
 \mbox{\tt out}  & {\em $\ast$weekday} & weekday alarm. \\
 \hline
 \mbox{\tt out}  & {\em $\ast$century} & weekday alarm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacePcf8563_aaa1099008bec7e232d47ca6056777c23}\label{namespacePcf8563_aaa1099008bec7e232d47ca6056777c23}} 
+\index{Pcf8563@{Pcf8563}!get\+Date\+Time@{get\+Date\+Time}}
+\index{get\+Date\+Time@{get\+Date\+Time}!Pcf8563@{Pcf8563}}
+\subsubsection{\texorpdfstring{get\+Date\+Time()}{getDateTime()}}
+{\footnotesize\ttfamily bool Pcf8563\+::get\+Date\+Time (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{hours,  }\item[{uint8\+\_\+t $\ast$}]{minutes,  }\item[{uint8\+\_\+t $\ast$}]{seconds,  }\item[{uint8\+\_\+t $\ast$}]{day,  }\item[{uint8\+\_\+t $\ast$}]{month,  }\item[{uint8\+\_\+t $\ast$}]{year,  }\item[{uint8\+\_\+t $\ast$}]{weekday,  }\item[{uint8\+\_\+t $\ast$}]{century }\end{DoxyParamCaption})}
+
+
+
+Read date and time register. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em $\ast$day} & hours alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$month} & minutes alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$year} & day alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$weekday} & weekday alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$century} & weekday alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$hours} & hours alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$minutes} & minutes alarm. \\
+\hline
+\mbox{\tt out}  & {\em $\ast$seconds} & day alarm. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

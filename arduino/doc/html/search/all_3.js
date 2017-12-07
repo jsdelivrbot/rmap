@@ -2,6 +2,7 @@ var searchData=
 [
   ['changeaddress',['changeAddress',['../namespaceHyt2X1.html#a06824bbb5dc4a87a4cd51249b43ba9c2',1,'Hyt2X1']]],
   ['cleaninput',['cleanInput',['../classSIM800.html#ad6ea4550521aee8f55656cede649baff',1,'SIM800']]],
+  ['client_5fid',['client_id',['../rmap_8h.html#a32f51b4770251d9a1f7a09084f0e33e8',1,'rmap.h']]],
   ['command_5ftask',['command_task',['../i2c-rain_8h.html#a9f32a4169471a435e9364460d7b1761d',1,'command_task(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a42389aceb96a84573eb67e6d141cb594',1,'command_task():&#160;i2c-rain.ino'],['../i2c-th_8h.html#a9f32a4169471a435e9364460d7b1761d',1,'command_task(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a42389aceb96a84573eb67e6d141cb594',1,'command_task():&#160;i2c-th.ino']]],
   ['commands',['commands',['../i2c-rain_8h.html#aaad2f6556489c51f2c24302e2cb4188a',1,'commands(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a4981066e183f1432ffd6eddf55826585',1,'commands():&#160;i2c-rain.ino'],['../i2c-th_8h.html#aaad2f6556489c51f2c24302e2cb4188a',1,'commands(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a4981066e183f1432ffd6eddf55826585',1,'commands():&#160;i2c-th.ino']]],
   ['configuration',['configuration',['../i2c-rain_8h.html#a32c97d3f8cd6089ccf54e7c423020b7a',1,'i2c-rain.h']]],

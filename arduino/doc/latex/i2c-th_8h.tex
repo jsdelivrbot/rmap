@@ -10,20 +10,18 @@
 {\ttfamily \#include $<$rmap\+\_\+utility.\+h$>$}\newline
 {\ttfamily \#include $<$eeprom\+\_\+utility.\+h$>$}\newline
 {\ttfamily \#include $<$Wire.\+h$>$}\newline
-{\ttfamily \#include $<$Time.\+h$>$}\newline
+{\ttfamily \#include $<$Time\+Lib.\+h$>$}\newline
 {\ttfamily \#include $<$typedef.\+h$>$}\newline
 {\ttfamily \#include $<$registers-\/th.\+h$>$}\newline
 {\ttfamily \#include $<$Sensor\+Driver.\+h$>$}\newline
-Include dependency graph for i2c-\/th.h\+:
-\nopagebreak
+Include dependency graph for i2c-\/th.h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{i2c-th_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -428,8 +426,6 @@ I2C request interrupt handler.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write readable\+\_\+data\+\_\+length bytes of data stored in readable\+\_\+data\+\_\+read\+\_\+ptr (base) + readable\+\_\+data\+\_\+address (offset) on i2c bus
-
 write readable\+\_\+data\+\_\+length bytes of data stored in readable\+\_\+data\+\_\+read\+\_\+ptr (base) + readable\+\_\+data\+\_\+address (offset) on i2c bus \mbox{\Hypertarget{i2c-th_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}\label{i2c-th_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!init\+\_\+buffers@{init\+\_\+buffers}}
 \index{init\+\_\+buffers@{init\+\_\+buffers}!i2c-\/th.\+h@{i2c-\/th.\+h}}
@@ -443,10 +439,6 @@ Init buffers.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
 
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{i2c-th_8h_aa9c113540346b54d49b2a596e6ba8480}\label{i2c-th_8h_aa9c113540346b54d49b2a596e6ba8480}} 
@@ -482,10 +474,6 @@ Enter power down mode.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-turn off brown-\/out
-
-turn off brown-\/out
-
 turn off brown-\/out
 
 turn off brown-\/out \mbox{\Hypertarget{i2c-th_8h_a88533ad02465ce52d4e6de7b2095ec32}\label{i2c-th_8h_a88533ad02465ce52d4e6de7b2095ec32}} 
@@ -542,10 +530,6 @@ void.
 \end{DoxyReturn}
 main loop state
 
-main loop state
-
-main loop state
-
 main loop state \mbox{\Hypertarget{i2c-th_8h_a2aae2290a141fddcea3fb6009acbb445}\label{i2c-th_8h_a2aae2290a141fddcea3fb6009acbb445}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!init\+\_\+tasks@{init\+\_\+tasks}}
 \index{init\+\_\+tasks@{init\+\_\+tasks}!i2c-\/th.\+h@{i2c-\/th.\+h}}
@@ -561,15 +545,7 @@ void.
 \end{DoxyReturn}
 no tasks ready
 
-reset tipping bucket debounce value
-
-no tasks ready
-
 reset samples\+\_\+count value
-
-no tasks ready
-
-reset tipping bucket debounce value
 
 no tasks ready
 
@@ -610,14 +586,6 @@ wait for watchdog reboot
 
 clear the I2C bus first before calling Wire.\+begin()
 
-wait for watchdog reboot
-
-clear the I2C bus first before calling Wire.\+begin()
-
-wait for watchdog reboot
-
-clear the I2C bus first before calling Wire.\+begin()
-
 wait for watchdog reboot \mbox{\Hypertarget{i2c-th_8h_a1be652e7d942160a14a560e0be837358}\label{i2c-th_8h_a1be652e7d942160a14a560e0be837358}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!load\+\_\+configuration@{load\+\_\+configuration}}
 \index{load\+\_\+configuration@{load\+\_\+configuration}!i2c-\/th.\+h@{i2c-\/th.\+h}}
@@ -632,14 +600,6 @@ Load configuration from E\+E\+P\+R\+OM.
 void. 
 \end{DoxyReturn}
 read configuration from eeprom
-
-set configuration value to writable register
-
-read configuration from eeprom
-
-read configuration from eeprom
-
-set configuration value to writable register
 
 read configuration from eeprom \mbox{\Hypertarget{i2c-th_8h_a1c5769e114267b210fb3812064d01dd0}\label{i2c-th_8h_a1c5769e114267b210fb3812064d01dd0}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!make\+\_\+observation\+\_\+from\+\_\+samples@{make\+\_\+observation\+\_\+from\+\_\+samples}}
@@ -853,10 +813,6 @@ Save configuration to E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write configuration to eeprom
-
-write configuration to eeprom
-
 write configuration to eeprom
 
 write configuration to eeprom \mbox{\Hypertarget{i2c-th_8h_af0e8965583b124096972fe3a9e0e7954}\label{i2c-th_8h_af0e8965583b124096972fe3a9e0e7954}} 

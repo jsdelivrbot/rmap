@@ -10,19 +10,16 @@
 {\ttfamily \#include $<$rmap\+\_\+utility.\+h$>$}\newline
 {\ttfamily \#include $<$eeprom\+\_\+utility.\+h$>$}\newline
 {\ttfamily \#include $<$Wire.\+h$>$}\newline
-{\ttfamily \#include $<$Time.\+h$>$}\newline
 {\ttfamily \#include $<$typedef.\+h$>$}\newline
 {\ttfamily \#include $<$registers-\/rain.\+h$>$}\newline
-Include dependency graph for i2c-\/rain.h\+:
-\nopagebreak
+Include dependency graph for i2c-\/rain.h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{i2c-rain_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -337,8 +334,6 @@ I2C request interrupt handler.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write readable\+\_\+data\+\_\+length bytes of data stored in readable\+\_\+data\+\_\+read\+\_\+ptr (base) + readable\+\_\+data\+\_\+address (offset) on i2c bus
-
 write readable\+\_\+data\+\_\+length bytes of data stored in readable\+\_\+data\+\_\+read\+\_\+ptr (base) + readable\+\_\+data\+\_\+address (offset) on i2c bus \mbox{\Hypertarget{i2c-rain_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}\label{i2c-rain_8h_ad438327c9cf783bd9c519ce8b8ef3bfa}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!init\+\_\+buffers@{init\+\_\+buffers}}
 \index{init\+\_\+buffers@{init\+\_\+buffers}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -352,8 +347,6 @@ Init buffers.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1
-
 copy readable\+\_\+data\+\_\+2 in readable\+\_\+data\+\_\+1 \mbox{\Hypertarget{i2c-rain_8h_aa9c113540346b54d49b2a596e6ba8480}\label{i2c-rain_8h_aa9c113540346b54d49b2a596e6ba8480}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!init\+\_\+pins@{init\+\_\+pins}}
 \index{init\+\_\+pins@{init\+\_\+pins}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -387,8 +380,6 @@ Enter power down mode.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-turn off brown-\/out
-
 turn off brown-\/out \mbox{\Hypertarget{i2c-rain_8h_a88533ad02465ce52d4e6de7b2095ec32}\label{i2c-rain_8h_a88533ad02465ce52d4e6de7b2095ec32}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!init\+\_\+rtc@{init\+\_\+rtc}}
 \index{init\+\_\+rtc@{init\+\_\+rtc}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -441,8 +432,6 @@ Init system.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-main loop state
-
 main loop state \mbox{\Hypertarget{i2c-rain_8h_a2aae2290a141fddcea3fb6009acbb445}\label{i2c-rain_8h_a2aae2290a141fddcea3fb6009acbb445}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!init\+\_\+tasks@{init\+\_\+tasks}}
 \index{init\+\_\+tasks@{init\+\_\+tasks}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -456,10 +445,6 @@ Init tasks variable and state.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-no tasks ready
-
-reset tipping bucket debounce value
-
 no tasks ready
 
 reset samples\+\_\+count value \mbox{\Hypertarget{i2c-rain_8h_a980e73df66b14b1190bc25da430a4f12}\label{i2c-rain_8h_a980e73df66b14b1190bc25da430a4f12}} 
@@ -495,10 +480,6 @@ void.
 \end{DoxyReturn}
 clear the I2C bus first before calling Wire.\+begin()
 
-wait for watchdog reboot
-
-clear the I2C bus first before calling Wire.\+begin()
-
 wait for watchdog reboot \mbox{\Hypertarget{i2c-rain_8h_a1be652e7d942160a14a560e0be837358}\label{i2c-rain_8h_a1be652e7d942160a14a560e0be837358}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!load\+\_\+configuration@{load\+\_\+configuration}}
 \index{load\+\_\+configuration@{load\+\_\+configuration}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -512,10 +493,6 @@ Load configuration from E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-read configuration from eeprom
-
-set configuration value to writable register
-
 read configuration from eeprom \mbox{\Hypertarget{i2c-rain_8h_ab08b9047f47849f399950705e769be2e}\label{i2c-rain_8h_ab08b9047f47849f399950705e769be2e}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!print\+\_\+configuration@{print\+\_\+configuration}}
 \index{print\+\_\+configuration@{print\+\_\+configuration}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -560,8 +537,6 @@ Save configuration to E\+E\+P\+R\+OM.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-write configuration to eeprom
-
 write configuration to eeprom \mbox{\Hypertarget{i2c-rain_8h_a7fcfeb4fd75663ddccc79030c37d68b9}\label{i2c-rain_8h_a7fcfeb4fd75663ddccc79030c37d68b9}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler@{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler}}
 \index{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler@{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
@@ -575,9 +550,7 @@ Tipping bucket interrupt handler.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-reading T\+I\+P\+P\+I\+N\+G\+\_\+\+B\+U\+C\+K\+E\+T\+\_\+\+P\+IN value to be sure the interrupt has occurred
-
-enable Tipping bucket task \mbox{\Hypertarget{i2c-rain_8h_a8fcd3e091d63c9caff82b8bc3398c279}\label{i2c-rain_8h_a8fcd3e091d63c9caff82b8bc3398c279}} 
+\mbox{\Hypertarget{i2c-rain_8h_a8fcd3e091d63c9caff82b8bc3398c279}\label{i2c-rain_8h_a8fcd3e091d63c9caff82b8bc3398c279}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!tipping\+\_\+bucket\+\_\+task@{tipping\+\_\+bucket\+\_\+task}}
 \index{tipping\+\_\+bucket\+\_\+task@{tipping\+\_\+bucket\+\_\+task}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
 \subsubsection{\texorpdfstring{tipping\+\_\+bucket\+\_\+task()}{tipping\_bucket\_task()}}
@@ -590,6 +563,3 @@ Tipping bucket task.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-check if last tipping bucket event has happened for more than D\+E\+B\+O\+U\+N\+C\+I\+N\+G\+\_\+\+T\+I\+P\+P\+I\+N\+G\+\_\+\+B\+U\+C\+K\+E\+T\+\_\+\+T\+I\+M\+E\+\_\+\+MS ms
-
-increment rain tips if oneshot mode is on and oneshot start command It has been received 

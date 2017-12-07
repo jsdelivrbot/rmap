@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['save_5fstring',['SAVE_STRING',['../debug__config_8h.html#a2d91396a5eefb574ed65184458b089cb',1,'debug_config.h']]],
   ['sdcard_5fchip_5fselect_5fpin',['SDCARD_CHIP_SELECT_PIN',['../rmap-config_8h.html#a52845a6b315de684e7eda2ffe7863b55',1,'rmap-config.h']]],
   ['sdcard_5ffiles_5fname_5fmax_5flength',['SDCARD_FILES_NAME_MAX_LENGTH',['../sdcard__config_8h.html#ab804055532120d07f54be6620c2f04b5',1,'sdcard_config.h']]],
   ['sdcard_5fmqtt_5fptr_5ffile_5fname',['SDCARD_MQTT_PTR_FILE_NAME',['../rmap-config_8h.html#a7470ca0f869e88a49d4d70bad5de69e6',1,'rmap-config.h']]],
@@ -71,7 +72,6 @@ var searchData=
   ['sim800_5fciicr_5fresponse_5ftime_5fmax_5fms',['SIM800_CIICR_RESPONSE_TIME_MAX_MS',['../sim800_8h.html#af7b427523ac873f7283480961ceab898',1,'sim800.h']]],
   ['sim800_5fcipshut_5fresponse_5ftime_5fmax_5fms',['SIM800_CIPSHUT_RESPONSE_TIME_MAX_MS',['../sim800_8h.html#aa8b8c685b167f73fe7fd70417b6f1fc2',1,'sim800.h']]],
   ['sim800_5fcipstart_5fresponse_5ftime_5fmax_5fms',['SIM800_CIPSTART_RESPONSE_TIME_MAX_MS',['../sim800_8h.html#aad741e45f6d3aeba3771a879d4158b77',1,'sim800.h']]],
-  ['sim800_5fcommand_5fbuffer_5flength',['SIM800_COMMAND_BUFFER_LENGTH',['../sim800_8h.html#a57ae657a3de64edd7551237d03983b3b',1,'sim800.h']]],
   ['sim800_5fconnection_5ftcp',['SIM800_CONNECTION_TCP',['../sim800_8h.html#aee87b1df8256eccac1a8e8d75f7283f4',1,'sim800.h']]],
   ['sim800_5fconnection_5fudp',['SIM800_CONNECTION_UDP',['../sim800_8h.html#ac7dade9eabbfbea10d19cf738d649b02',1,'sim800.h']]],
   ['sim800_5fgeneric_5fretry_5fcount_5fmax',['SIM800_GENERIC_RETRY_COUNT_MAX',['../sim800_8h.html#a08e085853c1af5986c5995ed36e2d69b',1,'sim800.h']]],
@@ -99,6 +99,7 @@ var searchData=
   ['sim800_5fwait_5ffor_5fautobaud_5fdelay_5fms',['SIM800_WAIT_FOR_AUTOBAUD_DELAY_MS',['../sim800_8h.html#a597d595483e1b8925ed76b05abedf1d8',1,'sim800.h']]],
   ['sim800_5fwait_5ffor_5fconnection_5fdelay_5fms',['SIM800_WAIT_FOR_CONNECTION_DELAY_MS',['../sim800_8h.html#aa6fe4870d98dc892bd782cd87ff3d2a2',1,'sim800.h']]],
   ['sim800_5fwait_5ffor_5fexit_5ftransparent_5fmode_5fdelay_5fms',['SIM800_WAIT_FOR_EXIT_TRANSPARENT_MODE_DELAY_MS',['../sim800_8h.html#afa511fb2a9f2f1bc078759e57d331c0b',1,'sim800.h']]],
+  ['sim800_5fwait_5ffor_5fget_5fsignal_5fquality_5fdelay_5fms',['SIM800_WAIT_FOR_GET_SIGNAL_QUALITY_DELAY_MS',['../sim800_8h.html#a4f5ac5f138d22cc5935fef4723e985f2',1,'sim800.h']]],
   ['sim800_5fwait_5ffor_5fnetwork_5fdelay_5fms',['SIM800_WAIT_FOR_NETWORK_DELAY_MS',['../sim800_8h.html#ac26cf7fce31808a0f4d16dabdc0b5f2a',1,'sim800.h']]],
   ['sim800_5fwait_5ffor_5fnetwork_5fretry_5fcount_5fmax',['SIM800_WAIT_FOR_NETWORK_RETRY_COUNT_MAX',['../sim800_8h.html#a838693d3c3534963060cbef92e5efbbc',1,'sim800.h']]],
   ['sim800_5fwait_5ffor_5fpower_5foff_5fdelay_5fms',['SIM800_WAIT_FOR_POWER_OFF_DELAY_MS',['../sim800_8h.html#a3f776207586b0f487610de6343ade17d',1,'sim800.h']]],

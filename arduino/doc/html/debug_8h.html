@@ -77,8 +77,6 @@ $(function() {
 Include dependency graph for debug.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="debug_8h__incl.png" border="0" usemap="#sketchbook_2libraries_2Rmap_2debug_8h" alt=""/></div>
-<map name="sketchbook_2libraries_2Rmap_2debug_8h" id="sketchbook_2libraries_2Rmap_2debug_8h">
-</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -224,15 +222,21 @@ Functions</h2></td></tr>
 <tr class="memitem:aa6e7889d3df8dce23e626b0e00925ed5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#aa6e7889d3df8dce23e626b0e00925ed5">serial_printf</a> (char *ptr, const char *fmt,...)</td></tr>
 <tr class="memdesc:aa6e7889d3df8dce23e626b0e00925ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a message over serial port preformatting it with a user defined values and parameters.  <a href="#aa6e7889d3df8dce23e626b0e00925ed5">More...</a><br /></td></tr>
 <tr class="separator:aa6e7889d3df8dce23e626b0e00925ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adca6749b5a1f6f98748d17874f3060ae"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#adca6749b5a1f6f98748d17874f3060ae">serial_printf_array</a> (void *data, int16_t length, uint8_t type, const char *fmt,...)</td></tr>
-<tr class="memdesc:adca6749b5a1f6f98748d17874f3060ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print array of data over serial port preformatting it with a user defined values and parameters.  <a href="#adca6749b5a1f6f98748d17874f3060ae">More...</a><br /></td></tr>
-<tr class="separator:adca6749b5a1f6f98748d17874f3060ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb1c209d589a4799fa4e1fc3f14cb77e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#aeb1c209d589a4799fa4e1fc3f14cb77e">serial_printf</a> (char *ptr, const __FlashStringHelper *fmt,...)</td></tr>
+<tr class="memdesc:aeb1c209d589a4799fa4e1fc3f14cb77e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a message over serial port preformatting it with a user defined values and parameters.  <a href="#aeb1c209d589a4799fa4e1fc3f14cb77e">More...</a><br /></td></tr>
+<tr class="separator:aeb1c209d589a4799fa4e1fc3f14cb77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b747bc953d57217b1f940a05cdb4caf"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#a3b747bc953d57217b1f940a05cdb4caf">serial_printf_array</a> (void *data, int16_t length, uint8_t type, const __FlashStringHelper *fmt,...)</td></tr>
+<tr class="memdesc:a3b747bc953d57217b1f940a05cdb4caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print array of data over serial port preformatting it with a user defined values and parameters.  <a href="#a3b747bc953d57217b1f940a05cdb4caf">More...</a><br /></td></tr>
+<tr class="separator:a3b747bc953d57217b1f940a05cdb4caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5ec9e4b05706cb28aff868525e72d28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#af5ec9e4b05706cb28aff868525e72d28">lcd_begin</a> (LiquidCrystal_I2C *<a class="el" href="rmap_8h.html#af7d08a33a932b4784cae528e8219f1c7">lcd</a>, uint8_t max_cols, uint8_t max_rows)</td></tr>
 <tr class="memdesc:af5ec9e4b05706cb28aff868525e72d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize LCD library.  <a href="#af5ec9e4b05706cb28aff868525e72d28">More...</a><br /></td></tr>
 <tr class="separator:af5ec9e4b05706cb28aff868525e72d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b08aafe1bcb73147001b296a5356e9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug_8h.html#ad0b08aafe1bcb73147001b296a5356e9">lcd_printf</a> (LiquidCrystal_I2C *<a class="el" href="rmap_8h.html#af7d08a33a932b4784cae528e8219f1c7">lcd</a>, bool do_clear, char *ptr, const char *fmt,...)</td></tr>
-<tr class="memdesc:ad0b08aafe1bcb73147001b296a5356e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a message on lcd preformatting it with a user defined values and parameters.  <a href="#ad0b08aafe1bcb73147001b296a5356e9">More...</a><br /></td></tr>
-<tr class="separator:ad0b08aafe1bcb73147001b296a5356e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47a9edd316c68d2030312d22dd670e3"><td class="memItemLeft" align="right" valign="top"><a id="ae47a9edd316c68d2030312d22dd670e3"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>lcd_printf</b> (LiquidCrystal_I2C *<a class="el" href="rmap_8h.html#af7d08a33a932b4784cae528e8219f1c7">lcd</a>, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt,...)</td></tr>
+<tr class="separator:ae47a9edd316c68d2030312d22dd670e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3b66011772f8225cfa3a545841d6d3"><td class="memItemLeft" align="right" valign="top"><a id="a7b3b66011772f8225cfa3a545841d6d3"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>lcd_printf</b> (LiquidCrystal_I2C *<a class="el" href="rmap_8h.html#af7d08a33a932b4784cae528e8219f1c7">lcd</a>, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt,...)</td></tr>
+<tr class="separator:a7b3b66011772f8225cfa3a545841d6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af5ec9e4b05706cb28aff868525e72d28"></a>
@@ -280,66 +284,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad0b08aafe1bcb73147001b296a5356e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0b08aafe1bcb73147001b296a5356e9">&#9670;&nbsp;</a></span>lcd_printf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* lcd_printf </td>
-          <td>(</td>
-          <td class="paramtype">LiquidCrystal_I2C *&#160;</td>
-          <td class="paramname"><em>lcd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>do_clear</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>fmt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print a message on lcd preformatting it with a user defined values and parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*lcd</td><td>pointer to lcd instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">do_clear</td><td>if true, clear lcd before printing message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*ptr</td><td>message to print. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*fmt</td><td>typo for vsnprintf function. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to data buffer filled with message by vsnprintf function. </dd></dl>
-
-</div>
-</div>
 <a id="aa6e7889d3df8dce23e626b0e00925ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6e7889d3df8dce23e626b0e00925ed5">&#9670;&nbsp;</a></span>serial_printf()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e7889d3df8dce23e626b0e00925ed5">&#9670;&nbsp;</a></span>serial_printf() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -382,8 +328,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adca6749b5a1f6f98748d17874f3060ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adca6749b5a1f6f98748d17874f3060ae">&#9670;&nbsp;</a></span>serial_printf_array()</h2>
+<a id="aeb1c209d589a4799fa4e1fc3f14cb77e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb1c209d589a4799fa4e1fc3f14cb77e">&#9670;&nbsp;</a></span>serial_printf() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* serial_printf </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print a message over serial port preformatting it with a user defined values and parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*ptr</td><td>message to print. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*fmt</td><td>progmem for vsnprintf_P function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to data buffer filled with message by vsnprintf function. </dd></dl>
+
+</div>
+</div>
+<a id="a3b747bc953d57217b1f940a05cdb4caf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b747bc953d57217b1f940a05cdb4caf">&#9670;&nbsp;</a></span>serial_printf_array()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +399,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
           <td class="paramname"><em>fmt</em>, </td>
         </tr>
         <tr>

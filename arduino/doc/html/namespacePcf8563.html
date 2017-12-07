@@ -116,6 +116,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8a735e59aae37d9184b17cb84de4f85"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePcf8563.html#aa8a735e59aae37d9184b17cb84de4f85">setDate</a> (uint8_t day, uint8_t month, uint8_t year, uint8_t weekday, uint8_t century)</td></tr>
 <tr class="memdesc:aa8a735e59aae37d9184b17cb84de4f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write date register.  <a href="#aa8a735e59aae37d9184b17cb84de4f85">More...</a><br /></td></tr>
 <tr class="separator:aa8a735e59aae37d9184b17cb84de4f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa1099008bec7e232d47ca6056777c23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePcf8563.html#aaa1099008bec7e232d47ca6056777c23">getDateTime</a> (uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint8_t *day, uint8_t *month, uint8_t *year, uint8_t *weekday, uint8_t *century)</td></tr>
+<tr class="memdesc:aaa1099008bec7e232d47ca6056777c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read date and time register.  <a href="#aaa1099008bec7e232d47ca6056777c23">More...</a><br /></td></tr>
+<tr class="separator:aaa1099008bec7e232d47ca6056777c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb90b131ae770b2dcb9b167ea3856ed4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePcf8563.html#aeb90b131ae770b2dcb9b167ea3856ed4">getTime</a> (uint8_t *hours, uint8_t *minutes, uint8_t *seconds)</td></tr>
 <tr class="memdesc:aeb90b131ae770b2dcb9b167ea3856ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read time register.  <a href="#aeb90b131ae770b2dcb9b167ea3856ed4">More...</a><br /></td></tr>
 <tr class="separator:aeb90b131ae770b2dcb9b167ea3856ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -576,6 +579,86 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">*year</td><td>day alarm. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">*weekday</td><td>weekday alarm. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">*century</td><td>weekday alarm. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if succesful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aaa1099008bec7e232d47ca6056777c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa1099008bec7e232d47ca6056777c23">&#9670;&nbsp;</a></span>getDateTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Pcf8563::getDateTime </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>weekday</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>century</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read date and time register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">*day</td><td>hours alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*month</td><td>minutes alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*year</td><td>day alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*weekday</td><td>weekday alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*century</td><td>weekday alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*hours</td><td>hours alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*minutes</td><td>minutes alarm. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*seconds</td><td>day alarm. </td></tr>
   </table>
   </dd>
 </dl>
