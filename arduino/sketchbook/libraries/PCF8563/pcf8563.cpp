@@ -208,6 +208,9 @@ namespace Pcf8563 {
   }
 
   bool setDate(uint8_t day, uint8_t month, uint8_t year, uint8_t weekday, uint8_t century) {
+     if (day < 1)
+      return false;
+
     switch (month) {
       case 1:
       case 3:
@@ -216,27 +219,27 @@ namespace Pcf8563 {
       case 8:
       case 10:
       case 12:
-        if (day < 1 && day > 31)
+        if (day > 31)
           return false;
         break;
 
       case 2:
-        if (day < 1 && day > 29)
-          return false;
+         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            if (day > 29)
+               return false;
+         }
+         else {
+           if (day > 28)
+             return false;
+         }
         break;
 
       case 4:
       case 6:
       case 9:
       case 11:
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-          if (day < 1 && day > 29)
+          if (day > 30)
             return false;
-        }
-        else {
-          if (day < 1 && day > 28)
-            return false;
-        }
         break;
 
       default:
@@ -266,6 +269,37 @@ namespace Pcf8563 {
       return false;
 
       return true;
+  }
+
+  bool getDateTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint8_t *day, uint8_t *month, uint8_t *year, uint8_t *weekday, uint8_t *century) {
+    Wire.beginTransmission(PCF8563_READ_ADDRESS);
+   	Wire.write(PCF8563_VL_SECOND_ADDRESS);
+    if (Wire.endTransmission())
+      return false;
+
+   	Wire.requestFrom(PCF8563_READ_ADDRESS, PCF8563_TIME_LENGTH+PCF8563_DATE_LENGTH);
+    if (Wire.available() < PCF8563_TIME_LENGTH+PCF8563_DATE_LENGTH)
+      return false;
+
+   *seconds = bcdToDec(Wire.read() & PCF8563_SECOND_MASK);
+  	*minutes = bcdToDec(Wire.read() & PCF8563_MINUTE_MASK);
+  	*hours = bcdToDec(Wire.read() & PCF8563_HOUR_MASK);
+
+   *day = bcdToDec(Wire.read() & PCF8563_DAY_MASK);
+
+    if (weekday)
+  	   *weekday = bcdToDec(Wire.read() & PCF8563_WEEKDAY_MASK);
+    else Wire.read();
+
+  	*month = Wire.read();
+
+    if (century)
+      *century = (*month & PCF8563_CENTURY_MASK) ? 0 : 1;
+
+  	*month = bcdToDec(*month & PCF8563_MONTH_MASK);
+  	*year = bcdToDec(Wire.read());
+
+    return true;
   }
 
   bool getTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds) {
@@ -628,10 +662,7 @@ namespace Pcf8563 {
     uint8_t minutes;
     uint8_t seconds;
 
-    if (!getDate(&day, &month, &year))
-      return 0;
-
-    if (!getTime(&hours, &minutes, &seconds))
+    if (!getDateTime(&hours, &minutes, &seconds, &day, &month, &year))
       return 0;
 
     seconds_since_1970 = getDaysFromTwoDate(1, 1, 1970, day, month, year+2000) * 86400UL;

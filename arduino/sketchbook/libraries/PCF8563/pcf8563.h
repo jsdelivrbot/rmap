@@ -610,6 +610,21 @@ namespace Pcf8563 {
    bool setTimer(uint8_t frequency, uint8_t timer);
 
    /*!
+   \fn bool getDateTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint8_t *day, uint8_t *month, uint8_t *year, uint8_t *weekday = NULL, uint8_t *century = NULL);
+   \brief Read date and time register.
+   \param[out] *day hours alarm.
+   \param[out] *month minutes alarm.
+   \param[out] *year day alarm.
+   \param[out] *weekday weekday alarm.
+   \param[out] *century weekday alarm.
+   \param[out] *hours hours alarm.
+   \param[out] *minutes minutes alarm.
+   \param[out] *seconds day alarm.
+   \return true if succesful, false otherwise.
+   */
+   bool getDateTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint8_t *day, uint8_t *month, uint8_t *year, uint8_t *weekday = NULL, uint8_t *century = NULL);
+
+   /*!
    \fn bool getDate(uint8_t *day, uint8_t *month, uint8_t *year, uint8_t *weekday = NULL, uint8_t *century = NULL)
    \brief Read date register.
    \param[out] *day hours alarm.
