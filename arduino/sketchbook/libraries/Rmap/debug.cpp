@@ -44,12 +44,27 @@ char *serial_printf(char *ptr, const char *fmt, ...) {
 
    ptr[0] = '#';
 
-   serial_buffer_print_written_char = vsnprintf(ptr+1, SERIAL_PRINTF_BUFFER_LENGTH-1, fmt, args);
+   serial_buffer_print_written_char = vsnprintf_P(ptr+1, SERIAL_PRINTF_BUFFER_LENGTH-1, fmt, args);
    va_end (args);
    return ptr;
 }
 
-char *serial_printf_array(void *data, int16_t length, uint8_t type, const char *fmt, ...) {
+char *serial_printf(char *ptr, const __FlashStringHelper *fmt, ...) {
+   va_list args;
+   va_start (args, fmt);
+
+   if (ptr == NULL) {
+      ptr = serial_buffer_print;
+   }
+
+   ptr[0] = '#';
+
+   serial_buffer_print_written_char = vsnprintf_P(ptr+1, SERIAL_PRINTF_BUFFER_LENGTH-1, (const char *) fmt, args);
+   va_end (args);
+   return ptr;
+}
+
+char *serial_printf_array(void *data, int16_t length, uint8_t type, const __FlashStringHelper *fmt, ...) {
    char *serial_buffer_ptr = serial_buffer_print;
 
    for (int i=0; i<length; i++) {
@@ -118,7 +133,7 @@ void lcd_begin (LiquidCrystal_I2C *lcd, uint8_t max_cols, uint8_t max_rows) {
    lcd->backlight();
 }
 
-char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt, ...) {
+char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt, ...) {
    va_list args;
    va_start (args, fmt);
 
@@ -134,10 +149,40 @@ char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *f
    uint8_t count = vsnprintf(ptr, LCD_PRINTF_BUFFER_LENGTH, fmt, args);
    memset(ptr + count, ' ', lcd_max_cols - count - 1);
 
-   lcd->setCursor(0, lcd_current_row);
+   if (go_to_next_line) {
+      lcd->setCursor(0, lcd_current_row);
 
-   if (++lcd_current_row == lcd_max_rows) {
+      if (++lcd_current_row == lcd_max_rows) {
+        lcd_current_row = 0;
+      }
+   }
+
+   va_end (args);
+   return ptr;
+}
+
+char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt, ...) {
+   va_list args;
+   va_start (args, fmt);
+
+   if (ptr == NULL) {
+      ptr = lcd_buffer_print;
+   }
+
+   if (do_clear) {
+      lcd->clear();
       lcd_current_row = 0;
+   }
+
+   uint8_t count = vsnprintf_P(ptr, LCD_PRINTF_BUFFER_LENGTH, (const char*) fmt, args);
+   memset(ptr + count, ' ', lcd_max_cols - count - 1);
+
+   if (go_to_next_line) {
+      lcd->setCursor(0, lcd_current_row);
+
+      if (++lcd_current_row == lcd_max_rows) {
+        lcd_current_row = 0;
+      }
    }
 
    va_end (args);

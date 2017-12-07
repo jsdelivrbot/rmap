@@ -74,6 +74,13 @@ void getLonLatFromMqttTopic(const char *topic, char *lon, char *lat) {
     strcpy(lat, temp);
 }
 
+void getMqttClientIdFromMqttTopic(const char *topic, char *client_id) {
+   char *pch = strchr(topic,'/');
+   uint8_t pch_len = strlen(pch);
+   strncpy(client_id, pch+1, pch_len);
+   client_id[pch_len-2] = 0;
+}
+
 #include <Arduino.h>
 
 #if (USE_JSON)

@@ -97,7 +97,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 char *serial_printf(char *ptr, const char *fmt, ...);
 
 /*!
-\fn char *serial_printf_array(void *data, int16_t length, uint8_t type, const char *fmt, ...)
+\fn char *serial_printf(char *ptr, const __FlashStringHelper *fmt, ...)
+\brief Print a message over serial port preformatting it with a user defined values and parameters.
+\param[in] *ptr message to print.
+\param[in] *fmt progmem for vsnprintf_P function.
+\return pointer to data buffer filled with message by vsnprintf function.
+*/
+char *serial_printf(char *ptr, const __FlashStringHelper *fmt, ...);
+
+
+/*!
+\fn char *serial_printf_array(void *data, int16_t length, uint8_t type, const __FlashStringHelper *fmt, ...)
 \brief Print array of data over serial port preformatting it with a user defined values and parameters.
 \param[in] *data array of data to print.
 \param[in] length length of array
@@ -105,7 +115,7 @@ char *serial_printf(char *ptr, const char *fmt, ...);
 \param[in] *fmt typo for vsnprintf function.
 \return pointer to data buffer filled with message by vsnprintf function.
 */
-char *serial_printf_array(void *data, int16_t length, uint8_t type, const char *fmt, ...);
+char *serial_printf_array(void *data, int16_t length, uint8_t type, const __FlashStringHelper *fmt, ...);
 
 #ifndef SERIAL_TRACE_LEVEL
 /*!
@@ -241,15 +251,28 @@ char *serial_printf_array(void *data, int16_t length, uint8_t type, const char *
 void lcd_begin(LiquidCrystal_I2C *lcd, uint8_t max_cols, uint8_t max_rows);
 
 /*!
+\fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const __FlashStringHelper *fmt, ...)
+\brief Print a message on lcd preformatting it with a user defined values and parameters.
+\param[in] *lcd pointer to lcd instance.
+\param[in] do_clear if true, clear lcd before printing message
+\param[in] go_to_next_line if true, print message to next line
+\param[in] *ptr message to print.
+\param[in] *fmt typo progmem for vsnprintf function.
+\return pointer to data buffer filled with message by vsnprintf function.
+*/
+char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt, ...);
+
+/*!
 \fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt, ...)
 \brief Print a message on lcd preformatting it with a user defined values and parameters.
 \param[in] *lcd pointer to lcd instance.
 \param[in] do_clear if true, clear lcd before printing message
+\param[in] go_to_next_line if true, print message to next line
 \param[in] *ptr message to print.
 \param[in] *fmt typo for vsnprintf function.
 \return pointer to data buffer filled with message by vsnprintf function.
 */
-char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt, ...);
+char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt, ...);
 
 // Debug output redirection
 #if (LCD_TRACE_LEVEL > LCD_TRACE_LEVEL_OFF)
@@ -259,7 +282,7 @@ char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *f
   \def _LCD_PRINT(lcd, do_clear, ...)
   \brief Useful macro for print message on lcd port through lcd print function.
   */
-   #define _LCD_PRINT(lcd, do_clear, ...) (((LiquidCrystal_I2C *) lcd)->print(lcd_printf(lcd, do_clear, NULL, __VA_ARGS__)))
+   #define _LCD_PRINT(lcd, do_clear, go_to_next_line, ...) (((LiquidCrystal_I2C *) lcd)->print(lcd_printf(lcd, do_clear, go_to_next_line, NULL, __VA_ARGS__)))
   #endif
 
   #ifndef LCD_BEGIN

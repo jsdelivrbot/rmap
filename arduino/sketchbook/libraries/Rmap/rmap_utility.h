@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _RMAP_UTILITY_H
 #define _RMAP_UTILITY_H
 
-#include <Time.h>
+#include <TimeLib.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -123,6 +123,15 @@ void stringToArray(uint8_t *array, char *string, const char *delimiter, uint8_t 
 \return void.
 */
 void getLonLatFromMqttTopic(const char *topic, char *lon, char *lat);
+
+/*!
+\fn void getMqttClientIdFromMqttTopic(const char *topic, char *client_id)
+\brief Extract mqtt client id from mqtt root topic.
+\param[in] *topic mqtt topic.
+\param[out] *client_id mqtt client id.
+\return void.
+*/
+void getMqttClientIdFromMqttTopic(const char *topic, char *client_id);
 
 /*!
 \def macStringToArray(mac, string)

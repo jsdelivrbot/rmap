@@ -128,10 +128,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_RAIN_ONESHOT_ADDRESS              (I2C_RAIN_ADDRESS_ADDRESS + I2C_RAIN_ADDRESS_LENGTH)
 
 /*!
+\def I2C_RAIN_CONTINUOUS_LENGTH
+\brief length of the continuous variable for i2c-rain module.
+*/
+#define I2C_RAIN_CONTINUOUS_LENGTH             (0x01)
+
+/*!
+\def I2C_RAIN_CONTINUOUS_ADDRESS
+\brief address of the continuous variable for i2c-rain module.
+*/
+#define I2C_RAIN_CONTINUOUS_ADDRESS            (I2C_RAIN_ONESHOT_ADDRESS + I2C_RAIN_ONESHOT_LENGTH)
+
+/*!
 \def I2C_RAIN_WRITABLE_DATA_LENGTH
 \brief length of the writable variables for i2c-rain module.
 */
-#define I2C_RAIN_WRITABLE_DATA_LENGTH         (I2C_RAIN_ADDRESS_ADDRESS + I2C_RAIN_ADDRESS_LENGTH - I2C_WRITE_REGISTER_START_ADDRESS)
+#define I2C_RAIN_WRITABLE_DATA_LENGTH         (I2C_RAIN_CONTINUOUS_ADDRESS + I2C_RAIN_CONTINUOUS_LENGTH - I2C_WRITE_REGISTER_START_ADDRESS)
 
 // Readable registers errors checking
 #if I2C_RAIN_READ_REGISTERS_LENGTH > I2C_READ_REGISTER_END_ADDRESS

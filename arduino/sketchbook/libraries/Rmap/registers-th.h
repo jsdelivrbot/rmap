@@ -303,6 +303,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_TH_ONESHOT_ADDRESS                  (I2C_TH_ADDRESS_ADDRESS + I2C_TH_ADDRESS_LENGTH)
 
 /*!
+\def I2C_TH_CONTINUOUS_LENGTH
+\brief length of the continuous variable for i2c-th module.
+*/
+#define I2C_TH_CONTINUOUS_LENGTH                (0x01)
+
+/*!
+\def I2C_TH_CONTINUOUS_ADDRESS
+\brief address of the continuous variable for i2c-th module.
+*/
+#define I2C_TH_CONTINUOUS_ADDRESS               (I2C_TH_ONESHOT_ADDRESS + I2C_TH_ONESHOT_LENGTH)
+
+/*!
 \def I2C_TH_TEMPERATURE_ADDRESS_LENGTH
 \brief length of the temperature address variable for i2c-th module.
 */
@@ -312,7 +324,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def I2C_TH_TEMPERATURE_ADDRESS_ADDRESS
 \brief address of the temperature address variable for i2c-th module.
 */
-#define I2C_TH_TEMPERATURE_ADDRESS_ADDRESS      (I2C_TH_ONESHOT_ADDRESS + I2C_TH_ONESHOT_LENGTH)
+#define I2C_TH_TEMPERATURE_ADDRESS_ADDRESS      (I2C_TH_CONTINUOUS_ADDRESS + I2C_TH_CONTINUOUS_LENGTH)
 
 /*!
 \def I2C_TH_HUMIDITY_ADDRESS_LENGTH
