@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def USE_SENSOR_DEP
 \brief Enable if you want use DigitEco Power sensor.
 */
-#define USE_SENSOR_DEP              (false)
+#define USE_SENSOR_DEP              (true)
 
 /*!
 \def USE_SENSOR_HI7
@@ -183,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def RAIN_FOR_TIP
 \brief How much mm of rain for one tip of tipping bucket rain gauge.
 */
-#define RAIN_FOR_TIP                (2)
+#define RAIN_FOR_TIP                (1)
 
 /*!
 \def VALUES_TO_READ_FROM_SENSOR_COUNT

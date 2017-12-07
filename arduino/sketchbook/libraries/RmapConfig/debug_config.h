@@ -132,10 +132,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OFF_STRING                        ("OFF")
 
 /*!
+\def SAVE_STRING
+\brief "SAVE" string message.
+*/
+#define SAVE_STRING                       ("SAVE")
+
+/*!
 \def SENSOR_DRIVER_SERIAL_TRACE_LEVEL
 \brief Serial trace level debug for SensorDriver library.
 */
-#define SENSOR_DRIVER_SERIAL_TRACE_LEVEL  (SERIAL_TRACE_LEVEL_INFO)
+#define SENSOR_DRIVER_SERIAL_TRACE_LEVEL  (SERIAL_TRACE_LEVEL_OFF)
 
 /*!
 \def SIM800_SERIAL_TRACE_LEVEL
@@ -159,7 +165,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def RMAP_SERIAL_TRACE_LEVEL
 \brief Serial trace level debug for rmap sketch.
 */
-#define RMAP_SERIAL_TRACE_LEVEL           (SERIAL_TRACE_LEVEL_TRACE)
+#define RMAP_SERIAL_TRACE_LEVEL           (SERIAL_TRACE_LEVEL_INFO)
 
 /*!
 \def RMAP_LCD_TRACE_LEVEL

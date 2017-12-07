@@ -42,6 +42,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MQTT_SENSOR_TOPIC_LENGTH       (30)
 
 /*!
+\def MQTT_CLIENT_ID_LENGTH
+\brief Length in bytes for mqtt client id.
+*/
+#define MQTT_CLIENT_ID_LENGTH          (MQTT_ROOT_TOPIC_LENGTH)
+
+/*!
 \def MQTT_MESSAGE_LENGTH
 \brief Length in bytes for mqtt message.
 */
@@ -111,7 +117,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def MQTT_STATUS_TOPIC
 \brief Default MQTT status topic for printing on connect/disconnect message.
 */
-#define MQTT_STATUS_TOPIC              ("-,-,-/-,-,-,-/B01213")
+#define MQTT_STATUS_TOPIC              ("254,0,0/265,0,-,-/B01213")
+
+/*!
+\def MQTT_ON_CONNECT_MESSAGE
+\brief MQTT on connect message.
+*/
+#define MQTT_ON_CONNECT_MESSAGE        ("{\"v\":\"conn\"}")
+
+/*!
+\def MQTT_ON_DISCONNECT_MESSAGE
+\brief MQTT on disconnect message.
+*/
+#define MQTT_ON_DISCONNECT_MESSAGE     ("{\"v\":\"disconn\"}")
+
+/*!
+\def MQTT_ON_ERROR_MESSAGE
+\brief MQTT on error message.
+*/
+#define MQTT_ON_ERROR_MESSAGE          ("{\"v\":\"error01\"}")
 
 #if (MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH > 100)
 #error MQTT root/sensor topic is too big!
