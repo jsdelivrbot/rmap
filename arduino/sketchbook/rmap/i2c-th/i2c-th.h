@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <rmap_utility.h>
 #include <eeprom_utility.h>
 #include <Wire.h>
-#include <Time.h>
+#include <TimeLib.h>
 #include <typedef.h>
 #include <registers-th.h>
 #include <SensorDriver.h>

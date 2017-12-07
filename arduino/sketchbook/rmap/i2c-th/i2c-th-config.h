@@ -204,3 +204,4 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 #define SENSORS_RETRY_DELAY_MS                        (50)
 
 #endif
+

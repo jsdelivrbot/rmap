@@ -185,22 +185,22 @@ void init_wire() {
    uint8_t i2c_bus_state = I2C_ClearBus();
 
    if (i2c_bus_state) {
-      SERIAL_ERROR("I2C bus error: Could not clear!!!\r\n");
+      SERIAL_ERROR(F("I2C bus error: Could not clear!!!\r\n"));
       //! wait for watchdog reboot
       while(1);
    }
 
    switch (i2c_bus_state) {
       case 1:
-         SERIAL_ERROR("SCL clock line held low\r\n");
+         SERIAL_ERROR(F("SCL clock line held low\r\n"));
       break;
 
       case 2:
-         SERIAL_ERROR("SCL clock line held low by slave clock stretch\r\n");
+         SERIAL_ERROR(F("SCL clock line held low by slave clock stretch\r\n"));
       break;
 
       case 3:
-         SERIAL_ERROR("SDA data line held low\r\n");
+         SERIAL_ERROR(F("SDA data line held low\r\n"));
       break;
    }
 
@@ -250,18 +250,18 @@ void init_system() {
 void print_configuration() {
    char stima_name[20];
    getStimaNameByType(stima_name, configuration.module_type);
-   SERIAL_INFO("--> type: %s\r\n", stima_name);
-   SERIAL_INFO("--> version: %d\r\n", configuration.module_version);
-   SERIAL_INFO("--> i2c address: 0x%x (%d)\r\n", configuration.i2c_address, configuration.i2c_address);
-   SERIAL_INFO("--> oneshot: %s\r\n", configuration.is_oneshot ? "on" : "off");
-   SERIAL_INFO("--> continuous: %s\r\n", configuration.is_continuous ? "on" : "off");
-   SERIAL_INFO("--> i2c temperature address: 0x%x (%d)\r\n", configuration.i2c_temperature_address, configuration.i2c_temperature_address);
-   SERIAL_INFO("--> i2c humidity address: 0x%x (%d)\r\n\r\n", configuration.i2c_humidity_address, configuration.i2c_temperature_address);
+   SERIAL_INFO(F("--> type: %s\r\n"), stima_name);
+   SERIAL_INFO(F("--> version: %d\r\n"), configuration.module_version);
+   SERIAL_INFO(F("--> i2c address: 0x%X (%d)\r\n"), configuration.i2c_address, configuration.i2c_address);
+   SERIAL_INFO(F("--> oneshot: %s\r\n"), configuration.is_oneshot ? ON_STRING : OFF_STRING);
+   SERIAL_INFO(F("--> continuous: %s\r\n"), configuration.is_continuous ? ON_STRING : OFF_STRING);
+   SERIAL_INFO(F("--> i2c temperature address: 0x%X (%d)\r\n"), configuration.i2c_temperature_address, configuration.i2c_temperature_address);
+   SERIAL_INFO(F("--> i2c humidity address: 0x%X (%d)\r\n\r\n"), configuration.i2c_humidity_address, configuration.i2c_humidity_address);
 }
 
 void save_configuration(bool is_default) {
    if (is_default) {
-      SERIAL_INFO("Save default configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Save default configuration... [ %s ]\r\n"), OK_STRING);
       configuration.module_type = MODULE_TYPE;
       configuration.module_version = MODULE_VERSION;
       configuration.i2c_address = CONFIGURATION_DEFAULT_I2C_ADDRESS;
@@ -284,7 +284,7 @@ void save_configuration(bool is_default) {
       #endif
    }
    else {
-      SERIAL_INFO("Save configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Save configuration... [ %s ]\r\n"), OK_STRING);
       configuration.i2c_address = writable_data.i2c_address;
       configuration.is_oneshot = writable_data.is_oneshot;
       configuration.is_continuous = writable_data.is_continuous;
@@ -306,7 +306,7 @@ void load_configuration() {
       save_configuration(CONFIGURATION_DEFAULT);
    }
    else {
-      SERIAL_INFO("Load configuration... [ OK ]\r\n");
+      SERIAL_INFO(F("Load configuration... [ %s ]\r\n"), OK_STRING);
       print_configuration();
    }
 
@@ -317,26 +317,26 @@ void load_configuration() {
 void init_sensors () {
    sensors_count = 0;
 
-   SERIAL_INFO("Sensors...\r\n");
+   SERIAL_INFO(F("Sensors...\r\n"));
 
    #if (USE_SENSOR_ADT)
    SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_ADT, configuration.i2c_temperature_address, sensors, &sensors_count);
-   SERIAL_INFO("--> %u: %s-%s: %s\t [ %s ]\r\n", sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_ADT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+   SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_ADT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
    #endif
 
    #if (USE_SENSOR_HIH)
    SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_HIH, configuration.i2c_humidity_address, sensors, &sensors_count);
-   SERIAL_INFO("--> %u: %s-%s: %s\t [ %s ]\r\n", sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HIH, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+   SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HIH, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
    #endif
 
    #if (USE_SENSOR_HYT)
    SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_HYT, configuration.i2c_temperature_address, sensors, &sensors_count);
-   SERIAL_INFO("--> %u: %s-%s: %s\t [ %s ]\r\n", sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HYT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+   SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HYT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
    #endif
 
    if (configuration.is_continuous) {
-      SERIAL_INFO("--> acquiring %u~%u samples in %u minutes\r\n\r\n", SENSORS_SAMPLE_COUNT_MIN, SENSORS_SAMPLE_COUNT_MAX, OBSERVATIONS_MINUTES);
-      SERIAL_INFO("T-IST\tT-MIN\tT-MED\tT-MAX\tH-IST\tH-MIN\tH-MED\tH-MAX\tT-CNT\tH-CNT\r\n");
+      SERIAL_INFO(F("--> acquiring %u~%u samples in %u minutes\r\n\r\n"), SENSORS_SAMPLE_COUNT_MIN, SENSORS_SAMPLE_COUNT_MAX, OBSERVATIONS_MINUTES);
+      SERIAL_INFO(F("T-IST\tT-MIN\tT-MED\tT-MAX\tH-IST\tH-MIN\tH-MED\tH-MAX\tT-CNT\tH-CNT\r\n"));
    }
 }
 
@@ -374,6 +374,8 @@ void i2c_request_interrupt_handler() {
 }
 
 void i2c_receive_interrupt_handler(int rx_data_length) {
+   bool is_i2c_data_ok = false;
+
    //! read rx_data_length bytes of data from i2c bus
    for (uint8_t i=0; i<rx_data_length; i++) {
       i2c_rx_data[i] = Wire.read();
@@ -399,9 +401,27 @@ void i2c_receive_interrupt_handler(int rx_data_length) {
    }
    //! it is a registers write?
    else if (is_writable_register(i2c_rx_data[0])) {
-      for (uint8_t i=1; i<rx_data_length; i++) {
-         //! write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
-         ((uint8_t *)writable_data_ptr)[i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+    if (i2c_rx_data[0] == I2C_TH_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_ADDRESS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_TH_ONESHOT_ADDRESS && rx_data_length == (I2C_TH_ONESHOT_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_TH_CONTINUOUS_ADDRESS && rx_data_length == (I2C_TH_CONTINUOUS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_TH_TEMPERATURE_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_TEMPERATURE_ADDRESS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+      else if (i2c_rx_data[0] == I2C_TH_HUMIDITY_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_HUMIDITY_ADDRESS_LENGTH+2)) {
+         is_i2c_data_ok = true;
+      }
+
+      if (is_i2c_data_ok) {
+         for (uint8_t i=2; i<rx_data_length; i++) {
+            // write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
+            ((uint8_t *)writable_data_ptr)[i2c_rx_data[0] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
+         }
       }
    }
 }
@@ -460,9 +480,9 @@ void samples_processing(bool is_force_processing) {
    bool is_processing_humidity = make_observation_from_samples(is_force_processing, &humidity_samples, &humidity_observations);
 
    if (is_processing_temperature || is_processing_humidity) {
-      SERIAL_DEBUG("------------------------------------------------------------------------------\r\n");
-      SERIAL_DEBUG("%u\t \t \t \t%u\t \t \t \t%u/%u\t%u/%u\r\n", *temperature_observations.write_ptr, *humidity_observations.write_ptr, temperature_samples.count, samples_count, humidity_samples.count, samples_count);
-      SERIAL_DEBUG("------------------------------------------------------------------------------\r\n");
+      SERIAL_DEBUG(F("------------------------------------------------------------------------------\r\n"));
+      SERIAL_DEBUG(F("%u\t \t \t \t%u\t \t \t \t%u/%u\t%u/%u\r\n"), *temperature_observations.write_ptr, *humidity_observations.write_ptr, temperature_samples.count, samples_count, humidity_samples.count, samples_count);
+      SERIAL_DEBUG(F("------------------------------------------------------------------------------\r\n"));
 
       //! assign new value for samples_count
       if (is_force_processing) {
@@ -617,44 +637,44 @@ void observations_processing() {
 
    if (is_processing_temperature || is_processing_humidty) {
       if (readable_data_write_ptr->temperature.med60 != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->temperature.med60);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->temperature.med60);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->temperature.min != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->temperature.min);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->temperature.min);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->temperature.med != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->temperature.med);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->temperature.med);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->temperature.max != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->temperature.max);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->temperature.max);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->humidity.med60 != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->humidity.med60);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->humidity.med60);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->humidity.min != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->humidity.min);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->humidity.min);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->humidity.med != UINT16_MAX) {
-         SERIAL_INFO("%u\t", readable_data_write_ptr->humidity.med);
+         SERIAL_INFO(F("%u\t"), readable_data_write_ptr->humidity.med);
       }
-      else SERIAL_INFO("-----\t");
+      else SERIAL_INFO(F("-----\t"));
 
       if (readable_data_write_ptr->humidity.max != UINT16_MAX) {
-         SERIAL_INFO("%u\r\n", readable_data_write_ptr->humidity.max);
+         SERIAL_INFO(F("%u\r\n"), readable_data_write_ptr->humidity.max);
       }
-      else SERIAL_INFO("-----\r\n");
+      else SERIAL_INFO(F("-----\r\n"));
    }
 }
 
@@ -921,17 +941,18 @@ void command_task() {
          is_continuous = false;
          is_start = false;
          is_stop = false;
-         SERIAL_TRACE("Execute command [ SAVE ]\r\n");
+         SERIAL_TRACE(F("Execute command [ SAVE ]\r\n"));
          save_configuration(CONFIGURATION_CURRENT);
+         init_wire();
       break;
    }
 
    #if (SERIAL_TRACE_LEVEL >= SERIAL_TRACE_LEVEL_TRACE)
    if (configuration.is_oneshot == is_oneshot || configuration.is_continuous == is_continuous) {
-      SERIAL_TRACE("Execute [ %s ]\r\n", buffer);
+      SERIAL_TRACE(F("Execute [ %s ]\r\n"), buffer);
    }
    else if (configuration.is_oneshot == is_continuous || configuration.is_continuous == is_oneshot) {
-      SERIAL_TRACE("Ignore [ %s ]\r\n", buffer);
+      SERIAL_TRACE(F("Ignore [ %s ]\r\n"), buffer);
    }
    #endif
 
