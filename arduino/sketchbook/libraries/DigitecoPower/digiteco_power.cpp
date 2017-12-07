@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace DigitecoPower {
    bool de_read(uint8_t address, float *value) {
-      uint8_t buffer[DIGITECO_POWER_READ_DATA_LENGTH + 1];
+      uint8_t buffer[DIGITECO_POWER_READ_DATA_LENGTH];
       uint8_t i = 0;
 
       Wire.requestFrom(address, (uint8_t) DIGITECO_POWER_READ_DATA_LENGTH);
@@ -32,7 +32,7 @@ namespace DigitecoPower {
          return false;
       }
 
-      while (Wire.available()) {
+      while (Wire.available() && i < DIGITECO_POWER_READ_DATA_LENGTH) {
          buffer[i++] = Wire.read();
       }
 

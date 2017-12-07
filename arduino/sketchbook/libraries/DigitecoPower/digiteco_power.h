@@ -62,10 +62,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIGITECO_POWER_BATTERY_CURRENT_ADDRESS     (3)
 
 /*!
-\def DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS
-\brief I2C input battery percentage read address.
+\def DIGITECO_POWER_BATTERY_CHARGE_ADDRESS
+\brief I2C input battery charge percentage read address.
 */
-#define DIGITECO_POWER_BATTERY_PERCENTAGE_ADDRESS  (4)
+#define DIGITECO_POWER_BATTERY_CHARGE_ADDRESS   (4)
 
 /*!
 \def DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS
