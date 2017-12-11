@@ -2,7 +2,8 @@
 \label{i2c-th_8ino}\index{sketchbook/rmap/i2c-\/th/i2c-\/th.\+ino@{sketchbook/rmap/i2c-\/th/i2c-\/th.\+ino}}
 {\ttfamily \#include $<$debug\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}i2c-\/th.\+h\char`\"{}}\newline
-Include dependency graph for i2c-\/th.ino\+:\nopagebreak
+Include dependency graph for i2c-\/th.ino\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -55,7 +56,7 @@ void \hyperlink{i2c-th_8ino_ac74850003fab6eb3269bfe043d0f939c}{init\+\_\+sensors
 void \hyperlink{i2c-th_8ino_ac816bd8aafe77e7a571574c8a26eead5}{i2c\+\_\+request\+\_\+interrupt\+\_\+handler} ()
 \begin{DoxyCompactList}\small\item\em I2C request interrupt handler. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-th_8ino_a6e27532df66f6bf186654355def5c9af}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (int rx\+\_\+data\+\_\+length)
-\item 
+\begin{DoxyCompactList}\small\item\em I2C receive interrupt handler. \end{DoxyCompactList}\item 
 bool \hyperlink{i2c-th_8ino_a1c5769e114267b210fb3812064d01dd0}{make\+\_\+observation\+\_\+from\+\_\+samples} (bool is\+\_\+force\+\_\+processing, \hyperlink{structsample__t}{sample\+\_\+t} $\ast$sample, \hyperlink{structobservation__t}{observation\+\_\+t} $\ast$observation)
 \begin{DoxyCompactList}\small\item\em Processing the samples to calculate an observation when the number of the samples reaches the exact samples\+\_\+count value. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-th_8ino_aba0fc91d6c2829df00a9d5fe2b921c90}{samples\+\_\+processing} (bool is\+\_\+force\+\_\+processing)
@@ -136,6 +137,18 @@ void.
 \subsubsection{\texorpdfstring{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler()}{i2c\_receive\_interrupt\_handler()}}
 {\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{rx\+\_\+data\+\_\+length }\end{DoxyParamCaption})}
 
+
+
+I2C receive interrupt handler. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rx\+\_\+data\+\_\+length} & received data length in bytes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
 read rx\+\_\+data\+\_\+length bytes of data from i2c bus
 
 it is a registers read?

@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*!
 \def SENSOR_TYPE_HYT
-\brief Sensor driver's HYT sensor type for HYT271 - HYT221.
+\brief Sensor driver's HYT sensor type for HYT271 and HYT221.
 */
 #define SENSOR_TYPE_HYT           ("HYT")
 
@@ -67,49 +67,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*!
 \def SENSOR_TYPE_DW1
-\brief Sensor driver's DW1 sensor type for DW1.
+\brief Sensor driver's DW1 sensor type for oneshot DW1.
 */
 #define SENSOR_TYPE_DW1           ("DW1")
 
 /*!
 \def SENSOR_TYPE_TBS
-\brief Sensor driver's TBS sensor type for Tipping bucket rain gauge.
+\brief Sensor driver's TBS sensor type for oneshot tipping bucket rain gauge.
 */
 #define SENSOR_TYPE_TBS           ("TBS")
 
 /*!
 \def SENSOR_TYPE_TBR
-\brief Sensor driver's TBR sensor type for Tipping bucket rain gauge.
+\brief Sensor driver's TBR sensor type for oneshot tipping bucket rain gauge.
 */
 #define SENSOR_TYPE_TBR           ("TBR")
 
 /*!
 \def SENSOR_TYPE_STH
-\brief Sensor driver's STH sensor type for Temperature and humidity oneshot.
+\brief Sensor driver's STH sensor type for oneshot istantaneous temperature and humidity.
 */
 #define SENSOR_TYPE_STH           ("STH")
 
 /*!
 \def SENSOR_TYPE_ITH
-\brief Sensor driver's ITH sensor type for Temperature and humidity oneshot report istantaneous.
+\brief Sensor driver's ITH sensor type for continuous istantaneous temperature and humidity.
 */
 #define SENSOR_TYPE_ITH           ("ITH")
 
 /*!
 \def SENSOR_TYPE_MTH
-\brief Sensor driver's MTH sensor type for Temperature and humidity oneshot report average.
+\brief Sensor driver's MTH sensor type for continuous average temperature and humidity.
 */
 #define SENSOR_TYPE_MTH           ("MTH")
 
 /*!
 \def SENSOR_TYPE_NTH
-\brief Sensor driver's NTH sensor type for Temperature and humidity oneshot report minium.
+\brief Sensor driver's NTH sensor type for continuous minimum temperature and humidity.
 */
 #define SENSOR_TYPE_NTH           ("NTH")
 
 /*!
 \def SENSOR_TYPE_XTH
-\brief Sensor driver's XTH sensor type for Temperature and humidity oneshot report maximum.
+\brief Sensor driver's XTH sensor type for continuous maximum temperature and humidity.
 */
 #define SENSOR_TYPE_XTH           ("XTH")
 

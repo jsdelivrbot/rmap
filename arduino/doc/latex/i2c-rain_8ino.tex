@@ -2,7 +2,8 @@
 \label{i2c-rain_8ino}\index{sketchbook/rmap/i2c-\/rain/i2c-\/rain.\+ino@{sketchbook/rmap/i2c-\/rain/i2c-\/rain.\+ino}}
 {\ttfamily \#include $<$debug\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}i2c-\/rain.\+h\char`\"{}}\newline
-Include dependency graph for i2c-\/rain.ino\+:\nopagebreak
+Include dependency graph for i2c-\/rain.ino\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -54,9 +55,8 @@ void \hyperlink{i2c-rain_8ino_a368e45fb147aecb0fd1478d3cc76fba7}{tipping\+\_\+bu
 \begin{DoxyCompactList}\small\item\em Tipping bucket interrupt handler. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-rain_8ino_ac816bd8aafe77e7a571574c8a26eead5}{i2c\+\_\+request\+\_\+interrupt\+\_\+handler} ()
 \begin{DoxyCompactList}\small\item\em I2C request interrupt handler. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}\label{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}} 
-void {\bfseries i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (int rx\+\_\+data\+\_\+length)
-\item 
+void \hyperlink{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (int rx\+\_\+data\+\_\+length)
+\begin{DoxyCompactList}\small\item\em I2C receive interrupt handler. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-rain_8ino_a009edfb36e6432603ed0ede845e2c12d}{tipping\+\_\+bucket\+\_\+task} ()
 \begin{DoxyCompactList}\small\item\em Tipping bucket task. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-rain_8ino_a46696a96b3118b5d8900703c054166c8}{exchange\+\_\+buffers} ()
@@ -108,6 +108,24 @@ void.
 
 Exchange reader and writer pointer to buffer. 
 
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}\label{i2c-rain_8ino_a6e27532df66f6bf186654355def5c9af}} 
+\index{i2c-\/rain.\+ino@{i2c-\/rain.\+ino}!i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}}
+\index{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+ino@{i2c-\/rain.\+ino}}
+\subsubsection{\texorpdfstring{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler()}{i2c\_receive\_interrupt\_handler()}}
+{\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{rx\+\_\+data\+\_\+length }\end{DoxyParamCaption})}
+
+
+
+I2C receive interrupt handler. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rx\+\_\+data\+\_\+length} & received data length in bytes. \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}

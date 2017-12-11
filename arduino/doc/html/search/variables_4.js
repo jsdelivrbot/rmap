@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['error_5fcount',['error_count',['../structsample__t.html#abcd5ae40e49c9c7bbfed40552ba44e72',1,'sample_t']]],
-  ['eth_5ftcp_5fclient',['eth_tcp_client',['../rmap_8h.html#abdcb198b5489995a350bc73d1d5f4f6d',1,'rmap.h']]],
-  ['eth_5fudp_5fclient',['eth_udp_client',['../rmap_8h.html#a2765db5c6ff0cd5266f528c32d9e1377',1,'rmap.h']]],
-  ['ethernet_5fmac',['ethernet_mac',['../structconfiguration__t.html#a6ade77826c87e62532cae8ca0f045dac',1,'configuration_t']]],
-  ['ethernet_5fstate',['ethernet_state',['../rmap_8h.html#a2214271b33b8a59a3c0741baf58f423f',1,'rmap.h']]]
+  ['data_5fsaving_5fstate',['data_saving_state',['../rmap_8h.html#ad8e73c4c6e8c2a77fd6d5b2763aa7ef9',1,'rmap.h']]],
+  ['do_5fbuffers_5freset',['do_buffers_reset',['../i2c-th_8h.html#a52a9c0540faee23b8ff875f320290dea',1,'i2c-th.h']]],
+  ['do_5fntp_5fsync',['do_ntp_sync',['../rmap_8h.html#abd2d7990cd2b2e061711bfdc600cef38',1,'rmap.h']]],
+  ['driver',['driver',['../structsensor__t.html#a9cb9a7d6b30b8aa990edc62c67e4bd0a',1,'sensor_t']]]
 ];

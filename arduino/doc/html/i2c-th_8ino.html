@@ -157,6 +157,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="memdesc:ac816bd8aafe77e7a571574c8a26eead5"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C request interrupt handler.  <a href="#ac816bd8aafe77e7a571574c8a26eead5">More...</a><br /></td></tr>
 <tr class="separator:ac816bd8aafe77e7a571574c8a26eead5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e27532df66f6bf186654355def5c9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-th_8ino.html#a6e27532df66f6bf186654355def5c9af">i2c_receive_interrupt_handler</a> (int rx_data_length)</td></tr>
+<tr class="memdesc:a6e27532df66f6bf186654355def5c9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C receive interrupt handler.  <a href="#a6e27532df66f6bf186654355def5c9af">More...</a><br /></td></tr>
 <tr class="separator:a6e27532df66f6bf186654355def5c9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c5769e114267b210fb3812064d01dd0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-th_8ino.html#a1c5769e114267b210fb3812064d01dd0">make_observation_from_samples</a> (bool is_force_processing, <a class="el" href="structsample__t.html">sample_t</a> *sample, <a class="el" href="structobservation__t.html">observation_t</a> *observation)</td></tr>
 <tr class="memdesc:a1c5769e114267b210fb3812064d01dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processing the samples to calculate an observation when the number of the samples reaches the exact samples_count value.  <a href="#a1c5769e114267b210fb3812064d01dd0">More...</a><br /></td></tr>
@@ -275,6 +276,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>I2C receive interrupt handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rx_data_length</td><td>received data length in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 <p>read rx_data_length bytes of data from i2c bus</p>
 <p>it is a registers read?</p>
 <p>offset in readable_data_read_ptr buffer</p>

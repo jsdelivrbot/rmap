@@ -71,6 +71,7 @@ var searchData=
   ['mqtt_5fusername_5flength',['MQTT_USERNAME_LENGTH',['../mqtt__config_8h.html#a0e1860b8d036f571ffcb7e6d27832c16',1,'mqtt_config.h']]],
   ['mqtt_5fwait_5fstate',['MQTT_WAIT_STATE',['../rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6',1,'rmap.h']]],
   ['mqttconnect',['mqttConnect',['../rmap_8h.html#a9f5e5ca8c47d4536dd1805e89fbb7db2',1,'mqttConnect(char *username, char *password):&#160;rmap.ino'],['../rmap_8ino.html#a9f5e5ca8c47d4536dd1805e89fbb7db2',1,'mqttConnect(char *username, char *password):&#160;rmap.ino']]],
+  ['mqttpublish',['mqttPublish',['../rmap_8h.html#a7f6838e898c168812aed181d700f2366',1,'mqttPublish(const char *topic, const char *message, bool is_retained=false):&#160;rmap.ino'],['../rmap_8ino.html#a9a46247768d3b87cbe261827b4f01e27',1,'mqttPublish(const char *topic, const char *message, bool is_retained):&#160;rmap.ino']]],
   ['mqttrxcallback',['mqttRxCallback',['../rmap_8h.html#a4fe2f970295d296f7f6725fe9e946933',1,'mqttRxCallback(MQTT::MessageData &amp;md):&#160;rmap.ino'],['../rmap_8ino.html#a4fe2f970295d296f7f6725fe9e946933',1,'mqttRxCallback(MQTT::MessageData &amp;md):&#160;rmap.ino']]],
   ['mqtttosd',['mqttToSd',['../rmap__utility_8h.html#a73af03c50e1c4ae36757d611e3d474f2',1,'rmap_utility.h']]]
 ];

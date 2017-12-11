@@ -211,9 +211,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac1da31566bf05976ecb87372278a1ea8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-rain_8h.html#ac1da31566bf05976ecb87372278a1ea8">i2c_request_interrupt_handler</a> (void)</td></tr>
 <tr class="memdesc:ac1da31566bf05976ecb87372278a1ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C request interrupt handler.  <a href="#ac1da31566bf05976ecb87372278a1ea8">More...</a><br /></td></tr>
 <tr class="separator:ac1da31566bf05976ecb87372278a1ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f81fcf39717baf18f2e7c2eee2051ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-rain_8h.html#a7f81fcf39717baf18f2e7c2eee2051ae">i2c_receive_interrupt_handler</a> (void)</td></tr>
-<tr class="memdesc:a7f81fcf39717baf18f2e7c2eee2051ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C receive interrupt handler.  <a href="#a7f81fcf39717baf18f2e7c2eee2051ae">More...</a><br /></td></tr>
-<tr class="separator:a7f81fcf39717baf18f2e7c2eee2051ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e27532df66f6bf186654355def5c9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-rain_8h.html#a6e27532df66f6bf186654355def5c9af">i2c_receive_interrupt_handler</a> (int rx_data_length)</td></tr>
+<tr class="memdesc:a6e27532df66f6bf186654355def5c9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C receive interrupt handler.  <a href="#a6e27532df66f6bf186654355def5c9af">More...</a><br /></td></tr>
+<tr class="separator:a6e27532df66f6bf186654355def5c9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fcfeb4fd75663ddccc79030c37d68b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-rain_8h.html#a7fcfeb4fd75663ddccc79030c37d68b9">tipping_bucket_interrupt_handler</a> (void)</td></tr>
 <tr class="memdesc:a7fcfeb4fd75663ddccc79030c37d68b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tipping bucket interrupt handler.  <a href="#a7fcfeb4fd75663ddccc79030c37d68b9">More...</a><br /></td></tr>
 <tr class="separator:a7fcfeb4fd75663ddccc79030c37d68b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -447,8 +447,8 @@ volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 
 </div>
 </div>
-<a id="a7f81fcf39717baf18f2e7c2eee2051ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f81fcf39717baf18f2e7c2eee2051ae">&#9670;&nbsp;</a></span>i2c_receive_interrupt_handler()</h2>
+<a id="a6e27532df66f6bf186654355def5c9af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e27532df66f6bf186654355def5c9af">&#9670;&nbsp;</a></span>i2c_receive_interrupt_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,15 +456,28 @@ volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
         <tr>
           <td class="memname">void i2c_receive_interrupt_handler </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rx_data_length</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>I2C receive interrupt handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rx_data_length</td><td>received data length in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>read rx_data_length bytes of data from i2c bus</p>
+<p>it is a registers read?</p>
+<p>offset in readable_data_read_ptr buffer</p>
+<p>length (in butes) of data to be read in readable_data_read_ptr</p>
+<p>it is a command?</p>
+<p>enable Command task</p>
+<p>it is a registers write? </p>
 
 </div>
 </div>

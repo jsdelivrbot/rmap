@@ -14,14 +14,16 @@
 {\ttfamily \#include $<$typedef.\+h$>$}\newline
 {\ttfamily \#include $<$registers-\/th.\+h$>$}\newline
 {\ttfamily \#include $<$Sensor\+Driver.\+h$>$}\newline
-Include dependency graph for i2c-\/th.h\+:\nopagebreak
+Include dependency graph for i2c-\/th.h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{i2c-th_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -134,9 +136,8 @@ void \hyperlink{i2c-th_8h_a9f32a4169471a435e9364460d7b1761d}{command\+\_\+task} 
 \begin{DoxyCompactList}\small\item\em Execute the command received on i2c bus by reading i2c received data buffer. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-th_8h_ac1da31566bf05976ecb87372278a1ea8}{i2c\+\_\+request\+\_\+interrupt\+\_\+handler} (void)
 \begin{DoxyCompactList}\small\item\em I2C request interrupt handler. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{i2c-th_8h_a7f81fcf39717baf18f2e7c2eee2051ae}\label{i2c-th_8h_a7f81fcf39717baf18f2e7c2eee2051ae}} 
-void {\bfseries i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (void)
-\end{DoxyCompactItemize}
+void \hyperlink{i2c-th_8h_a7f81fcf39717baf18f2e7c2eee2051ae}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (void)
+\begin{DoxyCompactList}\small\item\em I2C receive interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -409,6 +410,19 @@ O\+N\+E\+S\+H\+OT S\+T\+A\+R\+T-\/\+S\+T\+OP \mbox{\Hypertarget{i2c-th_8h_aafa3d
 
 
 Exchange reader and writer pointer to buffer. 
+
+\begin{DoxyReturn}{Returns}
+void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{i2c-th_8h_a7f81fcf39717baf18f2e7c2eee2051ae}\label{i2c-th_8h_a7f81fcf39717baf18f2e7c2eee2051ae}} 
+\index{i2c-\/th.\+h@{i2c-\/th.\+h}!i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}}
+\index{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}!i2c-\/th.\+h@{i2c-\/th.\+h}}
+\subsubsection{\texorpdfstring{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler()}{i2c\_receive\_interrupt\_handler()}}
+{\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+I2C receive interrupt handler. 
 
 \begin{DoxyReturn}{Returns}
 void. 

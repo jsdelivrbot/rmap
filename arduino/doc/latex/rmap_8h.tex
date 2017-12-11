@@ -26,14 +26,16 @@
 {\ttfamily \#include $<$I\+P\+Stack.\+h$>$}\newline
 {\ttfamily \#include $<$Countdown.\+h$>$}\newline
 {\ttfamily \#include $<$M\+Q\+T\+T\+Client.\+h$>$}\newline
-Include dependency graph for rmap.\+h\+:\nopagebreak
+Include dependency graph for rmap.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{rmap_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -211,9 +213,8 @@ void \hyperlink{rmap_8h_a1686e2719fa4a37ef933458673973d28}{set\+Next\+Time\+For\
 \begin{DoxyCompactList}\small\item\em Calculate next hour, minute and second for sensors reading. \end{DoxyCompactList}\item 
 bool \hyperlink{rmap_8h_a9f5e5ca8c47d4536dd1805e89fbb7db2}{mqtt\+Connect} (char $\ast$username, char $\ast$password)
 \begin{DoxyCompactList}\small\item\em Use a open tcp socket to connect to the mqtt server. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{rmap_8h_a7f6838e898c168812aed181d700f2366}\label{rmap_8h_a7f6838e898c168812aed181d700f2366}} 
-bool {\bfseries mqtt\+Publish} (const char $\ast$topic, const char $\ast$message, bool is\+\_\+retained=false)
-\item 
+bool \hyperlink{rmap_8h_a7f6838e898c168812aed181d700f2366}{mqtt\+Publish} (const char $\ast$topic, const char $\ast$message, bool is\+\_\+retained=false)
+\begin{DoxyCompactList}\small\item\em Publish message on topic. \end{DoxyCompactList}\item 
 void \hyperlink{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}{mqtt\+Rx\+Callback} (M\+Q\+T\+T\+::\+Message\+Data \&md)
 \begin{DoxyCompactList}\small\item\em Register a receive callback for incoming mqtt message. \end{DoxyCompactList}\item 
 char $\ast$ \hyperlink{rmap_8h_afba6e70a8bee4b42785eaeca4fd566d3}{rpc\+\_\+process} (char $\ast$json)
@@ -1075,6 +1076,28 @@ Use a open tcp socket to connect to the mqtt server.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if connection was succesful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rmap_8h_a7f6838e898c168812aed181d700f2366}\label{rmap_8h_a7f6838e898c168812aed181d700f2366}} 
+\index{rmap.\+h@{rmap.\+h}!mqtt\+Publish@{mqtt\+Publish}}
+\index{mqtt\+Publish@{mqtt\+Publish}!rmap.\+h@{rmap.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
+{\footnotesize\ttfamily bool mqtt\+Publish (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const char $\ast$}]{message,  }\item[{bool}]{is\+\_\+retained = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Publish message on topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$topic} & Topic for mqtt publish \\
+\hline
+{\em $\ast$message} & Message to be publish \\
+\hline
+{\em is\+\_\+retained} & retained message if true \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if publish was succesful, false otherwise. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}\label{rmap_8h_a4fe2f970295d296f7f6725fe9e946933}} 
 \index{rmap.\+h@{rmap.\+h}!mqtt\+Rx\+Callback@{mqtt\+Rx\+Callback}}

@@ -159,8 +159,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="memitem:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#a9f5e5ca8c47d4536dd1805e89fbb7db2">mqttConnect</a> (char *username, char *password)</td></tr>
 <tr class="memdesc:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a open tcp socket to connect to the mqtt server.  <a href="#a9f5e5ca8c47d4536dd1805e89fbb7db2">More...</a><br /></td></tr>
 <tr class="separator:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a46247768d3b87cbe261827b4f01e27"><td class="memItemLeft" align="right" valign="top"><a id="a9a46247768d3b87cbe261827b4f01e27"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>mqttPublish</b> (const char *topic, const char *message, bool is_retained)</td></tr>
+<tr class="memitem:a9a46247768d3b87cbe261827b4f01e27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#a9a46247768d3b87cbe261827b4f01e27">mqttPublish</a> (const char *topic, const char *message, bool is_retained)</td></tr>
+<tr class="memdesc:a9a46247768d3b87cbe261827b4f01e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish message on topic.  <a href="#a9a46247768d3b87cbe261827b4f01e27">More...</a><br /></td></tr>
 <tr class="separator:a9a46247768d3b87cbe261827b4f01e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fe2f970295d296f7f6725fe9e946933"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8ino.html#a4fe2f970295d296f7f6725fe9e946933">mqttRxCallback</a> (MQTT::MessageData &amp;md)</td></tr>
 <tr class="memdesc:a4fe2f970295d296f7f6725fe9e946933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a receive callback for incoming mqtt message.  <a href="#a4fe2f970295d296f7f6725fe9e946933">More...</a><br /></td></tr>
@@ -569,6 +569,51 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mqttPublish</b> (cons
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if connection was succesful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a9a46247768d3b87cbe261827b4f01e27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a46247768d3b87cbe261827b4f01e27">&#9670;&nbsp;</a></span>mqttPublish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mqttPublish </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>topic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_retained</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Publish message on topic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*topic</td><td>Topic for mqtt publish </td></tr>
+    <tr><td class="paramname">*message</td><td>Message to be publish </td></tr>
+    <tr><td class="paramname">is_retained</td><td>retained message if true </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if publish was succesful, false otherwise. </dd></dl>
 
 </div>
 </div>

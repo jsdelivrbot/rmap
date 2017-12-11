@@ -394,11 +394,12 @@ void command_task(void);
 */
 void i2c_request_interrupt_handler(void);
 
-/*! \fn void i2c_receive_interrupt_handler(void)
+/*! \fn void i2c_receive_interrupt_handler(int rx_data_length)
+\param[in] rx_data_length received data length in bytes.
 \brief I2C receive interrupt handler.
 \return void.
 */
-void i2c_receive_interrupt_handler(void);
+void i2c_receive_interrupt_handler(int rx_data_length);
 
 /*! \fn void tipping_bucket_interrupt_handler(void)
 \brief Tipping bucket interrupt handler.

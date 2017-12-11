@@ -1,7 +1,8 @@
 \hypertarget{debug_8cpp}{}\section{sketchbook/libraries/\+Rmap/debug.cpp File Reference}
 \label{debug_8cpp}\index{sketchbook/libraries/\+Rmap/debug.\+cpp@{sketchbook/libraries/\+Rmap/debug.\+cpp}}
 {\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
-Include dependency graph for debug.\+cpp\+:\nopagebreak
+Include dependency graph for debug.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,12 +20,10 @@ char $\ast$ \hyperlink{debug_8cpp_ab7517f3be15c21843ce73c609442bd30}{serial\+\_\
 \begin{DoxyCompactList}\small\item\em Print array of data over serial port preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
 void \hyperlink{debug_8cpp_af5ec9e4b05706cb28aff868525e72d28}{lcd\+\_\+begin} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, uint8\+\_\+t max\+\_\+cols, uint8\+\_\+t max\+\_\+rows)
 \begin{DoxyCompactList}\small\item\em Initialize L\+CD library. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{debug_8cpp_a7b3b66011772f8225cfa3a545841d6d3}\label{debug_8cpp_a7b3b66011772f8225cfa3a545841d6d3}} 
-char $\ast$ {\bfseries lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const char $\ast$fmt,...)
-\item 
-\mbox{\Hypertarget{debug_8cpp_ae47a9edd316c68d2030312d22dd670e3}\label{debug_8cpp_ae47a9edd316c68d2030312d22dd670e3}} 
-char $\ast$ {\bfseries lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$fmt,...)
-\end{DoxyCompactItemize}
+char $\ast$ \hyperlink{debug_8cpp_a72c5742f32833defecbd437f12268776}{lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message on lcd preformatting it with a user defined values and parameters. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{debug_8cpp_a160bbf960a3f5defb1b84d4a0190dde9}{lcd\+\_\+printf} (Liquid\+Crystal\+\_\+\+I2C $\ast$\hyperlink{rmap_8h_af7d08a33a932b4784cae528e8219f1c7}{lcd}, bool do\+\_\+clear, bool go\+\_\+to\+\_\+next\+\_\+line, char $\ast$ptr, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em Print a message on lcd preformatting it with a user defined values and parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -70,6 +69,58 @@ Initialize L\+CD library.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 void. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8cpp_a72c5742f32833defecbd437f12268776}\label{debug_8cpp_a72c5742f32833defecbd437f12268776}} 
+\index{debug.\+cpp@{debug.\+cpp}!lcd\+\_\+printf@{lcd\+\_\+printf}}
+\index{lcd\+\_\+printf@{lcd\+\_\+printf}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{lcd\+\_\+printf()}{lcd\_printf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily char $\ast$ lcd\+\_\+printf (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{bool}]{do\+\_\+clear,  }\item[{bool}]{go\+\_\+to\+\_\+next\+\_\+line,  }\item[{char $\ast$}]{ptr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message on lcd preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em do\+\_\+clear} & if true, clear lcd before printing message \\
+\hline
+\mbox{\tt in}  & {\em go\+\_\+to\+\_\+next\+\_\+line} & if true, print message to next line \\
+\hline
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8cpp_a160bbf960a3f5defb1b84d4a0190dde9}\label{debug_8cpp_a160bbf960a3f5defb1b84d4a0190dde9}} 
+\index{debug.\+cpp@{debug.\+cpp}!lcd\+\_\+printf@{lcd\+\_\+printf}}
+\index{lcd\+\_\+printf@{lcd\+\_\+printf}!debug.\+cpp@{debug.\+cpp}}
+\subsubsection{\texorpdfstring{lcd\+\_\+printf()}{lcd\_printf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily char $\ast$ lcd\+\_\+printf (\begin{DoxyParamCaption}\item[{Liquid\+Crystal\+\_\+\+I2C $\ast$}]{lcd,  }\item[{bool}]{do\+\_\+clear,  }\item[{bool}]{go\+\_\+to\+\_\+next\+\_\+line,  }\item[{char $\ast$}]{ptr,  }\item[{const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Print a message on lcd preformatting it with a user defined values and parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em $\ast$lcd} & pointer to lcd instance. \\
+\hline
+\mbox{\tt in}  & {\em do\+\_\+clear} & if true, clear lcd before printing message \\
+\hline
+\mbox{\tt in}  & {\em go\+\_\+to\+\_\+next\+\_\+line} & if true, print message to next line \\
+\hline
+\mbox{\tt in}  & {\em $\ast$ptr} & message to print. \\
+\hline
+\mbox{\tt in}  & {\em $\ast$fmt} & typo progmem for vsnprintf function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to data buffer filled with message by vsnprintf function. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{debug_8cpp_a9bcb9075bd69848b75520c3dcf0a54f3}\label{debug_8cpp_a9bcb9075bd69848b75520c3dcf0a54f3}} 
 \index{debug.\+cpp@{debug.\+cpp}!serial\+\_\+printf@{serial\+\_\+printf}}

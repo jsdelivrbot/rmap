@@ -1,17 +1,17 @@
 var searchData=
 [
-  ['sample',['sample',['../structvalue__t.html#a55071948ced929ed25b6985855760c93',1,'value_t']]],
-  ['samples_5fcount',['samples_count',['../i2c-th_8h.html#a9a06fc202d1070e79bc838d46b69c7d1',1,'i2c-th.h']]],
-  ['sd',['SD',['../rmap_8h.html#a552b54fa96e90cd6565fb71968e9fc5a',1,'rmap.h']]],
-  ['sensor_5freading_5ftime',['sensor_reading_time',['../rmap_8h.html#aeec8f1692cef357b0f4993acd2091e64',1,'rmap.h']]],
-  ['sensors',['sensors',['../structconfiguration__t.html#adede74f3da6d26f5bc4b5e64e4776f7f',1,'configuration_t::sensors()'],['../i2c-th_8h.html#ac07b59f913caef2eaea4e4bb93c901e9',1,'sensors():&#160;i2c-th.h']]],
-  ['sensors_5fcount',['sensors_count',['../structconfiguration__t.html#a9a1e7c702c2dd7270f31aca29264db86',1,'configuration_t::sensors_count()'],['../i2c-th_8h.html#a7727577f63dfa4aa55feb7ddd0739f83',1,'sensors_count():&#160;i2c-th.h']]],
-  ['sensors_5freading_5fstate',['sensors_reading_state',['../i2c-th_8h.html#a2ad2494d7aa3d5924b49127e1acefe40',1,'i2c-th.h']]],
-  ['serial_5fbuffer_5fprint',['serial_buffer_print',['../debug_8cpp.html#adc837429453017966fe21ec8fb429485',1,'debug.cpp']]],
-  ['serial_5fbuffer_5fprint_5fwritten_5fchar',['serial_buffer_print_written_char',['../debug_8cpp.html#a375e98fe7985a5396ab4e498726ba898',1,'debug.cpp']]],
-  ['sigma',['sigma',['../structvalue__t.html#a4d2f04777aa74135149e99af7a0d4166',1,'value_t']]],
-  ['state',['state',['../classSIM800.html#a825f975081ae033934dca5404895246d',1,'SIM800::state()'],['../i2c-rain_8h.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'state():&#160;i2c-rain.h']]],
-  ['stima_5fname',['stima_name',['../rmap_8h.html#a7ceb1f2d624bd4c8ac2b44eb593584e0',1,'rmap.h']]],
-  ['stream_5fstate',['stream_state',['../rmap_8h.html#ae71ce4452d78bfb55e2c0727413bf6fa',1,'rmap.h']]],
-  ['supervisor_5fstate',['supervisor_state',['../rmap_8h.html#a3e26cdd6ff02dd9530bb5fafeebf33bc',1,'rmap.h']]]
+  ['rain',['rain',['../structreadable__data__t.html#a183ab6eb973fe8deb1c6d0583a991e92',1,'readable_data_t::rain()'],['../i2c-rain_8h.html#a5688d7d07e5d53ec6ccd7acce49a728c',1,'rain():&#160;i2c-rain.h']]],
+  ['rain_5ftips_5fevent_5foccurred_5ftime_5fms',['rain_tips_event_occurred_time_ms',['../i2c-rain_8h.html#aa0097a28d3e4da7c88e72228e9b236d2',1,'i2c-rain.h']]],
+  ['read_5fdata_5ffile',['read_data_file',['../rmap_8h.html#accc3044dc5c2625353cfb41b309c883d',1,'rmap.h']]],
+  ['read_5fptr',['read_ptr',['../structobservation__t.html#a0fec54c85b3fcd095772a58c8d877845',1,'observation_t']]],
+  ['readable_5fconfiguration',['readable_configuration',['../rmap_8h.html#af0d633ce166aa2f6289c2170c5f8879a',1,'rmap.h']]],
+  ['readable_5fdata_5f1',['readable_data_1',['../i2c-rain_8h.html#ab7c4666cc43ac73859ace91030494dba',1,'i2c-rain.h']]],
+  ['readable_5fdata_5f2',['readable_data_2',['../i2c-rain_8h.html#af1fd929e13557159958a5328deefd8a3',1,'i2c-rain.h']]],
+  ['readable_5fdata_5faddress',['readable_data_address',['../i2c-rain_8h.html#ae75498e0d428e94dd8895abec0af11ca',1,'i2c-rain.h']]],
+  ['readable_5fdata_5flength',['readable_data_length',['../i2c-rain_8h.html#a202892f30149022049fb90b5db0ddbfa',1,'i2c-rain.h']]],
+  ['readable_5fdata_5fread_5fptr',['readable_data_read_ptr',['../i2c-rain_8h.html#af0914001a8977841586be8312dee3656',1,'i2c-rain.h']]],
+  ['readable_5fdata_5ftemp_5fptr',['readable_data_temp_ptr',['../i2c-rain_8h.html#ae8dc647e7272fabb6881c64f98b47a01',1,'i2c-rain.h']]],
+  ['readable_5fdata_5fwrite_5fptr',['readable_data_write_ptr',['../i2c-rain_8h.html#ab7eec4069b1ac3d682d74b37921e2707',1,'i2c-rain.h']]],
+  ['ready_5ftasks_5fcount',['ready_tasks_count',['../i2c-rain_8h.html#ad51737114d6776c16525958973815d50',1,'i2c-rain.h']]],
+  ['report_5fseconds',['report_seconds',['../structconfiguration__t.html#a0c0dc512cf86464d2e8dad486e042c5c',1,'configuration_t']]]
 ];

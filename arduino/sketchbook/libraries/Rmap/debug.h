@@ -251,7 +251,7 @@ char *serial_printf_array(void *data, int16_t length, uint8_t type, const __Flas
 void lcd_begin(LiquidCrystal_I2C *lcd, uint8_t max_cols, uint8_t max_rows);
 
 /*!
-\fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const __FlashStringHelper *fmt, ...)
+\fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt, ...)
 \brief Print a message on lcd preformatting it with a user defined values and parameters.
 \param[in] *lcd pointer to lcd instance.
 \param[in] do_clear if true, clear lcd before printing message
@@ -263,7 +263,7 @@ void lcd_begin(LiquidCrystal_I2C *lcd, uint8_t max_cols, uint8_t max_rows);
 char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt, ...);
 
 /*!
-\fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, char *ptr, const char *fmt, ...)
+\fn char *lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt, ...)
 \brief Print a message on lcd preformatting it with a user defined values and parameters.
 \param[in] *lcd pointer to lcd instance.
 \param[in] do_clear if true, clear lcd before printing message

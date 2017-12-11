@@ -12,14 +12,16 @@
 {\ttfamily \#include $<$Wire.\+h$>$}\newline
 {\ttfamily \#include $<$typedef.\+h$>$}\newline
 {\ttfamily \#include $<$registers-\/rain.\+h$>$}\newline
-Include dependency graph for i2c-\/rain.h\+:\nopagebreak
+Include dependency graph for i2c-\/rain.h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{i2c-rain_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -99,7 +101,7 @@ void \hyperlink{i2c-rain_8h_a9f32a4169471a435e9364460d7b1761d}{command\+\_\+task
 \begin{DoxyCompactList}\small\item\em Execute the command received on i2c bus by reading i2c received data buffer. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-rain_8h_ac1da31566bf05976ecb87372278a1ea8}{i2c\+\_\+request\+\_\+interrupt\+\_\+handler} (void)
 \begin{DoxyCompactList}\small\item\em I2C request interrupt handler. \end{DoxyCompactList}\item 
-void \hyperlink{i2c-rain_8h_a7f81fcf39717baf18f2e7c2eee2051ae}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (void)
+void \hyperlink{i2c-rain_8h_a6e27532df66f6bf186654355def5c9af}{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler} (int rx\+\_\+data\+\_\+length)
 \begin{DoxyCompactList}\small\item\em I2C receive interrupt handler. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-rain_8h_a7fcfeb4fd75663ddccc79030c37d68b9}{tipping\+\_\+bucket\+\_\+interrupt\+\_\+handler} (void)
 \begin{DoxyCompactList}\small\item\em Tipping bucket interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -308,20 +310,37 @@ Exchange reader and writer pointer to buffer.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{i2c-rain_8h_a7f81fcf39717baf18f2e7c2eee2051ae}\label{i2c-rain_8h_a7f81fcf39717baf18f2e7c2eee2051ae}} 
+\mbox{\Hypertarget{i2c-rain_8h_a6e27532df66f6bf186654355def5c9af}\label{i2c-rain_8h_a6e27532df66f6bf186654355def5c9af}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}}
 \index{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler@{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
 \subsubsection{\texorpdfstring{i2c\+\_\+receive\+\_\+interrupt\+\_\+handler()}{i2c\_receive\_interrupt\_handler()}}
-{\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void i2c\+\_\+receive\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{rx\+\_\+data\+\_\+length }\end{DoxyParamCaption})}
 
 
 
 I2C receive interrupt handler. 
 
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rx\+\_\+data\+\_\+length} & received data length in bytes. \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{i2c-rain_8h_ac1da31566bf05976ecb87372278a1ea8}\label{i2c-rain_8h_ac1da31566bf05976ecb87372278a1ea8}} 
+read rx\+\_\+data\+\_\+length bytes of data from i2c bus
+
+it is a registers read?
+
+offset in readable\+\_\+data\+\_\+read\+\_\+ptr buffer
+
+length (in butes) of data to be read in readable\+\_\+data\+\_\+read\+\_\+ptr
+
+it is a command?
+
+enable Command task
+
+it is a registers write? \mbox{\Hypertarget{i2c-rain_8h_ac1da31566bf05976ecb87372278a1ea8}\label{i2c-rain_8h_ac1da31566bf05976ecb87372278a1ea8}} 
 \index{i2c-\/rain.\+h@{i2c-\/rain.\+h}!i2c\+\_\+request\+\_\+interrupt\+\_\+handler@{i2c\+\_\+request\+\_\+interrupt\+\_\+handler}}
 \index{i2c\+\_\+request\+\_\+interrupt\+\_\+handler@{i2c\+\_\+request\+\_\+interrupt\+\_\+handler}!i2c-\/rain.\+h@{i2c-\/rain.\+h}}
 \subsubsection{\texorpdfstring{i2c\+\_\+request\+\_\+interrupt\+\_\+handler()}{i2c\_request\_interrupt\_handler()}}

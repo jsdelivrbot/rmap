@@ -14,6 +14,7 @@ var searchData=
   ['lcd_5finfo',['LCD_INFO',['../debug_8h.html#aae2acb78c87bcf0a1cc4d743c35efce9',1,'debug.h']]],
   ['lcd_5fmax_5fcols',['lcd_max_cols',['../debug_8cpp.html#a3a35c553d138e96f0b2d5850d6a1f8d4',1,'debug.cpp']]],
   ['lcd_5fmax_5frows',['lcd_max_rows',['../debug_8cpp.html#a8a5985b489c245c2ff62a3a11e835f95',1,'debug.cpp']]],
+  ['lcd_5fprintf',['lcd_printf',['../debug_8cpp.html#a72c5742f32833defecbd437f12268776',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt,...):&#160;debug.cpp'],['../debug_8cpp.html#a160bbf960a3f5defb1b84d4a0190dde9',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt,...):&#160;debug.cpp'],['../debug_8h.html#ae47a9edd316c68d2030312d22dd670e3',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const __FlashStringHelper *fmt,...):&#160;debug.cpp'],['../debug_8h.html#a7b3b66011772f8225cfa3a545841d6d3',1,'lcd_printf(LiquidCrystal_I2C *lcd, bool do_clear, bool go_to_next_line, char *ptr, const char *fmt,...):&#160;debug.cpp']]],
   ['lcd_5fprintf_5fbuffer_5flength',['LCD_PRINTF_BUFFER_LENGTH',['../debug_8h.html#a05952bc8be9df24d159e158fa7e37aa9',1,'debug.h']]],
   ['lcd_5frows',['LCD_ROWS',['../lcd__config_8h.html#a9a59fc4d524d3519a6bd0cb451850a65',1,'lcd_config.h']]],
   ['lcd_5ftime_5ffor_5freinitialize_5fs',['LCD_TIME_FOR_REINITIALIZE_S',['../rmap-config_8h.html#af546d356bff5c682bba4aeeed199d5df',1,'rmap-config.h']]],
