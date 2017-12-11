@@ -10,6 +10,7 @@
 #include <sdcard_utility.h>
 #include <typedef.h>
 #include <sensors_config.h>
+#include <json_config.h>
 
 #define I2C_BUS_CLOCK                                 (50000L)
 #define USE_SENSORS_COUNT                             (10)
@@ -58,6 +59,16 @@ void init_sensors () {
   sensors_count = 0;
 
   SERIAL_INFO(F("Sensors...\r\n"));
+
+  #if (USE_SENSOR_ADT)
+  SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_ADT, 0x48, sensors, &sensors_count);
+  SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_ADT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+  #endif
+
+  #if (USE_SENSOR_HIH)
+  SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_HIH, 0x27, sensors, &sensors_count);
+  SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HIH, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+  #endif
 
   #if (USE_SENSOR_HYT)
   SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_HYT, 0x28, sensors, &sensors_count);
@@ -348,7 +359,7 @@ void data_saving_task() {
          if (i < sensors_count) {
             k = 0;
             data_count = jsonToMqtt(&json_sensors_data[i][0], "stopic/", topic_buffer, message_buffer, (tmElements_t *) &sensor_reading_time);
-            SERIAL_INFO(F("%u: [ %u ] %s\r\n\r\n"), i, data_count, json_sensors_data[i]));
+            SERIAL_INFO(F("%u: [ %u ] %s\r\n\r\n"), i, data_count, json_sensors_data[i]);
             data_saving_state = DATA_SAVING_DATA_LOOP;
             SERIAL_TRACE(F("DATA_SAVING_SENSORS_LOOP ---> DATA_SAVING_DATA_LOOP\r\n"));
          }

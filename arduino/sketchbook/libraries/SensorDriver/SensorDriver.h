@@ -284,6 +284,86 @@ protected:
    static void printInfo(const char* driver, const char* type, const uint8_t address = 0, const uint8_t node = 0);
 };
 
+#if (USE_SENSOR_ADT)
+#define SENSOR_DRIVER_ADT_TEMPERATURE_MIN       (SENSOR_DRIVER_C_TO_K + (-40 * 100))
+#define SENSOR_DRIVER_ADT_TEMPERATURE_MAX       (SENSOR_DRIVER_C_TO_K + (120 * 100))
+class SensorDriverAdt7420 : public SensorDriver {
+public:
+   SensorDriverAdt7420(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
+      _is_setted = is_setted;
+      _is_prepared = is_prepared;
+
+      *_is_setted = false;
+      *_is_prepared = false;
+
+      SensorDriver::printInfo(driver, type);
+      SERIAL_DEBUG(F(" create... [ %s ]\r\n"), OK_STRING);
+   };
+   void setup(const uint8_t address, const uint8_t node = 0);
+   void prepare();
+   void get(int32_t *values, uint8_t length);
+
+   #if (USE_JSON)
+   void getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length = JSON_BUFFER_LENGTH);
+   #endif
+
+   bool isSetted();
+   bool isPrepared();
+   void resetPrepared();
+
+protected:
+   bool *_is_setted;
+   bool *_is_prepared;
+
+   enum {
+      INIT,
+      READ,
+      END
+   } _get_state;
+};
+#endif
+
+#if (USE_SENSOR_HIH)
+#define SENSOR_DRIVER_HIH_HUMIDITY_MIN          (0)
+#define SENSOR_DRIVER_HIH_HUMIDITY_MAX          (100)
+#define SENSOR_DRIVER_HIH_TEMPERATURE_MIN       (SENSOR_DRIVER_C_TO_K + (-25 * 100))
+#define SENSOR_DRIVER_HIH_TEMPERATURE_MAX       (SENSOR_DRIVER_C_TO_K + (85 * 100))
+class SensorDriverHih6100 : public SensorDriver {
+public:
+   SensorDriverHih6100(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
+      _is_setted = is_setted;
+      _is_prepared = is_prepared;
+
+      *_is_setted = false;
+      *_is_prepared = false;
+
+      SensorDriver::printInfo(driver, type);
+      SERIAL_DEBUG(F(" create... [ %s ]\r\n"), OK_STRING);
+   };
+   void setup(const uint8_t address, const uint8_t node = 0);
+   void prepare();
+   void get(int32_t *values, uint8_t length);
+
+   #if (USE_JSON)
+   void getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length = JSON_BUFFER_LENGTH);
+   #endif
+
+   bool isSetted();
+   bool isPrepared();
+   void resetPrepared();
+
+protected:
+   bool *_is_setted;
+   bool *_is_prepared;
+
+   enum {
+      INIT,
+      READ,
+      END
+   } _get_state;
+};
+#endif
+
 #if (USE_SENSOR_HYT)
 #include <hyt2x1.h>
 #define SENSOR_DRIVER_HYT2X1_HUMIDITY_MIN       (HYT2X1_HUMIDITY_MIN)

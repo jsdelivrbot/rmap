@@ -31,6 +31,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "SensorDriver.h"
 
 namespace _SensorDriver {
+   #if (USE_SENSOR_ADT)
+   bool _is_adt_setted;
+   bool _is_adt_prepared;
+   #endif
+
+   #if (USE_SENSOR_HIH)
+   bool _is_hih_setted;
+   bool _is_hih_prepared;
+   #endif
+
    #if (USE_SENSOR_HYT)
    bool _is_hyt_setted;
    bool _is_hyt_prepared;
@@ -69,12 +79,12 @@ SensorDriver *SensorDriver::create(const char* driver, const char* type) {
 
    #if (USE_SENSOR_ADT)
    else if (strcmp(type, SENSOR_TYPE_ADT) == 0)
-   return new SensorDriverHyt2X1(driver, type, &_SensorDriver::_is_hyt_setted, &_SensorDriver::_is_hyt_prepared);
+   return new SensorDriverAdt7420(driver, type, &_SensorDriver::_is_adt_setted, &_SensorDriver::_is_adt_prepared);
    #endif
 
    #if (USE_SENSOR_HIH)
    else if (strcmp(type, SENSOR_TYPE_HIH) == 0)
-   return new SensorDriverHyt2X1(driver, type, &_SensorDriver::_is_hyt_setted, &_SensorDriver::_is_hyt_prepared);
+   return new SensorDriverHih6100(driver, type, &_SensorDriver::_is_hih_setted, &_SensorDriver::_is_hih_prepared);
    #endif
 
    #if (USE_SENSOR_HYT)
@@ -206,6 +216,400 @@ void SensorDriver::printInfo(const char* driver, const char* type, const uint8_t
 }
 
 //------------------------------------------------------------------------------
+// ADT7420
+//------------------------------------------------------------------------------
+#if (USE_SENSOR_ADT)
+bool SensorDriverAdt7420::isSetted() {
+   return *_is_setted;
+}
+
+bool SensorDriverAdt7420::isPrepared() {
+   return *_is_prepared;
+}
+
+void SensorDriverAdt7420::resetPrepared() {
+   _get_state = INIT;
+   *_is_prepared = false;
+}
+
+void SensorDriverAdt7420::setup(const uint8_t address, const uint8_t node) {
+   SensorDriver::setup(address, node);
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+
+   if (!*_is_setted) {
+      Wire.beginTransmission(_address);
+      Wire.write(0x03); // Set the register pointer to (0x01)
+      Wire.write(0x20); // Set resolution and one shot
+
+      if (Wire.endTransmission()) {
+         SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), FAIL_STRING);
+         return;
+      }
+
+      *_is_setted = true;
+      _delay_ms = 250;
+
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
+   }
+   else {
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), YES_STRING);
+   }
+
+   *_is_setted = true;
+}
+
+void SensorDriverAdt7420::prepare() {
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+
+   if (!*_is_prepared) {
+      Wire.beginTransmission(_address);
+      Wire.write(0x03); // Set the register pointer to (0x01)
+      Wire.write(0x20); // Set resolution and one shot
+
+      if (Wire.endTransmission()) {
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
+         return;
+      }
+
+      *_is_prepared = true;
+
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
+   }
+   else {
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
+      _delay_ms = 0;
+   }
+
+   _start_time_ms = millis();
+}
+
+void SensorDriverAdt7420::get(int32_t *values, uint8_t length) {
+   static int temperature;
+   uint8_t msb;
+   uint8_t lsb;
+
+   switch (_get_state) {
+      case INIT:
+      temperature = 0;
+      memset(values, UINT16_MAX, length);
+
+      _is_success = true;
+      _is_readed = false;
+      _is_end = false;
+
+      if (*_is_prepared && length >= 1) {
+         Wire.beginTransmission(_address);
+         Wire.write(0x00); // Set the register pointer to (0x00)
+
+         if (Wire.endTransmission()) {
+            _is_success = false;
+         }
+      }
+      else {
+         _is_success = false;
+      }
+
+      if (_is_success) {
+         _get_state = READ;
+      }
+      else {
+         _get_state = END;
+      }
+
+      _delay_ms = 0;
+      _start_time_ms = millis();
+      break;
+
+      case READ:
+         Wire.requestFrom(_address, (uint8_t) 2);
+
+         if (Wire.available() < 2) {
+            _is_success = false;
+         }
+         else {
+            msb = Wire.read();
+            lsb = Wire.read();
+
+            if ((msb == 255) && (lsb == 255)) {
+               _is_success = false;
+            }
+            else {
+               _is_success = true;
+            }
+
+            // it's a 13bit int, using two's compliment for negative
+            temperature = ((msb << 8) | lsb) >> 3 & 0xFFF;
+
+            if (temperature & 0x800) {
+              temperature -= 0x1000;
+            }
+         }
+
+         _delay_ms = 0;
+         _start_time_ms = millis();
+         _get_state = END;
+      break;
+
+      case END:
+         if (length >= 1) {
+            values[0] = (temperature*6.25) + SENSOR_DRIVER_C_TO_K;
+
+            if (!_is_success || values[0] < SENSOR_DRIVER_ADT_TEMPERATURE_MIN || values[0] > SENSOR_DRIVER_ADT_TEMPERATURE_MAX) {
+               _is_success = false;
+               values[0] = UINT16_MAX;
+            }
+         }
+
+         SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[0]);
+            }
+            else {
+               SERIAL_DEBUG(F("--> temperature: ---\r\n"));
+            }
+         }
+
+         _start_time_ms = millis();
+         _delay_ms = 0;
+         _is_end = true;
+         _is_readed = false;
+         _get_state = INIT;
+      break;
+   }
+}
+
+#if (USE_JSON)
+void SensorDriverAdt7420::getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length) {
+   SensorDriverAdt7420::get(values, length);
+
+   if (_is_end && !_is_readed) {
+      StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
+      JsonObject &json = buffer.createObject();
+
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            json["B12101"] = values[0];
+         }
+         else json["B12101"] = RawJson("null");
+      }
+
+      json.printTo(json_buffer, json_buffer_length);
+   }
+}
+#endif
+
+#endif
+
+//------------------------------------------------------------------------------
+// HIH6100
+//------------------------------------------------------------------------------
+#if (USE_SENSOR_HIH)
+bool SensorDriverHih6100::isSetted() {
+   return *_is_setted;
+}
+
+bool SensorDriverHih6100::isPrepared() {
+   return *_is_prepared;
+}
+
+void SensorDriverHih6100::resetPrepared() {
+   _get_state = INIT;
+   *_is_prepared = false;
+}
+
+void SensorDriverHih6100::setup(const uint8_t address, const uint8_t node) {
+   SensorDriver::setup(address, node);
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+   SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
+   _delay_ms = 0;
+   *_is_setted = true;
+}
+
+void SensorDriverHih6100::prepare() {
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+
+   if (!*_is_prepared) {
+      Wire.beginTransmission(_address);
+
+      if (Wire.endTransmission()) {
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
+         return;
+      }
+
+      *_is_prepared = true;
+      _delay_ms = 40;
+
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
+   }
+   else {
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
+      _delay_ms = 0;
+   }
+
+   _start_time_ms = millis();
+}
+
+void SensorDriverHih6100::get(int32_t *values, uint8_t length) {
+   static uint16_t temperature;
+   static uint16_t humidity;
+   uint8_t x;
+   uint8_t y;
+   uint8_t s;
+
+   switch (_get_state) {
+      case INIT:
+      temperature = 0;
+      humidity = 0;
+      memset(values, UINT16_MAX, length);
+
+      _is_success = true;
+      _is_readed = false;
+      _is_end = false;
+
+      if (*_is_prepared && length >= 1) {
+         _get_state = READ;
+      }
+      else {
+         _is_success = false;
+         _get_state = END;
+      }
+
+      _delay_ms = 0;
+      _start_time_ms = millis();
+      break;
+
+      case READ:
+         Wire.requestFrom(_address, (uint8_t) 4);
+
+         if (Wire.available() < 4) {
+            _is_success = false;
+         }
+         else {
+            x = Wire.read();
+            s = (x & 0xC0 ) >> 6;
+
+            if (s == 0) {
+               // status 0 == OK
+               // Normal Operation, Valid Data that has not been fetched since the last measurement cycle
+
+               y = Wire.read();
+               humidity = (((uint16_t) (x & 0x3F)) << 8) | y;
+
+               x = Wire.read();
+               y = Wire.read();
+
+               temperature = (((uint16_t) x) << 6) | ((y & 0xFC) >> 2);
+               _is_success = true;
+            }
+            else {
+               // status 1
+               // Stale Data: Data that has already been
+               // fetched since the last measurement cycle, or
+               // data fetched before the first measurement
+               // has been completed
+
+               // status 2
+               // Device in Command Mode
+               // Command Mode is used for programming the sensor.
+               // This mode should not be seen during normal operation
+
+               // status 3
+               // Not Used
+               _is_success = false;
+            }
+         }
+
+         if (Wire.endTransmission()) {
+            _is_success = false;
+         }
+
+         _delay_ms = 0;
+         _start_time_ms = millis();
+         _get_state = END;
+      break;
+
+      case END:
+         if (length >= 1) {
+            values[0] = round(float(humidity) / 16382. * 100);
+
+            if (!_is_success || values[0] < SENSOR_DRIVER_HIH_HUMIDITY_MIN || values[0] > SENSOR_DRIVER_HIH_HUMIDITY_MAX) {
+               _is_success = false;
+               values[0] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 2) {
+            values[1] = round((float(temperature) / 16382. * 165. - 40.) * 100) + SENSOR_DRIVER_C_TO_K;
+
+            if (!_is_success || values[1] < SENSOR_DRIVER_HIH_TEMPERATURE_MIN || values[1] > SENSOR_DRIVER_HIH_TEMPERATURE_MAX) {
+               _is_success = false;
+               values[1] = UINT16_MAX;
+            }
+         }
+
+         SensorDriver::printInfo(_driver, _type, _address, _node);
+         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+
+         if (length >= 1) {
+            if (values[0] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[0]);
+            }
+            else {
+               SERIAL_DEBUG(F("--> humidity: ---\r\n"));
+            }
+         }
+
+         if (length >= 2) {
+            if (values[1] != UINT16_MAX) {
+               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[1]);
+            }
+            else {
+               SERIAL_DEBUG(F("--> temperature: ---\r\n"));
+            }
+         }
+
+         _start_time_ms = millis();
+         _delay_ms = 0;
+         _is_end = true;
+         _is_readed = false;
+         _get_state = INIT;
+      break;
+   }
+}
+
+#if (USE_JSON)
+void SensorDriverHih6100::getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length) {
+   SensorDriverHih6100::get(values, length);
+
+   if (_is_end && !_is_readed) {
+      StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
+      JsonObject &json = buffer.createObject();
+
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            json["B13003"] = values[0];
+         }
+         else json["B13003"] = RawJson("null");
+      }
+
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            json["B12101"] = values[1];
+         }
+         else json["B12101"] = RawJson("null");
+      }
+
+      json.printTo(json_buffer, json_buffer_length);
+   }
+}
+#endif
+
+#endif
+
+//------------------------------------------------------------------------------
 // HYT2X1
 //------------------------------------------------------------------------------
 #if (USE_SENSOR_HYT)
@@ -225,9 +629,8 @@ void SensorDriverHyt2X1::resetPrepared() {
 void SensorDriverHyt2X1::setup(const uint8_t address, const uint8_t node) {
    SensorDriver::setup(address, node);
    SensorDriver::printInfo(_driver, _type, _address, _node);
-
    *_is_setted = true;
-
+   _delay_ms = 0;
    SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
@@ -253,78 +656,78 @@ void SensorDriverHyt2X1::get(int32_t *values, uint8_t length) {
 
    switch (_get_state) {
       case INIT:
-         humidity = UINT16_MAX;
-         temperature = UINT16_MAX;
-         memset(values, UINT16_MAX, length);
+      humidity = UINT16_MAX;
+      temperature = UINT16_MAX;
+      memset(values, UINT16_MAX, length);
 
-         _is_readed = false;
-         _is_end = false;
+      _is_readed = false;
+      _is_end = false;
 
-         if (*_is_prepared && length >= 1) {
-            _is_success = true;
-            _get_state = READ;
-         }
-         else {
-            _is_success = false;
-            _get_state = END;
-         }
+      if (*_is_prepared && length >= 1) {
+         _is_success = true;
+         _get_state = READ;
+      }
+      else {
+         _is_success = false;
+         _get_state = END;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
       break;
 
       case READ:
-         _is_success = Hyt2X1::read(_address, &humidity, &temperature);
-         _delay_ms = 0;
-         _start_time_ms = millis();
-         _get_state = END;
+      _is_success = Hyt2X1::read(_address, &humidity, &temperature);
+      _delay_ms = 0;
+      _start_time_ms = millis();
+      _get_state = END;
       break;
 
       case END:
-         if (length >= 1) {
-            values[0] = round(humidity);
+      if (length >= 1) {
+         values[0] = round(humidity);
 
-            if (!_is_success || values[0] < SENSOR_DRIVER_HYT2X1_HUMIDITY_MIN || values[0] > SENSOR_DRIVER_HYT2X1_HUMIDITY_MAX) {
-               _is_success = false;
-               values[0] = UINT16_MAX;
-            }
+         if (!_is_success || values[0] < SENSOR_DRIVER_HYT2X1_HUMIDITY_MIN || values[0] > SENSOR_DRIVER_HYT2X1_HUMIDITY_MAX) {
+            _is_success = false;
+            values[0] = UINT16_MAX;
          }
+      }
 
-         if (length >= 2) {
-            values[1] = SENSOR_DRIVER_C_TO_K + temperature * 100;
+      if (length >= 2) {
+         values[1] = SENSOR_DRIVER_C_TO_K + temperature * 100;
 
-            if (!_is_success || values[1] < SENSOR_DRIVER_HYT2X1_TEMPERATURE_MIN || values[1] > SENSOR_DRIVER_HYT2X1_TEMPERATURE_MAX) {
-               _is_success = false;
-               values[1] = UINT16_MAX;
-            }
+         if (!_is_success || values[1] < SENSOR_DRIVER_HYT2X1_TEMPERATURE_MIN || values[1] > SENSOR_DRIVER_HYT2X1_TEMPERATURE_MAX) {
+            _is_success = false;
+            values[1] = UINT16_MAX;
          }
+      }
 
-         SensorDriver::printInfo(_driver, _type, _address, _node);
-         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+      SensorDriver::printInfo(_driver, _type, _address, _node);
+      SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (length >= 1) {
-            if (values[0] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[0]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> humidity: ---\r\n"));
-            }
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[0]);
          }
-
-         if (length >= 2) {
-            if (values[1] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[1]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> temperature: ---\r\n"));
-            }
+         else {
+            SERIAL_DEBUG(F("--> humidity: ---\r\n"));
          }
+      }
 
-         _start_time_ms = millis();
-         _delay_ms = 0;
-         _is_end = true;
-         _is_readed = false;
-         _get_state = INIT;
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[1]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> temperature: ---\r\n"));
+         }
+      }
+
+      _start_time_ms = millis();
+      _delay_ms = 0;
+      _is_end = true;
+      _is_readed = false;
+      _get_state = INIT;
       break;
    }
 }
@@ -338,14 +741,14 @@ void SensorDriverHyt2X1::getJson(int32_t *values, uint8_t length, char *json_buf
       JsonObject &json = buffer.createObject();
 
       if (length >= 1) {
-         if (_is_success) {
+         if (values[0] != UINT16_MAX) {
             json["B13003"] = values[0];
          }
          else json["B13003"] = RawJson("null");
       }
 
       if (length >= 2) {
-         if (_is_success) {
+         if (values[1] != UINT16_MAX) {
             json["B12101"] = values[1];
          }
          else json["B12101"] = RawJson("null");
@@ -382,6 +785,7 @@ void SensorDriverRain::setup(const uint8_t address, const uint8_t node) {
    SensorDriver::setup(address, node);
    SensorDriver::printInfo(_driver, _type, _address, _node);
    *_is_setted = true;
+   _delay_ms = 0;
    SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
@@ -425,106 +829,106 @@ void SensorDriverRain::get(int32_t *values, uint8_t length) {
 
    switch (_get_state) {
       case INIT:
-         memset(values, UINT16_MAX, length);
+      memset(values, UINT16_MAX, length);
 
-         _is_readed = false;
-         _is_end = false;
+      _is_readed = false;
+      _is_end = false;
 
-         if (*_is_prepared && length >= 1) {
-            _is_success = true;
-            _get_state = SET_RAIN_ADDRESS;
-         }
-         else {
-            _is_success = false;
-            _get_state = END;
-         }
+      if (*_is_prepared && length >= 1) {
+         _is_success = true;
+         _get_state = SET_RAIN_ADDRESS;
+      }
+      else {
+         _is_success = false;
+         _get_state = END;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
       break;
 
       case SET_RAIN_ADDRESS:
-         Wire.beginTransmission(_address);
+      Wire.beginTransmission(_address);
 
-         if (strcmp(_type, SENSOR_TYPE_TBS) == 0 || strcmp(_type, SENSOR_TYPE_TBR) == 0) {
-            Wire.write(I2C_RAIN_TIPS_ADDRESS);
-            Wire.write(I2C_RAIN_TIPS_LENGTH);
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_TBS) == 0 || strcmp(_type, SENSOR_TYPE_TBR) == 0) {
+         Wire.write(I2C_RAIN_TIPS_ADDRESS);
+         Wire.write(I2C_RAIN_TIPS_LENGTH);
+      }
+      else _is_success = false;
 
-         if (Wire.endTransmission()) {
-            _is_success = false;
-         }
+      if (Wire.endTransmission()) {
+         _is_success = false;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_RAIN;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_RAIN;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_RAIN:
-         if (strcmp(_type, SENSOR_TYPE_TBS) == 0 || strcmp(_type, SENSOR_TYPE_TBR) == 0) {
-            data_length = I2C_RAIN_TIPS_LENGTH;
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_TBS) == 0 || strcmp(_type, SENSOR_TYPE_TBR) == 0) {
+         data_length = I2C_RAIN_TIPS_LENGTH;
+      }
+      else _is_success = false;
 
-         Wire.requestFrom(_address, data_length);
+      Wire.requestFrom(_address, data_length);
 
-         if (Wire.available() < data_length) {
-            _is_success = false;
-         }
+      if (Wire.available() < data_length) {
+         _is_success = false;
+      }
 
-         if (_is_success) {
-            for (uint8_t i=0; i<data_length; i++) {
-               rain_data[i] = Wire.read();
-            }
+      if (_is_success) {
+         for (uint8_t i=0; i<data_length; i++) {
+            rain_data[i] = Wire.read();
          }
+      }
 
-         _start_time_ms = millis();
-         _delay_ms = 0;
-         _is_end = false;
+      _start_time_ms = millis();
+      _delay_ms = 0;
+      _is_end = false;
 
-         if (_is_success) {
-            _get_state = END;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = END;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case END:
-         if (length >= 1) {
-            values[0] = (uint16_t)(rain_data[1] << 8) | (rain_data[0]);
-            values[0] *= RAIN_FOR_TIP;
+      if (length >= 1) {
+         values[0] = (uint16_t)(rain_data[1] << 8) | (rain_data[0]);
+         values[0] *= RAIN_FOR_TIP;
 
-            if (values[0] < SENSOR_DRIVER_RAIN_MIN || values[0] > SENSOR_DRIVER_RAIN_MAX) {
-               _is_success = false;
-               values[0] = UINT16_MAX;
-            }
+         if (values[0] < SENSOR_DRIVER_RAIN_MIN || values[0] > SENSOR_DRIVER_RAIN_MAX) {
+            _is_success = false;
+            values[0] = UINT16_MAX;
          }
+      }
 
-         SensorDriver::printInfo(_driver, _type, _address, _node);
-         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+      SensorDriver::printInfo(_driver, _type, _address, _node);
+      SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (length >= 1) {
-            if (values[0] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> rain tips: %u\r\n"), values[0]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> rain tips: ---\r\n"));
-            }
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> rain tips: %u\r\n"), values[0]);
          }
+         else {
+            SERIAL_DEBUG(F("--> rain tips: ---\r\n"));
+         }
+      }
 
-         _start_time_ms = millis();
-         _delay_ms = 20;
-         _is_end = true;
-         _is_readed = false;
-         _get_state = INIT;
+      _start_time_ms = millis();
+      _delay_ms = 20;
+      _is_end = true;
+      _is_readed = false;
+      _get_state = INIT;
       break;
    }
 }
@@ -538,7 +942,7 @@ void SensorDriverRain::getJson(int32_t *values, uint8_t length, char *json_buffe
       JsonObject &json = buffer.createObject();
 
       if (length >= 1) {
-         if (_is_success) {
+         if (values[0] != UINT16_MAX) {
             json["B13011"] = values[0];
          }
          else json["B13011"] = RawJson("null");
@@ -647,225 +1051,225 @@ void SensorDriverTh::get(int32_t *values, uint8_t length) {
 
    switch (_get_state) {
       case INIT:
-         memset(values, UINT16_MAX, length);
+      memset(values, UINT16_MAX, length);
 
-         _is_readed = false;
-         _is_end = false;
+      _is_readed = false;
+      _is_end = false;
 
-         if (*_is_prepared && length >= 1) {
-            _is_success = true;
-            _get_state = SET_TEMPERATURE_ADDRESS;
-         }
-         else {
-            _is_success = false;
-            _get_state = END;
-         }
+      if (*_is_prepared && length >= 1) {
+         _is_success = true;
+         _get_state = SET_TEMPERATURE_ADDRESS;
+      }
+      else {
+         _is_success = false;
+         _get_state = END;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
       break;
 
       case SET_TEMPERATURE_ADDRESS:
-         Wire.beginTransmission(_address);
+      Wire.beginTransmission(_address);
 
-         if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
-            Wire.write(I2C_TH_TEMPERATURE_SAMPLE_ADDRESS);
-            Wire.write(I2C_TH_TEMPERATURE_SAMPLE_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
-            Wire.write(I2C_TH_TEMPERATURE_MED60_ADDRESS);
-            Wire.write(I2C_TH_TEMPERATURE_MED60_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
-            Wire.write(I2C_TH_TEMPERATURE_MED_ADDRESS);
-            Wire.write(I2C_TH_TEMPERATURE_MED_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
-            Wire.write(I2C_TH_TEMPERATURE_MIN_ADDRESS);
-            Wire.write(I2C_TH_TEMPERATURE_MIN_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
-            Wire.write(I2C_TH_TEMPERATURE_MAX_ADDRESS);
-            Wire.write(I2C_TH_TEMPERATURE_MAX_LENGTH);
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
+         Wire.write(I2C_TH_TEMPERATURE_SAMPLE_ADDRESS);
+         Wire.write(I2C_TH_TEMPERATURE_SAMPLE_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
+         Wire.write(I2C_TH_TEMPERATURE_MED60_ADDRESS);
+         Wire.write(I2C_TH_TEMPERATURE_MED60_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
+         Wire.write(I2C_TH_TEMPERATURE_MED_ADDRESS);
+         Wire.write(I2C_TH_TEMPERATURE_MED_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
+         Wire.write(I2C_TH_TEMPERATURE_MIN_ADDRESS);
+         Wire.write(I2C_TH_TEMPERATURE_MIN_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
+         Wire.write(I2C_TH_TEMPERATURE_MAX_ADDRESS);
+         Wire.write(I2C_TH_TEMPERATURE_MAX_LENGTH);
+      }
+      else _is_success = false;
 
-         if (Wire.endTransmission()) {
-            _is_success = false;
-         }
+      if (Wire.endTransmission()) {
+         _is_success = false;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_TEMPERATURE;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_TEMPERATURE;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_TEMPERATURE:
-         if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
-            data_length = I2C_TH_TEMPERATURE_SAMPLE_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
-            data_length = I2C_TH_TEMPERATURE_MED60_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
-            data_length = I2C_TH_TEMPERATURE_MED_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
-            data_length = I2C_TH_TEMPERATURE_MIN_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
-            data_length = I2C_TH_TEMPERATURE_MAX_LENGTH;
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
+         data_length = I2C_TH_TEMPERATURE_SAMPLE_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
+         data_length = I2C_TH_TEMPERATURE_MED60_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
+         data_length = I2C_TH_TEMPERATURE_MED_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
+         data_length = I2C_TH_TEMPERATURE_MIN_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
+         data_length = I2C_TH_TEMPERATURE_MAX_LENGTH;
+      }
+      else _is_success = false;
 
-         Wire.requestFrom(_address, data_length);
+      Wire.requestFrom(_address, data_length);
 
-         if (Wire.available() < data_length) {
-            _is_success = false;
-         }
+      if (Wire.available() < data_length) {
+         _is_success = false;
+      }
 
-         if (_is_success) {
-            for (uint8_t i=0; i<data_length; i++) {
-               temperature_data[i] = Wire.read();
-            }
+      if (_is_success) {
+         for (uint8_t i=0; i<data_length; i++) {
+            temperature_data[i] = Wire.read();
          }
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 2) {
-            _get_state = SET_HUMIDITY_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 2) {
+         _get_state = SET_HUMIDITY_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_HUMIDITY_ADDRESS:
-         Wire.beginTransmission(_address);
+      Wire.beginTransmission(_address);
 
-         if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
-            Wire.write(I2C_TH_HUMIDITY_SAMPLE_ADDRESS);
-            Wire.write(I2C_TH_HUMIDITY_SAMPLE_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
-            Wire.write(I2C_TH_HUMIDITY_MED60_ADDRESS);
-            Wire.write(I2C_TH_HUMIDITY_MED60_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
-            Wire.write(I2C_TH_HUMIDITY_MED_ADDRESS);
-            Wire.write(I2C_TH_HUMIDITY_MED_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
-            Wire.write(I2C_TH_HUMIDITY_MIN_ADDRESS);
-            Wire.write(I2C_TH_HUMIDITY_MIN_LENGTH);
-         }
-         else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
-            Wire.write(I2C_TH_HUMIDITY_MAX_ADDRESS);
-            Wire.write(I2C_TH_HUMIDITY_MAX_LENGTH);
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
+         Wire.write(I2C_TH_HUMIDITY_SAMPLE_ADDRESS);
+         Wire.write(I2C_TH_HUMIDITY_SAMPLE_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
+         Wire.write(I2C_TH_HUMIDITY_MED60_ADDRESS);
+         Wire.write(I2C_TH_HUMIDITY_MED60_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
+         Wire.write(I2C_TH_HUMIDITY_MED_ADDRESS);
+         Wire.write(I2C_TH_HUMIDITY_MED_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
+         Wire.write(I2C_TH_HUMIDITY_MIN_ADDRESS);
+         Wire.write(I2C_TH_HUMIDITY_MIN_LENGTH);
+      }
+      else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
+         Wire.write(I2C_TH_HUMIDITY_MAX_ADDRESS);
+         Wire.write(I2C_TH_HUMIDITY_MAX_LENGTH);
+      }
+      else _is_success = false;
 
-         if (Wire.endTransmission()) {
-            _is_success = false;
-         }
+      if (Wire.endTransmission()) {
+         _is_success = false;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_HUMIDITY;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_HUMIDITY;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_HUMIDITY:
-         if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
-            data_length = I2C_TH_HUMIDITY_SAMPLE_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
-            data_length = I2C_TH_HUMIDITY_MED60_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
-            data_length = I2C_TH_HUMIDITY_MED_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
-            data_length = I2C_TH_HUMIDITY_MIN_LENGTH;
-         }
-         else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
-            data_length = I2C_TH_HUMIDITY_MAX_LENGTH;
-         }
-         else _is_success = false;
+      if (strcmp(_type, SENSOR_TYPE_STH) == 0) {
+         data_length = I2C_TH_HUMIDITY_SAMPLE_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_ITH) == 0) {
+         data_length = I2C_TH_HUMIDITY_MED60_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_MTH) == 0) {
+         data_length = I2C_TH_HUMIDITY_MED_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_NTH) == 0) {
+         data_length = I2C_TH_HUMIDITY_MIN_LENGTH;
+      }
+      else if (strcmp(_type, SENSOR_TYPE_XTH) == 0) {
+         data_length = I2C_TH_HUMIDITY_MAX_LENGTH;
+      }
+      else _is_success = false;
 
-         Wire.requestFrom(_address, data_length);
+      Wire.requestFrom(_address, data_length);
 
-         if (Wire.available() < data_length) {
-            _is_success = false;
+      if (Wire.available() < data_length) {
+         _is_success = false;
+      }
+
+      if (_is_success) {
+         for (uint8_t i=0; i<data_length; i++) {
+            humidity_data[i] = Wire.read();
          }
+      }
 
-         if (_is_success) {
-            for (uint8_t i=0; i<data_length; i++) {
-               humidity_data[i] = Wire.read();
-            }
-         }
-
-         _delay_ms = 0;
-         _start_time_ms = millis();
-         _get_state = END;
+      _delay_ms = 0;
+      _start_time_ms = millis();
+      _get_state = END;
       break;
 
       case END:
-         if (length >= 1) {
-            values[0] = (uint16_t)(temperature_data[1] << 8) | (temperature_data[0]);
+      if (length >= 1) {
+         values[0] = (uint16_t)(temperature_data[1] << 8) | (temperature_data[0]);
 
-            if (values[0] < SENSOR_DRIVER_TEMPERATURE_MIN || values[0] > SENSOR_DRIVER_TEMPERATURE_MAX) {
-               _is_success = false;
-               values[0] = UINT16_MAX;
-            }
+         if (values[0] < SENSOR_DRIVER_TEMPERATURE_MIN || values[0] > SENSOR_DRIVER_TEMPERATURE_MAX) {
+            _is_success = false;
+            values[0] = UINT16_MAX;
          }
+      }
 
-         if (length >= 2) {
-            values[1] = (uint16_t)(humidity_data[1] << 8) | (humidity_data[0]);
+      if (length >= 2) {
+         values[1] = (uint16_t)(humidity_data[1] << 8) | (humidity_data[0]);
 
-            if (values[1] < SENSOR_DRIVER_HUMIDITY_MIN || values[1] > SENSOR_DRIVER_HUMIDITY_MAX) {
-               _is_success = false;
-               values[1] = UINT16_MAX;
-            }
+         if (values[1] < SENSOR_DRIVER_HUMIDITY_MIN || values[1] > SENSOR_DRIVER_HUMIDITY_MAX) {
+            _is_success = false;
+            values[1] = UINT16_MAX;
          }
+      }
 
-         SensorDriver::printInfo(_driver, _type, _address, _node);
-         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+      SensorDriver::printInfo(_driver, _type, _address, _node);
+      SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (length >= 1) {
-            if (values[0] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[0]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> temperature: ---\r\n"));
-            }
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> temperature: %u\r\n"), values[0]);
          }
-
-         if (length >= 2) {
-            if (values[1] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[1]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> humidity: ---\r\n"));
-            }
+         else {
+            SERIAL_DEBUG(F("--> temperature: ---\r\n"));
          }
+      }
 
-         _start_time_ms = millis();
-         _delay_ms = 0;
-         _is_end = true;
-         _is_readed = false;
-         _get_state = INIT;
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> humidity: %u\r\n"), values[1]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> humidity: ---\r\n"));
+         }
+      }
+
+      _start_time_ms = millis();
+      _delay_ms = 0;
+      _is_end = true;
+      _is_readed = false;
+      _get_state = INIT;
       break;
    }
 }
@@ -879,14 +1283,14 @@ void SensorDriverTh::getJson(int32_t *values, uint8_t length, char *json_buffer,
       JsonObject &json = buffer.createObject();
 
       if (length >= 1) {
-         if (_is_success) {
+         if (values[0] != UINT16_MAX) {
             json["B12101"] = values[0];
          }
          else json["B12101"] = RawJson("null");
       }
 
       if (length >= 2) {
-         if (_is_success) {
+         if (values[1] != UINT16_MAX) {
             json["B13003"] = values[1];
          }
          else json["B13003"] = RawJson("null");
@@ -921,6 +1325,7 @@ void SensorDriverDigitecoPower::setup(const uint8_t address, const uint8_t node)
    SensorDriver::setup(address, node);
    SensorDriver::printInfo(_driver, _type, _address, _node);
    *_is_setted = true;
+   _delay_ms = 0;
    SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
 }
 
@@ -942,291 +1347,291 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
 
    switch (_get_state) {
       case INIT:
-         memset(values, UINT16_MAX, length);
+      memset(values, UINT16_MAX, length);
 
-         _is_readed = false;
-         _is_end = false;
+      _is_readed = false;
+      _is_end = false;
 
-         if (*_is_prepared && length >= 1) {
-            _is_success = true;
-            _get_state = SET_BATTERY_CHARGE_ADDRESS;
-         }
-         else {
-            _is_success = false;
-            _get_state = END;
-         }
+      if (*_is_prepared && length >= 1) {
+         _is_success = true;
+         _get_state = SET_BATTERY_CHARGE_ADDRESS;
+      }
+      else {
+         _is_success = false;
+         _get_state = END;
+      }
 
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _delay_ms = 0;
+      _start_time_ms = millis();
       break;
 
       case SET_BATTERY_CHARGE_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CHARGE_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CHARGE_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_BATTERY_CHARGE;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_BATTERY_CHARGE;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_BATTERY_CHARGE:
-         _is_success = DigitecoPower::de_read(_address, &battery_charge);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_read(_address, &battery_charge);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 2) {
-            _get_state = SET_BATTERY_VOLTAGE_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 2) {
+         _get_state = SET_BATTERY_VOLTAGE_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_BATTERY_VOLTAGE_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_VOLTAGE_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_VOLTAGE_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_BATTERY_VOLTAGE;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_BATTERY_VOLTAGE;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_BATTERY_VOLTAGE:
-         _is_success = DigitecoPower::de_read(_address, &battery_voltage);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_read(_address, &battery_voltage);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 3) {
-            _get_state = SET_BATTERY_CURRENT_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 3) {
+         _get_state = SET_BATTERY_CURRENT_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_BATTERY_CURRENT_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CURRENT_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_BATTERY_CURRENT_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_BATTERY_CURRENT;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_BATTERY_CURRENT;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_BATTERY_CURRENT:
-         _is_success = DigitecoPower::de_read(_address, &battery_current);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_read(_address, &battery_current);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 4) {
-            _get_state = SET_INPUT_VOLTAGE_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 4) {
+         _get_state = SET_INPUT_VOLTAGE_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_INPUT_VOLTAGE_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_INPUT_VOLTAGE;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_INPUT_VOLTAGE;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_INPUT_VOLTAGE:
-         _is_success = DigitecoPower::de_read(_address, &input_voltage);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_read(_address, &input_voltage);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 5) {
-            _get_state = SET_INPUT_CURRENT_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 5) {
+         _get_state = SET_INPUT_CURRENT_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_INPUT_CURRENT_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_CURRENT_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_INPUT_CURRENT_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_INPUT_CURRENT;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_INPUT_CURRENT;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_INPUT_CURRENT:
-         _is_success = DigitecoPower::de_read(_address, &input_current);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_read(_address, &input_current);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success && length >= 6) {
-            _get_state = SET_OUTPUT_VOLTAGE_ADDRESS;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success && length >= 6) {
+         _get_state = SET_OUTPUT_VOLTAGE_ADDRESS;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case SET_OUTPUT_VOLTAGE_ADDRESS:
-         _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS);
-         _delay_ms = 0;
-         _start_time_ms = millis();
+      _is_success = DigitecoPower::de_send(_address, DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS);
+      _delay_ms = 0;
+      _start_time_ms = millis();
 
-         if (_is_success) {
-            _get_state = READ_OUTPUT_VOLTAGE;
-         }
-         else {
-            _get_state = END;
-         }
+      if (_is_success) {
+         _get_state = READ_OUTPUT_VOLTAGE;
+      }
+      else {
+         _get_state = END;
+      }
       break;
 
       case READ_OUTPUT_VOLTAGE:
-         _is_success = DigitecoPower::de_read(_address, &output_voltage);
-         _delay_ms = 0;
-         _start_time_ms = millis();
-         _get_state = END;
+      _is_success = DigitecoPower::de_read(_address, &output_voltage);
+      _delay_ms = 0;
+      _start_time_ms = millis();
+      _get_state = END;
       break;
 
       case END:
-         if (length >= 1) {
-            values[0] = battery_charge;
+      if (length >= 1) {
+         values[0] = battery_charge;
 
-            if (!_is_success || values[0] < SENSOR_DRIVER_BATTERY_CHARGE_MIN || values[0] > SENSOR_DRIVER_BATTERY_CHARGE_MAX) {
-               _is_success = false;
-               values[0] = UINT16_MAX;
-            }
+         if (!_is_success || values[0] < SENSOR_DRIVER_BATTERY_CHARGE_MIN || values[0] > SENSOR_DRIVER_BATTERY_CHARGE_MAX) {
+            _is_success = false;
+            values[0] = UINT16_MAX;
          }
+      }
 
-         if (length >= 2) {
-            values[1] = battery_voltage * 10;
+      if (length >= 2) {
+         values[1] = battery_voltage * 10;
 
-            if (!_is_success || values[1] < SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V || values[1] > SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V) {
-               _is_success = false;
-               values[1] = UINT16_MAX;
-            }
+         if (!_is_success || values[1] < SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V || values[1] > SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V) {
+            _is_success = false;
+            values[1] = UINT16_MAX;
          }
+      }
 
-         if (length >= 3) {
-            values[2] = battery_current;
+      if (length >= 3) {
+         values[2] = battery_current;
 
-            if (!_is_success || values[2] < SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA || values[2] > SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA) {
-               _is_success = false;
-               values[2] = UINT16_MAX;
-            }
+         if (!_is_success || values[2] < SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA || values[2] > SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA) {
+            _is_success = false;
+            values[2] = UINT16_MAX;
          }
+      }
 
-         if (length >= 4) {
-            values[3] = input_voltage * 10;
+      if (length >= 4) {
+         values[3] = input_voltage * 10;
 
-            if (!_is_success || values[3] < SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V || values[3] > SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V) {
-               _is_success = false;
-               values[3] = UINT16_MAX;
-            }
+         if (!_is_success || values[3] < SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V || values[3] > SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V) {
+            _is_success = false;
+            values[3] = UINT16_MAX;
          }
+      }
 
-         if (length >= 5) {
-            values[4] = input_current * 1000;
+      if (length >= 5) {
+         values[4] = input_current * 1000;
 
-            if (!_is_success || values[4] < SENSOR_DRIVER_INPUT_CURRENT_MIN_mA || values[4] > SENSOR_DRIVER_INPUT_CURRENT_MAX_mA) {
-               _is_success = false;
-               values[4] = UINT16_MAX;
-            }
+         if (!_is_success || values[4] < SENSOR_DRIVER_INPUT_CURRENT_MIN_mA || values[4] > SENSOR_DRIVER_INPUT_CURRENT_MAX_mA) {
+            _is_success = false;
+            values[4] = UINT16_MAX;
          }
+      }
 
-         if (length >= 6) {
-            values[5] = output_voltage * 10;
+      if (length >= 6) {
+         values[5] = output_voltage * 10;
 
-            if (!_is_success || values[5] < SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V || values[5] > SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V) {
-               _is_success = false;
-               values[5] = UINT16_MAX;
-            }
+         if (!_is_success || values[5] < SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V || values[5] > SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V) {
+            _is_success = false;
+            values[5] = UINT16_MAX;
          }
+      }
 
-         SensorDriver::printInfo(_driver, _type, _address, _node);
-         SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+      SensorDriver::printInfo(_driver, _type, _address, _node);
+      SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
 
-         if (length >= 1) {
-            if (values[0] != UINT16_MAX) {
-               SERIAL_DEBUG(F("--> battery charge: %ld %%\r\n"), values[0]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> battery charge: ---\r\n"));
-            }
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> battery charge: %ld %%\r\n"), values[0]);
          }
-
-         if (length >= 2) {
-            if (values[1] != UINT16_MAX) {
-              SERIAL_DEBUG(F("--> battery voltage: %ld V\r\n"), values[1]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> battery voltage: ---\r\n"));
-            }
+         else {
+            SERIAL_DEBUG(F("--> battery charge: ---\r\n"));
          }
+      }
 
-         if (length >= 3) {
-            if (values[2] != UINT16_MAX) {
-              SERIAL_DEBUG(F("--> battery current: %ld mA\r\n"), values[2]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> battery current: ---\r\n"));
-            }
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> battery voltage: %ld V\r\n"), values[1]);
          }
-
-         if (length >= 4) {
-            if (values[3] != UINT16_MAX) {
-              SERIAL_DEBUG(F("--> input voltage: %ld V\r\n"), values[3]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> input voltage: ---\r\n"));
-            }
+         else {
+            SERIAL_DEBUG(F("--> battery voltage: ---\r\n"));
          }
+      }
 
-         if (length >= 5) {
-            if (values[4] != UINT16_MAX) {
-              SERIAL_DEBUG(F("--> input current: %ld mA\r\n"), values[4]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> input current: ---\r\n"));
-            }
+      if (length >= 3) {
+         if (values[2] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> battery current: %ld mA\r\n"), values[2]);
          }
-
-         if (length >= 6) {
-            if (values[5] != UINT16_MAX) {
-              SERIAL_DEBUG(F("--> output voltage: %ld V\r\n"), values[5]);
-            }
-            else {
-              SERIAL_DEBUG(F("--> output voltage: ---\r\n"));
-            }
+         else {
+            SERIAL_DEBUG(F("--> battery current: ---\r\n"));
          }
+      }
 
-         _start_time_ms = millis();
-         _delay_ms = 0;
-         _is_end = true;
-         _is_readed = false;
-         _get_state = INIT;
+      if (length >= 4) {
+         if (values[3] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> input voltage: %ld V\r\n"), values[3]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> input voltage: ---\r\n"));
+         }
+      }
+
+      if (length >= 5) {
+         if (values[4] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> input current: %ld mA\r\n"), values[4]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> input current: ---\r\n"));
+         }
+      }
+
+      if (length >= 6) {
+         if (values[5] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> output voltage: %ld V\r\n"), values[5]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> output voltage: ---\r\n"));
+         }
+      }
+
+      _start_time_ms = millis();
+      _delay_ms = 0;
+      _is_end = true;
+      _is_readed = false;
+      _get_state = INIT;
       break;
    }
 }
@@ -1240,42 +1645,42 @@ void SensorDriverDigitecoPower::getJson(int32_t *values, uint8_t length, char *j
       JsonObject &json = buffer.createObject();
 
       if (length >= 1) {
-         if (_is_success) {
+         if (values[0] != UINT16_MAX) {
             json["B25192"] = values[0];
          }
          else json["B25192"] = RawJson("null");
       }
 
       if (length >= 2) {
-         if (_is_success) {
+         if (values[1] != UINT16_MAX) {
             json["B25025"] = values[1];
          }
          else json["B25025"] = RawJson("null");
       }
 
       if (length >= 3) {
-         if (_is_success) {
+         if (values[2] != UINT16_MAX) {
             json["B25193"] = values[2];
          }
          else json["B25193"] = RawJson("null");
       }
 
       if (length >= 4) {
-         if (_is_success) {
+         if (values[3] != UINT16_MAX) {
             json["B00004"] = values[3];
          }
          else json["B00004"] = RawJson("null");
       }
 
       if (length >= 5) {
-         if (_is_success) {
+         if (values[4] != UINT16_MAX) {
             json["B00005"] = values[4];
          }
          else json["B00005"] = RawJson("null");
       }
 
       if (length >= 6) {
-         if (_is_success) {
+         if (values[5] != UINT16_MAX) {
             json["B00006"] = values[5];
          }
          else json["B00006"] = RawJson("null");
