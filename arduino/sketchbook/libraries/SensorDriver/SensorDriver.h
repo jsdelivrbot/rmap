@@ -406,6 +406,51 @@ protected:
 };
 #endif
 
+#if (USE_SENSOR_DW1)
+#include "registers-wind.h"
+#define SENSOR_DRIVER_DD_MIN           (0)
+#define SENSOR_DRIVER_DD_MAX           (360)
+#define SENSOR_DRIVER_FF_MIN           (0)
+#define SENSOR_DRIVER_FF_MAX           (200)
+class SensorDriverDw1 : public SensorDriver {
+public:
+   SensorDriverDw1(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
+      _is_setted = is_setted;
+      _is_prepared = is_prepared;
+
+      *_is_setted = false;
+      *_is_prepared = false;
+
+      SensorDriver::printInfo(driver, type);
+      SERIAL_DEBUG(F(" create... [ %S ]\r\n"), OK_STRING);
+   };
+   void setup(const uint8_t address, const uint8_t node = 0);
+   void prepare();
+   void get(int32_t *values, uint8_t length);
+
+   #if (USE_JSON)
+   void getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length = JSON_BUFFER_LENGTH);
+   #endif
+
+   bool isSetted();
+   bool isPrepared();
+   void resetPrepared();
+
+protected:
+   bool *_is_setted;
+   bool *_is_prepared;
+
+   enum {
+      INIT,
+      SET_DD_ADDRESS,
+      READ_DD,
+      SET_FF_ADDRESS,
+      READ_FF,
+      END
+   } _get_state;
+};
+#endif
+
 #if (USE_SENSOR_TBS || USE_SENSOR_TBR)
 #include "registers-rain.h"
 #define SENSOR_DRIVER_RAIN_MIN      (0)

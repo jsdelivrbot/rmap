@@ -75,6 +75,11 @@ void init_sensors () {
   SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_HYT, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
   #endif
 
+  #if (USE_SENSOR_DW1)
+  SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_DW1, 0x22, sensors, &sensors_count);
+  SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_DW1, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);
+  #endif
+
   #if (USE_SENSOR_TBS)
   SensorDriver::createAndSetup(SENSOR_DRIVER_I2C, SENSOR_TYPE_TBS, 0x21, sensors, &sensors_count);
   SERIAL_INFO(F("--> %u: %s-%s: %s\t [ %s ]\r\n"), sensors_count, SENSOR_DRIVER_I2C, SENSOR_TYPE_TBS, "", sensors[sensors_count-1]->isSetted() ? OK_STRING : FAIL_STRING);

@@ -56,6 +56,11 @@ namespace _SensorDriver {
    bool _is_th_prepared;
    #endif
 
+   #if (USE_SENSOR_DW1)
+   bool _is_dw1_setted;
+   bool _is_dw1_prepared;
+   #endif
+
    #if (USE_SENSOR_DEP)
    bool _is_dep_setted;
    bool _is_dep_prepared;
@@ -104,7 +109,7 @@ SensorDriver *SensorDriver::create(const char* driver, const char* type) {
 
    #if (USE_SENSOR_DW1)
    else if (strcmp(type, SENSOR_TYPE_DW1) == 0)
-   return new SensorDriverHyt2X1(driver, type, &_SensorDriver::_is_hyt_setted, &_SensorDriver::_is_hyt_prepared);
+   return new SensorDriverDw1(driver, type, &_SensorDriver::_is_dw1_setted, &_SensorDriver::_is_dw1_prepared);
    #endif
 
    #if (USE_SENSOR_TBS || USE_SENSOR_TBR)
@@ -752,6 +757,272 @@ void SensorDriverHyt2X1::getJson(int32_t *values, uint8_t length, char *json_buf
             json["B12101"] = values[1];
          }
          else json["B12101"] = RawJson("null");
+      }
+
+      json.printTo(json_buffer, json_buffer_length);
+   }
+}
+#endif
+
+#endif
+
+//------------------------------------------------------------------------------
+// I2C-Wind
+// DW1: oneshot
+//------------------------------------------------------------------------------
+
+#if (USE_SENSOR_DW1)
+bool SensorDriverDw1::isSetted() {
+   return *_is_setted;
+}
+
+bool SensorDriverDw1::isPrepared() {
+   return *_is_prepared;
+}
+
+void SensorDriverDw1::resetPrepared() {
+   _get_state = INIT;
+   *_is_prepared = false;
+}
+
+void SensorDriverDw1::setup(const uint8_t address, const uint8_t node) {
+   SensorDriver::setup(address, node);
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+
+   if (!*_is_setted) {
+      Wire.beginTransmission(_address);
+      Wire.write(I2C_WIND_COMMAND);
+      Wire.write(I2C_WIND_COMMAND_ONESHOT_STOP);
+
+      if (Wire.endTransmission()) {
+         SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), FAIL_STRING);
+         return;
+      }
+
+      *_is_setted = true;
+
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
+   }
+   else {
+      SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), YES_STRING);
+   }
+}
+
+void SensorDriverDw1::prepare() {
+   SensorDriver::printInfo(_driver, _type, _address, _node);
+
+   if (!*_is_prepared) {
+      Wire.beginTransmission(_address);
+      Wire.write(I2C_WIND_COMMAND);
+      Wire.write(I2C_WIND_COMMAND_ONESHOT_START);
+      _delay_ms = 3000;
+
+      if (Wire.endTransmission()) {
+         SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), FAIL_STRING);
+         return;
+      }
+
+      *_is_prepared = true;
+
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
+   }
+   else {
+      SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), YES_STRING);
+      _delay_ms = 0;
+   }
+
+   _start_time_ms = millis();
+}
+
+void SensorDriverDw1::get(int32_t *values, uint8_t length) {
+   uint8_t msb;
+   uint8_t lsb;
+
+   switch (_get_state) {
+      case INIT:
+         memset(values, UINT16_MAX, length);
+
+         _is_readed = false;
+         _is_end = false;
+
+         if (*_is_prepared && length >= 1) {
+            Wire.beginTransmission(_address);
+            Wire.write(I2C_WIND_COMMAND);
+            Wire.write(I2C_WIND_COMMAND_ONESHOT_STOP);
+
+            if (Wire.endTransmission()) {
+               _is_success = false;
+            }
+         }
+         else {
+            _is_success = false;
+         }
+
+         if (_is_success && length >= 1) {
+            _get_state = SET_DD_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+
+         _delay_ms = 10;
+         _start_time_ms = millis();
+      break;
+
+      case SET_DD_ADDRESS:
+         Wire.beginTransmission(_address);
+         Wire.write(I2C_WIND_DD);
+
+         if (Wire.endTransmission()) {
+            _is_success = false;
+         }
+
+         _delay_ms = 10;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_DD;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_DD:
+         Wire.requestFrom(_address, (uint8_t) 2);
+
+         if (Wire.available() < 2) {
+            _is_success = false;
+         }
+
+         if (_is_success) {
+            msb = Wire.read();
+            lsb = Wire.read();
+            values[0] = (int) (lsb << 8) | msb;
+         }
+
+         _delay_ms = 10;
+         _start_time_ms = millis();
+
+         if (_is_success && length >= 2) {
+            _get_state = SET_FF_ADDRESS;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case SET_FF_ADDRESS:
+         Wire.beginTransmission(_address);
+         Wire.write(I2C_WIND_FF);
+
+         if (Wire.endTransmission()) {
+            _is_success = false;
+         }
+
+         _delay_ms = 10;
+         _start_time_ms = millis();
+
+         if (_is_success) {
+            _get_state = READ_FF;
+         }
+         else {
+            _get_state = END;
+         }
+      break;
+
+      case READ_FF:
+         Wire.requestFrom(_address, (uint8_t) 2);
+
+         if (Wire.available() < 2) {
+            _is_success = false;
+         }
+
+         if (_is_success) {
+            msb = Wire.read();
+            lsb = Wire.read();
+            values[0] = (int) (lsb << 8) | msb;
+         }
+
+         _delay_ms = 10;
+         _start_time_ms = millis();
+
+         _get_state = END;
+      break;
+
+      case END:
+         Wire.beginTransmission(_address);
+         Wire.write(I2C_WIND_COMMAND);
+         Wire.write(I2C_WIND_COMMAND_ONESHOT_STOP);
+
+         if (Wire.endTransmission()) {
+            _is_success = false;
+         }
+
+         if (length >= 1) {
+            if (values[0] < SENSOR_DRIVER_DD_MIN || values[0] > SENSOR_DRIVER_DD_MAX) {
+               _is_success = false;
+               values[0] = UINT16_MAX;
+            }
+         }
+
+         if (length >= 2) {
+            if (values[1] < SENSOR_DRIVER_FF_MIN || values[1] > SENSOR_DRIVER_FF_MAX) {
+               _is_success = false;
+               values[1] = UINT16_MAX;
+            }
+         }
+
+      SensorDriver::printInfo(_driver, _type, _address, _node);
+      SERIAL_DEBUG(F(" get... [ %s ]\r\n"), _is_success ? OK_STRING : FAIL_STRING);
+
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> direction: %u\r\n"), values[0]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> direction: ---\r\n"));
+         }
+      }
+
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            SERIAL_DEBUG(F("--> speed: %u\r\n"), values[1]);
+         }
+         else {
+            SERIAL_DEBUG(F("--> speed: ---\r\n"));
+         }
+      }
+
+      _start_time_ms = millis();
+      _delay_ms = 0;
+      _is_end = true;
+      _is_readed = false;
+      _get_state = INIT;
+      break;
+   }
+}
+
+#if (USE_JSON)
+void SensorDriverDw1::getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length) {
+   SensorDriverDw1::get(values, length);
+
+   if (_is_end && !_is_readed) {
+      StaticJsonBuffer<JSON_BUFFER_LENGTH> buffer;
+      JsonObject &json = buffer.createObject();
+
+      if (length >= 1) {
+         if (values[0] != UINT16_MAX) {
+            json["B11001"] = values[0];
+         }
+         else json["B11001"] = RawJson("null");
+      }
+
+      if (length >= 2) {
+         if (values[1] != UINT16_MAX) {
+            json["B11002"] = values[1];
+         }
+         else json["B11002"] = RawJson("null");
       }
 
       json.printTo(json_buffer, json_buffer_length);
