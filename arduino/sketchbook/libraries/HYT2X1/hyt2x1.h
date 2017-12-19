@@ -91,59 +91,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace Hyt2X1 {
    /*!
-   \fn void init(uint8_t power_pin)
+   \fn void hyt_init(uint8_t power_pin)
    \brief Init sensor.
    \param[in] power_pin sensors power pin.
    \return void.
    */
-   void init(uint8_t power_pin);
+   void hyt_init(uint8_t power_pin);
 
    /*!
-   \fn void on(uint8_t power_pin)
+   \fn void hyt_on(uint8_t power_pin)
    \brief Power on sensor.
    \param[in] power_pin sensors power pin.
    \return void.
    */
-   void on(uint8_t power_pin);
+   void hyt_on(uint8_t power_pin);
 
    /*!
-   \fn void off(uint8_t power_pin)
+   \fn void hyt_off(uint8_t power_pin)
    \brief Power off sensor.
    \param[in] power_pin sensors power pin.
    \return void.
    */
-   void off(uint8_t power_pin);
+   void hyt_off(uint8_t power_pin);
 
    /*!
-   \fn void changeAddress(uint8_t power_pin, int8_t address, int8_t new_address)
+   \fn void hyt_changeAddress(uint8_t power_pin, int8_t address, int8_t new_address)
    \brief Change sensor address.
    \param[in] power_pin sensors power pin.
    \param[in] address sensors i2c address.
    \param[in] new_address sensors i2c new address.
    \return void.
    */
-   void changeAddress(uint8_t power_pin, int8_t address, int8_t new_address);
+   void hyt_changeAddress(uint8_t power_pin, int8_t address, int8_t new_address);
 
    /*!
-   \fn uint32_t initRead(uint8_t address)
+   \fn uint32_t hyt_initRead(uint8_t address)
    \brief Init sensor read.
    \param[in] address sensors i2c address.
    \return uint32_t sensors conversion time.
    */
-   uint32_t initRead(uint8_t address);
+   uint32_t hyt_initRead(uint8_t address);
 
    /*!
-   \fn bool read(int8_t address, float *humidity, float *temperature)
+   \fn bool hyt_read(int8_t address, float *humidity, float *temperature)
    \brief Returns the humidty and temperature from hyt2X1 sensor at specified address.
    \param[in] address sensor i2c address.
    \param[out] *humidity pointer to readed humidity variable.
    \param[out] *temperature pointer to readed temperature variable.
    \return true if success.
    */
-   bool read(int8_t address, float *humidity, float *temperature);
+   bool hyt_read(int8_t address, float *humidity, float *temperature);
 
    /*!
-   \fn void send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2)
+   \fn void hyt_send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2)
    \brief Send sensor command.
    \param[in] address sensor i2c address.
    \param[in] data_0 first byte data.
@@ -151,7 +151,7 @@ namespace Hyt2X1 {
    \param[in] data_2 third byte data.
    \return void.
    */
-   void send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2);
+   void hyt_send(int8_t address, uint8_t data_0, uint8_t data_1, uint8_t data_2);
 };
 
 #endif

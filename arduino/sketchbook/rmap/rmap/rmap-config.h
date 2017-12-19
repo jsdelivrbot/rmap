@@ -41,6 +41,76 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MODULE_TYPE                                   (STIMA_MODULE_TYPE_REPORT_GSM)
 
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE)
+/*!
+\def USE_MQTT
+\brief MQTT support.
+*/
+#define USE_MQTT                                      (false)
+#else
+/*!
+\def USE_MQTT
+\brief MQTT support.
+*/
+#define USE_MQTT                                      (true)
+#endif
+
+/*!
+\def USE_SDCARD
+\brief SD-Card support.
+*/
+#define USE_SDCARD                                    (false | USE_MQTT)
+
+#if (MODULE_TYPE != STIMA_MODULE_TYPE_PASSIVE)
+/*!
+\def USE_NTP
+\brief NTP support.
+*/
+#define USE_NTP                                       (true)
+#endif
+
+/*!
+\def USE_RTC
+\brief RTC support.
+*/
+#define USE_RTC                                       (true)
+
+/*!
+\def USE_TIMER_1
+\brief Timer 1 support instead of RTC.
+*/
+#define USE_TIMER_1                                   (USE_RTC == false ? true : false)
+
+/*!
+\def USE_RPC_METHOD_CONFIGURE
+\brief RPC method for station configuration.
+*/
+#define USE_RPC_METHOD_CONFIGURE                      (true)
+
+/*!
+\def USE_RPC_METHOD_PREPARE
+\brief RPC method for prepare sensors.
+*/
+#define USE_RPC_METHOD_PREPARE                        (false)
+
+/*!
+\def USE_RPC_METHOD_PREPANDGET
+\brief RPC method for prepare and get data from sensors.
+*/
+#define USE_RPC_METHOD_PREPANDGET                     (false)
+
+/*!
+\def USE_RPC_METHOD_GETJSON
+\brief RPC method for get sensor's data.
+*/
+#define USE_RPC_METHOD_GETJSON                        (false)
+
+/*!
+\def USE_RPC_METHOD_REBOOT
+\brief RPC method for reboot station.
+*/
+#define USE_RPC_METHOD_REBOOT                         (false)
+
 /*********************************************************************
 * CONFIGURATION
 *********************************************************************/
@@ -68,6 +138,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define CONFIGURATION_DEFAULT_NTP_SERVER              (NTP_DEFAULT_SERVER)
 
+#if (USE_MQTT)
 /*!
 \def CONFIGURATION_DEFAULT_MQTT_PORT
 \brief Default mqtt server port.
@@ -103,8 +174,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief Default mqtt password.
 */
 #define CONFIGURATION_DEFAULT_MQTT_PASSWORD           (MQTT_DEFAULT_PASSWORD)
+#endif
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \def CONFIGURATION_DEFAULT_ETHERNET_DHCP_ENABLE
 \brief Default DHCP status.
@@ -141,7 +213,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define CONFIGURATION_DEFAULT_ETHERNET_PRIMARY_DNS    (ETHERNET_DEFAULT_PRIMARY_DNS)
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \def CONFIGURATION_DEFAULT_GSM_APN
 \brief Default gsm apn.
@@ -165,14 +237,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*********************************************************************
 * POWER DOWN
 *********************************************************************/
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \def USE_POWER_DOWN
 \brief Enable or disable power down.
 */
 #define USE_POWER_DOWN                                (false)
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE)
 /*!
 \def USE_POWER_DOWN
 \brief Enable or disable power down.
@@ -187,20 +259,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define DEBOUNCING_POWER_DOWN_TIME_MS                 (10)
 
-/*!
-\def USE_TIMER_1
-\brief Enable or disable timer1.
-*/
-#define USE_TIMER_1                                   (false)
-
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \def W5500_CHIP_SELECT_PIN
 \brief Chip select pin for Wiznet W5500 ethernet module.
 */
 #define W5500_CHIP_SELECT_PIN                         (10)
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \def GSM_ON_OFF_PIN
 \brief Chip select pin for SIMCom SIM800C/SIM800L gsm/gprs module.
@@ -217,11 +283,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
+#if (USE_SDCARD)
 /*!
 \def SDCARD_CHIP_SELECT_PIN
 \brief Chip select pin for SD-Card module.
 */
 #define SDCARD_CHIP_SELECT_PIN                        (7)
+#endif
 
 /*********************************************************************
 * WATCHDOG
@@ -252,13 +320,34 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 #define RTC_INTERRUPT_PIN                             (6)
 
 /*********************************************************************
+* TIMER1
+*********************************************************************/
+/*!
+\def TIMER1_INTERRUPT_TIME_MS
+\brief Value in milliseconds for generating timer1 interrupt.
+*/
+#define TIMER1_INTERRUPT_TIME_MS                      (1000)
+
+/*!
+\def TIMER1_OVERFLOW_TIME_MS
+\brief Timer1 timer overflow with 1024 prescaler at 16 MHz.
+*/
+#define TIMER1_OVERFLOW_TIME_MS                       (4194)
+
+/*!
+\def TIMER1_TCNT1_VALUE
+\brief Timer1 timer overflow with 1024 prescaler at 8 MHz.
+*/
+#define TIMER1_TCNT1_VALUE                            ((uint16_t)(0xFFFF - (float)(1.0 * 0xFFFF * TIMER1_INTERRUPT_TIME_MS / TIMER1_OVERFLOW_TIME_MS)))
+
+/*********************************************************************
 * SENSORS
 *********************************************************************/
 /*!
 \def USE_SENSORS_COUNT
 \brief Sensors count.
 */
-#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DEP)
+#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DEP + USE_SENSOR_ADT + USE_SENSOR_HIH + USE_SENSOR_HYT)
 
 #if (USE_SENSORS_COUNT == 0)
 #error No sensor used. Are you sure? If not, enable it in RmapConfig/sensors_config.h
@@ -333,29 +422,13 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 */
 #define SUPERVISOR_CONNECTION_TIMEOUT_MS              (120000)
 
-/*!
-\def STREAM_UART_STREAM_TIMEOUT_MS
-\brief Timeout for receiving next byte from stream.
-*/
-#define STREAM_UART_STREAM_TIMEOUT_MS                 (5)
-
-/*!
-\def STREAM_UART_STREAM_END_TIMEOUT_MS
-\brief Timeout for close stream after last received byte.
-*/
-#define STREAM_UART_STREAM_END_TIMEOUT_MS             (10000)
-
-/*!
-\def STREAM_BUFFER_LENGTH
-\brief Stream buffer length.
-*/
-#define STREAM_BUFFER_LENGTH                          (192)
-
+#if (USE_SDCARD)
 /*!
 \def SDCARD_MQTT_PTR_FILE_NAME
 \brief Data file on SD-Card containing the pointer to the last mqtt transmitted data.
 */
 #define SDCARD_MQTT_PTR_FILE_NAME                     ("mqtt_ptr.txt")
+#endif
 
 /*!
 \def NTP_RETRY_COUNT_MAX
@@ -381,7 +454,7 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 */
 #define LCD_TIME_FOR_REINITIALIZE_S                   (SECS_PER_HOUR)
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \def ETHERNET_RETRY_COUNT_MAX
 \brief Maximum number of retry for doing ethernet operations.
@@ -394,7 +467,13 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 */
 #define ETHERNET_RETRY_DELAY_MS                       (ETHERNET_ATTEMPT_MS)
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 #endif
+
+/*!
+\def DATE_TIME_STRING_LENGTH
+\brief Length of datetime string %04u-%02u-%02uT%02u:%02u:%02u
+*/
+#define DATE_TIME_STRING_LENGTH                       (25)
 
 #endif

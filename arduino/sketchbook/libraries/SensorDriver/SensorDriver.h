@@ -83,17 +83,18 @@ public:
    \param[in] *driver driver's type.
    \param[in] *type sensor's type.
    \param[in] address sensor's address.
+   \param[in] node sensor's node.
    \param[in] *sensors[] array of sensors.
    \param[in] *sensors_count setted sensors count.
    \return void.
    */
-   static void createAndSetup(const char* driver, const char* type, uint8_t address, SensorDriver *sensors[], uint8_t *sensors_count);
+   static void createAndSetup(const char* driver, const char* type, const uint8_t address, const uint8_t node, SensorDriver *sensors[], uint8_t *sensors_count);
 
    /*!
    \fn void setup(const uint8_t address, const uint8_t node = 0)
    \brief Setup sensor.
    \param[in] address sensor's address.
-   \param[in] node sensors'node.
+   \param[in] node sensor's node.
    \return void.
    */
    virtual void setup(const uint8_t address, const uint8_t node = 0);
@@ -234,7 +235,7 @@ protected:
    \var _node
    \brief Internal sensor's variable for node.
    */
-   int8_t _node;
+   uint8_t _node;
 
    /*!
    \var _delay_ms

@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rmap-config.h"
 #include <typedef.h>
+#include <registers.h>
 #include <debug.h>
 #include <hardware_config.h>
 #include <json_config.h>
@@ -35,30 +36,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/wdt.h>
 #include <SPI.h>
 #include <Wire.h>
+
+#if (USE_SDCARD)
 #include <SdFat.h>
+#include <sdcard_utility.h>
+#endif
+
 #include <pcf8563.h>
+
+#if (USE_NTP)
 #include <ntp.h>
+#endif
+
 #include <TimeLib.h>
 #include <SensorDriver.h>
 #include <eeprom_utility.h>
 #include <rmap_utility.h>
 #include <i2c_utility.h>
-#include <sdcard_utility.h>
+#include <arduinoJsonRPC.h>
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 #include <ethernet_config.h>
 #include <Ethernet2.h>
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 #include <gsm_config.h>
 #include <sim800Client.h>
+#if (USE_MQTT)
 #include <Sim800IPStack.h>
+#endif
 
 #endif
 
+#if (USE_MQTT)
 #include <IPStack.h>
 #include <Countdown.h>
 #include <MQTTClient.h>
+#endif
 
 /*********************************************************************
 * TYPEDEF
@@ -71,19 +85,24 @@ typedef struct {
    uint8_t module_version;                                  //!< module version
    uint8_t module_type;                                     //!< module type
 
+   #if (USE_MQTT)
    uint16_t mqtt_port;                                      //!< mqtt server port
    char mqtt_server[MQTT_SERVER_LENGTH];                    //!< mqtt server
    char mqtt_root_topic[MQTT_ROOT_TOPIC_LENGTH];            //!< mqtt root path
    char mqtt_subscribe_topic[MQTT_SUBSCRIBE_TOPIC_LENGTH];  //!< mqtt subscribe topic
    char mqtt_username[MQTT_USERNAME_LENGTH];                //!< mqtt username
    char mqtt_password[MQTT_PASSWORD_LENGTH];                //!< mqtt password
+   #endif
+
+   #if (USE_NTP)
    char ntp_server[NTP_SERVER_LENGTH];                      //!< ntp server
+   #endif
 
    sensor_t sensors[USE_SENSORS_COUNT];                     //!< SensorDriver buffer for storing sensors parameter
    uint8_t sensors_count;                                   //!< configured sensors number
    uint16_t report_seconds;                                 //!< seconds for report values
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    bool is_dhcp_enable;                                     //!< dhcp status
    uint8_t ethernet_mac[ETHERNET_MAC_LENGTH];               //!< ethernet mac
    uint8_t ip[ETHERNET_IP_LENGTH];                          //!< ip address
@@ -91,7 +110,7 @@ typedef struct {
    uint8_t gateway[ETHERNET_IP_LENGTH];                     //!< gateway
    uint8_t primary_dns[ETHERNET_IP_LENGTH];                 //!< primary dns
 
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    char gsm_apn[GSM_APN_LENGTH];                            //!< gsm apn
    char gsm_username[GSM_USERNAME_LENGTH];                  //!< gsm username
    char gsm_password[GSM_PASSWORD_LENGTH];                  //!< gsm password
@@ -130,7 +149,7 @@ typedef enum {
    SUPERVISOR_WAIT_STATE                     //!< non-blocking waiting time
 } supervisor_state_t;
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \enum ethernet_state_t
 \brief Ethernet task finite state machine.
@@ -143,7 +162,7 @@ typedef enum {
    ETHERNET_WAIT_STATE        //!< non-blocking waiting time
 } ethernet_state_t;
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \enum gsm_state_t
 \brief GSM task finite state machine.
@@ -196,6 +215,7 @@ typedef enum {
    TIME_WAIT_STATE               //!< non-blocking waiting time
 } time_state_t;
 
+#if (USE_SDCARD)
 /*!
 \enum data_saving_state_t
 \brief Data saving task finite state machine.
@@ -211,7 +231,9 @@ typedef enum {
    DATA_SAVING_END,           //!< performs end operations and deactivate task
    DATA_SAVING_WAIT_STATE     //!< non-blocking waiting time
 } data_saving_state_t;
+#endif
 
+#if (USE_MQTT)
 /*!
 \enum mqtt_state_t
 \brief MQTT task finite state machine.
@@ -251,17 +273,17 @@ typedef enum {
    MQTT_END,               //!< performs end operations and deactivate task
    MQTT_WAIT_STATE         //!< non-blocking waiting time
 } mqtt_state_t;
+#endif
 
 /*!
-\enum stream_state_t
-\brief Stream task finite state machine.
+\enum rpc_state_t
+\brief RPC task finite state machine.
 */
 typedef enum {
-   STREAM_INIT,      //!< init task variables
-   STREAM_AVAILABLE, //!< check if there are data available in the stream
-   STREAM_PROCESS,   //!< process data
-   STREAM_END        //!< performs end operations and deactivate task
-} stream_state_t;
+   RPC_INIT,            //!< init task variables
+   RPC_EXECUTE,         //!< execute function loop
+   RPC_END              //!< performs end operations
+} rpc_state_t;
 
 /*********************************************************************
 * GLOBAL VARIABLE
@@ -291,6 +313,13 @@ volatile uint8_t ready_tasks_count;
 uint32_t awakened_event_occurred_time_ms;
 
 /*!
+\var rpc
+\brief Remote Procedure Call object.
+*/
+JsonRPC streamRpc(false);
+
+#if (USE_SDCARD)
+/*!
 \var SD
 \brief SD-Card structure.
 */
@@ -307,14 +336,17 @@ File read_data_file;
 \brief File structure for write data stored on SD-Card.
 */
 File write_data_file;
+#endif
 
+#if (USE_MQTT)
 /*!
 \var mqtt_ptr_file
 \brief File structure for read and write data pointer stored on SD-Card for mqtt send.
 */
 File mqtt_ptr_file;
+#endif
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \var eth_udp_client
 \brief Ethernet UDP client structure.
@@ -327,33 +359,39 @@ EthernetUDP eth_udp_client;
 */
 EthernetClient eth_tcp_client;
 
+#if (USE_MQTT)
 /*!
 \fn IPStack ipstack(eth_tcp_client)
 \brief Ethernet IPStack MQTTClient structure.
 \return void.
 */
 IPStack ipstack(eth_tcp_client);
+#endif
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \var s800
 \brief SIMCom SIM800C/SIM800L UDP/TCP client structure.
 */
 sim800Client s800;
 
+#if (USE_MQTT)
 /*!
 \var ipstack
 \brief SIMCom SIM800C/SIM800L IPStack MQTTClient structure.
 */
 IPStack ipstack(s800);
+#endif
 
 #endif
 
+#if (USE_MQTT)
 /*!
 \var mqtt_client
 \brief MQTT Client structure.
 */
 MQTT::Client<IPStack, Countdown, MQTT_ROOT_TOPIC_LENGTH+MQTT_SENSOR_TOPIC_LENGTH+MQTT_MESSAGE_LENGTH, 1> mqtt_client = MQTT::Client<IPStack, Countdown, MQTT_ROOT_TOPIC_LENGTH+MQTT_SENSOR_TOPIC_LENGTH+MQTT_MESSAGE_LENGTH, 1>(ipstack, IP_STACK_TIMEOUT_MS);
+#endif
 
 /*!
 \fn LiquidCrystal_I2C lcd(LCD_I2C_ADDRESS, LCD_COLUMNS, LCD_ROWS)
@@ -428,6 +466,7 @@ time_t last_ntp_sync;
 */
 time_t last_lcd_begin;
 
+#if (USE_SDCARD)
 /*!
 \var is_sdcard_open
 \brief If true, the SD-Card is ready.
@@ -439,7 +478,9 @@ bool is_sdcard_open;
 \brief If true, the SD-Card is in error.
 */
 bool is_sdcard_error;
+#endif
 
+#if (USE_MQTT)
 /*!
 \var is_mqtt_subscribed
 \brief If true, MQTT Client is subscribed to receive topic.
@@ -457,12 +498,19 @@ char client_id[MQTT_CLIENT_ID_LENGTH];
 \brief MQTT topic for publish will message.
 */
 char will_topic[MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH];
+#endif
 
 /*!
 \var json_sensors_data
 \brief buffer containing the data read by sensors in json text format.
 */
 char json_sensors_data[USE_SENSORS_COUNT][JSON_BUFFER_LENGTH];
+
+/*!
+\var values_readed_from_sensor
+\brief buffer containing the data read by sensors in numeric format.
+*/
+int32_t values_readed_from_sensor[USE_SENSORS_COUNT][VALUES_TO_READ_FROM_SENSOR_COUNT];
 
 /*!
 \var next_ptr_time_for_sensors_reading
@@ -478,7 +526,7 @@ volatile tmElements_t sensor_reading_time;
 
 /*!
 \var ptr_time_data
-\brief Readed data pointer stored on SD-Card for mqtt send.
+\brief Readed data pointer stored on SD-Card for data send.
 */
 time_t ptr_time_data;
 
@@ -500,14 +548,14 @@ state_t state;
 */
 supervisor_state_t supervisor_state;
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \var ethernet_state
 \brief Ethernet task state.
 */
 ethernet_state_t ethernet_state;
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \var gsm_state
 \brief GSM task state.
@@ -528,24 +576,27 @@ time_state_t time_state;
 */
 sensors_reading_state_t sensors_reading_state;
 
+#if (USE_SDCARD)
 /*!
 \var data_saving_state
 \brief Data saving task state.
 */
 data_saving_state_t data_saving_state;
+#endif
 
+#if (USE_MQTT)
 /*!
 \var mqtt_state
 \brief MQTT task state.
 */
 mqtt_state_t mqtt_state;
+#endif
 
 /*!
-\var stream_state
-\brief Stream task state.
+\var rpc_state
+\brief RPC task state.
 */
-stream_state_t stream_state;
-
+rpc_state_t rpc_state;
 /*********************************************************************
 * FUNCTIONS
 *********************************************************************/
@@ -572,6 +623,13 @@ void init_wdt(uint8_t wdt_timer);
 \return void.
 */
 void init_system(void);
+
+/*!
+\fn void init_rpc(void)
+\brief Register RPC.
+\return void.
+*/
+void init_rpc(void);
 
 /*!
 \fn void init_buffers(void)
@@ -622,7 +680,28 @@ void init_rtc(void);
 \return void.
 */
 void init_timer1(void);
+
+/*!
+\fn void start_timer(void)
+\brief Start Timer1 module.
+\return void.
+*/
+void start_timer(void);
+
+/*!
+\fn void stop_timer(void)
+\brief Stop Timer1 module.
+\return void.
+*/
+void stop_timer(void);
 #endif
+
+/*!
+\fn void interrupt_task_1s(void)
+\brief 1 seconds task.
+\return void.
+*/
+void interrupt_task_1s(void);
 
 /*!
 \fn void init_sensors(void)
@@ -668,6 +747,7 @@ void set_default_configuration(void);
 */
 void setNextTimeForSensorReading(time_t *next_time);
 
+#if (USE_MQTT)
 /*!
 \fn bool mqttConnect(char *username, char *password)
 \brief Use a open tcp socket to connect to the mqtt server.
@@ -678,7 +758,7 @@ void setNextTimeForSensorReading(time_t *next_time);
 bool mqttConnect(char *username, char *password);
 
 /*!
-\fn bool mqttPublish(const char *topic, const char *message)
+\fn bool mqttPublish(const char *topic, const char *message, bool is_retained = false)
 \brief Publish message on topic
 \param *topic: Topic for mqtt publish
 \param *message: Message to be publish
@@ -694,14 +774,64 @@ bool mqttPublish(const char *topic, const char *message, bool is_retained = fals
 \return void.
 */
 void mqttRxCallback(MQTT::MessageData &md);
+#endif
 
 /*!
-\fn char *rpc_process(char *json)
-\brief Process and execute a received Remote Procedure Call (RPC). Useful for configuration.
-\param *json: message in json text format
-\return pointer to RPC response.
+\fn bool extractSensorsParams(JsonObject &params, char *driver, char *type, uint8_t *address, uint8_t *node)
+\brief Extract sensor's parameter.
+\param[in] *params: json's params
+\param[out] *driver: driver
+\param[out] *type: type
+\param[out] *address: address
+\param[out] *node: node
+\return status code.
 */
-char *rpc_process(char *json);
+bool extractSensorsParams(JsonObject &params, char *driver, char *type, uint8_t *address, uint8_t *node);
+
+/*!
+\fn int configure(JsonObject &params, JsonObject &result)
+\brief RPC configuration.
+\param *params: json's params
+\param &result: json's response
+\return status code.
+*/
+int configure(JsonObject &params, JsonObject &result);
+
+/*!
+\fn int prepare(JsonObject &params, JsonObject &result)
+\brief RPC prepare.
+\param *params: json's params
+\param &result: json's response
+\return status code.
+*/
+int prepare(JsonObject &params, JsonObject &result);
+
+/*!
+\fn int getjson(JsonObject &params, JsonObject &result)
+\brief RPC get json.
+\param *params: json's params
+\param &result: json's response
+\return status code.
+*/
+int getjson(JsonObject &params, JsonObject &result);
+
+/*!
+\fn int prepandget(JsonObject &params, JsonObject &result)
+\brief RPC prepare and get json.
+\param *params: json's params
+\param &result: json's response
+\return status code.
+*/
+int prepandget(JsonObject &params, JsonObject &result);
+
+/*!
+\fn int reboot(JsonObject &params, JsonObject &result)
+\brief RPC reboot.
+\param *params: json's params
+\param &result: json's response
+\return status code.
+*/
+int reboot(JsonObject &params, JsonObject &result);
 
 /*********************************************************************
 * TASKS
@@ -727,12 +857,18 @@ void supervisor_task(void);
 volatile bool is_event_sensors_reading;
 
 /*!
+\var is_event_sensors_reading_rpc
+\brief Enable or disable the Sensors reading task from RPC.
+*/
+bool is_event_sensors_reading_rpc;
+
+/*!
 \fn void sensors_reading_task(void)
 \brief Sensors reading Task.
 Read data from sensors.
 \return void.
 */
-void sensors_reading_task(void);
+void sensors_reading_task (bool do_prepare = true, bool do_get = true, char *driver = NULL, char *type = NULL, uint8_t address = 0, uint8_t node = 0, uint8_t *sensor_index = 0, uint32_t *wait_time = NULL);
 
 /*!
 \var is_event_rtc
@@ -762,7 +898,7 @@ Get time from NTP and sync RTC with it.
 */
 void time_task(void);
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 /*!
 \var is_event_ethernet
 \brief Enable or disable the Ethernet task.
@@ -777,7 +913,7 @@ Manage Ethernet operation.
 */
 void ethernet_task(void);
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 /*!
 \var is_event_gsm
 \brief Enable or disable the GSM task.
@@ -794,6 +930,7 @@ void gsm_task(void);
 
 #endif
 
+#if (USE_SDCARD)
 /*!
 \var is_event_data_saving
 \brief Enable or disable the Data saving task.
@@ -807,7 +944,9 @@ Save acquired sensors data on SD-Card.
 \return void.
 */
 void data_saving_task(void);
+#endif
 
+#if (USE_MQTT)
 /*!
 \var is_event_mqtt
 \brief Enable or disable the MQTT task.
@@ -827,23 +966,13 @@ bool is_event_mqtt_paused;
 Read data stored on SD-Card and send it over MQTT.
 */
 void mqtt_task(void);
+#endif
 
 /*!
-\var is_event_stream
-\brief Enable or disable the Strem task.
+\var is_event_rpc
+\brief Indicate if RPC is active or not.
 */
-bool is_event_stream;
-
-/*!
-\fn bool stream_task(Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout)
-\brief Stream Task.
-\param *stream: Pointer to stream
-\param stream_timeout: Timeout for stream
-\param end_task_timeout: Timeout for deactivate task after last received bytes
-Read a stream and process Remote Procedure Call data.
-\return true if end_task_timeout was elapsed, false otherwise.
-*/
-bool stream_task(Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout);
+bool is_event_rpc;
 
 /*********************************************************************
 * INTERRUPT HANDLER

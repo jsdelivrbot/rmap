@@ -200,10 +200,10 @@ bool SensorDriver::isReaded() {
    return _is_readed;
 }
 
-void SensorDriver::createAndSetup(const char* driver, const char* type, uint8_t address, SensorDriver *sensors[], uint8_t *sensors_count) {
+void SensorDriver::createAndSetup(const char* driver, const char* type, const uint8_t address, const uint8_t node, SensorDriver *sensors[], uint8_t *sensors_count) {
    sensors[*sensors_count] = SensorDriver::create(driver, type);
    if (sensors[*sensors_count]) {
-      sensors[*sensors_count]->setup(address);
+      sensors[*sensors_count]->setup(address, node);
       (*sensors_count)++;
    }
 }
@@ -252,14 +252,13 @@ void SensorDriverAdt7420::setup(const uint8_t address, const uint8_t node) {
       }
 
       *_is_setted = true;
-      _delay_ms = 250;
-
       SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), OK_STRING);
    }
    else {
       SERIAL_DEBUG(F(" setup... [ %s ]\r\n"), YES_STRING);
    }
 
+   _delay_ms = 0;
    *_is_setted = true;
 }
 
@@ -277,6 +276,7 @@ void SensorDriverAdt7420::prepare() {
       }
 
       *_is_prepared = true;
+      _delay_ms = 250;
 
       SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
    }
@@ -644,7 +644,7 @@ void SensorDriverHyt2X1::prepare() {
 
    if (!*_is_prepared) {
       *_is_prepared = true;
-      _delay_ms = Hyt2X1::initRead(_address);
+      _delay_ms = Hyt2X1::hyt_initRead(_address);
       SERIAL_DEBUG(F(" prepare... [ %s ]\r\n"), OK_STRING);
    }
    else {
@@ -682,7 +682,7 @@ void SensorDriverHyt2X1::get(int32_t *values, uint8_t length) {
       break;
 
       case READ:
-      _is_success = Hyt2X1::read(_address, &humidity, &temperature);
+      _is_success = Hyt2X1::hyt_read(_address, &humidity, &temperature);
       _delay_ms = 0;
       _start_time_ms = millis();
       _get_state = END;
@@ -1101,6 +1101,7 @@ void SensorDriverRain::get(int32_t *values, uint8_t length) {
    switch (_get_state) {
       case INIT:
       memset(values, UINT16_MAX, length);
+      memset(rain_data, UINT8_MAX, I2C_RAIN_TIPS_LENGTH);
 
       _is_readed = false;
       _is_end = false;
@@ -1323,6 +1324,8 @@ void SensorDriverTh::get(int32_t *values, uint8_t length) {
    switch (_get_state) {
       case INIT:
       memset(values, UINT16_MAX, length);
+      memset(temperature_data, UINT8_MAX, I2C_TH_TEMPERATURE_DATA_MAX_LENGTH);
+      memset(humidity_data, UINT8_MAX, I2C_TH_HUMIDITY_DATA_MAX_LENGTH);
 
       _is_readed = false;
       _is_end = false;

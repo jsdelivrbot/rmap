@@ -33,13 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def SIM800_BUFFER_LENGTH
 \brief Length of sim800 buffer.
 */
-#define SIM800_BUFFER_LENGTH                             (100)
-
-/*!
-\def SIM800_COMMAND_BUFFER_LENGTH
-\brief Length of sim800 command buffer.
-*/
-#define SIM800_COMMAND_BUFFER_LENGTH                     (120)
+#define SIM800_BUFFER_LENGTH                             (150)
 
 /*!
 \def SIM800_SERIAL_PORT
@@ -189,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def SIM800_WAIT_FOR_NETWORK_RETRY_COUNT_MAX
 \brief Max number of retry for checking network availability.
 */
-#define SIM800_WAIT_FOR_NETWORK_RETRY_COUNT_MAX          (10)
+#define SIM800_WAIT_FOR_NETWORK_RETRY_COUNT_MAX          (8)
 
 /*!
 \def SIM800_WAIT_FOR_SETUP_DELAY_MS
@@ -214,6 +208,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief Waiting time in milliseconds for setting up connection.
 */
 #define SIM800_WAIT_FOR_CONNECTION_DELAY_MS              (2000)
+
+/*!
+\def SIM800_WAIT_FOR_GET_SIGNAL_QUALITY_DELAY_MS
+\brief Waiting time in milliseconds for getting signal quality.
+*/
+#define SIM800_WAIT_FOR_GET_SIGNAL_QUALITY_DELAY_MS      (3000)
 
 /*!
 \def SIM800_POWER_ON_OFF_SWITCH_DELAY_MS

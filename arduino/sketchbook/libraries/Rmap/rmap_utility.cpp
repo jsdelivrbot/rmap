@@ -40,6 +40,18 @@ void getStimaNameByType(char *name, uint8_t type) {
       strcpy(name, STIMA_MODULE_NAME_REPORT_GSM);
     break;
 
+    case STIMA_MODULE_TYPE_PASSIVE_ETH:
+      strcpy(name, STIMA_MODULE_NAME_PASSIVE_ETH);
+    break;
+
+    case STIMA_MODULE_TYPE_PASSIVE_GSM:
+      strcpy(name, STIMA_MODULE_NAME_PASSIVE_GSM);
+    break;
+
+    case STIMA_MODULE_TYPE_PASSIVE:
+      strcpy(name, STIMA_MODULE_NAME_PASSIVE);
+    break;
+
     case STIMA_MODULE_TYPE_RAIN:
       strcpy(name, STIMA_MODULE_NAME_RAIN);
     break;

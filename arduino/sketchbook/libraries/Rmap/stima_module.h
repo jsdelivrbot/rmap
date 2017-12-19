@@ -72,6 +72,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STIMA_MODULE_TYPE_TH          (6)
 
 /*!
+\def STIMA_MODULE_TYPE_PASSIVE_ETH
+\brief Module in passive mode.
+*/
+#define STIMA_MODULE_TYPE_PASSIVE_ETH  (7)
+
+/*!
+\def STIMA_MODULE_TYPE_PASSIVE_GSM
+\brief Module in passive mode.
+*/
+#define STIMA_MODULE_TYPE_PASSIVE_GSM  (8)
+
+/*!
+\def STIMA_MODULE_TYPE_PASSIVE
+\brief Module in passive mode.
+*/
+#define STIMA_MODULE_TYPE_PASSIVE      (9)
+
+/*!
 \def STIMA_MODULE_NAME_SAMPLE_ETH
 \brief The module'name for sending sample over ethernet.
 */
@@ -94,6 +112,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief The module'name for sending report over gsm/gors.
 */
 #define STIMA_MODULE_NAME_REPORT_GSM  ("report-gsm")
+
+/*!
+\def STIMA_MODULE_NAME_PASSIVE_ETH
+\brief The module'name for passive mode.
+*/
+#define STIMA_MODULE_NAME_PASSIVE_ETH  ("passive-eth")
+
+/*!
+\def STIMA_MODULE_NAME_PASSIVE_GSM
+\brief The module'name for passive mode.
+*/
+#define STIMA_MODULE_NAME_PASSIVE_GSM  ("passive-gsm")
+
+/*!
+\def STIMA_MODULE_NAME_PASSIVE
+\brief The module'name for passive mode.
+*/
+#define STIMA_MODULE_NAME_PASSIVE      ("passive")
 
 /*!
 \def STIMA_MODULE_NAME_RAIN

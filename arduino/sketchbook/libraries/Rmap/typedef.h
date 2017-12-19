@@ -26,24 +26,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <mqtt_config.h>
 
 /*!
-\def SENSOR_DRIVER_LENGTH
+\def DRIVER_LENGTH
 \brief Sensor driver's buffer length.
 */
-#define SENSOR_DRIVER_LENGTH  (5)
+#define DRIVER_LENGTH  (5)
 
 /*!
-\def SENSOR_TYPE_LENGTH
+\def TYPE_LENGTH
 \brief Sensor type's buffer length.
 */
-#define SENSOR_TYPE_LENGTH    (5)
+#define TYPE_LENGTH    (5)
 
 /*!
 \struct sensor_t
 \brief Sensor struct for storing sensor configuration parameter.
 */
 typedef struct {
-  char driver[SENSOR_DRIVER_LENGTH];            //!< sensor's string driver
-  char type[SENSOR_TYPE_LENGTH];                //!< sensor's string type
+  char driver[DRIVER_LENGTH];            //!< sensor's string driver
+  char type[TYPE_LENGTH];                //!< sensor's string type
   uint8_t address;                              //!< sensor's address
   uint8_t node;                                 //!< sensor's node
   char mqtt_topic[MQTT_SENSOR_TOPIC_LENGTH];    //!< sensor's mqtt topic path

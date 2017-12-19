@@ -46,12 +46,15 @@ void setup() {
    SERIAL_BEGIN(115200);
    init_pins();
    init_wire();
+   init_rpc();
+   init_tasks();
    LCD_BEGIN(&lcd, LCD_COLUMNS, LCD_ROWS);
    load_configuration();
    init_buffers();
    init_spi();
+   #if (USE_RTC)
    init_rtc();
-   #if (USE_TIMER_1)
+   #elif (USE_TIMER_1)
    init_timer1();
    #endif
    init_system();
@@ -66,7 +69,6 @@ void setup() {
 void loop() {
    switch (state) {
       case INIT:
-         init_tasks();
          init_sensors();
          wdt_reset();
          state = TASKS_EXECUTION;
@@ -90,13 +92,13 @@ void loop() {
             wdt_reset();
          }
 
-         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
          if (is_event_ethernet) {
             ethernet_task();
             wdt_reset();
          }
 
-         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
          if (is_event_gsm) {
             gsm_task();
             wdt_reset();
@@ -109,22 +111,31 @@ void loop() {
             wdt_reset();
          }
 
+         #if (USE_SDCARD)
          if (is_event_data_saving) {
             data_saving_task();
             wdt_reset();
          }
+         #endif
 
+         #if (USE_MQTT)
          if (is_event_mqtt) {
             mqtt_task();
             wdt_reset();
          }
+         #endif
 
          if (is_event_time) {
             time_task();
             wdt_reset();
          }
 
-         if (ready_tasks_count == 0) {
+         streamRpc.parseStream(&is_event_rpc, &Serial);
+         if (is_event_rpc) {
+            wdt_reset();
+         }
+
+         if (ready_tasks_count == 0 && !is_event_rpc) {
             wdt_reset();
             state = END;
          }
@@ -146,7 +157,7 @@ void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
 
 		power_adc_disable();
 		power_spi_disable();
-		power_timer0_disable();
+      power_timer0_disable();
       #if (USE_TIMER_1 == false)
       power_timer1_disable();
       #endif
@@ -177,35 +188,48 @@ void init_buffers() {
 }
 
 void init_tasks() {
-   noInterrupts();
    ready_tasks_count = 0;
 
    is_event_supervisor = true;
+   supervisor_state = SUPERVISOR_INIT;
    ready_tasks_count++;
 
+   is_event_rpc = true;
+
    is_event_time = false;
+   time_state = TIME_INIT;
+
    is_event_sensors_reading = false;
+   is_event_sensors_reading_rpc = false;
+   sensors_reading_state = SENSORS_READING_INIT;
+
+   #if (USE_SDCARD)
    is_event_data_saving = false;
+   data_saving_state = DATA_SAVING_INIT;
+   is_sdcard_error = false;
+   is_sdcard_open = false;
+   #endif
+
+   #if (USE_MQTT)
    is_event_mqtt = false;
    is_event_mqtt_paused = false;
+   mqtt_state = MQTT_INIT;
+   is_mqtt_subscribed = false;
+   #endif
 
    is_event_rtc = false;
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    is_event_ethernet = false;
    ethernet_state = ETHERNET_INIT;
 
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    is_event_gsm = false;
    gsm_state = GSM_INIT;
 
    #endif
 
-   supervisor_state = SUPERVISOR_INIT;
-   time_state = TIME_INIT;
-   sensors_reading_state = SENSORS_READING_INIT;
-   data_saving_state = DATA_SAVING_INIT;
-   mqtt_state = MQTT_INIT;
+   rpc_state = RPC_INIT;
 
    is_client_connected = false;
    is_client_udp_socket_open = false;
@@ -217,13 +241,6 @@ void init_tasks() {
    last_lcd_begin = 0;
 
    is_time_for_sensors_reading_updated = false;
-
-   is_sdcard_error = false;
-   is_sdcard_open = false;
-
-   is_mqtt_subscribed = false;
-
-   interrupts();
 }
 
 void init_pins() {
@@ -231,13 +248,15 @@ void init_pins() {
 
    pinMode(RTC_INTERRUPT_PIN, INPUT_PULLUP);
 
+   #if (USE_SDCARD)
    pinMode(SDCARD_CHIP_SELECT_PIN, OUTPUT);
    digitalWrite(SDCARD_CHIP_SELECT_PIN, HIGH);
+   #endif
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    Ethernet.w5500_cspin = W5500_CHIP_SELECT_PIN;
 
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    s800.init(GSM_ON_OFF_PIN);
 
    #endif
@@ -284,12 +303,38 @@ void init_rtc() {
 
 void init_system() {
    #if (USE_POWER_DOWN)
+   #if (USE_RTC)
    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+   #elif (USE_TIMER_1)
+   set_sleep_mode(SLEEP_MODE_IDLE);
+   #endif
    awakened_event_occurred_time_ms = millis();
    #endif
 
    // main loop state
    state = INIT;
+}
+
+void init_rpc() {
+   #if (USE_RPC_METHOD_CONFIGURE)
+   streamRpc.registerMethod("configure", &configure);
+   #endif
+
+   #if (USE_RPC_METHOD_PREPARE)
+   streamRpc.registerMethod("prepare", &prepare);
+   #endif
+
+   #if (USE_RPC_METHOD_GETJSON)
+   streamRpc.registerMethod("getjson", &getjson);
+   #endif
+
+   #if (USE_RPC_METHOD_PREPANDGET)
+   streamRpc.registerMethod("prepandget", &prepandget);
+   #endif
+
+   #if (USE_RPC_METHOD_REBOOT)
+   streamRpc.registerMethod("reboot", &reboot);
+   #endif
 }
 
 void init_wdt(uint8_t wdt_timer) {
@@ -300,7 +345,40 @@ void init_wdt(uint8_t wdt_timer) {
 
 #if (USE_TIMER_1)
 void init_timer1() {
+   start_timer();
 }
+
+void start_timer() {
+   TCCR1A = 0x00;                //!< Normal timer operation
+   TCCR1B = 0x05;                //!< 1:1024 prescaler
+   TCNT1 = TIMER1_TCNT1_VALUE;   //!< Pre-load timer counter register
+   TIFR1 |= (1 << TOV1);         //!< Clear interrupt overflow flag register
+   TIMSK1 |= (1 << TOIE1);       //!< Enable overflow interrupt
+}
+
+void stop_timer() {
+   TCCR1B = 0x00;                //!< Stop
+   TIMSK1 &= ~(1 << TOIE1);      //!< Disable overflow interrupt
+   TIFR1 |= (1 << TOV1);         //!< Clear interrupt overflow flag register
+   TCNT1 = TIMER1_TCNT1_VALUE;   //!< Pre-load timer counter register
+}
+
+/*!
+\fn ISR(TIMER1_OVF_vect)
+\brief Timer1 overflow interrupts routine.
+\return void.
+*/
+ISR(TIMER1_OVF_vect) {
+   //! Pre-load timer counter register
+   TCNT1 = TIMER1_TCNT1_VALUE;
+   interrupt_task_1s();
+}
+
+#elif (USE_RTC)
+void rtc_interrupt_handler() {
+   interrupt_task_1s();
+}
+
 #endif
 
 void init_sensors () {
@@ -311,18 +389,17 @@ void init_sensors () {
    LCD_INFO(&lcd, false, true, F("%s v. %u"), stima_name, readable_configuration.module_version);
 
    SERIAL_INFO(F("Sensors... [ %s ]\r\n"), readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
+   LCD_INFO(&lcd, false, true, F("Sensors %s"), readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
 
-   if (readable_configuration.sensors_count == 0) {
-      LCD_INFO(&lcd, false, true, F("Sensors not found!"));
+   if (readable_configuration.sensors_count) {
+      // read sensors configuration, create and setup
+      for (uint8_t i=0; i<readable_configuration.sensors_count; i++) {
+         SensorDriver::createAndSetup(readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].node, sensors, &sensors_count);
+         SERIAL_INFO(F("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n"), sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
+      }
+
+      SERIAL_INFO(F("\r\n"));
    }
-
-   // read sensors configuration, create and setup
-   for (uint8_t i=0; i<readable_configuration.sensors_count; i++) {
-      SensorDriver::createAndSetup(readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, sensors, &sensors_count);
-      SERIAL_INFO(F("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n"), sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
-   }
-
-   SERIAL_INFO(F("\r\n"));
 }
 
 void setNextTimeForSensorReading (time_t *next_time) {
@@ -330,6 +407,7 @@ void setNextTimeForSensorReading (time_t *next_time) {
    *next_time = (time_t) ((++counter) * readable_configuration.report_seconds);
 }
 
+#if (USE_MQTT)
 bool mqttConnect(char *username, char *password) {
    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
    data.MQTTVersion = 3;
@@ -369,6 +447,7 @@ void mqttRxCallback(MQTT::MessageData &md) {
    SERIAL_DEBUG(F("--> dup %u\r\n"), rx_message.dup);
    SERIAL_DEBUG(F("--> id %u\r\n"), rx_message.id);
 }
+#endif
 
 void print_configuration() {
    getStimaNameByType(stima_name, readable_configuration.module_type);
@@ -376,25 +455,29 @@ void print_configuration() {
    SERIAL_INFO(F("--> version: %d\r\n"), readable_configuration.module_version);
    SERIAL_INFO(F("--> sensors: %d\r\n"), readable_configuration.sensors_count);
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    SERIAL_INFO(F("--> dhcp: %s\r\n"), readable_configuration.is_dhcp_enable ? "on" : "off");
    SERIAL_INFO(F("--> ethernet mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n"), readable_configuration.ethernet_mac[0], readable_configuration.ethernet_mac[1], readable_configuration.ethernet_mac[2], readable_configuration.ethernet_mac[3], readable_configuration.ethernet_mac[4], readable_configuration.ethernet_mac[5]);
 
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    SERIAL_INFO(F("--> gsm apn: %s\r\n"), readable_configuration.gsm_apn);
    SERIAL_INFO(F("--> gsm username: %s\r\n"), readable_configuration.gsm_username);
    SERIAL_INFO(F("--> gsm password: %s\r\n"), readable_configuration.gsm_password);
 
    #endif
 
+   #if (USE_NTP)
    SERIAL_INFO(F("--> ntp server: %s\r\n"), readable_configuration.ntp_server);
+   #endif
 
+   #if (USE_MQTT)
    SERIAL_INFO(F("--> mqtt server: %s\r\n"), readable_configuration.mqtt_server);
    SERIAL_INFO(F("--> mqtt port: %u\r\n"), readable_configuration.mqtt_port);
    SERIAL_INFO(F("--> mqtt root topic: %s\r\n"), readable_configuration.mqtt_root_topic);
    SERIAL_INFO(F("--> mqtt subscribe topic: %s\r\n"), readable_configuration.mqtt_subscribe_topic);
    SERIAL_INFO(F("--> mqtt username: %s\r\n"), readable_configuration.mqtt_username);
    SERIAL_INFO(F("--> mqtt password: %s\r\n\r\n"), readable_configuration.mqtt_password);
+   #endif
 }
 
 void set_default_configuration() {
@@ -406,7 +489,7 @@ void set_default_configuration() {
    writable_configuration.sensors_count = 0;
    memset(writable_configuration.sensors, 0, sizeof(sensor_t) * USE_SENSORS_COUNT);
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    char temp_string[20];
    writable_configuration.is_dhcp_enable = CONFIGURATION_DEFAULT_ETHERNET_DHCP_ENABLE;
    strcpy(temp_string, CONFIGURATION_DEFAULT_ETHERNET_MAC);
@@ -420,21 +503,25 @@ void set_default_configuration() {
    strcpy(temp_string, CONFIGURATION_DEFAULT_ETHERNET_PRIMARY_DNS);
    ipStringToArray(writable_configuration.primary_dns, temp_string);
 
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    strcpy(writable_configuration.gsm_apn, CONFIGURATION_DEFAULT_GSM_APN);
    strcpy(writable_configuration.gsm_username, CONFIGURATION_DEFAULT_GSM_USERNAME);
    strcpy(writable_configuration.gsm_password, CONFIGURATION_DEFAULT_GSM_PASSWORD);
 
    #endif
 
+   #if (USE_NTP)
    strcpy(writable_configuration.ntp_server, CONFIGURATION_DEFAULT_NTP_SERVER);
+   #endif
 
+   #if (USE_MQTT)
    writable_configuration.mqtt_port = CONFIGURATION_DEFAULT_MQTT_PORT;
    strcpy(writable_configuration.mqtt_server, CONFIGURATION_DEFAULT_MQTT_SERVER);
    strcpy(writable_configuration.mqtt_root_topic, CONFIGURATION_DEFAULT_MQTT_ROOT_TOPIC);
    strcpy(writable_configuration.mqtt_subscribe_topic, CONFIGURATION_DEFAULT_MQTT_SUBSCRIBE_TOPIC);
    strcpy(writable_configuration.mqtt_username, CONFIGURATION_DEFAULT_MQTT_USERNAME);
    strcpy(writable_configuration.mqtt_password, CONFIGURATION_DEFAULT_MQTT_PASSWORD);
+   #endif
 
    SERIAL_INFO(F("Reset configuration to default value... [ %s ]\r\n"), OK_STRING);
 }
@@ -462,7 +549,7 @@ void load_configuration() {
    }
 
    while (digitalRead(CONFIGURATION_RESET_PIN) == LOW && !is_configuration_done) {
-      is_configuration_done = stream_task(&Serial, STREAM_UART_STREAM_TIMEOUT_MS, STREAM_UART_STREAM_END_TIMEOUT_MS);
+      streamRpc.parseStream(&is_event_rpc, &Serial);
       wdt_reset();
    }
 
@@ -476,112 +563,348 @@ void load_configuration() {
 
    ee_read(&readable_configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration_t));
 
+   #if (USE_MQTT)
    getMqttClientIdFromMqttTopic(readable_configuration.mqtt_root_topic, client_id);
    getFullTopic(will_topic, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+   #endif
 
    SERIAL_INFO(F("Load configuration... [ %s ]\r\n"), OK_STRING);
    print_configuration();
 }
 
-char *rpc_process(char *json) {
+#if (USE_RPC_METHOD_PREPARE || USE_RPC_METHOD_PREPANDGET || USE_RPC_METHOD_GETJSON)
+bool extractSensorsParams(JsonObject &params, char *driver, char *type, uint8_t *address, uint8_t *node) {
    bool is_error = false;
-   uint8_t id = 0;
 
-   StaticJsonBuffer<STREAM_BUFFER_LENGTH> buffer;
-   JsonObject &root = buffer.parseObject(json);
+   for (JsonObject::iterator it = params.begin(); it != params.end(); ++it) {
+      if (strcmp(it->key, "driver") == 0) {
+         strncpy(driver, it->value.as<char*>(), DRIVER_LENGTH);
+      }
+      else if (strcmp(it->key, "type") == 0) {
+         strncpy(type, it->value.as<char*>(), TYPE_LENGTH);
+      }
+      else if (strcmp(it->key, "address") == 0) {
+         *address = it->value.as<unsigned char>();
+      }
+      else if (strcmp(it->key, "node") == 0) {
+         *node = it->value.as<unsigned char>();
+      }
+      else {
+         is_error = true;
+      }
+   }
 
-   if (strcmp(root["jsonrpc"], "2.0") == 0) {
-      id = root["id"].as<unsigned char>();
+   return is_error;
+}
+#endif
 
-      if (strcmp(root["method"], "configure") == 0) {
-         bool is_sensor_config = false;
+#if (USE_RPC_METHOD_CONFIGURE)
+int configure(JsonObject &params, JsonObject &result) {
+   bool is_error = false;
+   bool is_sensor_config = false;
 
-         for (JsonObject::iterator it = root.get<JsonObject>("params").begin(); it != root.get<JsonObject>("params").end(); ++it) {
-            if (strcmp(it->key, "reset") == 0) {
-               if (it->value.as<bool>() == true) {
-                  set_default_configuration();
-                  LCD_INFO(&lcd, false, true, F("Reset configuration"));
-               }
-            }
-            else if (strcmp(it->key, "save") == 0) {
-               if (it->value.as<bool>() == true) {
-                  save_configuration(CONFIGURATION_CURRENT);
-                  LCD_INFO(&lcd, false, true, F("Save configuration"));
-               }
-            }
-            else if (strcmp(it->key, "mqttserver") == 0) {
-               strncpy(writable_configuration.mqtt_server, it->value.as<char*>(), MQTT_SERVER_LENGTH);
-            }
-            else if (strcmp(it->key, "mqttrootpath") == 0) {
-               strncpy(writable_configuration.mqtt_root_topic, it->value.as<char*>(), MQTT_ROOT_TOPIC_LENGTH);
-               strncpy(writable_configuration.mqtt_subscribe_topic, it->value.as<char*>(), MQTT_SUBSCRIBE_TOPIC_LENGTH);
-               uint8_t mqtt_subscribe_topic_len = strlen(writable_configuration.mqtt_subscribe_topic);
-               strncpy(writable_configuration.mqtt_subscribe_topic+mqtt_subscribe_topic_len, "rx", MQTT_SUBSCRIBE_TOPIC_LENGTH-mqtt_subscribe_topic_len);
-            }
-            else if (strcmp(it->key, "mqttsampletime") == 0) {
-               writable_configuration.report_seconds = it->value.as<unsigned int>();
-            }
-            else if (strcmp(it->key, "mqttuser") == 0) {
-               strncpy(writable_configuration.mqtt_username, it->value.as<char*>(), MQTT_USERNAME_LENGTH);
-            }
-            else if (strcmp(it->key, "mqttpassword") == 0) {
-               strncpy(writable_configuration.mqtt_password, it->value.as<char*>(), MQTT_PASSWORD_LENGTH);
-            }
-            else if (strcmp(it->key, "ntpserver") == 0) {
-               strncpy(writable_configuration.ntp_server, it->value.as<char*>(), NTP_SERVER_LENGTH);
-            }
-            #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
-            else if (strcmp(it->key, "mac") == 0) {
-               for (uint8_t i=0; i<ETHERNET_MAC_LENGTH; i++) {
-                  writable_configuration.ethernet_mac[i] = it->value.as<JsonArray>()[i];
-               }
-            }
-            #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
-            else if (strcmp(it->key, "gsmapn") == 0) {
-               strncpy(writable_configuration.gsm_apn, it->value.as<char*>(), GSM_APN_LENGTH);
-            }
-            #endif
-            else if (strcmp(it->key, "driver") == 0) {
-               strncpy(writable_configuration.sensors[writable_configuration.sensors_count].driver, it->value.as<char*>(), SENSOR_DRIVER_LENGTH);
-               is_sensor_config = true;
-            }
-            else if (strcmp(it->key, "type") == 0) {
-               strncpy(writable_configuration.sensors[writable_configuration.sensors_count].type, it->value.as<char*>(), SENSOR_TYPE_LENGTH);
-               is_sensor_config = true;
-            }
-            else if (strcmp(it->key, "address") == 0) {
-               writable_configuration.sensors[writable_configuration.sensors_count].address = it->value.as<unsigned char>();
-               is_sensor_config = true;
-            }
-            else if (strcmp(it->key, "node") == 0) {
-               writable_configuration.sensors[writable_configuration.sensors_count].node = it->value.as<unsigned char>();
-               is_sensor_config = true;
-            }
-            else if (strcmp(it->key, "mqttpath") == 0) {
-               strncpy(writable_configuration.sensors[writable_configuration.sensors_count].mqtt_topic, it->value.as<char*>(), MQTT_SENSOR_TOPIC_LENGTH);
-               is_sensor_config = true;
-            }
-         }
-
-         if (is_sensor_config) {
-            writable_configuration.sensors_count++;
+   for (JsonObject::iterator it = params.begin(); it != params.end(); ++it) {
+      if (strcmp(it->key, "reset") == 0) {
+         if (it->value.as<bool>() == true) {
+            set_default_configuration();
+            LCD_INFO(&lcd, false, true, F("Reset configuration"));
          }
       }
-      else if (strcmp(root["method"], "reboot") == 0) {
-         init_wdt(WDTO_15MS);
+      else if (strcmp(it->key, "save") == 0) {
+         if (it->value.as<bool>() == true) {
+            save_configuration(CONFIGURATION_CURRENT);
+            LCD_INFO(&lcd, false, true, F("Save configuration"));
+         }
       }
+      #if (USE_MQTT)
+      else if (strcmp(it->key, "mqttserver") == 0) {
+         strncpy(writable_configuration.mqtt_server, it->value.as<char*>(), MQTT_SERVER_LENGTH);
+      }
+      else if (strcmp(it->key, "mqttrootpath") == 0) {
+         strncpy(writable_configuration.mqtt_root_topic, it->value.as<char*>(), MQTT_ROOT_TOPIC_LENGTH);
+         strncpy(writable_configuration.mqtt_subscribe_topic, it->value.as<char*>(), MQTT_SUBSCRIBE_TOPIC_LENGTH);
+         uint8_t mqtt_subscribe_topic_len = strlen(writable_configuration.mqtt_subscribe_topic);
+         strncpy(writable_configuration.mqtt_subscribe_topic+mqtt_subscribe_topic_len, "rx", MQTT_SUBSCRIBE_TOPIC_LENGTH-mqtt_subscribe_topic_len);
+      }
+      else if (strcmp(it->key, "mqttsampletime") == 0) {
+         writable_configuration.report_seconds = it->value.as<unsigned int>();
+      }
+      else if (strcmp(it->key, "mqttuser") == 0) {
+         strncpy(writable_configuration.mqtt_username, it->value.as<char*>(), MQTT_USERNAME_LENGTH);
+      }
+      else if (strcmp(it->key, "mqttpassword") == 0) {
+         strncpy(writable_configuration.mqtt_password, it->value.as<char*>(), MQTT_PASSWORD_LENGTH);
+      }
+      #endif
+      #if (USE_NTP)
+      else if (strcmp(it->key, "ntpserver") == 0) {
+         strncpy(writable_configuration.ntp_server, it->value.as<char*>(), NTP_SERVER_LENGTH);
+      }
+      #endif
+      else if (strcmp(it->key, "date") == 0) {
+         #if (USE_RTC)
+         Pcf8563::disable();
+         Pcf8563::setDate(it->value.as<JsonArray>()[2].as<int>(), it->value.as<JsonArray>()[1].as<int>(), it->value.as<JsonArray>()[0].as<int>() - 2000, weekday()-1, 0);
+         Pcf8563::setTime(it->value.as<JsonArray>()[3].as<int>(), it->value.as<JsonArray>()[4].as<int>(), it->value.as<JsonArray>()[5].as<int>());
+         Pcf8563::enable();
+         setSyncInterval(NTP_TIME_FOR_RESYNC_S);
+         setSyncProvider(Pcf8563::getTime);
+         #elif (USE_TIMER_1)
+         setTime(it->value.as<JsonArray>()[3].as<int>(), it->value.as<JsonArray>()[4].as<int>(), it->value.as<JsonArray>()[5].as<int>(), it->value.as<JsonArray>()[2].as<int>(), it->value.as<JsonArray>()[1].as<int>(), it->value.as<JsonArray>()[0].as<int>() - 2000);
+         #endif
+      }
+      #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+      else if (strcmp(it->key, "mac") == 0) {
+         for (uint8_t i=0; i<ETHERNET_MAC_LENGTH; i++) {
+            writable_configuration.ethernet_mac[i] = it->value.as<JsonArray>()[i];
+         }
+      }
+      #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+      else if (strcmp(it->key, "gsmapn") == 0) {
+         strncpy(writable_configuration.gsm_apn, it->value.as<char*>(), GSM_APN_LENGTH);
+      }
+      #endif
+      else if (strcmp(it->key, "driver") == 0) {
+         strncpy(writable_configuration.sensors[writable_configuration.sensors_count].driver, it->value.as<char*>(), DRIVER_LENGTH);
+         is_sensor_config = true;
+      }
+      else if (strcmp(it->key, "type") == 0) {
+         strncpy(writable_configuration.sensors[writable_configuration.sensors_count].type, it->value.as<char*>(), TYPE_LENGTH);
+         is_sensor_config = true;
+      }
+      else if (strcmp(it->key, "address") == 0) {
+         writable_configuration.sensors[writable_configuration.sensors_count].address = it->value.as<unsigned char>();
+         is_sensor_config = true;
+      }
+      else if (strcmp(it->key, "node") == 0) {
+         writable_configuration.sensors[writable_configuration.sensors_count].node = it->value.as<unsigned char>();
+         is_sensor_config = true;
+      }
+      else if (strcmp(it->key, "mqttpath") == 0) {
+         strncpy(writable_configuration.sensors[writable_configuration.sensors_count].mqtt_topic, it->value.as<char*>(), MQTT_SENSOR_TOPIC_LENGTH);
+         is_sensor_config = true;
+      }
+      else {
+         is_error = true;
+      }
+   }
+
+   if (is_sensor_config) {
+      writable_configuration.sensors_count++;
+   }
+
+   if (is_error) {
+      result[F("state")] = F("error");
+      return E_INVALID_PARAMS;
    }
    else {
-      is_error = true;
-      SERIAL_ERROR(F("jsonRPC v. %s it isn't supported [ %s ]\r\n"), root["jsonrpc"], ERROR_STRING);
+      result[F("state")] = F("done");
+      return E_SUCCESS;
+   }
+}
+#endif
+
+#if (USE_RPC_METHOD_PREPARE)
+int prepare(JsonObject &params, JsonObject &result) {
+   static int state;
+   static bool is_error = false;
+   static char driver[DRIVER_LENGTH];
+   static char type[TYPE_LENGTH];
+   static uint8_t address = 0;
+   static uint8_t node = 0;
+   static uint8_t i;
+   static uint32_t wait_time;
+
+   switch (rpc_state) {
+      case RPC_INIT:
+         state = E_BUSY;
+         is_error = extractSensorsParams(params, driver, type, &address, &node);
+
+         if (!is_error && !is_event_sensors_reading) {
+            is_event_sensors_reading_rpc = true;
+            rpc_state = RPC_EXECUTE;
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_EXECUTE:
+         if (is_event_sensors_reading_rpc) {
+            sensors_reading_task (true, false, driver, type, address, node, &i, &wait_time);
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_END:
+         if (is_error) {
+            result[F("state")] = F("error");
+            state = E_INVALID_PARAMS;
+         }
+         else {
+            result[F("state")] = F("done");
+            result[F("waittime")] = wait_time;
+            state = E_SUCCESS;
+         }
+         rpc_state = RPC_INIT;
+      break;
    }
 
-   snprintf(json, STREAM_BUFFER_LENGTH, "{\"jsonrpc\":\"2.0\",\"result\":\"%s\",\"id\":%u}", is_error ? "error" : "ok", id);
-   return json;
+   return state;
 }
+#endif
 
-void rtc_interrupt_handler() {
-   if (is_time_set && now() >= next_ptr_time_for_sensors_reading) {
+#if (USE_RPC_METHOD_GETJSON)
+int getjson(JsonObject &params, JsonObject &result) {
+   static int state;
+   static bool is_error = false;
+   static char driver[DRIVER_LENGTH];
+   static char type[TYPE_LENGTH];
+   static uint8_t address = 0;
+   static uint8_t node = 0;
+   static uint8_t i;
+   static uint32_t wait_time;
+   static char sensor_reading_time_buffer[DATE_TIME_STRING_LENGTH];
+
+   switch (rpc_state) {
+      case RPC_INIT:
+         state = E_BUSY;
+         is_error = extractSensorsParams(params, driver, type, &address, &node);
+
+         if (!is_error && !is_event_sensors_reading) {
+            is_event_sensors_reading_rpc = true;
+            rpc_state = RPC_EXECUTE;
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_EXECUTE:
+         if (is_event_sensors_reading_rpc) {
+            sensors_reading_task (false, true, driver, type, address, node, &i, &wait_time);
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_END:
+         if (is_error) {
+            result[F("state")] = F("error");
+            state = E_INVALID_PARAMS;
+         }
+         else {
+            StaticJsonBuffer<JSON_BUFFER_LENGTH*2> jsonBuffer;
+            JsonObject &v = jsonBuffer.parseObject((const char*) &json_sensors_data[i][0]);
+            snprintf(sensor_reading_time_buffer, DATE_TIME_STRING_LENGTH, "%04u-%02u-%02uT%02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
+
+            result[F("state")] = F("done");
+            result.createNestedObject(F("v"));
+
+            for (JsonObject::iterator it = v.begin(); it != v.end(); ++it) {
+               if (it->value.as<unsigned int>() == 0) {
+                  result[F("v")][(char *) it->key] = (char *) NULL;
+               }
+               else {
+                  result[F("v")][(char *) it->key] = it->value.as<unsigned int>();
+               }
+            }
+
+            result[F("t")] = sensor_reading_time_buffer;
+            state = E_SUCCESS;
+         }
+         rpc_state = RPC_INIT;
+      break;
+   }
+
+   return state;
+}
+#endif
+
+#if (USE_RPC_METHOD_PREPANDGET)
+int prepandget(JsonObject &params, JsonObject &result) {
+   static int state;
+   static bool is_error = false;
+   static char driver[DRIVER_LENGTH];
+   static char type[TYPE_LENGTH];
+   static uint8_t address = 0;
+   static uint8_t node = 0;
+   static uint8_t i;
+   static uint32_t wait_time;
+   static char sensor_reading_time_buffer[DATE_TIME_STRING_LENGTH];
+
+   switch (rpc_state) {
+      case RPC_INIT:
+         state = E_BUSY;
+         is_error = extractSensorsParams(params, driver, type, &address, &node);
+
+         if (!is_error && !is_event_sensors_reading) {
+            is_event_sensors_reading_rpc = true;
+            rpc_state = RPC_EXECUTE;
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_EXECUTE:
+         if (is_event_sensors_reading_rpc) {
+            sensors_reading_task (true, true, driver, type, address, node, &i, &wait_time);
+         }
+         else {
+            rpc_state = RPC_END;
+         }
+      break;
+
+      case RPC_END:
+         if (is_error) {
+            result[F("state")] = F("error");
+            state = E_INVALID_PARAMS;
+         }
+         else {
+            StaticJsonBuffer<JSON_BUFFER_LENGTH*2> jsonBuffer;
+            JsonObject &v = jsonBuffer.parseObject((const char*) &json_sensors_data[i][0]);
+            snprintf(sensor_reading_time_buffer, DATE_TIME_STRING_LENGTH, "%04u-%02u-%02uT%02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
+
+            result[F("state")] = F("done");
+            result.createNestedObject(F("v"));
+
+            for (JsonObject::iterator it = v.begin(); it != v.end(); ++it) {
+               if (it->value.as<unsigned int>() == 0) {
+                  result[F("v")][(char *) it->key] = (char *) NULL;
+               }
+               else {
+                  result[F("v")][(char *) it->key] = it->value.as<unsigned int>();
+               }
+            }
+
+            result[F("t")] = sensor_reading_time_buffer;
+            state = E_SUCCESS;
+         }
+         rpc_state = RPC_INIT;
+      break;
+   }
+
+   return state;
+}
+#endif
+
+#if (USE_RPC_METHOD_REBOOT)
+int reboot(JsonObject &params, JsonObject &result) {
+   LCD_INFO(&lcd, false, true, F("Reboot"));
+   result[F("state")] = "done";
+   init_wdt(WDTO_1S);
+   while(true);
+   return E_SUCCESS;
+}
+#endif
+
+void interrupt_task_1s () {
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM)
+   if (is_time_set && now() >= next_ptr_time_for_sensors_reading && next_ptr_time_for_sensors_reading) {
 
       sensor_reading_time.Day = day(next_ptr_time_for_sensors_reading);
       sensor_reading_time.Month = month(next_ptr_time_for_sensors_reading);
@@ -599,13 +922,16 @@ void rtc_interrupt_handler() {
          ready_tasks_count++;
       }
 
+      #if (USE_MQTT)
       if (is_event_mqtt) {
          is_event_mqtt_paused = true;
          is_event_mqtt = false;
          ready_tasks_count--;
       }
+      #endif
       interrupts();
    }
+   #endif
 
    noInterrupts();
    if (!is_event_rtc) {
@@ -624,9 +950,9 @@ void supervisor_task() {
    static bool is_supervisor_first_run = true;
    static bool is_time_updated;
 
-   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+   #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
    bool *is_event_client = &is_event_ethernet;
-   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+   #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
    bool *is_event_client = &is_event_gsm;
    #endif
 
@@ -636,13 +962,16 @@ void supervisor_task() {
          start_time_ms = 0;
          is_time_updated = false;
 
+         #if (MODULE_TYPE != STIMA_MODULE_TYPE_PASSIVE)
          if (!*is_event_client && is_client_connected) {
             is_event_client_executed = true;
          }
          else {
             is_event_time_executed = false;
          }
+         #endif
 
+         #if (USE_MQTT)
          if (is_event_mqtt_paused) {
             noInterrupts();
             if (!is_event_mqtt) {
@@ -655,6 +984,8 @@ void supervisor_task() {
             SERIAL_TRACE(F("SUPERVISOR_INIT ---> SUPERVISOR_END\r\n"));
          }
          else {
+         #endif
+            #if (USE_NTP)
             // need ntp sync ?
             if (!do_ntp_sync && ((now() - last_ntp_sync > NTP_TIME_FOR_RESYNC_S) || !is_time_set)) {
                do_ntp_sync = true;
@@ -662,13 +993,22 @@ void supervisor_task() {
             }
 
             start_time_ms = millis();
+            #endif
 
+            #if (MODULE_TYPE != STIMA_MODULE_TYPE_PASSIVE)
             supervisor_state = SUPERVISOR_CONNECTION_LEVEL_TASK;
             SERIAL_TRACE(F("SUPERVISOR_INIT ---> SUPERVISOR_CONNECTION_LEVEL_TASK\r\n"));
+            #else
+            supervisor_state = SUPERVISOR_TIME_LEVEL_TASK;
+            SERIAL_TRACE(F("SUPERVISOR_INIT ---> SUPERVISOR_TIME_LEVEL_TASK\r\n"));
+            #endif
+         #if (USE_MQTT)
          }
+         #endif
       break;
 
       case SUPERVISOR_CONNECTION_LEVEL_TASK:
+         #if (MODULE_TYPE != STIMA_MODULE_TYPE_PASSIVE)
          // enable hardware related tasks for connect
          noInterrupts();
          if (!*is_event_client && !is_event_client_executed && !is_client_connected) {
@@ -678,9 +1018,11 @@ void supervisor_task() {
          interrupts();
          supervisor_state = SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK;
          SERIAL_TRACE(F("SUPERVISOR_CONNECTION_LEVEL_TASK ---> SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK\r\n"));
+         #endif
       break;
 
       case SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK:
+         #if (MODULE_TYPE != STIMA_MODULE_TYPE_PASSIVE)
          // success
          if (!*is_event_client && is_event_client_executed && is_client_connected) {
 
@@ -712,6 +1054,7 @@ void supervisor_task() {
                SERIAL_TRACE(F("SUPERVISOR_WAIT_CONNECTION_LEVEL_TASK ---> SUPERVISOR_TIME_LEVEL_TASK\r\n"));
             }
          }
+         #endif
       break;
 
       case SUPERVISOR_TIME_LEVEL_TASK:
@@ -726,6 +1069,7 @@ void supervisor_task() {
          if (!is_event_time && is_event_time_executed) {
             is_time_updated = true;
 
+            #if (USE_NTP)
             if (is_client_connected) {
                do_ntp_sync = false;
 
@@ -738,6 +1082,7 @@ void supervisor_task() {
                interrupts();
                #endif
             }
+            #endif
 
             supervisor_state = SUPERVISOR_MANAGE_LEVEL_TASK;
             SERIAL_TRACE(F("SUPERVISOR_TIME_LEVEL_TASK ---> SUPERVISOR_MANAGE_LEVEL_TASK\r\n"));
@@ -749,11 +1094,13 @@ void supervisor_task() {
             SERIAL_INFO(F("Current date and time is: %02u/%02u/%04u %02u:%02u:%02u\r\n\r\n"), day(), month(), year(), hour(), minute(), second());
          }
 
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM)
          if (is_supervisor_first_run && is_time_set) {
-            setNextTimeForSensorReading((time_t *) &next_ptr_time_for_sensors_reading);
-
-            SERIAL_INFO(F("Acquisition scheduling...\r\n"));
-            SERIAL_INFO(F("--> observations every %u minutes\r\n"), OBSERVATIONS_MINUTES);
+            if (readable_configuration.report_seconds) {
+               setNextTimeForSensorReading((time_t *) &next_ptr_time_for_sensors_reading);
+               SERIAL_INFO(F("Acquisition scheduling...\r\n"));
+               SERIAL_INFO(F("--> observations every %u minutes\r\n"), OBSERVATIONS_MINUTES);
+            }
 
             if (readable_configuration.report_seconds >= 60) {
                uint8_t mm = readable_configuration.report_seconds / 60;
@@ -765,14 +1112,18 @@ void supervisor_task() {
                   SERIAL_INFO(F("--> report every %u minutes\r\n"), mm);
                }
             }
-            else {
+            else if (readable_configuration.report_seconds) {
                SERIAL_INFO(F("--> report every %u seconds\r\n"), readable_configuration.report_seconds);
             }
 
-            SERIAL_INFO(F("--> starting at: %02u:%02u:%02u\r\n\r\n"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
-            LCD_INFO(&lcd, false, true, F("start acq %02u:%02u:%02u"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+            if (next_ptr_time_for_sensors_reading) {
+               SERIAL_INFO(F("--> starting at: %02u:%02u:%02u\r\n\r\n"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+               LCD_INFO(&lcd, false, true, F("start acq %02u:%02u:%02u"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
+            }
          }
+         #endif
 
+         #if (LCD_TRACE_LEVEL > LCD_TRACE_LEVEL_OFF)
          // reinit lcd display
          if (last_lcd_begin == 0) {
             last_lcd_begin = now();
@@ -781,16 +1132,20 @@ void supervisor_task() {
             last_lcd_begin = now();
             LCD_BEGIN(&lcd, LCD_COLUMNS, LCD_ROWS);
          }
+         #endif
 
          #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         #if (USE_MQTT)
          noInterrupts();
          if (!is_event_mqtt) {
             is_event_mqtt = true;
             ready_tasks_count++;
          }
          interrupts();
+         #endif
 
          #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+         #if (USE_MQTT)
          if (!*is_event_client) {
             noInterrupts();
             if (!is_event_mqtt) {
@@ -799,6 +1154,7 @@ void supervisor_task() {
             }
             interrupts();
          }
+         #endif
 
          #endif
 
@@ -834,22 +1190,29 @@ void supervisor_task() {
 
 void rtc_task() {
    if (is_time_set) {
+      #if (USE_RTC)
       uint32_t current_time = Pcf8563::getTime();
-
       if (current_time - now() <= 10) {
          setTime(current_time);
-
          noInterrupts();
          is_event_rtc = false;
          ready_tasks_count--;
          interrupts();
       }
+      #elif (USE_TIMER_1)
+      noInterrupts();
+      is_event_rtc = false;
+      ready_tasks_count--;
+      interrupts();
+      #endif
 
+      #if (MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM)
       if (is_time_for_sensors_reading_updated) {
          is_time_for_sensors_reading_updated = false;
          SERIAL_INFO(F("Next acquisition scheduled at: %02u:%02u:%02u\r\n"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
          LCD_INFO(&lcd, true, true, F("next acq %02u:%02u:%02u"), hour(next_ptr_time_for_sensors_reading), minute(next_ptr_time_for_sensors_reading), second(next_ptr_time_for_sensors_reading));
       }
+      #endif
    }
 }
 
@@ -858,37 +1221,56 @@ void time_task() {
    static time_state_t state_after_wait;
    static uint32_t delay_ms;
    static uint32_t start_time_ms;
+
+   #if (USE_NTP)
    static bool is_set_rtc_ok;
    static time_t current_ntp_time;
    bool is_ntp_request_ok;
+   #endif
 
    switch (time_state) {
       case TIME_INIT:
-         is_set_rtc_ok = true;
+         #if (USE_NTP)
          current_ntp_time = 0;
+         is_set_rtc_ok = true;
+         #endif
          retry = 0;
          state_after_wait = TIME_INIT;
 
+         #if (USE_NTP)
          if (is_client_connected) {
             time_state = TIME_SEND_ONLINE_REQUEST;
+            SERIAL_TRACE(F("TIME_INIT --> TIME_SEND_ONLINE_REQUEST\r\n"));
          }
-         else time_state = TIME_SET_SYNC_RTC_PROVIDER;
-
+         else {
+            time_state = TIME_SET_SYNC_RTC_PROVIDER;
+            SERIAL_TRACE(F("TIME_INIT --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
+         }
+         #else
+         #if (USE_RTC)
+         time_state = TIME_SET_SYNC_RTC_PROVIDER;
+         SERIAL_TRACE(F("TIME_INIT --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
+         #elif (USE_TIMER_1)
+         time_state = TIME_END;
+         SERIAL_TRACE(F("TIME_INIT --> TIME_END\r\n"));
+         #endif
+         #endif
       break;
 
       case TIME_SEND_ONLINE_REQUEST:
-         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         #if (USE_NTP)
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
          is_ntp_request_ok = Ntp::sendRequest(&eth_udp_client, readable_configuration.ntp_server);
 
-         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
          is_ntp_request_ok = Ntp::sendRequest(&s800);
-
          #endif
 
          // success
          if (is_ntp_request_ok) {
             retry = 0;
             time_state = TIME_WAIT_ONLINE_RESPONSE;
+            SERIAL_TRACE(F("TIME_SEND_ONLINE_REQUEST --> TIME_WAIT_ONLINE_RESPONSE\r\n"));
          }
          // retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
@@ -896,19 +1278,28 @@ void time_task() {
             start_time_ms = millis();
             state_after_wait = TIME_SEND_ONLINE_REQUEST;
             time_state = TIME_WAIT_STATE;
+            SERIAL_TRACE(F("TIME_SEND_ONLINE_REQUEST --> TIME_WAIT_STATE\r\n"));
          }
          // fail: use old rtc time
          else {
             SERIAL_ERROR(F("NTP request... [ %s ]\r\n"), FAIL_STRING);
+            #if (USE_RTC)
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
+            SERIAL_TRACE(F("TIME_SEND_ONLINE_REQUEST --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
+            #elif (USE_TIMER_1)
+            time_state = TIME_END;
+            SERIAL_TRACE(F("TIME_SEND_ONLINE_REQUEST --> TIME_END\r\n"));
+            #endif
          }
+         #endif
       break;
 
       case TIME_WAIT_ONLINE_RESPONSE:
-         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+         #if (USE_NTP)
+         #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
          current_ntp_time = Ntp::getResponse(&eth_udp_client);
 
-         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+         #elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
          current_ntp_time = Ntp::getResponse(&s800);
 
          #endif
@@ -918,7 +1309,13 @@ void time_task() {
             setTime(current_ntp_time);
             last_ntp_sync = current_ntp_time;
             SERIAL_DEBUG(F("Current NTP date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n"), day(), month(), year(), hour(), minute(), second());
+            #if (USE_RTC)
             time_state = TIME_SET_SYNC_NTP_PROVIDER;
+            SERIAL_TRACE(F("TIME_WAIT_ONLINE_RESPONSE --> TIME_WAIT_STATE\r\n"));
+            #elif (USE_TIMER_1)
+            time_state = TIME_SET_SYNC_NTP_PROVIDER;
+            SERIAL_TRACE(F("TIME_WAIT_ONLINE_RESPONSE --> TIME_WAIT_STATE\r\n"));
+            #endif
          }
          // retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
@@ -926,15 +1323,24 @@ void time_task() {
             start_time_ms = millis();
             state_after_wait = TIME_WAIT_ONLINE_RESPONSE;
             time_state = TIME_WAIT_STATE;
+            SERIAL_TRACE(F("TIME_WAIT_ONLINE_RESPONSE --> TIME_WAIT_STATE\r\n"));
          }
          // fail
          else {
             retry = 0;
+            #if (USE_RTC)
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
+            SERIAL_TRACE(F("TIME_WAIT_ONLINE_RESPONSE --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
+            #elif (USE_TIMER_1)
+            time_state = TIME_END;
+            SERIAL_TRACE(F("TIME_WAIT_ONLINE_RESPONSE --> TIME_END\r\n"));
+            #endif
          }
+         #endif
       break;
 
       case TIME_SET_SYNC_NTP_PROVIDER:
+         #if (USE_NTP)
          is_set_rtc_ok &= Pcf8563::disable();
          is_set_rtc_ok &= Pcf8563::setDate(day(), month(), year()-2000, weekday()-1, 0);
          is_set_rtc_ok &= Pcf8563::setTime(hour(), minute(), second());
@@ -943,6 +1349,7 @@ void time_task() {
          if (is_set_rtc_ok) {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
+            SERIAL_TRACE(F("TIME_SET_SYNC_NTP_PROVIDER --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
          }
          // retry
          else if (++retry < NTP_RETRY_COUNT_MAX) {
@@ -951,12 +1358,15 @@ void time_task() {
             start_time_ms = millis();
             state_after_wait = TIME_SET_SYNC_NTP_PROVIDER;
             time_state = TIME_WAIT_STATE;
+            SERIAL_TRACE(F("TIME_SET_SYNC_NTP_PROVIDER --> TIME_SET_SYNC_NTP_PROVIDER\r\n"));
          }
          // fail
          else {
             retry = 0;
             time_state = TIME_SET_SYNC_RTC_PROVIDER;
+            SERIAL_TRACE(F("TIME_SET_SYNC_NTP_PROVIDER --> TIME_SET_SYNC_RTC_PROVIDER\r\n"));
          }
+         #endif
       break;
 
       case TIME_SET_SYNC_RTC_PROVIDER:
@@ -964,6 +1374,7 @@ void time_task() {
          setSyncProvider(Pcf8563::getTime);
          SERIAL_DEBUG(F("Current RTC date and time: %02u/%02u/%04u %02u:%02u:%02u\r\n"), day(), month(), year(), hour(), minute(), second());
          time_state = TIME_END;
+         SERIAL_TRACE(F("TIME_SET_SYNC_RTC_PROVIDER --> TIME_END\r\n"));
       break;
 
       case TIME_END:
@@ -974,6 +1385,7 @@ void time_task() {
          ready_tasks_count--;
          interrupts();
          time_state = TIME_INIT;
+         SERIAL_TRACE(F("TIME_END --> TIME_INIT\r\n"));
       break;
 
       case TIME_WAIT_STATE:
@@ -984,7 +1396,7 @@ void time_task() {
    }
 }
 
-#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH)
+#if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
 void ethernet_task() {
    static uint8_t retry;
    static ethernet_state_t state_after_wait;
@@ -1091,7 +1503,7 @@ void ethernet_task() {
    }
 }
 
-#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM)
+#elif (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_GSM || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_GSM)
 void gsm_task() {
    static gsm_state_t state_after_wait;
    static uint32_t delay_ms;
@@ -1281,13 +1693,13 @@ void gsm_task() {
 
 #endif
 
-void sensors_reading_task () {
+void sensors_reading_task (bool do_prepare, bool do_get, char *driver, char *type, uint8_t address, uint8_t node, uint8_t *sensor_index, uint32_t *wait_time) {
    static uint8_t i;
    static uint8_t retry;
    static sensors_reading_state_t state_after_wait;
    static uint32_t delay_ms;
    static uint32_t start_time_ms;
-   static int32_t values_readed_from_sensor[USE_SENSORS_COUNT][VALUES_TO_READ_FROM_SENSOR_COUNT];
+   static bool is_sensor_found;
    #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
    static char lcd_buffer[20];
    static int lcd_count;
@@ -1295,23 +1707,58 @@ void sensors_reading_task () {
 
    switch (sensors_reading_state) {
       case SENSORS_READING_INIT:
-         SERIAL_INFO(F("Sensors reading...\r\n"));
+         i = 0;
+         is_sensor_found = false;
 
-         for (i=0; i<readable_configuration.sensors_count; i++) {
-            sensors[i]->resetPrepared();
+         if (driver && type && address && node) {
+            while (!is_sensor_found && (i < readable_configuration.sensors_count)) {
+               is_sensor_found = strcmp(sensors[i]->getDriver(), driver) == 0 && strcmp(sensors[i]->getType(), type) == 0 && sensors[i]->getAddress() == address && sensors[i]->getNode() == node;
+               if (!is_sensor_found) {
+                  i++;
+               }
+            }
+
+            if (is_sensor_found) {
+               *sensor_index = i;
+            }
          }
 
-         i = 0;
-         retry = 0;
-         state_after_wait = SENSORS_READING_INIT;
-         sensors_reading_state = SENSORS_READING_PREPARE;
-         SERIAL_TRACE(F("SENSORS_READING_INIT ---> SENSORS_READING_PREPARE\r\n"));
+         if (do_prepare) {
+            SERIAL_INFO(F("Sensors reading...\r\n"));
+            retry = 0;
+
+            if (driver && type && address && node && is_sensor_found) {
+               sensors[i]->resetPrepared();
+            }
+            else {
+               for (i=0; i<readable_configuration.sensors_count; i++) {
+                  sensors[i]->resetPrepared();
+               }
+               i = 0;
+            }
+
+            state_after_wait = SENSORS_READING_INIT;
+            sensors_reading_state = SENSORS_READING_PREPARE;
+            SERIAL_TRACE(F("SENSORS_READING_INIT ---> SENSORS_READING_PREPARE\r\n"));
+         }
+         else if (do_get) {
+            sensors_reading_state = SENSORS_READING_GET;
+            SERIAL_TRACE(F("SENSORS_READING_INIT ---> SENSORS_READING_GET\r\n"));
+         }
+         else {
+            sensors_reading_state = SENSORS_READING_END;
+            SERIAL_TRACE(F("SENSORS_READING_INIT ---> SENSORS_READING_END\r\n"));
+         }
       break;
 
       case SENSORS_READING_PREPARE:
          sensors[i]->prepare();
          delay_ms = sensors[i]->getDelay();
          start_time_ms = sensors[i]->getStartTime();
+
+         if (driver && type && address && node) {
+            *wait_time = delay_ms;
+         }
 
          if (delay_ms) {
             state_after_wait = SENSORS_READING_IS_PREPARED;
@@ -1328,8 +1775,15 @@ void sensors_reading_task () {
          // success
          if (sensors[i]->isPrepared()) {
             retry = 0;
-            sensors_reading_state = SENSORS_READING_GET;
-            SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
+
+            if (do_get) {
+               sensors_reading_state = SENSORS_READING_GET;
+               SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
+            }
+            else {
+               sensors_reading_state = SENSORS_READING_END;
+               SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_END\r\n"));
+            }
          }
          // retry
          else if ((++retry) < SENSORS_RETRY_COUNT_MAX) {
@@ -1341,9 +1795,15 @@ void sensors_reading_task () {
          }
          // fail
          else {
+            if (do_get) {
+               sensors_reading_state = SENSORS_READING_GET;
+               SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
+            }
+            else {
+               sensors_reading_state = SENSORS_READING_END;
+               SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_END\r\n"));
+            }
             retry = 0;
-            sensors_reading_state = SENSORS_READING_GET;
-            SERIAL_TRACE(F("SENSORS_READING_IS_PREPARED ---> SENSORS_READING_GET\r\n"));
          }
       break;
 
@@ -1395,8 +1855,14 @@ void sensors_reading_task () {
       break;
 
       case SENSORS_READING_READ:
-         sensors_reading_state = SENSORS_READING_NEXT;
-         SERIAL_TRACE(F("SENSORS_READING_READ ---> SENSORS_READING_NEXT\r\n"));
+         if (driver && type && address && node) {
+            sensors_reading_state = SENSORS_READING_END;
+            SERIAL_TRACE(F("SENSORS_READING_READ ---> SENSORS_READING_END\r\n"));
+         }
+         else {
+            sensors_reading_state = SENSORS_READING_NEXT;
+            SERIAL_TRACE(F("SENSORS_READING_READ ---> SENSORS_READING_NEXT\r\n"));
+         }
       break;
 
       case SENSORS_READING_NEXT:
@@ -1412,21 +1878,25 @@ void sensors_reading_task () {
             if (is_first_run) {
                is_first_run = false;
 
+               #if (USE_MQTT)
                noInterrupts();
                if (!is_event_supervisor && is_event_mqtt_paused) {
                   is_event_supervisor = true;
                   ready_tasks_count++;
                }
                interrupts();
+               #endif
             }
             // other time: save data to sdcard
             else {
+               #if (USE_SDCARD)
                noInterrupts();
                if (!is_event_data_saving) {
                   is_event_data_saving = true;
                   ready_tasks_count++;
                }
                interrupts();
+               #endif
 
                #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
                for (i = 0; i < readable_configuration.sensors_count; i++) {
@@ -1474,8 +1944,14 @@ void sensors_reading_task () {
 
       case SENSORS_READING_END:
          noInterrupts();
-         is_event_sensors_reading = false;
-         ready_tasks_count--;
+         if (is_event_sensors_reading) {
+            is_event_sensors_reading = false;
+            ready_tasks_count--;
+         }
+
+         if (is_event_sensors_reading_rpc) {
+            is_event_sensors_reading_rpc = false;
+         }
          interrupts();
          sensors_reading_state = SENSORS_READING_INIT;
          SERIAL_TRACE(F("SENSORS_READING_END ---> SENSORS_READING_INIT\r\n"));
@@ -1489,6 +1965,7 @@ void sensors_reading_task () {
    }
 }
 
+#if (USE_SDCARD)
 void data_saving_task() {
    static uint8_t retry;
    static data_saving_state_t state_after_wait;
@@ -1658,7 +2135,9 @@ void data_saving_task() {
       break;
    }
 }
+#endif
 
+#if (USE_MQTT)
 void mqtt_task() {
    static uint8_t retry;
    static mqtt_state_t state_after_wait;
@@ -2270,55 +2749,4 @@ void mqtt_task() {
       break;
    }
 }
-
-bool stream_task(Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout) {
-   static bool is_end;
-   static uint32_t start_time_ms;
-   static char buffer[STREAM_BUFFER_LENGTH];
-   char *response;
-
-   switch (stream_state) {
-      case STREAM_INIT:
-         is_end = false;
-         start_time_ms = 0;
-         memset(buffer, 0, STREAM_BUFFER_LENGTH);
-         stream->flush();
-         stream->setTimeout(stream_timeout);
-         stream_state = STREAM_AVAILABLE;
-      break;
-
-      case STREAM_AVAILABLE:
-         if (stream->available()) {
-            start_time_ms = millis();
-            stream->readBytes(buffer, STREAM_BUFFER_LENGTH);
-            stream_state = STREAM_PROCESS;
-         }
-         else if (start_time_ms && end_task_timeout && (millis() - start_time_ms > end_task_timeout)) {
-            stream_state = STREAM_END;
-         }
-      break;
-
-      case STREAM_PROCESS:
-         response = rpc_process(buffer);
-
-         if (strlen(buffer)) {
-            stream->write(response);
-         }
-
-         stream_state = STREAM_AVAILABLE;
-      break;
-
-      case STREAM_END:
-         noInterrupts();
-         if (is_event_stream) {
-            is_event_stream = false;
-            ready_tasks_count--;
-         }
-         interrupts();
-         stream_state = STREAM_INIT;
-         is_end = true;
-      break;
-   }
-
-   return is_end;
-}
+#endif
