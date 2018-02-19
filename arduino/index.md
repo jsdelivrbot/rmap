@@ -7,9 +7,18 @@ to check and improve their data quality
 
 http://rmap.cc
 
-\section howto Howto deploy
+\section howto Howto
+
+<!---
+################################################################################
+# Ethernet
+################################################################################
+-->
 
 \subsection stima_ethernet STIMA over Ethernet:
+
+\image html ethernet.jpg width=300px
+\image latex ethernet.jpg
 
 \subsubsection stima_ethernet_hardware Hardware
 
@@ -36,7 +45,20 @@ http://rmap.cc
 3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
+4) compile and upload firmware
+
+5) short-circuit the two configure pins with a jumper and configure it!
+
+<!---
+################################################################################
+# GSM/GPRS
+################################################################################
+-->
+
 \subsection stima_gsm STIMA over GSM/GPRS:
+
+\image html gsm.jpg width=300px
+\image latex gsm.jpg
 
 \subsubsection stima_gsm_hardware Hardware
 
@@ -63,7 +85,20 @@ sensors's define and json's define in order to enable or disable relative sensor
 3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
+4) compile and upload firmware
+
+5) short-circuit the two configure pins with a jumper and configure it!
+
+<!---
+################################################################################
+# Passive
+################################################################################
+-->
+
 \subsection stima_passive STIMA Passive:
+
+\image html passive.jpg width=300px
+\image latex passive.jpg
 
 \subsubsection stima_passive_hardware Hardware
 
@@ -84,7 +119,20 @@ sensors's define and json's define in order to enable or disable relative sensor
 3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
+4) compile and upload firmware
+
+5) short-circuit the two configure pins with a jumper and configure it!
+
+<!---
+################################################################################
+# I2C-TH
+################################################################################
+-->
+
 \subsection i2c-th STIMA I2C-TH:
+
+\image html th.jpg width=300px
+\image latex th.jpg
 
 \subsubsection stima_i2c_th_hardware Hardware
 
@@ -103,7 +151,18 @@ sensors's define and json's define in order to enable or disable relative sensor
 2) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
+3) compile and upload firmware
+
+<!---
+################################################################################
+# I2C-Rain
+################################################################################
+-->
+
 \subsection i2c-rain STIMA I2C-Rain:
+
+\image html rain.jpg width=300px
+\image latex rain.jpg
 
 \subsubsection stima_i2c_rain_hardware Hardware
 
@@ -124,11 +183,24 @@ sensors's define and json's define in order to enable or disable relative sensor
 2) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set false
 in all sensors's define and json's define
 
+3) compile and upload firmware
+
+<!---
+################################################################################
+# Station assembly
+################################################################################
+-->
+
 \subsection station STIMA Meteo Station assembly
+
+\image html station.jpg width=900px
+\image latex station.jpg
 
 1) Stima over Ethernet or Stima over GSM
 
 --> connect with a cable at 5V hub port
+--> in GSM/GPRS version: connect SMA antenna and insert a SIM card
+--> in Ethernet version: connect ethernet/POE cable
 
 2) Stima I2C-TH
 
@@ -154,9 +226,11 @@ Power up the station through one of the following ways:
 
 1) USB power supply with USB type B connector
 
-2) 5V DC power supply through hub input port
+2) Plug a POE cable into RJ45 interface (only for ethernet version)
 
-3) DigitecoPower through hub input port with capability of 12V battery backup, solar panel or 12-30V DC input source voltage
+3) 5V DC power supply through hub input port
+
+4) DigitecoPower through hub input port with capability of 12V battery backup, solar panel or 12-30V DC input source voltage
 
 in that case, the pins on the DigitecoPower module are:
 
@@ -177,6 +251,12 @@ in that case, the pins on the DigitecoPower module are:
 8) SDA: I2C SDA for input hub connector
 
 9) GND_OUT: 5V DC output for input hub connector GND (-)
+
+<!---
+################################################################################
+# Library
+################################################################################
+-->
 
 \section library Project Library
 

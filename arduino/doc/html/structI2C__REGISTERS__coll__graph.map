@@ -1,0 +1,5 @@
+<map id="I2C_REGISTERS" name="I2C_REGISTERS">
+<area shape="rect" id="node2" href="$structpm__t.html" title="pm_t" alt="" coords="5,5,56,32"/>
+<area shape="rect" id="node3" href="$structcono2__t.html" title="cono2_t" alt="" coords="81,5,149,32"/>
+<area shape="rect" id="node4" href="$structstatus__t.html" title="status_t" alt="" coords="173,5,243,32"/>
+</map>

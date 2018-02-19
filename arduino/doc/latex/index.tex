@@ -1,8 +1,12 @@
 \hypertarget{index_introduction}{}\section{Introduction}\label{index_introduction}
 software to collect weather data contributed by citizens; to make these data available for weather services and homeland security; to provide feedback to the data contributors so that they have the tools to check and improve their data quality
 
-\href{http://rmap.cc}{\tt http\+://rmap.\+cc}\hypertarget{index_howto}{}\section{Howto deploy}\label{index_howto}
+\href{http://rmap.cc}{\tt http\+://rmap.\+cc}\hypertarget{index_howto}{}\section{Howto}\label{index_howto}
 \hypertarget{index_stima_ethernet}{}\subsection{S\+T\+I\+M\+A over Ethernet\+:}\label{index_stima_ethernet}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ethernet.jpg}}
+\end{DoxyImageNoCaption}
 \hypertarget{index_stima_ethernet_hardware}{}\subsubsection{Hardware}\label{index_stima_ethernet_hardware}
 1) Stima I2\+C-\/\+Base @ 5V
 
@@ -21,7 +25,15 @@ software to collect weather data contributed by citizens; to make these data ava
 
 2) in \hyperlink{rmap-config_8h}{arduino/sketchbook/rmap/rmap/rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+E\+TH or S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+E\+TH in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
 
-3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_stima_gsm}{}\subsection{S\+T\+I\+M\+A over G\+S\+M/\+G\+P\+R\+S\+:}\label{index_stima_gsm}
+3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library
+
+4) compile and upload firmware
+
+5) short-\/circuit the two configure pins with a jumper and configure it!\hypertarget{index_stima_gsm}{}\subsection{S\+T\+I\+M\+A over G\+S\+M/\+G\+P\+R\+S\+:}\label{index_stima_gsm}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{gsm.jpg}}
+\end{DoxyImageNoCaption}
 \hypertarget{index_stima_gsm_hardware}{}\subsubsection{Hardware}\label{index_stima_gsm_hardware}
 1) Stima I2\+C-\/\+Base @ 5V
 
@@ -40,7 +52,15 @@ software to collect weather data contributed by citizens; to make these data ava
 
 2) in \hyperlink{rmap-config_8h}{arduino/sketchbook/rmap/rmap/rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+G\+SM or S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+G\+SM in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
 
-3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_stima_passive}{}\subsection{S\+T\+I\+M\+A Passive\+:}\label{index_stima_passive}
+3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library
+
+4) compile and upload firmware
+
+5) short-\/circuit the two configure pins with a jumper and configure it!\hypertarget{index_stima_passive}{}\subsection{S\+T\+I\+M\+A Passive\+:}\label{index_stima_passive}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{passive.jpg}}
+\end{DoxyImageNoCaption}
 \hypertarget{index_stima_passive_hardware}{}\subsubsection{Hardware}\label{index_stima_passive_hardware}
 1) Stima I2\+C-\/\+Base @ 5V / 3.\+3V
 
@@ -53,7 +73,15 @@ software to collect weather data contributed by citizens; to make these data ava
 
 2) in \hyperlink{rmap-config_8h}{arduino/sketchbook/rmap/rmap/rmap-\/config.\+h} set S\+T\+I\+M\+A\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+A\+S\+S\+I\+VE in M\+O\+D\+U\+L\+E\+\_\+\+V\+E\+R\+S\+I\+ON define
 
-3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_i2c-th}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+T\+H\+:}\label{index_i2c-th}
+3) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library
+
+4) compile and upload firmware
+
+5) short-\/circuit the two configure pins with a jumper and configure it!\hypertarget{index_i2c-th}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+T\+H\+:}\label{index_i2c-th}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{th.jpg}}
+\end{DoxyImageNoCaption}
 \hypertarget{index_stima_i2c_th_hardware}{}\subsubsection{Hardware}\label{index_stima_i2c_th_hardware}
 1) Stima I2\+C-\/\+Base @ 3.\+3V
 
@@ -64,7 +92,13 @@ software to collect weather data contributed by citizens; to make these data ava
 4) Stima S\+D-\/\+Card\hypertarget{index_stima_i2c_th_software}{}\subsubsection{Software}\label{index_stima_i2c_th_software}
 1) open sketch \hyperlink{i2c-th_8ino}{arduino/sketchbook/rmap/i2c-\/th/i2c-\/th.\+ino}
 
-2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library\hypertarget{index_i2c-rain}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+Rain\+:}\label{index_i2c-rain}
+2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set true or false sensors\textquotesingle{}s define and json\textquotesingle{}s define in order to enable or disable relative sensor\textquotesingle{}s driver and library
+
+3) compile and upload firmware\hypertarget{index_i2c-rain}{}\subsection{S\+T\+I\+M\+A I2\+C-\/\+Rain\+:}\label{index_i2c-rain}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{rain.jpg}}
+\end{DoxyImageNoCaption}
 \hypertarget{index_stima_i2c_rain_hardware}{}\subsubsection{Hardware}\label{index_stima_i2c_rain_hardware}
 1) Stima I2\+C-\/\+Base @ 3.\+3V
 
@@ -77,10 +111,18 @@ software to collect weather data contributed by citizens; to make these data ava
 5) Stima S\+D-\/\+Card\hypertarget{index_stima_i2c_rain_software}{}\subsubsection{Software}\label{index_stima_i2c_rain_software}
 1) open sketch \hyperlink{i2c-rain_8ino}{arduino/sketchbook/rmap/i2c-\/rain/i2c-\/rain.\+ino}
 
-2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set false in all sensors\textquotesingle{}s define and json\textquotesingle{}s define\hypertarget{index_station}{}\subsection{S\+T\+I\+M\+A Meteo Station assembly}\label{index_station}
+2) open \hyperlink{sensors__config_8h}{arduino/sketchbook/libraries/\+Rmap\+Config/sensors\+\_\+config.\+h} and set false in all sensors\textquotesingle{}s define and json\textquotesingle{}s define
+
+3) compile and upload firmware\hypertarget{index_station}{}\subsection{S\+T\+I\+M\+A Meteo Station assembly}\label{index_station}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{station.jpg}}
+\end{DoxyImageNoCaption}
+
+
 1) Stima over Ethernet or Stima over G\+SM
 
---$>$ connect with a cable at 5V hub port
+--$>$ connect with a cable at 5V hub port --$>$ in G\+S\+M/\+G\+P\+RS version\+: connect S\+MA antenna and insert a S\+IM card --$>$ in Ethernet version\+: connect ethernet/\+P\+OE cable
 
 2) Stima I2\+C-\/\+TH
 
@@ -106,9 +148,11 @@ Power up the station through one of the following ways\+:
 
 1) U\+SB power supply with U\+SB type B connector
 
-2) 5V DC power supply through hub input port
+2) Plug a P\+OE cable into R\+J45 interface (only for ethernet version)
 
-3) \hyperlink{namespaceDigitecoPower}{Digiteco\+Power} through hub input port with capability of 12V battery backup, solar panel or 12-\/30V DC input source voltage
+3) 5V DC power supply through hub input port
+
+4) \hyperlink{namespaceDigitecoPower}{Digiteco\+Power} through hub input port with capability of 12V battery backup, solar panel or 12-\/30V DC input source voltage
 
 in that case, the pins on the \hyperlink{namespaceDigitecoPower}{Digiteco\+Power} module are\+:
 

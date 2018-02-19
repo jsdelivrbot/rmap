@@ -27,6 +27,7 @@ var searchData=
   ['connect',['connect',['../classsim800Client.html#a2c26282b71132af7f50becb62d9fe0f4',1,'sim800Client::connect(IPAddress ip, int port)'],['../classsim800Client.html#ae74b00f32682498c63b05dd615705ea7',1,'sim800Client::connect(const char *host, int port)']]],
   ['connected',['connected',['../classsim800Client.html#ad3a5903a0f8c264ec445edafe167f4f0',1,'sim800Client']]],
   ['connection',['connection',['../classSIM800.html#a834bbcd0087d6f3ef3474b5914c39e3a',1,'SIM800']]],
+  ['cono2_5ft',['cono2_t',['../structcono2__t.html',1,'']]],
   ['count',['count',['../structsample__t.html#a5a28abacf173c495a32a6f727e5d016e',1,'sample_t::count()'],['../structobservation__t.html#ad6f76e88d5cc669742e8d815682e56c2',1,'observation_t::count()']]],
   ['create',['create',['../classSensorDriver.html#a42e3b501ef28a0a8ba7e045f84e3d76a',1,'SensorDriver']]],
   ['createandsetup',['createAndSetup',['../classSensorDriver.html#a8b3cc902953a0850241c625772757580',1,'SensorDriver']]]

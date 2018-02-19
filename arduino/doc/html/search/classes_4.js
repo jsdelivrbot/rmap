@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ntp',['Ntp',['../classNtp.html',1,'']]]
+  ['mapping',['Mapping',['../structMapping.html',1,'']]]
 ];

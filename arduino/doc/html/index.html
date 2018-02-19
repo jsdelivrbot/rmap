@@ -68,10 +68,13 @@ Introduction</h1>
 <p>software to collect weather data contributed by citizens; to make these data available for weather services and homeland security; to provide feedback to the data contributors so that they have the tools to check and improve their data quality</p>
 <p><a href="http://rmap.cc">http://rmap.cc</a></p>
 <h1><a class="anchor" id="howto"></a>
-Howto deploy</h1>
+Howto</h1>
 <h2><a class="anchor" id="stima_ethernet"></a>
 STIMA over Ethernet:</h2>
-<h3><a class="anchor" id="stima_ethernet_hardware"></a>
+<div class="image">
+<img src="ethernet.jpg" alt="ethernet.jpg" width="300px"/>
+</div>
+ <h3><a class="anchor" id="stima_ethernet_hardware"></a>
 Hardware</h3>
 <p>1) Stima I2C-Base @ 5V</p>
 <p>2) Microduino Ethernet WIZ</p>
@@ -85,9 +88,14 @@ Software</h3>
 <p>1) open sketch <a class="el" href="rmap_8ino.html">arduino/sketchbook/rmap/rmap/rmap.ino</a></p>
 <p>2) in <a class="el" href="rmap-config_8h.html">arduino/sketchbook/rmap/rmap/rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_ETH or STIMA_MODULE_TYPE_SAMPLE_ETH in MODULE_VERSION define</p>
 <p>3) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<p>4) compile and upload firmware</p>
+<p>5) short-circuit the two configure pins with a jumper and configure it!</p>
 <h2><a class="anchor" id="stima_gsm"></a>
 STIMA over GSM/GPRS:</h2>
-<h3><a class="anchor" id="stima_gsm_hardware"></a>
+<div class="image">
+<img src="gsm.jpg" alt="gsm.jpg" width="300px"/>
+</div>
+ <h3><a class="anchor" id="stima_gsm_hardware"></a>
 Hardware</h3>
 <p>1) Stima I2C-Base @ 5V</p>
 <p>2) Stima SIM800C Power</p>
@@ -101,9 +109,14 @@ Software</h3>
 <p>1) open sketch <a class="el" href="rmap_8ino.html">arduino/sketchbook/rmap/rmap/rmap.ino</a></p>
 <p>2) in <a class="el" href="rmap-config_8h.html">arduino/sketchbook/rmap/rmap/rmap-config.h</a> set STIMA_MODULE_TYPE_REPORT_GSM or STIMA_MODULE_TYPE_SAMPLE_GSM in MODULE_VERSION define</p>
 <p>3) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<p>4) compile and upload firmware</p>
+<p>5) short-circuit the two configure pins with a jumper and configure it!</p>
 <h2><a class="anchor" id="stima_passive"></a>
 STIMA Passive:</h2>
-<h3><a class="anchor" id="stima_passive_hardware"></a>
+<div class="image">
+<img src="passive.jpg" alt="passive.jpg" width="300px"/>
+</div>
+ <h3><a class="anchor" id="stima_passive_hardware"></a>
 Hardware</h3>
 <p>1) Stima I2C-Base @ 5V / 3.3V</p>
 <p>2) Stima core+1284 @ 5V / Stima core+644 @ 3.3V</p>
@@ -114,9 +127,14 @@ Software</h3>
 <p>1) open sketch <a class="el" href="rmap_8ino.html">arduino/sketchbook/rmap/rmap/rmap.ino</a></p>
 <p>2) in <a class="el" href="rmap-config_8h.html">arduino/sketchbook/rmap/rmap/rmap-config.h</a> set STIMA_MODULE_TYPE_PASSIVE in MODULE_VERSION define</p>
 <p>3) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<p>4) compile and upload firmware</p>
+<p>5) short-circuit the two configure pins with a jumper and configure it!</p>
 <h2><a class="anchor" id="i2c-th"></a>
 STIMA I2C-TH:</h2>
-<h3><a class="anchor" id="stima_i2c_th_hardware"></a>
+<div class="image">
+<img src="th.jpg" alt="th.jpg" width="300px"/>
+</div>
+ <h3><a class="anchor" id="stima_i2c_th_hardware"></a>
 Hardware</h3>
 <p>1) Stima I2C-Base @ 3.3V</p>
 <p>2) Stima core+644 @ 3.3V</p>
@@ -126,9 +144,13 @@ Hardware</h3>
 Software</h3>
 <p>1) open sketch <a class="el" href="i2c-th_8ino.html">arduino/sketchbook/rmap/i2c-th/i2c-th.ino</a></p>
 <p>2) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set true or false sensors's define and json's define in order to enable or disable relative sensor's driver and library</p>
+<p>3) compile and upload firmware</p>
 <h2><a class="anchor" id="i2c-rain"></a>
 STIMA I2C-Rain:</h2>
-<h3><a class="anchor" id="stima_i2c_rain_hardware"></a>
+<div class="image">
+<img src="rain.jpg" alt="rain.jpg" width="300px"/>
+</div>
+ <h3><a class="anchor" id="stima_i2c_rain_hardware"></a>
 Hardware</h3>
 <p>1) Stima I2C-Base @ 3.3V</p>
 <p>2) Stima core+644 @ 3.3V</p>
@@ -139,10 +161,14 @@ Hardware</h3>
 Software</h3>
 <p>1) open sketch <a class="el" href="i2c-rain_8ino.html">arduino/sketchbook/rmap/i2c-rain/i2c-rain.ino</a></p>
 <p>2) open <a class="el" href="sensors__config_8h.html">arduino/sketchbook/libraries/RmapConfig/sensors_config.h</a> and set false in all sensors's define and json's define</p>
+<p>3) compile and upload firmware</p>
 <h2><a class="anchor" id="station"></a>
 STIMA Meteo Station assembly</h2>
-<p>1) Stima over Ethernet or Stima over GSM</p>
-<p>&ndash;&gt; connect with a cable at 5V hub port</p>
+<div class="image">
+<img src="station.jpg" alt="station.jpg" width="900px"/>
+</div>
+ <p>1) Stima over Ethernet or Stima over GSM</p>
+<p>&ndash;&gt; connect with a cable at 5V hub port &ndash;&gt; in GSM/GPRS version: connect SMA antenna and insert a SIM card &ndash;&gt; in Ethernet version: connect ethernet/POE cable</p>
 <p>2) Stima I2C-TH</p>
 <p>&ndash;&gt; connect with a cable at 3.3V hub port</p>
 <p>3) Stima I2C-Rain</p>
@@ -155,8 +181,9 @@ STIMA Meteo Station assembly</h2>
 <p>6) Stima I2C-HUB</p>
 <p>Power up the station through one of the following ways:</p>
 <p>1) USB power supply with USB type B connector</p>
-<p>2) 5V DC power supply through hub input port</p>
-<p>3) <a class="el" href="namespaceDigitecoPower.html" title="DigitecoPower namespace. ">DigitecoPower</a> through hub input port with capability of 12V battery backup, solar panel or 12-30V DC input source voltage</p>
+<p>2) Plug a POE cable into RJ45 interface (only for ethernet version)</p>
+<p>3) 5V DC power supply through hub input port</p>
+<p>4) <a class="el" href="namespaceDigitecoPower.html" title="DigitecoPower namespace. ">DigitecoPower</a> through hub input port with capability of 12V battery backup, solar panel or 12-30V DC input source voltage</p>
 <p>in that case, the pins on the <a class="el" href="namespaceDigitecoPower.html" title="DigitecoPower namespace. ">DigitecoPower</a> module are:</p>
 <p>1) VCC_IN: 12-30V DC input source VCC (+)</p>
 <p>2) GND_IN: 12-30V DC input source GND (-)</p>

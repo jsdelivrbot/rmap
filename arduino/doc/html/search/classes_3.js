@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mapping',['Mapping',['../structMapping.html',1,'']]]
+  ['jsonrpc',['JsonRPC',['../classJsonRPC.html',1,'']]]
 ];
