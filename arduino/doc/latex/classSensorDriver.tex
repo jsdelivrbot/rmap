@@ -49,7 +49,7 @@ virtual void \hyperlink{classSensorDriver_a2b347ee438af49b939cb1e79c068681f}{res
 \item 
 static \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$ \hyperlink{classSensorDriver_a42e3b501ef28a0a8ba7e045f84e3d76a}{create} (const char $\ast$driver, const char $\ast$type)
 \begin{DoxyCompactList}\small\item\em Create an instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specific sensor. \end{DoxyCompactList}\item 
-static void \hyperlink{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}{create\+And\+Setup} (const char $\ast$driver, const char $\ast$type, uint8\+\_\+t address, \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$\hyperlink{i2c-th_8h_ac07b59f913caef2eaea4e4bb93c901e9}{sensors}\mbox{[}$\,$\mbox{]}, uint8\+\_\+t $\ast$\hyperlink{i2c-th_8h_a7727577f63dfa4aa55feb7ddd0739f83}{sensors\+\_\+count})
+static void \hyperlink{classSensorDriver_a8b3cc902953a0850241c625772757580}{create\+And\+Setup} (const char $\ast$driver, const char $\ast$type, const uint8\+\_\+t address, const uint8\+\_\+t node, \hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$\hyperlink{i2c-th_8h_a5f5c708cbddb6cef952fb9a28c8ba835}{sensors}\mbox{[}$\,$\mbox{]}, uint8\+\_\+t $\ast$\hyperlink{i2c-th_8h_a7727577f63dfa4aa55feb7ddd0739f83}{sensors\+\_\+count})
 \begin{DoxyCompactList}\small\item\em Create and setup the specified sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -69,7 +69,7 @@ const char $\ast$ \hyperlink{classSensorDriver_a545ce08f6016a2fa0e3aebcca51edcbd
 uint8\+\_\+t \hyperlink{classSensorDriver_a13853dc3219d536dd19553768f053688}{\+\_\+address}
 \begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for address. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}\label{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}} 
-int8\+\_\+t \hyperlink{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}{\+\_\+node}
+uint8\+\_\+t \hyperlink{classSensorDriver_a48e9eb12164eb73dc1ce6a14e042a4d3}{\+\_\+node}
 \begin{DoxyCompactList}\small\item\em Internal sensor\textquotesingle{}s variable for node. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}\label{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}} 
 uint32\+\_\+t \hyperlink{classSensorDriver_a25a43cc518d9fbc09e84c709bf293c56}{\+\_\+delay\+\_\+ms}
@@ -138,11 +138,11 @@ Create an instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specific
 \begin{DoxyReturn}{Returns}
 instance of \hyperlink{classSensorDriver}{Sensor\+Driver} for specified sensor. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}\label{classSensorDriver_a2755446e2c1306db071c4c5eb62ab830}} 
+\mbox{\Hypertarget{classSensorDriver_a8b3cc902953a0850241c625772757580}\label{classSensorDriver_a8b3cc902953a0850241c625772757580}} 
 \index{Sensor\+Driver@{Sensor\+Driver}!create\+And\+Setup@{create\+And\+Setup}}
 \index{create\+And\+Setup@{create\+And\+Setup}!Sensor\+Driver@{Sensor\+Driver}}
 \subsubsection{\texorpdfstring{create\+And\+Setup()}{createAndSetup()}}
-{\footnotesize\ttfamily void Sensor\+Driver\+::create\+And\+Setup (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type,  }\item[{uint8\+\_\+t}]{address,  }\item[{\hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$}]{sensors\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t $\ast$}]{sensors\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Sensor\+Driver\+::create\+And\+Setup (\begin{DoxyParamCaption}\item[{const char $\ast$}]{driver,  }\item[{const char $\ast$}]{type,  }\item[{const uint8\+\_\+t}]{address,  }\item[{const uint8\+\_\+t}]{node,  }\item[{\hyperlink{classSensorDriver}{Sensor\+Driver} $\ast$}]{sensors\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t $\ast$}]{sensors\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -155,6 +155,8 @@ Create and setup the specified sensor.
 \mbox{\tt in}  & {\em $\ast$type} & sensor\textquotesingle{}s type. \\
 \hline
 \mbox{\tt in}  & {\em address} & sensor\textquotesingle{}s address. \\
+\hline
+\mbox{\tt in}  & {\em node} & sensor\textquotesingle{}s node. \\
 \hline
 \mbox{\tt in}  & {\em $\ast$sensors\mbox{[}$\,$\mbox{]}} & array of sensors. \\
 \hline
@@ -391,7 +393,7 @@ Setup sensor.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em address} & sensor\textquotesingle{}s address. \\
 \hline
-\mbox{\tt in}  & {\em node} & sensors\textquotesingle{}node. \\
+\mbox{\tt in}  & {\em node} & sensor\textquotesingle{}s node. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

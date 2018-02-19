@@ -39,5 +39,6 @@ var searchData=
   ['ethernet_5fwait_5fstate',['ETHERNET_WAIT_STATE',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5ada078050168a00fc4e3b5b4c345aa7bc',1,'rmap.h']]],
   ['exchange_5fbuffers',['exchange_buffers',['../i2c-rain_8h.html#aafa3d59a1bde3085849eee08f110612f',1,'exchange_buffers(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a46696a96b3118b5d8900703c054166c8',1,'exchange_buffers():&#160;i2c-rain.ino'],['../i2c-th_8h.html#aafa3d59a1bde3085849eee08f110612f',1,'exchange_buffers(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a46696a96b3118b5d8900703c054166c8',1,'exchange_buffers():&#160;i2c-th.ino']]],
   ['executetimertaskeach',['executeTimerTaskEach',['../rmap__utility_8h.html#ae48529a4bba51677b5565dab04cbe245',1,'rmap_utility.h']]],
-  ['exittransparentmode',['exitTransparentMode',['../classSIM800.html#a3c73206225b81654384e625faadb1b49',1,'SIM800']]]
+  ['exittransparentmode',['exitTransparentMode',['../classSIM800.html#a3c73206225b81654384e625faadb1b49',1,'SIM800']]],
+  ['extractsensorsparams',['extractSensorsParams',['../rmap_8h.html#a21a955687ef33653678f682fb8db28c1',1,'rmap.h']]]
 ];

@@ -131,9 +131,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a42e3b501ef28a0a8ba7e045f84e3d76a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classSensorDriver.html">SensorDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSensorDriver.html#a42e3b501ef28a0a8ba7e045f84e3d76a">create</a> (const char *driver, const char *type)</td></tr>
 <tr class="memdesc:a42e3b501ef28a0a8ba7e045f84e3d76a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an instance of <a class="el" href="classSensorDriver.html" title="SensorDriver class. ">SensorDriver</a> for specific sensor.  <a href="#a42e3b501ef28a0a8ba7e045f84e3d76a">More...</a><br /></td></tr>
 <tr class="separator:a42e3b501ef28a0a8ba7e045f84e3d76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2755446e2c1306db071c4c5eb62ab830"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSensorDriver.html#a2755446e2c1306db071c4c5eb62ab830">createAndSetup</a> (const char *driver, const char *type, uint8_t address, <a class="el" href="classSensorDriver.html">SensorDriver</a> *<a class="el" href="i2c-th_8h.html#ac07b59f913caef2eaea4e4bb93c901e9">sensors</a>[], uint8_t *<a class="el" href="i2c-th_8h.html#a7727577f63dfa4aa55feb7ddd0739f83">sensors_count</a>)</td></tr>
-<tr class="memdesc:a2755446e2c1306db071c4c5eb62ab830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and setup the specified sensor.  <a href="#a2755446e2c1306db071c4c5eb62ab830">More...</a><br /></td></tr>
-<tr class="separator:a2755446e2c1306db071c4c5eb62ab830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b3cc902953a0850241c625772757580"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSensorDriver.html#a8b3cc902953a0850241c625772757580">createAndSetup</a> (const char *driver, const char *type, const uint8_t address, const uint8_t node, <a class="el" href="classSensorDriver.html">SensorDriver</a> *<a class="el" href="i2c-th_8h.html#a5f5c708cbddb6cef952fb9a28c8ba835">sensors</a>[], uint8_t *<a class="el" href="i2c-th_8h.html#a7727577f63dfa4aa55feb7ddd0739f83">sensors_count</a>)</td></tr>
+<tr class="memdesc:a8b3cc902953a0850241c625772757580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and setup the specified sensor.  <a href="#a8b3cc902953a0850241c625772757580">More...</a><br /></td></tr>
+<tr class="separator:a8b3cc902953a0850241c625772757580"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -156,7 +156,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a13853dc3219d536dd19553768f053688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal sensor's variable for address. <br /></td></tr>
 <tr class="separator:a13853dc3219d536dd19553768f053688"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48e9eb12164eb73dc1ce6a14e042a4d3"><td class="memItemLeft" align="right" valign="top"><a id="a48e9eb12164eb73dc1ce6a14e042a4d3"></a>
-int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSensorDriver.html#a48e9eb12164eb73dc1ce6a14e042a4d3">_node</a></td></tr>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSensorDriver.html#a48e9eb12164eb73dc1ce6a14e042a4d3">_node</a></td></tr>
 <tr class="memdesc:a48e9eb12164eb73dc1ce6a14e042a4d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal sensor's variable for node. <br /></td></tr>
 <tr class="separator:a48e9eb12164eb73dc1ce6a14e042a4d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25a43cc518d9fbc09e84c709bf293c56"><td class="memItemLeft" align="right" valign="top"><a id="a25a43cc518d9fbc09e84c709bf293c56"></a>
@@ -272,8 +272,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a2755446e2c1306db071c4c5eb62ab830"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2755446e2c1306db071c4c5eb62ab830">&#9670;&nbsp;</a></span>createAndSetup()</h2>
+<a id="a8b3cc902953a0850241c625772757580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b3cc902953a0850241c625772757580">&#9670;&nbsp;</a></span>createAndSetup()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,8 +296,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramtype">const uint8_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -330,6 +336,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
     <tr><td class="paramdir">[in]</td><td class="paramname">*driver</td><td>driver's type. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">*type</td><td>sensor's type. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">address</td><td>sensor's address. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>sensor's node. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">*sensors[]</td><td>array of sensors. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">*sensors_count</td><td>setted sensors count. </td></tr>
   </table>
@@ -775,7 +782,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">address</td><td>sensor's address. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>sensors'node. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>sensor's node. </td></tr>
   </table>
   </dd>
 </dl>

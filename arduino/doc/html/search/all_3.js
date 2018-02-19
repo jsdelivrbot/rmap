@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['changeaddress',['changeAddress',['../namespaceHyt2X1.html#a06824bbb5dc4a87a4cd51249b43ba9c2',1,'Hyt2X1']]],
   ['cleaninput',['cleanInput',['../classSIM800.html#ad6ea4550521aee8f55656cede649baff',1,'SIM800']]],
-  ['client_5fid',['client_id',['../rmap_8h.html#a32f51b4770251d9a1f7a09084f0e33e8',1,'rmap.h']]],
   ['command_5ftask',['command_task',['../i2c-rain_8h.html#a9f32a4169471a435e9364460d7b1761d',1,'command_task(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a42389aceb96a84573eb67e6d141cb594',1,'command_task():&#160;i2c-rain.ino'],['../i2c-th_8h.html#a9f32a4169471a435e9364460d7b1761d',1,'command_task(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a42389aceb96a84573eb67e6d141cb594',1,'command_task():&#160;i2c-th.ino']]],
   ['commands',['commands',['../i2c-rain_8h.html#aaad2f6556489c51f2c24302e2cb4188a',1,'commands(void):&#160;i2c-rain.ino'],['../i2c-rain_8ino.html#a4981066e183f1432ffd6eddf55826585',1,'commands():&#160;i2c-rain.ino'],['../i2c-th_8h.html#aaad2f6556489c51f2c24302e2cb4188a',1,'commands(void):&#160;i2c-rain.ino'],['../i2c-th_8ino.html#a4981066e183f1432ffd6eddf55826585',1,'commands():&#160;i2c-th.ino']]],
   ['configuration',['configuration',['../i2c-rain_8h.html#a32c97d3f8cd6089ccf54e7c423020b7a',1,'i2c-rain.h']]],
@@ -18,12 +16,6 @@ var searchData=
   ['configuration_5fdefault_5fi2c_5faddress',['CONFIGURATION_DEFAULT_I2C_ADDRESS',['../i2c-rain-config_8h.html#a25fb304ef264a84353f1d4cfc61128e9',1,'CONFIGURATION_DEFAULT_I2C_ADDRESS():&#160;i2c-rain-config.h'],['../i2c-th-config_8h.html#a25fb304ef264a84353f1d4cfc61128e9',1,'CONFIGURATION_DEFAULT_I2C_ADDRESS():&#160;i2c-th-config.h']]],
   ['configuration_5fdefault_5fis_5fcontinuous',['CONFIGURATION_DEFAULT_IS_CONTINUOUS',['../i2c-rain-config_8h.html#a21819dc42c8c71731e30c99bcf8b0f76',1,'CONFIGURATION_DEFAULT_IS_CONTINUOUS():&#160;i2c-rain-config.h'],['../i2c-th-config_8h.html#a21819dc42c8c71731e30c99bcf8b0f76',1,'CONFIGURATION_DEFAULT_IS_CONTINUOUS():&#160;i2c-th-config.h']]],
   ['configuration_5fdefault_5fis_5foneshot',['CONFIGURATION_DEFAULT_IS_ONESHOT',['../i2c-rain-config_8h.html#a5c4024778a87026713c77babd50c06e8',1,'CONFIGURATION_DEFAULT_IS_ONESHOT():&#160;i2c-rain-config.h'],['../i2c-th-config_8h.html#a5c4024778a87026713c77babd50c06e8',1,'CONFIGURATION_DEFAULT_IS_ONESHOT():&#160;i2c-th-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5fpassword',['CONFIGURATION_DEFAULT_MQTT_PASSWORD',['../rmap-config_8h.html#a93f4ec08026dd0e8eaffc77a72986283',1,'rmap-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5fport',['CONFIGURATION_DEFAULT_MQTT_PORT',['../rmap-config_8h.html#ab59fe331bcb2ec0b4c3abd6b13dc8c03',1,'rmap-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5froot_5ftopic',['CONFIGURATION_DEFAULT_MQTT_ROOT_TOPIC',['../rmap-config_8h.html#a85521de6b08f8704bd35a8e34edef4f8',1,'rmap-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5fserver',['CONFIGURATION_DEFAULT_MQTT_SERVER',['../rmap-config_8h.html#aec48aba6054d0eab8b9d9fb857f2a33c',1,'rmap-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5fsubscribe_5ftopic',['CONFIGURATION_DEFAULT_MQTT_SUBSCRIBE_TOPIC',['../rmap-config_8h.html#ad5f5c2f91406f76021e58aaebb4fe84d',1,'rmap-config.h']]],
-  ['configuration_5fdefault_5fmqtt_5fusername',['CONFIGURATION_DEFAULT_MQTT_USERNAME',['../rmap-config_8h.html#a4606b704d26885b00b68c8e7d1c4b77a',1,'rmap-config.h']]],
   ['configuration_5fdefault_5fntp_5fserver',['CONFIGURATION_DEFAULT_NTP_SERVER',['../rmap-config_8h.html#ad5f167ef5dab674e29cea328f672e0a3',1,'rmap-config.h']]],
   ['configuration_5fdefault_5frain_5faddress',['CONFIGURATION_DEFAULT_RAIN_ADDRESS',['../rmap-config_8h.html#a682b556c001cdf90f49b3a4d19081fb3',1,'rmap-config.h']]],
   ['configuration_5fdefault_5ftemperature_5faddress',['CONFIGURATION_DEFAULT_TEMPERATURE_ADDRESS',['../i2c-th-config_8h.html#afd732a8bd16aa3939928851656adb365',1,'i2c-th-config.h']]],
@@ -31,10 +23,11 @@ var searchData=
   ['configuration_5feeprom_5faddress',['CONFIGURATION_EEPROM_ADDRESS',['../registers_8h.html#a4398508f5478199f28b55113dd59c89e',1,'registers.h']]],
   ['configuration_5freset_5fpin',['CONFIGURATION_RESET_PIN',['../i2c-rain-config_8h.html#ae90da4786d4ba14563681879dba4d39c',1,'CONFIGURATION_RESET_PIN():&#160;i2c-rain-config.h'],['../i2c-th-config_8h.html#ae90da4786d4ba14563681879dba4d39c',1,'CONFIGURATION_RESET_PIN():&#160;i2c-th-config.h'],['../rmap-config_8h.html#ae90da4786d4ba14563681879dba4d39c',1,'CONFIGURATION_RESET_PIN():&#160;rmap-config.h']]],
   ['configuration_5ft',['configuration_t',['../structconfiguration__t.html',1,'']]],
+  ['configure',['configure',['../rmap_8h.html#a9fb2065f7e6ad6d83a345ec3ad9fc53e',1,'rmap.h']]],
   ['connect',['connect',['../classsim800Client.html#a2c26282b71132af7f50becb62d9fe0f4',1,'sim800Client::connect(IPAddress ip, int port)'],['../classsim800Client.html#ae74b00f32682498c63b05dd615705ea7',1,'sim800Client::connect(const char *host, int port)']]],
   ['connected',['connected',['../classsim800Client.html#ad3a5903a0f8c264ec445edafe167f4f0',1,'sim800Client']]],
   ['connection',['connection',['../classSIM800.html#a834bbcd0087d6f3ef3474b5914c39e3a',1,'SIM800']]],
   ['count',['count',['../structsample__t.html#a5a28abacf173c495a32a6f727e5d016e',1,'sample_t::count()'],['../structobservation__t.html#ad6f76e88d5cc669742e8d815682e56c2',1,'observation_t::count()']]],
   ['create',['create',['../classSensorDriver.html#a42e3b501ef28a0a8ba7e045f84e3d76a',1,'SensorDriver']]],
-  ['createandsetup',['createAndSetup',['../classSensorDriver.html#a2755446e2c1306db071c4c5eb62ab830',1,'SensorDriver']]]
+  ['createandsetup',['createAndSetup',['../classSensorDriver.html#a8b3cc902953a0850241c625772757580',1,'SensorDriver']]]
 ];

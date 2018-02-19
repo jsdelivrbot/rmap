@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['data_5fsaving_5ftask',['data_saving_task',['../rmap_8h.html#ae49b822b37337a0744225c3bdd43c79c',1,'data_saving_task(void):&#160;rmap.ino'],['../rmap_8ino.html#a1c6cee0cbd43bbe1215f13cab2434347',1,'data_saving_task():&#160;rmap.ino']]],
   ['de_5fread',['de_read',['../namespaceDigitecoPower.html#adb7461d6d597526eace685d0365732b7',1,'DigitecoPower']]],
   ['de_5fsend',['de_send',['../namespaceDigitecoPower.html#a2a1d64ce6df863e91fef034a496220fd',1,'DigitecoPower']]],
   ['dectobcd',['decToBcd',['../namespacePcf8563.html#a3519616ff3c2de84e2ea54442ef0ed0c',1,'Pcf8563']]],

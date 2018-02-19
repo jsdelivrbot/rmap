@@ -20,6 +20,7 @@ var searchData=
   ['getgsn',['getGsn',['../classSIM800.html#a9bbdd9fd81aaa798f6cc8ae9dfba0dce',1,'SIM800']]],
   ['getimei',['getImei',['../sim800_8h.html#a63657ea103b247bb4a57080c211d99ce',1,'sim800.h']]],
   ['getip',['getIp',['../sim800_8h.html#a4d6a7063b7b16defc4bead1da76e3d7e',1,'sim800.h']]],
+  ['getjson',['getjson',['../rmap_8h.html#ac1661a06a4ffded64245eec994df77e1',1,'rmap.h']]],
   ['getlonlatfrommqtttopic',['getLonLatFromMqttTopic',['../rmap__utility_8cpp.html#aa35bbd93345decfeab85c249c5e147ce',1,'getLonLatFromMqttTopic(const char *topic, char *lon, char *lat):&#160;rmap_utility.cpp'],['../rmap__utility_8h.html#aa35bbd93345decfeab85c249c5e147ce',1,'getLonLatFromMqttTopic(const char *topic, char *lon, char *lat):&#160;rmap_utility.cpp']]],
   ['getmqttclientidfrommqtttopic',['getMqttClientIdFromMqttTopic',['../rmap__utility_8cpp.html#a9603843d131fe06db8b236091877020d',1,'getMqttClientIdFromMqttTopic(const char *topic, char *client_id):&#160;rmap_utility.cpp'],['../rmap__utility_8h.html#a9603843d131fe06db8b236091877020d',1,'getMqttClientIdFromMqttTopic(const char *topic, char *client_id):&#160;rmap_utility.cpp']]],
   ['getnetworkstatus',['getNetworkStatus',['../sim800_8h.html#a1354bda17eb77a5ba6f9c642e6638bad',1,'sim800.h']]],

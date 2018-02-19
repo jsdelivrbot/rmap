@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['data_5fsaving_5fclose_5ffile',['DATA_SAVING_CLOSE_FILE',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd',1,'rmap.h']]],
-  ['data_5fsaving_5fdata_5floop',['DATA_SAVING_DATA_LOOP',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b',1,'rmap.h']]],
-  ['data_5fsaving_5fend',['DATA_SAVING_END',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b',1,'rmap.h']]],
-  ['data_5fsaving_5finit',['DATA_SAVING_INIT',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129',1,'rmap.h']]],
-  ['data_5fsaving_5fopen_5ffile',['DATA_SAVING_OPEN_FILE',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3',1,'rmap.h']]],
-  ['data_5fsaving_5fopen_5fsdcard',['DATA_SAVING_OPEN_SDCARD',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de',1,'rmap.h']]],
-  ['data_5fsaving_5fsensors_5floop',['DATA_SAVING_SENSORS_LOOP',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7',1,'rmap.h']]],
-  ['data_5fsaving_5fwait_5fstate',['DATA_SAVING_WAIT_STATE',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef',1,'rmap.h']]],
-  ['data_5fsaving_5fwrite_5ffile',['DATA_SAVING_WRITE_FILE',['../rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33',1,'rmap.h']]]
+  ['end',['END',['../i2c-rain_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;i2c-rain.h'],['../i2c-th_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;i2c-th.h'],['../rmap_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;rmap.h']]],
+  ['ethernet_5fconnect',['ETHERNET_CONNECT',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a95426b8bbfdb86442c9e41a139f8ae3c',1,'rmap.h']]],
+  ['ethernet_5fend',['ETHERNET_END',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a8869bbdcd969ee43efef6b882780bc5b',1,'rmap.h']]],
+  ['ethernet_5finit',['ETHERNET_INIT',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5ae749f72358acfad64bb00e3461f4cbc2',1,'rmap.h']]],
+  ['ethernet_5fopen_5fudp_5fsocket',['ETHERNET_OPEN_UDP_SOCKET',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5aa12a74aa444cd4e24b43d3e280fc5044',1,'rmap.h']]],
+  ['ethernet_5fwait_5fstate',['ETHERNET_WAIT_STATE',['../rmap_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5ada078050168a00fc4e3b5b4c345aa7bc',1,'rmap.h']]]
 ];

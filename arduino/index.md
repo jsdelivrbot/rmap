@@ -7,27 +7,96 @@ to check and improve their data quality
 
 http://rmap.cc
 
-\section howto Howto
+\section howto Howto deploy
 
-\subsection report_eth STIMA Report over Ethernet:
+\subsection stima_ethernet STIMA over Ethernet:
+
+\subsubsection stima_ethernet_hardware Hardware
+
+1) Stima I2C-Base @ 5V
+
+2) Microduino Ethernet WIZ
+
+3) Microduino RJ45
+
+4) Stima core+1284 @ 5V
+
+5) Stima I2C-RTC @ 5V
+
+6) Stima FT232RL
+
+7) Stima SD-Card
+
+\subsubsection stima_ethernet_software Software
 
 1) open sketch arduino/sketchbook/rmap/rmap/rmap.ino
 
-2) in arduino/sketchbook/rmap/rmap/rmap-config.h set STIMA_MODULE_TYPE_REPORT_ETH in MODULE_VERSION define
+2) in arduino/sketchbook/rmap/rmap/rmap-config.h set STIMA_MODULE_TYPE_REPORT_ETH or STIMA_MODULE_TYPE_SAMPLE_ETH in MODULE_VERSION define
 
 3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
-\subsection report_gsm STIMA Report over GSM/GPRS:
+\subsection stima_gsm STIMA over GSM/GPRS:
+
+\subsubsection stima_gsm_hardware Hardware
+
+1) Stima I2C-Base @ 5V
+
+2) Stima SIM800C Power
+
+3) Stima SIM800C Module
+
+4) Stima core+1284 @ 5V
+
+5) Stima I2C-RTC @ 5V
+
+6) Stima FT232RL
+
+7) Stima SD-Card
+
+\subsubsection stima_gsm_software Software
 
 1) open sketch arduino/sketchbook/rmap/rmap/rmap.ino
 
-2) in arduino/sketchbook/rmap/rmap/rmap-config.h set STIMA_MODULE_TYPE_REPORT_GSM in MODULE_VERSION define
+2) in arduino/sketchbook/rmap/rmap/rmap-config.h set STIMA_MODULE_TYPE_REPORT_GSM or STIMA_MODULE_TYPE_SAMPLE_GSM in MODULE_VERSION define
+
+3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
+sensors's define and json's define in order to enable or disable relative sensor's driver and library
+
+\subsection stima_passive STIMA Passive:
+
+\subsubsection stima_passive_hardware Hardware
+
+1) Stima I2C-Base @ 5V / 3.3V
+
+2) Stima core+1284 @ 5V / Stima core+644 @ 3.3V
+
+3) Stima I2C-RTC @ 5V / 3.3V
+
+4) Stima FT232RL
+
+\subsubsection stima_passive_software Software
+
+1) open sketch arduino/sketchbook/rmap/rmap/rmap.ino
+
+2) in arduino/sketchbook/rmap/rmap/rmap-config.h set STIMA_MODULE_TYPE_PASSIVE in MODULE_VERSION define
 
 3) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set true or false
 sensors's define and json's define in order to enable or disable relative sensor's driver and library
 
 \subsection i2c-th STIMA I2C-TH:
+
+\subsubsection stima_i2c_th_hardware Hardware
+
+1) Stima I2C-Base @ 3.3V
+
+2) Stima core+644 @ 3.3V
+
+3) Stima FT232RL
+
+4) Stima SD-Card
+
+\subsubsection stima_i2c_th_software Software
 
 1) open sketch arduino/sketchbook/rmap/i2c-th/i2c-th.ino
 
@@ -36,10 +105,78 @@ sensors's define and json's define in order to enable or disable relative sensor
 
 \subsection i2c-rain STIMA I2C-Rain:
 
+\subsubsection stima_i2c_rain_hardware Hardware
+
+1) Stima I2C-Base @ 3.3V
+
+2) Stima core+644 @ 3.3V
+
+3) Stima I2C-Digital
+
+4) Stima FT232RL
+
+5) Stima SD-Card
+
+\subsubsection stima_i2c_rain_software Software
+
 1) open sketch arduino/sketchbook/rmap/i2c-rain/i2c-rain.ino
 
 2) open arduino/sketchbook/libraries/RmapConfig/sensors_config.h and set false
 in all sensors's define and json's define
+
+\subsection station STIMA Meteo Station assembly
+
+1) Stima over Ethernet or Stima over GSM
+
+--> connect with a cable at 5V hub port
+
+2) Stima I2C-TH
+
+--> connect with a cable at 3.3V hub port
+
+3) Stima I2C-Rain
+
+--> connect with a cable at 3.3V hub port
+
+--> connect at tipping bucket rain on 2 external pins of Stima I2C-Digital
+
+4) I2C sensor's:
+
+--> connect with a cable at 3.3V or 5V hub port
+
+5) I2C LCD Display
+
+--> connect with a cable at 5V hub port
+
+6) Stima I2C-HUB
+
+Power up the station through one of the following ways:
+
+1) USB power supply with USB type B connector
+
+2) 5V DC power supply through hub input port
+
+3) DigitecoPower through hub input port with capability of 12V battery backup, solar panel or 12-30V DC input source voltage
+
+in that case, the pins on the DigitecoPower module are:
+
+1) VCC_IN: 12-30V DC input source VCC (+)
+
+2) GND_IN: 12-30V DC input source GND (-)
+
+3) VCC_BAT: 12V DC input/otput battery backup VCC (+)
+
+4) GND_BAT: 12V DC input/otput battery backup GND (-)
+
+5) Status LED: green for battery charged, orange for medium charged battery, red for low battery
+
+6) VCC_OUT: 5V DC output for input hub connector VCC (+)
+
+7) SCL: I2C SCL for input hub connector
+
+8) SDA: I2C SDA for input hub connector
+
+9) GND_OUT: 5V DC output for input hub connector GND (-)
 
 \section library Project Library
 
@@ -52,21 +189,21 @@ Below is a list of the files contained therein.
 
 debug_config.h: Enable or disable debug in sketch and library
 
-ethernet_config.h: Ethernet configuration's parameters
+ethernet_config.h: Ethernet configuration's parameters (IP, DHCP, delay, ecc..)
 
-gsm_config.h: GSM configuration's parameters
+gsm_config.h: GSM configuration's parameters (APN, username, ecc..)
 
-hardware_config.h: Hardware configuration's parameters
+hardware_config.h: Hardware configuration's parameters (I2C bus clock, ecc..)
 
-json_config.h: JSON configuration's parameters
+json_config.h: JSON configuration's parameters (buffer length)
 
-lcd_config.h: LCD configuration's parameters
+lcd_config.h: LCD configuration's parameters (rows, columns, ecc..)
 
-mqtt_config.h: MQTT configuration's parameters
+mqtt_config.h: MQTT configuration's parameters (topic length, buffers length, ecc..)
 
-ntp_config.h: NTP configuration's parameters
+ntp_config.h: NTP configuration's parameters (timezone, server, ecc..)
 
-sdcard_config.h: SDCARD configuration's parameters
+sdcard_config.h: SDCARD configuration's parameters (name length, ecc..)
 
 sensors_config.h: Enable or disable sensor driver sensors for specific sketch
 
@@ -78,7 +215,7 @@ debug.h debug.cpp: Debugging functions for print debug message on serial port or
 
 eeprom_utility.h eeprom_utility.cpp: EEPROM utility for write and read eeprom
 
-i2c_utility.h i2c_utility.cpp: I2C utility
+i2c_utility.h i2c_utility.cpp: I2C utility for bus recovery
 
 registers.h: General register's define
 
@@ -140,7 +277,7 @@ o) Ethernet: partial (basic functions are present but need to interface with Eth
 
 o) MQTT: partial (subscribe functions are present but need to interface with rpc process function)
 
-See stream_task and rpc_process functions in rmap.ino
+See ArduinoJsonRPC library
 
 \subsubsection files SD-Card files
 
@@ -154,12 +291,20 @@ Each recorded data has the format of the type: TRANGE/LEVEL/VAR { “v”: VALUE
 
 \subsubsection sensordriversensors SensorDriver's sensors
 
-o) HYT221 and HYT271: Temperature and humidity sensors
+o) ADT7420 (ADT)
 
-o) DigitecoPower: Power parameters sensor (battery voltage, current and charge percentage, source voltage and current, load voltage)
+o) HIH6100 (HIH)
 
-o) I2C-TH: oneshot and continuous mode
+o) HYT221 (HYT)
 
-o) I2C-Rain: oneshot mode
+o) HYT271 (HYT)
+
+o) DigitecoPower (DEP)
+
+o) I2C-TH (STH, ITH, NTH, MTH, XTH)
+
+o) I2C-Rain (TBS, TBR)
+
+o) I2C-Wind (DW1)
 
 other sensors can be easily integrated (see SensorDriver library).

@@ -313,7 +313,7 @@ volatile uint8_t ready_tasks_count;
 uint32_t awakened_event_occurred_time_ms;
 
 /*!
-\var rpc
+\var streamRpc(false)
 \brief Remote Procedure Call object.
 */
 JsonRPC streamRpc(false);
@@ -401,7 +401,7 @@ MQTT::Client<IPStack, Countdown, MQTT_ROOT_TOPIC_LENGTH+MQTT_SENSOR_TOPIC_LENGTH
 LiquidCrystal_I2C lcd(LCD_I2C_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 
 /*!
-\var sensors
+\var sensors[USE_SENSORS_COUNT]
 \brief SensorDriver array structure.
 */
 SensorDriver *sensors[USE_SENSORS_COUNT];
@@ -863,9 +863,17 @@ volatile bool is_event_sensors_reading;
 bool is_event_sensors_reading_rpc;
 
 /*!
-\fn void sensors_reading_task(void)
+\fn void sensors_reading_task(bool do_prepare = true, bool do_get = true, char *driver = NULL, char *type = NULL, uint8_t address = 0, uint8_t node = 0, uint8_t *sensor_index = 0, uint32_t *wait_time = NULL)
 \brief Sensors reading Task.
 Read data from sensors.
+\param do_prepare: if true, execute the prepare sensor's procedure
+\param do_get: if true, execute the get sensor's procedure
+\param *driver: sensor's driver
+\param *type: sensor's type
+\param *address: sensor's address
+\param *node: sensor's node
+\param *sensor_index: sensor's index
+\param *wait_time: sensor's wait time
 \return void.
 */
 void sensors_reading_task (bool do_prepare = true, bool do_get = true, char *driver = NULL, char *type = NULL, uint8_t address = 0, uint8_t node = 0, uint8_t *sensor_index = 0, uint32_t *wait_time = NULL);

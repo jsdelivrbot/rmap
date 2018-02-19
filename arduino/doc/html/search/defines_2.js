@@ -4,6 +4,7 @@ var searchData=
   ['data_5fprocessing_5fretry_5fdelay_5fms',['DATA_PROCESSING_RETRY_DELAY_MS',['../rmap-config_8h.html#a2933698b1b2aa94bf5755a89efbd05f7',1,'rmap-config.h']]],
   ['data_5fsaving_5fdelay_5fms',['DATA_SAVING_DELAY_MS',['../rmap-config_8h.html#a511bba65f6e387335efa4c2ca6a9d948',1,'rmap-config.h']]],
   ['data_5fsaving_5fretry_5fcount_5fmax',['DATA_SAVING_RETRY_COUNT_MAX',['../rmap-config_8h.html#a81ed8eac7c6867ba31602628402f97c1',1,'rmap-config.h']]],
+  ['date_5ftime_5fstring_5flength',['DATE_TIME_STRING_LENGTH',['../rmap-config_8h.html#ae32b4bc47b1cc742b6f73d840bf8b2fa',1,'rmap-config.h']]],
   ['datestringtoarray',['dateStringToArray',['../rmap__utility_8h.html#a792afe89c009b24151bfa2905c5bd6e5',1,'rmap_utility.h']]],
   ['debouncing_5fpower_5fdown_5ftime_5fms',['DEBOUNCING_POWER_DOWN_TIME_MS',['../i2c-rain-config_8h.html#a7b9497e328b8f872cd7677cfd02bbf65',1,'DEBOUNCING_POWER_DOWN_TIME_MS():&#160;i2c-rain-config.h'],['../i2c-th-config_8h.html#a7b9497e328b8f872cd7677cfd02bbf65',1,'DEBOUNCING_POWER_DOWN_TIME_MS():&#160;i2c-th-config.h'],['../rmap-config_8h.html#a7b9497e328b8f872cd7677cfd02bbf65',1,'DEBOUNCING_POWER_DOWN_TIME_MS():&#160;rmap-config.h']]],
   ['debouncing_5ftipping_5fbucket_5ftime_5fms',['DEBOUNCING_TIPPING_BUCKET_TIME_MS',['../i2c-rain-config_8h.html#a96fb36600c0cea5d22644c26e2d1c7e8',1,'i2c-rain-config.h']]],
@@ -15,5 +16,6 @@ var searchData=
   ['digiteco_5fpower_5finput_5fcurrent_5faddress',['DIGITECO_POWER_INPUT_CURRENT_ADDRESS',['../digiteco__power_8h.html#ad018f5da715615cd840a6cf765d2d5bf',1,'digiteco_power.h']]],
   ['digiteco_5fpower_5finput_5fvoltage_5faddress',['DIGITECO_POWER_INPUT_VOLTAGE_ADDRESS',['../digiteco__power_8h.html#a253fda21968e718264608f907bbeac5b',1,'digiteco_power.h']]],
   ['digiteco_5fpower_5foutput_5fvoltage_5faddress',['DIGITECO_POWER_OUTPUT_VOLTAGE_ADDRESS',['../digiteco__power_8h.html#a5a99a63cee1474307f90a3ab572c4eb3',1,'digiteco_power.h']]],
-  ['digiteco_5fpower_5fread_5fdata_5flength',['DIGITECO_POWER_READ_DATA_LENGTH',['../digiteco__power_8h.html#a2f55faaba5cd777a035ef225338b7497',1,'digiteco_power.h']]]
+  ['digiteco_5fpower_5fread_5fdata_5flength',['DIGITECO_POWER_READ_DATA_LENGTH',['../digiteco__power_8h.html#a2f55faaba5cd777a035ef225338b7497',1,'digiteco_power.h']]],
+  ['driver_5flength',['DRIVER_LENGTH',['../typedef_8h.html#a343127490097a8ef68ab7d577d01b38b',1,'typedef.h']]]
 ];

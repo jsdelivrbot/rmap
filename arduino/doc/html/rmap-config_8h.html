@@ -99,9 +99,45 @@ Macros</h2></td></tr>
 <tr class="memdesc:aa8639a8d4e83d9cc4187d7a751228464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module version. <br /></td></tr>
 <tr class="separator:aa8639a8d4e83d9cc4187d7a751228464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="memItemLeft" align="right" valign="top"><a id="a8c815d03b3fd3e18ca06f920a1eb4e8e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8c815d03b3fd3e18ca06f920a1eb4e8e">MODULE_TYPE</a>&#160;&#160;&#160;(<a class="el" href="stima__module_8h.html#aeee56ac5cd6b4aa0079097e530b1c27c">STIMA_MODULE_TYPE_REPORT_ETH</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8c815d03b3fd3e18ca06f920a1eb4e8e">MODULE_TYPE</a>&#160;&#160;&#160;(<a class="el" href="stima__module_8h.html#aea131800c42cd2037b9a227f49d65872">STIMA_MODULE_TYPE_REPORT_GSM</a>)</td></tr>
 <tr class="memdesc:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of module. It is defined in <a class="el" href="registers_8h.html">registers.h</a>. <br /></td></tr>
 <tr class="separator:a8c815d03b3fd3e18ca06f920a1eb4e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c6bee2b593ec16dc4cf77ffcfd4cea8"><td class="memItemLeft" align="right" valign="top"><a id="a3c6bee2b593ec16dc4cf77ffcfd4cea8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a3c6bee2b593ec16dc4cf77ffcfd4cea8">USE_MQTT</a>&#160;&#160;&#160;(false)</td></tr>
+<tr class="memdesc:a3c6bee2b593ec16dc4cf77ffcfd4cea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT support. <br /></td></tr>
+<tr class="separator:a3c6bee2b593ec16dc4cf77ffcfd4cea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b880b20b32f399da65d86c5dd50cee"><td class="memItemLeft" align="right" valign="top"><a id="ad1b880b20b32f399da65d86c5dd50cee"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ad1b880b20b32f399da65d86c5dd50cee">USE_SDCARD</a>&#160;&#160;&#160;(false | <a class="el" href="rmap-config_8h.html#a3c6bee2b593ec16dc4cf77ffcfd4cea8">USE_MQTT</a>)</td></tr>
+<tr class="memdesc:ad1b880b20b32f399da65d86c5dd50cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">SD-Card support. <br /></td></tr>
+<tr class="separator:ad1b880b20b32f399da65d86c5dd50cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afacc6ecc4901a729fac01bbea03deb51"><td class="memItemLeft" align="right" valign="top"><a id="afacc6ecc4901a729fac01bbea03deb51"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#afacc6ecc4901a729fac01bbea03deb51">USE_RTC</a>&#160;&#160;&#160;(true)</td></tr>
+<tr class="memdesc:afacc6ecc4901a729fac01bbea03deb51"><td class="mdescLeft">&#160;</td><td class="mdescRight">RTC support. <br /></td></tr>
+<tr class="separator:afacc6ecc4901a729fac01bbea03deb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8051c2a569a9f9c488af89bce47ec306"><td class="memItemLeft" align="right" valign="top"><a id="a8051c2a569a9f9c488af89bce47ec306"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8051c2a569a9f9c488af89bce47ec306">USE_TIMER_1</a>&#160;&#160;&#160;(<a class="el" href="rmap-config_8h.html#afacc6ecc4901a729fac01bbea03deb51">USE_RTC</a> == false ? true : false)</td></tr>
+<tr class="memdesc:a8051c2a569a9f9c488af89bce47ec306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer 1 support instead of RTC. <br /></td></tr>
+<tr class="separator:a8051c2a569a9f9c488af89bce47ec306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094380189345c7bf2de7fa50ef36a293"><td class="memItemLeft" align="right" valign="top"><a id="a094380189345c7bf2de7fa50ef36a293"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a094380189345c7bf2de7fa50ef36a293">USE_RPC_METHOD_CONFIGURE</a>&#160;&#160;&#160;(true)</td></tr>
+<tr class="memdesc:a094380189345c7bf2de7fa50ef36a293"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC method for station configuration. <br /></td></tr>
+<tr class="separator:a094380189345c7bf2de7fa50ef36a293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addbf65bcf0ab013ba745395749b2e994"><td class="memItemLeft" align="right" valign="top"><a id="addbf65bcf0ab013ba745395749b2e994"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#addbf65bcf0ab013ba745395749b2e994">USE_RPC_METHOD_PREPARE</a>&#160;&#160;&#160;(false)</td></tr>
+<tr class="memdesc:addbf65bcf0ab013ba745395749b2e994"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC method for prepare sensors. <br /></td></tr>
+<tr class="separator:addbf65bcf0ab013ba745395749b2e994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8cbe07c4e86c120d49d30c6fbd6f416"><td class="memItemLeft" align="right" valign="top"><a id="aa8cbe07c4e86c120d49d30c6fbd6f416"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aa8cbe07c4e86c120d49d30c6fbd6f416">USE_RPC_METHOD_PREPANDGET</a>&#160;&#160;&#160;(false)</td></tr>
+<tr class="memdesc:aa8cbe07c4e86c120d49d30c6fbd6f416"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC method for prepare and get data from sensors. <br /></td></tr>
+<tr class="separator:aa8cbe07c4e86c120d49d30c6fbd6f416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c2193f88850b309aa4f7fb43892029"><td class="memItemLeft" align="right" valign="top"><a id="a55c2193f88850b309aa4f7fb43892029"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a55c2193f88850b309aa4f7fb43892029">USE_RPC_METHOD_GETJSON</a>&#160;&#160;&#160;(false)</td></tr>
+<tr class="memdesc:a55c2193f88850b309aa4f7fb43892029"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC method for get sensor's data. <br /></td></tr>
+<tr class="separator:a55c2193f88850b309aa4f7fb43892029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c9bb821ae7e25c56cbcca3ee495fd34"><td class="memItemLeft" align="right" valign="top"><a id="a8c9bb821ae7e25c56cbcca3ee495fd34"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8c9bb821ae7e25c56cbcca3ee495fd34">USE_RPC_METHOD_REBOOT</a>&#160;&#160;&#160;(false)</td></tr>
+<tr class="memdesc:a8c9bb821ae7e25c56cbcca3ee495fd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC method for reboot station. <br /></td></tr>
+<tr class="separator:a8c9bb821ae7e25c56cbcca3ee495fd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a413cd84e34db40559ab834cc89408cdb"><td class="memItemLeft" align="right" valign="top"><a id="a413cd84e34db40559ab834cc89408cdb"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a413cd84e34db40559ab834cc89408cdb">CONFIGURATION_DEFAULT_TH_ADDRESS</a>&#160;&#160;&#160;(<a class="el" href="registers-th_8h.html#a66906eb81e92beab5f2076ac49996132">I2C_TH_DEFAULT_ADDRESS</a>)</td></tr>
 <tr class="memdesc:a413cd84e34db40559ab834cc89408cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default i2c i2c-th address. <br /></td></tr>
@@ -118,30 +154,6 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ad5f167ef5dab674e29cea328f672e0a3">CONFIGURATION_DEFAULT_NTP_SERVER</a>&#160;&#160;&#160;(<a class="el" href="ntp__config_8h.html#ac2609c1adfd1a279c59fed52b5827fd3">NTP_DEFAULT_SERVER</a>)</td></tr>
 <tr class="memdesc:ad5f167ef5dab674e29cea328f672e0a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default ntp server. <br /></td></tr>
 <tr class="separator:ad5f167ef5dab674e29cea328f672e0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59fe331bcb2ec0b4c3abd6b13dc8c03"><td class="memItemLeft" align="right" valign="top"><a id="ab59fe331bcb2ec0b4c3abd6b13dc8c03"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ab59fe331bcb2ec0b4c3abd6b13dc8c03">CONFIGURATION_DEFAULT_MQTT_PORT</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a47dbba2fb767e8362864895e3ce87a36">MQTT_DEFAULT_PORT</a>)</td></tr>
-<tr class="memdesc:ab59fe331bcb2ec0b4c3abd6b13dc8c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt server port. <br /></td></tr>
-<tr class="separator:ab59fe331bcb2ec0b4c3abd6b13dc8c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec48aba6054d0eab8b9d9fb857f2a33c"><td class="memItemLeft" align="right" valign="top"><a id="aec48aba6054d0eab8b9d9fb857f2a33c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aec48aba6054d0eab8b9d9fb857f2a33c">CONFIGURATION_DEFAULT_MQTT_SERVER</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a509e4f28ec3987701a1c63c238b79716">MQTT_DEFAULT_SERVER</a>)</td></tr>
-<tr class="memdesc:aec48aba6054d0eab8b9d9fb857f2a33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt server. <br /></td></tr>
-<tr class="separator:aec48aba6054d0eab8b9d9fb857f2a33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85521de6b08f8704bd35a8e34edef4f8"><td class="memItemLeft" align="right" valign="top"><a id="a85521de6b08f8704bd35a8e34edef4f8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a85521de6b08f8704bd35a8e34edef4f8">CONFIGURATION_DEFAULT_MQTT_ROOT_TOPIC</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a2b1941298e45ce3305da283122a525dc">MQTT_DEFAULT_ROOT_TOPIC</a>)</td></tr>
-<tr class="memdesc:a85521de6b08f8704bd35a8e34edef4f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt root topic. <br /></td></tr>
-<tr class="separator:a85521de6b08f8704bd35a8e34edef4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5f5c2f91406f76021e58aaebb4fe84d"><td class="memItemLeft" align="right" valign="top"><a id="ad5f5c2f91406f76021e58aaebb4fe84d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ad5f5c2f91406f76021e58aaebb4fe84d">CONFIGURATION_DEFAULT_MQTT_SUBSCRIBE_TOPIC</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a0cca2cd81b7401df39de182ed847bbdb">MQTT_DEFAULT_SUBSCRIBE_TOPIC</a>)</td></tr>
-<tr class="memdesc:ad5f5c2f91406f76021e58aaebb4fe84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt subscribe topic. <br /></td></tr>
-<tr class="separator:ad5f5c2f91406f76021e58aaebb4fe84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4606b704d26885b00b68c8e7d1c4b77a"><td class="memItemLeft" align="right" valign="top"><a id="a4606b704d26885b00b68c8e7d1c4b77a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a4606b704d26885b00b68c8e7d1c4b77a">CONFIGURATION_DEFAULT_MQTT_USERNAME</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a67a711e15478d8d8ba7aa984947f1cd8">MQTT_DEFAULT_USERNAME</a>)</td></tr>
-<tr class="memdesc:a4606b704d26885b00b68c8e7d1c4b77a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt username. <br /></td></tr>
-<tr class="separator:a4606b704d26885b00b68c8e7d1c4b77a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93f4ec08026dd0e8eaffc77a72986283"><td class="memItemLeft" align="right" valign="top"><a id="a93f4ec08026dd0e8eaffc77a72986283"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a93f4ec08026dd0e8eaffc77a72986283">CONFIGURATION_DEFAULT_MQTT_PASSWORD</a>&#160;&#160;&#160;(<a class="el" href="mqtt__config_8h.html#a38f208acaf4f9f771cf7e707488f8c29">MQTT_DEFAULT_PASSWORD</a>)</td></tr>
-<tr class="memdesc:a93f4ec08026dd0e8eaffc77a72986283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mqtt password. <br /></td></tr>
-<tr class="separator:a93f4ec08026dd0e8eaffc77a72986283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedfe334cb469b9ad487a0ba637d29662"><td class="memItemLeft" align="right" valign="top"><a id="aedfe334cb469b9ad487a0ba637d29662"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aedfe334cb469b9ad487a0ba637d29662">CONFIGURATION_DEFAULT_ETHERNET_DHCP_ENABLE</a>&#160;&#160;&#160;(<a class="el" href="ethernet__config_8h.html#a6d72f280384bb90ffd7c78bb188dd6ad">ETHERNET_DEFAULT_DHCP_ENABLE</a>)</td></tr>
 <tr class="memdesc:aedfe334cb469b9ad487a0ba637d29662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default DHCP status. <br /></td></tr>
@@ -174,18 +186,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a7b9497e328b8f872cd7677cfd02bbf65">DEBOUNCING_POWER_DOWN_TIME_MS</a>&#160;&#160;&#160;(10)</td></tr>
 <tr class="memdesc:a7b9497e328b8f872cd7677cfd02bbf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debounce power down ms. <br /></td></tr>
 <tr class="separator:a7b9497e328b8f872cd7677cfd02bbf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8051c2a569a9f9c488af89bce47ec306"><td class="memItemLeft" align="right" valign="top"><a id="a8051c2a569a9f9c488af89bce47ec306"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a8051c2a569a9f9c488af89bce47ec306">USE_TIMER_1</a>&#160;&#160;&#160;(false)</td></tr>
-<tr class="memdesc:a8051c2a569a9f9c488af89bce47ec306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable timer1. <br /></td></tr>
-<tr class="separator:a8051c2a569a9f9c488af89bce47ec306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a487cf0916151ca6772bc10ad17de96f8"><td class="memItemLeft" align="right" valign="top"><a id="a487cf0916151ca6772bc10ad17de96f8"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a487cf0916151ca6772bc10ad17de96f8">W5500_CHIP_SELECT_PIN</a>&#160;&#160;&#160;(10)</td></tr>
 <tr class="memdesc:a487cf0916151ca6772bc10ad17de96f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chip select pin for Wiznet W5500 ethernet module. <br /></td></tr>
 <tr class="separator:a487cf0916151ca6772bc10ad17de96f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52845a6b315de684e7eda2ffe7863b55"><td class="memItemLeft" align="right" valign="top"><a id="a52845a6b315de684e7eda2ffe7863b55"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a52845a6b315de684e7eda2ffe7863b55">SDCARD_CHIP_SELECT_PIN</a>&#160;&#160;&#160;(7)</td></tr>
-<tr class="memdesc:a52845a6b315de684e7eda2ffe7863b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chip select pin for SD-Card module. <br /></td></tr>
-<tr class="separator:a52845a6b315de684e7eda2ffe7863b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a983c9777673ee873f12ec9f489215321"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a983c9777673ee873f12ec9f489215321">WDT_TIMER</a>&#160;&#160;&#160;(WDTO_8S)</td></tr>
 <tr class="memdesc:a983c9777673ee873f12ec9f489215321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchdog timer for periodically check microprocessor block states.  <a href="#a983c9777673ee873f12ec9f489215321">More...</a><br /></td></tr>
 <tr class="separator:a983c9777673ee873f12ec9f489215321"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,8 +201,20 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a1efb928882c9a9d83d78e499091a8319">RTC_INTERRUPT_PIN</a>&#160;&#160;&#160;(6)</td></tr>
 <tr class="memdesc:a1efb928882c9a9d83d78e499091a8319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt pin for rtc. <br /></td></tr>
 <tr class="separator:a1efb928882c9a9d83d78e499091a8319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42354f9347cc2a67e00dd79c5da40833"><td class="memItemLeft" align="right" valign="top"><a id="a42354f9347cc2a67e00dd79c5da40833"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a42354f9347cc2a67e00dd79c5da40833">TIMER1_INTERRUPT_TIME_MS</a>&#160;&#160;&#160;(1000)</td></tr>
+<tr class="memdesc:a42354f9347cc2a67e00dd79c5da40833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value in milliseconds for generating timer1 interrupt. <br /></td></tr>
+<tr class="separator:a42354f9347cc2a67e00dd79c5da40833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4674bad300dfeeb4b9479c5bdc21036"><td class="memItemLeft" align="right" valign="top"><a id="aa4674bad300dfeeb4b9479c5bdc21036"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aa4674bad300dfeeb4b9479c5bdc21036">TIMER1_OVERFLOW_TIME_MS</a>&#160;&#160;&#160;(4194)</td></tr>
+<tr class="memdesc:aa4674bad300dfeeb4b9479c5bdc21036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer1 timer overflow with 1024 prescaler at 16 MHz. <br /></td></tr>
+<tr class="separator:aa4674bad300dfeeb4b9479c5bdc21036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a346c738fa798abcc0c070d068da6380f"><td class="memItemLeft" align="right" valign="top"><a id="a346c738fa798abcc0c070d068da6380f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a346c738fa798abcc0c070d068da6380f">TIMER1_TCNT1_VALUE</a>&#160;&#160;&#160;((uint16_t)(0xFFFF - (float)(1.0 * 0xFFFF * TIMER1_INTERRUPT_TIME_MS / TIMER1_OVERFLOW_TIME_MS)))</td></tr>
+<tr class="memdesc:a346c738fa798abcc0c070d068da6380f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer1 timer overflow with 1024 prescaler at 8 MHz. <br /></td></tr>
+<tr class="separator:a346c738fa798abcc0c070d068da6380f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af18dc3de744722cb308451b7a705611b"><td class="memItemLeft" align="right" valign="top"><a id="af18dc3de744722cb308451b7a705611b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>&#160;&#160;&#160;(<a class="el" href="sensors__config_8h.html#a22d6a7857098158d20b37de9080accb5">USE_SENSOR_ITH</a> + <a class="el" href="sensors__config_8h.html#a716f318739d3cc63bbe11a711152a93f">USE_SENSOR_MTH</a> + <a class="el" href="sensors__config_8h.html#a10ed05c0989cac98ec0dcccafe5eab2d">USE_SENSOR_NTH</a> + <a class="el" href="sensors__config_8h.html#a31485d4f9fa38af9114e6bd1455e989c">USE_SENSOR_XTH</a> + <a class="el" href="sensors__config_8h.html#a7d0abdd8465288cd55c86d95ad466cc7">USE_SENSOR_TBS</a> + <a class="el" href="sensors__config_8h.html#aba1fe603fab2f047ac3913e33b6f8cce">USE_SENSOR_TBR</a> + <a class="el" href="sensors__config_8h.html#a41a207ce017a43c492f8d2a0bf11a598">USE_SENSOR_DEP</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>&#160;&#160;&#160;(<a class="el" href="sensors__config_8h.html#a22d6a7857098158d20b37de9080accb5">USE_SENSOR_ITH</a> + <a class="el" href="sensors__config_8h.html#a716f318739d3cc63bbe11a711152a93f">USE_SENSOR_MTH</a> + <a class="el" href="sensors__config_8h.html#a10ed05c0989cac98ec0dcccafe5eab2d">USE_SENSOR_NTH</a> + <a class="el" href="sensors__config_8h.html#a31485d4f9fa38af9114e6bd1455e989c">USE_SENSOR_XTH</a> + <a class="el" href="sensors__config_8h.html#a7d0abdd8465288cd55c86d95ad466cc7">USE_SENSOR_TBS</a> + <a class="el" href="sensors__config_8h.html#aba1fe603fab2f047ac3913e33b6f8cce">USE_SENSOR_TBR</a> + <a class="el" href="sensors__config_8h.html#a41a207ce017a43c492f8d2a0bf11a598">USE_SENSOR_DEP</a> + <a class="el" href="sensors__config_8h.html#a34acfad25488d28951ff729ebda66311">USE_SENSOR_ADT</a> + <a class="el" href="sensors__config_8h.html#aa1d83db2373ab5e74ed832abf1b7f0ed">USE_SENSOR_HIH</a> + <a class="el" href="sensors__config_8h.html#a85f2976107ff26789b268febf87a392a">USE_SENSOR_HYT</a>)</td></tr>
 <tr class="memdesc:af18dc3de744722cb308451b7a705611b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sensors count. <br /></td></tr>
 <tr class="separator:af18dc3de744722cb308451b7a705611b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16fa5577ef44bb1146f17a3bc43194b1"><td class="memItemLeft" align="right" valign="top"><a id="a16fa5577ef44bb1146f17a3bc43194b1"></a>
@@ -245,22 +261,6 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a52ca4538c4f04d08d9b1f35329926912">SUPERVISOR_CONNECTION_TIMEOUT_MS</a>&#160;&#160;&#160;(120000)</td></tr>
 <tr class="memdesc:a52ca4538c4f04d08d9b1f35329926912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout for connecting. <br /></td></tr>
 <tr class="separator:a52ca4538c4f04d08d9b1f35329926912"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5742869009a8ff3a6e3dfcb700f3ab6"><td class="memItemLeft" align="right" valign="top"><a id="aa5742869009a8ff3a6e3dfcb700f3ab6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aa5742869009a8ff3a6e3dfcb700f3ab6">STREAM_UART_STREAM_TIMEOUT_MS</a>&#160;&#160;&#160;(5)</td></tr>
-<tr class="memdesc:aa5742869009a8ff3a6e3dfcb700f3ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout for receiving next byte from stream. <br /></td></tr>
-<tr class="separator:aa5742869009a8ff3a6e3dfcb700f3ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a950ba415f1afc5bdc2d4ea52b51075df"><td class="memItemLeft" align="right" valign="top"><a id="a950ba415f1afc5bdc2d4ea52b51075df"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a950ba415f1afc5bdc2d4ea52b51075df">STREAM_UART_STREAM_END_TIMEOUT_MS</a>&#160;&#160;&#160;(10000)</td></tr>
-<tr class="memdesc:a950ba415f1afc5bdc2d4ea52b51075df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout for close stream after last received byte. <br /></td></tr>
-<tr class="separator:a950ba415f1afc5bdc2d4ea52b51075df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5fc989b784c420be7db4f66417fc744"><td class="memItemLeft" align="right" valign="top"><a id="ac5fc989b784c420be7db4f66417fc744"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ac5fc989b784c420be7db4f66417fc744">STREAM_BUFFER_LENGTH</a>&#160;&#160;&#160;(192)</td></tr>
-<tr class="memdesc:ac5fc989b784c420be7db4f66417fc744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream buffer length. <br /></td></tr>
-<tr class="separator:ac5fc989b784c420be7db4f66417fc744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7470ca0f869e88a49d4d70bad5de69e6"><td class="memItemLeft" align="right" valign="top"><a id="a7470ca0f869e88a49d4d70bad5de69e6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a7470ca0f869e88a49d4d70bad5de69e6">SDCARD_MQTT_PTR_FILE_NAME</a>&#160;&#160;&#160;(&quot;mqtt_ptr.txt&quot;)</td></tr>
-<tr class="memdesc:a7470ca0f869e88a49d4d70bad5de69e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data file on SD-Card containing the pointer to the last mqtt transmitted data. <br /></td></tr>
-<tr class="separator:a7470ca0f869e88a49d4d70bad5de69e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5042473c874b6f184bd4dc197feadca9"><td class="memItemLeft" align="right" valign="top"><a id="a5042473c874b6f184bd4dc197feadca9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#a5042473c874b6f184bd4dc197feadca9">NTP_RETRY_COUNT_MAX</a>&#160;&#160;&#160;(5)</td></tr>
 <tr class="memdesc:a5042473c874b6f184bd4dc197feadca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of retry for doing ntp operations. <br /></td></tr>
@@ -285,6 +285,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#aad84a5cc78471bbe08ae9b0f519866ea">ETHERNET_RETRY_DELAY_MS</a>&#160;&#160;&#160;(<a class="el" href="ethernet__config_8h.html#a33ddf6002b3cabe6872997f10ce52a3b">ETHERNET_ATTEMPT_MS</a>)</td></tr>
 <tr class="memdesc:aad84a5cc78471bbe08ae9b0f519866ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait time between two attempts. <br /></td></tr>
 <tr class="separator:aad84a5cc78471bbe08ae9b0f519866ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae32b4bc47b1cc742b6f73d840bf8b2fa"><td class="memItemLeft" align="right" valign="top"><a id="ae32b4bc47b1cc742b6f73d840bf8b2fa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap-config_8h.html#ae32b4bc47b1cc742b6f73d840bf8b2fa">DATE_TIME_STRING_LENGTH</a>&#160;&#160;&#160;(25)</td></tr>
+<tr class="memdesc:ae32b4bc47b1cc742b6f73d840bf8b2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of datetime string %04u-%02u-%02uT%02u:%02u:%02u. <br /></td></tr>
+<tr class="separator:ae32b4bc47b1cc742b6f73d840bf8b2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a983c9777673ee873f12ec9f489215321"></a>

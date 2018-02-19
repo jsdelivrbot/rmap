@@ -74,6 +74,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="rmap-config_8h_source.html">rmap-config.h</a>&quot;</code><br />
 <code>#include &lt;<a class="el" href="typedef_8h_source.html">typedef.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="registers_8h_source.html">registers.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="debug_8h_source.html">debug.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="hardware__config_8h_source.html">hardware_config.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="json__config_8h_source.html">json_config.h</a>&gt;</code><br />
@@ -84,20 +85,15 @@ $(function() {
 <code>#include &lt;avr/wdt.h&gt;</code><br />
 <code>#include &lt;SPI.h&gt;</code><br />
 <code>#include &lt;Wire.h&gt;</code><br />
-<code>#include &lt;SdFat.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="pcf8563_8h_source.html">pcf8563.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ntp_8h_source.html">ntp.h</a>&gt;</code><br />
 <code>#include &lt;TimeLib.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="SensorDriver_8h_source.html">SensorDriver.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="eeprom__utility_8h_source.html">eeprom_utility.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="rmap__utility_8h_source.html">rmap_utility.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i2c__utility_8h_source.html">i2c_utility.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="sdcard__utility_8h_source.html">sdcard_utility.h</a>&gt;</code><br />
+<code>#include &lt;arduinoJsonRPC.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="ethernet__config_8h_source.html">ethernet_config.h</a>&gt;</code><br />
 <code>#include &lt;Ethernet2.h&gt;</code><br />
-<code>#include &lt;IPStack.h&gt;</code><br />
-<code>#include &lt;Countdown.h&gt;</code><br />
-<code>#include &lt;MQTTClient.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for rmap.h:</div>
 <div class="dyncontent">
@@ -224,71 +220,19 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a70deb66f62f31f2e15c734513dc0092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time task finite state machine.  <a href="rmap_8h.html#a70deb66f62f31f2e15c734513dc0092a">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a70deb66f62f31f2e15c734513dc0092a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a890f00ea5c43b52d0acd0d2dbc67e188"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188">data_saving_state_t</a> { <br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129">DATA_SAVING_INIT</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de">DATA_SAVING_OPEN_SDCARD</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3">DATA_SAVING_OPEN_FILE</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7">DATA_SAVING_SENSORS_LOOP</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b">DATA_SAVING_DATA_LOOP</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33">DATA_SAVING_WRITE_FILE</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd">DATA_SAVING_CLOSE_FILE</a>, 
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b">DATA_SAVING_END</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef">DATA_SAVING_WAIT_STATE</a>
-<br />
- }<tr class="memdesc:a890f00ea5c43b52d0acd0d2dbc67e188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data saving task finite state machine.  <a href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188">More...</a><br /></td></tr>
+<tr class="memitem:a65962b43a96f28b0441699f3317f5b99"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99">rpc_state_t</a> { <a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99a9efcbbc0fa36777e19bb25599e2cd126">RPC_INIT</a>, 
+<a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99a05ecd73c3f49002a3965dc300490bc44">RPC_EXECUTE</a>, 
+<a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99ab92c339a5231732ab282e5b2ab4c2463">RPC_END</a>
+ }<tr class="memdesc:a65962b43a96f28b0441699f3317f5b99"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC task finite state machine.  <a href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:a890f00ea5c43b52d0acd0d2dbc67e188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eecd1044ddb5510b71716eedfd15f2a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2a">mqtt_state_t</a> { <br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aab78e0d91fcdd4c3b9fa2a8daf8da61ee">MQTT_INIT</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa6f072da1e81e5ddb573f53214aef5c29">MQTT_OPEN_SDCARD</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa333fe1685d303726beaf4ab7f79675dc">MQTT_OPEN_PTR_FILE</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa88ef6d59236afb176577d29232ac2dbe">MQTT_PTR_READ</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa4c14dda1eb0b6815720a8825c51a972f">MQTT_PTR_FIND</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aafb016951f241118473fa441f9e255716">MQTT_PTR_FOUND</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa976c127fbaa0c71ff67c039a6ead4270">MQTT_PTR_END</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aafc9e8686794d1ce791b2d50be3e0b718">MQTT_OPEN</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aab8bd5fe2df05cf458706f4746031101f">MQTT_CHECK</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa1f01f8e725b363e6b107d3d8cfc8586b">MQTT_CONNECT</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa5d00f1aedfa96cebd92f9ee837c3a615">MQTT_ON_CONNECT</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa7dd20d5d68728190c8c1050599b562f7">MQTT_SUBSCRIBE</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa559395ca103488b50d5cb1bebd24a539">MQTT_OPEN_DATA_FILE</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aab8529974dafdcc57ae96953df84c4d23">MQTT_SENSORS_LOOP</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aabfd381e8944cbb38db3ae9e26be8e5fa">MQTT_DATA_LOOP</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aaa374bf000fce299ee44a155c315be872">MQTT_SD_LOOP</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa18f5c91ee58e3c7af217a99d06bce38a">MQTT_PUBLISH</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aadd96b9c4ec8178e82fbbaea103f0af4c">MQTT_CLOSE_DATA_FILE</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa247d31e0fa0c828dfc7e7d2d22ca18b2">MQTT_DISCONNECT</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aaf72d33e5f5a66855c0f30a1b1184d948">MQTT_ON_DISCONNECT</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa373d63f35bc88e697f24d68c1685a0b2">MQTT_PTR_UPDATE</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa87cbbb025c198e8a13e05e43090b1012">MQTT_CLOSE_PTR_FILE</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa45ee7f65a13484d4aa294bc91c0bc452">MQTT_CLOSE_SDCARD</a>, 
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa1c2b0cefef6f30ebcfa09ac728a41aa5">MQTT_END</a>, 
-<br />
-&#160;&#160;<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6">MQTT_WAIT_STATE</a>
-<br />
- }<tr class="memdesc:a9eecd1044ddb5510b71716eedfd15f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT task finite state machine.  <a href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2a">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a9eecd1044ddb5510b71716eedfd15f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94235530fc35d5e307de374cfca8b7ab"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7ab">stream_state_t</a> { <a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a">STREAM_INIT</a>, 
-<a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed">STREAM_AVAILABLE</a>, 
-<a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd">STREAM_PROCESS</a>, 
-<a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487">STREAM_END</a>
- }<tr class="memdesc:a94235530fc35d5e307de374cfca8b7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream task finite state machine.  <a href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7ab">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a94235530fc35d5e307de374cfca8b7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a65962b43a96f28b0441699f3317f5b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a447e41b96c37bcba88cba66f6ebb7878"><td class="memItemLeft" align="right" valign="top">IPStack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a447e41b96c37bcba88cba66f6ebb7878">ipstack</a> (<a class="el" href="rmap_8h.html#abdcb198b5489995a350bc73d1d5f4f6d">eth_tcp_client</a>)</td></tr>
-<tr class="memdesc:a447e41b96c37bcba88cba66f6ebb7878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet IPStack MQTTClient structure.  <a href="#a447e41b96c37bcba88cba66f6ebb7878">More...</a><br /></td></tr>
-<tr class="separator:a447e41b96c37bcba88cba66f6ebb7878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87a71f0328629817c026cf028eed9a0"><td class="memItemLeft" align="right" valign="top"><a id="ae87a71f0328629817c026cf028eed9a0"></a>
+<a class="el" href="classJsonRPC.html">JsonRPC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae87a71f0328629817c026cf028eed9a0">streamRpc</a> (false)</td></tr>
+<tr class="memdesc:ae87a71f0328629817c026cf028eed9a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote Procedure Call object. <br /></td></tr>
+<tr class="separator:ae87a71f0328629817c026cf028eed9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7d08a33a932b4784cae528e8219f1c7"><td class="memItemLeft" align="right" valign="top">LiquidCrystal_I2C&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#af7d08a33a932b4784cae528e8219f1c7">lcd</a> (<a class="el" href="lcd__config_8h.html#aabe3eae58b7e15bab0e4e34245079410">LCD_I2C_ADDRESS</a>, <a class="el" href="lcd__config_8h.html#a537e0d54d9ec6c708bd8990c2f4d8e64">LCD_COLUMNS</a>, <a class="el" href="lcd__config_8h.html#a9a59fc4d524d3519a6bd0cb451850a65">LCD_ROWS</a>)</td></tr>
 <tr class="memdesc:af7d08a33a932b4784cae528e8219f1c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD structure.  <a href="#af7d08a33a932b4784cae528e8219f1c7">More...</a><br /></td></tr>
 <tr class="separator:af7d08a33a932b4784cae528e8219f1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -301,6 +245,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a348d23d5899ce59d18975284dfb0afc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a348d23d5899ce59d18975284dfb0afc0">init_system</a> (void)</td></tr>
 <tr class="memdesc:a348d23d5899ce59d18975284dfb0afc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init system.  <a href="#a348d23d5899ce59d18975284dfb0afc0">More...</a><br /></td></tr>
 <tr class="separator:a348d23d5899ce59d18975284dfb0afc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2639477a4b745feda94c3f464a9647d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae2639477a4b745feda94c3f464a9647d">init_rpc</a> (void)</td></tr>
+<tr class="memdesc:ae2639477a4b745feda94c3f464a9647d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register RPC.  <a href="#ae2639477a4b745feda94c3f464a9647d">More...</a><br /></td></tr>
+<tr class="separator:ae2639477a4b745feda94c3f464a9647d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad438327c9cf783bd9c519ce8b8ef3bfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad438327c9cf783bd9c519ce8b8ef3bfa">init_buffers</a> (void)</td></tr>
 <tr class="memdesc:ad438327c9cf783bd9c519ce8b8ef3bfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init buffers.  <a href="#ad438327c9cf783bd9c519ce8b8ef3bfa">More...</a><br /></td></tr>
 <tr class="separator:ad438327c9cf783bd9c519ce8b8ef3bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -319,6 +266,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a88533ad02465ce52d4e6de7b2095ec32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a88533ad02465ce52d4e6de7b2095ec32">init_rtc</a> (void)</td></tr>
 <tr class="memdesc:a88533ad02465ce52d4e6de7b2095ec32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init RTC module.  <a href="#a88533ad02465ce52d4e6de7b2095ec32">More...</a><br /></td></tr>
 <tr class="separator:a88533ad02465ce52d4e6de7b2095ec32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69af2f624c0d4a3a78c49e7b2d45f9e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a69af2f624c0d4a3a78c49e7b2d45f9e7">interrupt_task_1s</a> (void)</td></tr>
+<tr class="memdesc:a69af2f624c0d4a3a78c49e7b2d45f9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 seconds task.  <a href="#a69af2f624c0d4a3a78c49e7b2d45f9e7">More...</a><br /></td></tr>
+<tr class="separator:a69af2f624c0d4a3a78c49e7b2d45f9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7577ba7f06f417a019b69da8682ede5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad7577ba7f06f417a019b69da8682ede5">init_sensors</a> (void)</td></tr>
 <tr class="memdesc:ad7577ba7f06f417a019b69da8682ede5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and setup sensors.  <a href="#ad7577ba7f06f417a019b69da8682ede5">More...</a><br /></td></tr>
 <tr class="separator:ad7577ba7f06f417a019b69da8682ede5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -337,24 +287,30 @@ Functions</h2></td></tr>
 <tr class="memitem:a1686e2719fa4a37ef933458673973d28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a1686e2719fa4a37ef933458673973d28">setNextTimeForSensorReading</a> (time_t *next_time)</td></tr>
 <tr class="memdesc:a1686e2719fa4a37ef933458673973d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate next hour, minute and second for sensors reading.  <a href="#a1686e2719fa4a37ef933458673973d28">More...</a><br /></td></tr>
 <tr class="separator:a1686e2719fa4a37ef933458673973d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a9f5e5ca8c47d4536dd1805e89fbb7db2">mqttConnect</a> (char *username, char *password)</td></tr>
-<tr class="memdesc:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a open tcp socket to connect to the mqtt server.  <a href="#a9f5e5ca8c47d4536dd1805e89fbb7db2">More...</a><br /></td></tr>
-<tr class="separator:a9f5e5ca8c47d4536dd1805e89fbb7db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f6838e898c168812aed181d700f2366"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a7f6838e898c168812aed181d700f2366">mqttPublish</a> (const char *topic, const char *message, bool is_retained=false)</td></tr>
-<tr class="memdesc:a7f6838e898c168812aed181d700f2366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish message on topic.  <a href="#a7f6838e898c168812aed181d700f2366">More...</a><br /></td></tr>
-<tr class="separator:a7f6838e898c168812aed181d700f2366"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fe2f970295d296f7f6725fe9e946933"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a4fe2f970295d296f7f6725fe9e946933">mqttRxCallback</a> (MQTT::MessageData &amp;md)</td></tr>
-<tr class="memdesc:a4fe2f970295d296f7f6725fe9e946933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a receive callback for incoming mqtt message.  <a href="#a4fe2f970295d296f7f6725fe9e946933">More...</a><br /></td></tr>
-<tr class="separator:a4fe2f970295d296f7f6725fe9e946933"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba6e70a8bee4b42785eaeca4fd566d3"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#afba6e70a8bee4b42785eaeca4fd566d3">rpc_process</a> (char *json)</td></tr>
-<tr class="memdesc:afba6e70a8bee4b42785eaeca4fd566d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process and execute a received Remote Procedure Call (RPC). Useful for configuration.  <a href="#afba6e70a8bee4b42785eaeca4fd566d3">More...</a><br /></td></tr>
-<tr class="separator:afba6e70a8bee4b42785eaeca4fd566d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a955687ef33653678f682fb8db28c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a21a955687ef33653678f682fb8db28c1">extractSensorsParams</a> (JsonObject &amp;params, char *driver, char *type, uint8_t *address, uint8_t *node)</td></tr>
+<tr class="memdesc:a21a955687ef33653678f682fb8db28c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract sensor's parameter.  <a href="#a21a955687ef33653678f682fb8db28c1">More...</a><br /></td></tr>
+<tr class="separator:a21a955687ef33653678f682fb8db28c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb2065f7e6ad6d83a345ec3ad9fc53e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a9fb2065f7e6ad6d83a345ec3ad9fc53e">configure</a> (JsonObject &amp;params, JsonObject &amp;result)</td></tr>
+<tr class="memdesc:a9fb2065f7e6ad6d83a345ec3ad9fc53e"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC configuration.  <a href="#a9fb2065f7e6ad6d83a345ec3ad9fc53e">More...</a><br /></td></tr>
+<tr class="separator:a9fb2065f7e6ad6d83a345ec3ad9fc53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca40c474f67d9c156516a794724ad27"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a7ca40c474f67d9c156516a794724ad27">prepare</a> (JsonObject &amp;params, JsonObject &amp;result)</td></tr>
+<tr class="memdesc:a7ca40c474f67d9c156516a794724ad27"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC prepare.  <a href="#a7ca40c474f67d9c156516a794724ad27">More...</a><br /></td></tr>
+<tr class="separator:a7ca40c474f67d9c156516a794724ad27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1661a06a4ffded64245eec994df77e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ac1661a06a4ffded64245eec994df77e1">getjson</a> (JsonObject &amp;params, JsonObject &amp;result)</td></tr>
+<tr class="memdesc:ac1661a06a4ffded64245eec994df77e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC get json.  <a href="#ac1661a06a4ffded64245eec994df77e1">More...</a><br /></td></tr>
+<tr class="separator:ac1661a06a4ffded64245eec994df77e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39bd6d58305e9595c94d31dbe7a5c554"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a39bd6d58305e9595c94d31dbe7a5c554">prepandget</a> (JsonObject &amp;params, JsonObject &amp;result)</td></tr>
+<tr class="memdesc:a39bd6d58305e9595c94d31dbe7a5c554"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC prepare and get json.  <a href="#a39bd6d58305e9595c94d31dbe7a5c554">More...</a><br /></td></tr>
+<tr class="separator:a39bd6d58305e9595c94d31dbe7a5c554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70472d004eec8b9283bc04c6c2dfdd8a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a70472d004eec8b9283bc04c6c2dfdd8a">reboot</a> (JsonObject &amp;params, JsonObject &amp;result)</td></tr>
+<tr class="memdesc:a70472d004eec8b9283bc04c6c2dfdd8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC reboot.  <a href="#a70472d004eec8b9283bc04c6c2dfdd8a">More...</a><br /></td></tr>
+<tr class="separator:a70472d004eec8b9283bc04c6c2dfdd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c0ac3dbd03144160dd35a3c8674d9b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a1c0ac3dbd03144160dd35a3c8674d9b3">supervisor_task</a> (void)</td></tr>
 <tr class="memdesc:a1c0ac3dbd03144160dd35a3c8674d9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supervisor task. Manage RTC and NTP sync and open/close gsm and ethernet connection.  <a href="#a1c0ac3dbd03144160dd35a3c8674d9b3">More...</a><br /></td></tr>
 <tr class="separator:a1c0ac3dbd03144160dd35a3c8674d9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0e8965583b124096972fe3a9e0e7954"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#af0e8965583b124096972fe3a9e0e7954">sensors_reading_task</a> (void)</td></tr>
-<tr class="memdesc:af0e8965583b124096972fe3a9e0e7954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sensors reading Task. Read data from sensors.  <a href="#af0e8965583b124096972fe3a9e0e7954">More...</a><br /></td></tr>
-<tr class="separator:af0e8965583b124096972fe3a9e0e7954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90d236ea13ff80b6932620388be661f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a90d236ea13ff80b6932620388be661f2">sensors_reading_task</a> (bool do_prepare=true, bool do_get=true, char *driver=NULL, char *type=NULL, uint8_t address=0, uint8_t node=0, uint8_t *sensor_index=0, uint32_t *wait_time=NULL)</td></tr>
+<tr class="memdesc:a90d236ea13ff80b6932620388be661f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sensors reading Task. Read data from sensors.  <a href="#a90d236ea13ff80b6932620388be661f2">More...</a><br /></td></tr>
+<tr class="separator:a90d236ea13ff80b6932620388be661f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5099cc10afd8a26fdd8599574f0fc5a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a5099cc10afd8a26fdd8599574f0fc5a8">rtc_task</a> (void)</td></tr>
 <tr class="memdesc:a5099cc10afd8a26fdd8599574f0fc5a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real Time Clock task. Read RTC time and sync system time with it.  <a href="#a5099cc10afd8a26fdd8599574f0fc5a8">More...</a><br /></td></tr>
 <tr class="separator:a5099cc10afd8a26fdd8599574f0fc5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -364,15 +320,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ab468f998bb8b3e07fe2b4325d359a8ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ab468f998bb8b3e07fe2b4325d359a8ec">ethernet_task</a> (void)</td></tr>
 <tr class="memdesc:ab468f998bb8b3e07fe2b4325d359a8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet task. Manage Ethernet operation.  <a href="#ab468f998bb8b3e07fe2b4325d359a8ec">More...</a><br /></td></tr>
 <tr class="separator:ab468f998bb8b3e07fe2b4325d359a8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae49b822b37337a0744225c3bdd43c79c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae49b822b37337a0744225c3bdd43c79c">data_saving_task</a> (void)</td></tr>
-<tr class="memdesc:ae49b822b37337a0744225c3bdd43c79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Saving Task. Save acquired sensors data on SD-Card.  <a href="#ae49b822b37337a0744225c3bdd43c79c">More...</a><br /></td></tr>
-<tr class="separator:ae49b822b37337a0744225c3bdd43c79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0a96c657cfe5d9ec637fbe1731a7bd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad0a96c657cfe5d9ec637fbe1731a7bd6">mqtt_task</a> (void)</td></tr>
-<tr class="memdesc:ad0a96c657cfe5d9ec637fbe1731a7bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT Task.  <a href="#ad0a96c657cfe5d9ec637fbe1731a7bd6">More...</a><br /></td></tr>
-<tr class="separator:ad0a96c657cfe5d9ec637fbe1731a7bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21575354e8ec54fa31f581ed1838be79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a21575354e8ec54fa31f581ed1838be79">stream_task</a> (Stream *stream, uint32_t stream_timeout, uint32_t end_task_timeout)</td></tr>
-<tr class="memdesc:a21575354e8ec54fa31f581ed1838be79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream Task.  <a href="#a21575354e8ec54fa31f581ed1838be79">More...</a><br /></td></tr>
-<tr class="separator:a21575354e8ec54fa31f581ed1838be79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad61a7a94cdd76d63031bbe2972057659"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad61a7a94cdd76d63031bbe2972057659">rtc_interrupt_handler</a> (void)</td></tr>
 <tr class="memdesc:ad61a7a94cdd76d63031bbe2972057659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real Time Clock interrupt handler.  <a href="#ad61a7a94cdd76d63031bbe2972057659">More...</a><br /></td></tr>
 <tr class="separator:ad61a7a94cdd76d63031bbe2972057659"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -393,22 +340,6 @@ volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>ready_tas
 <tr class="memitem:a78178f418362740f92f9e8b16aebb380"><td class="memItemLeft" align="right" valign="top"><a id="a78178f418362740f92f9e8b16aebb380"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>awakened_event_occurred_time_ms</b></td></tr>
 <tr class="separator:a78178f418362740f92f9e8b16aebb380"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a552b54fa96e90cd6565fb71968e9fc5a"><td class="memItemLeft" align="right" valign="top"><a id="a552b54fa96e90cd6565fb71968e9fc5a"></a>
-SdFat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a552b54fa96e90cd6565fb71968e9fc5a">SD</a></td></tr>
-<tr class="memdesc:a552b54fa96e90cd6565fb71968e9fc5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SD-Card structure. <br /></td></tr>
-<tr class="separator:a552b54fa96e90cd6565fb71968e9fc5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accc3044dc5c2625353cfb41b309c883d"><td class="memItemLeft" align="right" valign="top"><a id="accc3044dc5c2625353cfb41b309c883d"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#accc3044dc5c2625353cfb41b309c883d">read_data_file</a></td></tr>
-<tr class="memdesc:accc3044dc5c2625353cfb41b309c883d"><td class="mdescLeft">&#160;</td><td class="mdescRight">File structure for read data stored on SD-Card. <br /></td></tr>
-<tr class="separator:accc3044dc5c2625353cfb41b309c883d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5766a19f9e7176fe5573021ef49d6e5d"><td class="memItemLeft" align="right" valign="top"><a id="a5766a19f9e7176fe5573021ef49d6e5d"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a5766a19f9e7176fe5573021ef49d6e5d">write_data_file</a></td></tr>
-<tr class="memdesc:a5766a19f9e7176fe5573021ef49d6e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">File structure for write data stored on SD-Card. <br /></td></tr>
-<tr class="separator:a5766a19f9e7176fe5573021ef49d6e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4b1a751f0188d2a28ab680482fc0984"><td class="memItemLeft" align="right" valign="top"><a id="ad4b1a751f0188d2a28ab680482fc0984"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad4b1a751f0188d2a28ab680482fc0984">mqtt_ptr_file</a></td></tr>
-<tr class="memdesc:ad4b1a751f0188d2a28ab680482fc0984"><td class="mdescLeft">&#160;</td><td class="mdescRight">File structure for read and write data pointer stored on SD-Card for mqtt send. <br /></td></tr>
-<tr class="separator:ad4b1a751f0188d2a28ab680482fc0984"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2765db5c6ff0cd5266f528c32d9e1377"><td class="memItemLeft" align="right" valign="top"><a id="a2765db5c6ff0cd5266f528c32d9e1377"></a>
 EthernetUDP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a2765db5c6ff0cd5266f528c32d9e1377">eth_udp_client</a></td></tr>
 <tr class="memdesc:a2765db5c6ff0cd5266f528c32d9e1377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet UDP client structure. <br /></td></tr>
@@ -417,10 +348,6 @@ EthernetUDP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 EthernetClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#abdcb198b5489995a350bc73d1d5f4f6d">eth_tcp_client</a></td></tr>
 <tr class="memdesc:abdcb198b5489995a350bc73d1d5f4f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet TCP client structure. <br /></td></tr>
 <tr class="separator:abdcb198b5489995a350bc73d1d5f4f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ba5e40cce164049fd8104ea673e56a9"><td class="memItemLeft" align="right" valign="top"><a id="a4ba5e40cce164049fd8104ea673e56a9"></a>
-MQTT::Client&lt; IPStack, Countdown, <a class="el" href="mqtt__config_8h.html#a6d3b5b0f9c41b605e608f7d460491be6">MQTT_ROOT_TOPIC_LENGTH</a>+<a class="el" href="mqtt__config_8h.html#a85772fcdfe85fa51f02f3045c0aa7764">MQTT_SENSOR_TOPIC_LENGTH</a>+<a class="el" href="mqtt__config_8h.html#a0fff77926fd907aeb2c03f60600d136c">MQTT_MESSAGE_LENGTH</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a4ba5e40cce164049fd8104ea673e56a9">mqtt_client</a> = MQTT::Client&lt;IPStack, Countdown, <a class="el" href="mqtt__config_8h.html#a6d3b5b0f9c41b605e608f7d460491be6">MQTT_ROOT_TOPIC_LENGTH</a>+<a class="el" href="mqtt__config_8h.html#a85772fcdfe85fa51f02f3045c0aa7764">MQTT_SENSOR_TOPIC_LENGTH</a>+<a class="el" href="mqtt__config_8h.html#a0fff77926fd907aeb2c03f60600d136c">MQTT_MESSAGE_LENGTH</a>, 1&gt;(<a class="el" href="rmap_8h.html#a447e41b96c37bcba88cba66f6ebb7878">ipstack</a>, <a class="el" href="rmap-config_8h.html#a578ee6f26618a9f795fb5828663431f0">IP_STACK_TIMEOUT_MS</a>)</td></tr>
-<tr class="memdesc:a4ba5e40cce164049fd8104ea673e56a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT Client structure. <br /></td></tr>
-<tr class="separator:a4ba5e40cce164049fd8104ea673e56a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe8658551453cd97976b7a1490deaf36"><td class="memItemLeft" align="right" valign="top"><a id="afe8658551453cd97976b7a1490deaf36"></a>
 <a class="el" href="classSensorDriver.html">SensorDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>sensors</b> [<a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>]</td></tr>
 <tr class="separator:afe8658551453cd97976b7a1490deaf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -464,30 +391,14 @@ time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rm
 time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a14818043a8a96a96433b3af2a9f5821d">last_lcd_begin</a></td></tr>
 <tr class="memdesc:a14818043a8a96a96433b3af2a9f5821d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last date and time when LCD was initializated. <br /></td></tr>
 <tr class="separator:a14818043a8a96a96433b3af2a9f5821d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5cfddd994a6ae87b425e5fad249627c"><td class="memItemLeft" align="right" valign="top"><a id="ad5cfddd994a6ae87b425e5fad249627c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad5cfddd994a6ae87b425e5fad249627c">is_sdcard_open</a></td></tr>
-<tr class="memdesc:ad5cfddd994a6ae87b425e5fad249627c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the SD-Card is ready. <br /></td></tr>
-<tr class="separator:ad5cfddd994a6ae87b425e5fad249627c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01167fb785c25e02aa85971cd3661c83"><td class="memItemLeft" align="right" valign="top"><a id="a01167fb785c25e02aa85971cd3661c83"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a01167fb785c25e02aa85971cd3661c83">is_sdcard_error</a></td></tr>
-<tr class="memdesc:a01167fb785c25e02aa85971cd3661c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the SD-Card is in error. <br /></td></tr>
-<tr class="separator:a01167fb785c25e02aa85971cd3661c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad357c442547dc2dffb84c3bb00ca598f"><td class="memItemLeft" align="right" valign="top"><a id="ad357c442547dc2dffb84c3bb00ca598f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad357c442547dc2dffb84c3bb00ca598f">is_mqtt_subscribed</a></td></tr>
-<tr class="memdesc:ad357c442547dc2dffb84c3bb00ca598f"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, MQTT Client is subscribed to receive topic. <br /></td></tr>
-<tr class="separator:ad357c442547dc2dffb84c3bb00ca598f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32f51b4770251d9a1f7a09084f0e33e8"><td class="memItemLeft" align="right" valign="top"><a id="a32f51b4770251d9a1f7a09084f0e33e8"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a32f51b4770251d9a1f7a09084f0e33e8">client_id</a> [<a class="el" href="mqtt__config_8h.html#a16c3df993e6090c9e607113aaf5421f6">MQTT_CLIENT_ID_LENGTH</a>]</td></tr>
-<tr class="memdesc:a32f51b4770251d9a1f7a09084f0e33e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT client id. <br /></td></tr>
-<tr class="separator:a32f51b4770251d9a1f7a09084f0e33e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9091d56127961a7b12439867a06207"><td class="memItemLeft" align="right" valign="top"><a id="aab9091d56127961a7b12439867a06207"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#aab9091d56127961a7b12439867a06207">will_topic</a> [<a class="el" href="mqtt__config_8h.html#a6d3b5b0f9c41b605e608f7d460491be6">MQTT_ROOT_TOPIC_LENGTH</a>+<a class="el" href="mqtt__config_8h.html#a85772fcdfe85fa51f02f3045c0aa7764">MQTT_SENSOR_TOPIC_LENGTH</a>]</td></tr>
-<tr class="memdesc:aab9091d56127961a7b12439867a06207"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT topic for publish will message. <br /></td></tr>
-<tr class="separator:aab9091d56127961a7b12439867a06207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae72470afb2225cadcc08d0d8fc6d424"><td class="memItemLeft" align="right" valign="top"><a id="aae72470afb2225cadcc08d0d8fc6d424"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#aae72470afb2225cadcc08d0d8fc6d424">json_sensors_data</a> [<a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>][<a class="el" href="json__config_8h.html#a0a84205906d82fe38eb136a6384fd1c8">JSON_BUFFER_LENGTH</a>]</td></tr>
 <tr class="memdesc:aae72470afb2225cadcc08d0d8fc6d424"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer containing the data read by sensors in json text format. <br /></td></tr>
 <tr class="separator:aae72470afb2225cadcc08d0d8fc6d424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad310fb9f141322f846b112271f406967"><td class="memItemLeft" align="right" valign="top"><a id="ad310fb9f141322f846b112271f406967"></a>
+int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad310fb9f141322f846b112271f406967">values_readed_from_sensor</a> [<a class="el" href="rmap-config_8h.html#af18dc3de744722cb308451b7a705611b">USE_SENSORS_COUNT</a>][<a class="el" href="sensors__config_8h.html#a84d7e30b4b359d20293dc9db0b338a5c">VALUES_TO_READ_FROM_SENSOR_COUNT</a>]</td></tr>
+<tr class="memdesc:ad310fb9f141322f846b112271f406967"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer containing the data read by sensors in numeric format. <br /></td></tr>
+<tr class="separator:ad310fb9f141322f846b112271f406967"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3765c79f297466a23325d66c036810d"><td class="memItemLeft" align="right" valign="top"><a id="ad3765c79f297466a23325d66c036810d"></a>
 volatile time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad3765c79f297466a23325d66c036810d">next_ptr_time_for_sensors_reading</a></td></tr>
 <tr class="memdesc:ad3765c79f297466a23325d66c036810d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Next scheduled time (in seconds since 01/01/1970 00:0:00) for sensors reading. <br /></td></tr>
@@ -498,7 +409,7 @@ volatile tmElements_t&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <tr class="separator:aeec8f1692cef357b0f4993acd2091e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62f2d48ad2d1b6b57531fcb55aab92a"><td class="memItemLeft" align="right" valign="top"><a id="ab62f2d48ad2d1b6b57531fcb55aab92a"></a>
 time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ab62f2d48ad2d1b6b57531fcb55aab92a">ptr_time_data</a></td></tr>
-<tr class="memdesc:ab62f2d48ad2d1b6b57531fcb55aab92a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Readed data pointer stored on SD-Card for mqtt send. <br /></td></tr>
+<tr class="memdesc:ab62f2d48ad2d1b6b57531fcb55aab92a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Readed data pointer stored on SD-Card for data send. <br /></td></tr>
 <tr class="separator:ab62f2d48ad2d1b6b57531fcb55aab92a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ceb1f2d624bd4c8ac2b44eb593584e0"><td class="memItemLeft" align="right" valign="top"><a id="a7ceb1f2d624bd4c8ac2b44eb593584e0"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a7ceb1f2d624bd4c8ac2b44eb593584e0">stima_name</a> [20]</td></tr>
@@ -522,18 +433,10 @@ char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 <tr class="memitem:a9fa8748c910383c5584502d00e3b36c2"><td class="memItemLeft" align="right" valign="top"><a id="a9fa8748c910383c5584502d00e3b36c2"></a>
 <a class="el" href="i2c-th_8h.html#a48bef3d022ff6f88967496ad53a6b953">sensors_reading_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sensors_reading_state</b></td></tr>
 <tr class="separator:a9fa8748c910383c5584502d00e3b36c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8e73c4c6e8c2a77fd6d5b2763aa7ef9"><td class="memItemLeft" align="right" valign="top"><a id="ad8e73c4c6e8c2a77fd6d5b2763aa7ef9"></a>
-<a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188">data_saving_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ad8e73c4c6e8c2a77fd6d5b2763aa7ef9">data_saving_state</a></td></tr>
-<tr class="memdesc:ad8e73c4c6e8c2a77fd6d5b2763aa7ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data saving task state. <br /></td></tr>
-<tr class="separator:ad8e73c4c6e8c2a77fd6d5b2763aa7ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf4eb4a280abe9aa1fccf2a181d30344"><td class="memItemLeft" align="right" valign="top"><a id="aaf4eb4a280abe9aa1fccf2a181d30344"></a>
-<a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2a">mqtt_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#aaf4eb4a280abe9aa1fccf2a181d30344">mqtt_state</a></td></tr>
-<tr class="memdesc:aaf4eb4a280abe9aa1fccf2a181d30344"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT task state. <br /></td></tr>
-<tr class="separator:aaf4eb4a280abe9aa1fccf2a181d30344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae71ce4452d78bfb55e2c0727413bf6fa"><td class="memItemLeft" align="right" valign="top"><a id="ae71ce4452d78bfb55e2c0727413bf6fa"></a>
-<a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7ab">stream_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae71ce4452d78bfb55e2c0727413bf6fa">stream_state</a></td></tr>
-<tr class="memdesc:ae71ce4452d78bfb55e2c0727413bf6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream task state. <br /></td></tr>
-<tr class="separator:ae71ce4452d78bfb55e2c0727413bf6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2779f8ef6da1a157663551dbf7540c6"><td class="memItemLeft" align="right" valign="top"><a id="aa2779f8ef6da1a157663551dbf7540c6"></a>
+<a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99">rpc_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#aa2779f8ef6da1a157663551dbf7540c6">rpc_state</a></td></tr>
+<tr class="memdesc:aa2779f8ef6da1a157663551dbf7540c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">RPC task state. <br /></td></tr>
+<tr class="separator:aa2779f8ef6da1a157663551dbf7540c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1bd8ad790d09d991db977cacda3c47f"><td class="memItemLeft" align="right" valign="top"><a id="ae1bd8ad790d09d991db977cacda3c47f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae1bd8ad790d09d991db977cacda3c47f">is_event_supervisor</a></td></tr>
 <tr class="memdesc:ae1bd8ad790d09d991db977cacda3c47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Supervisor task. <br /></td></tr>
@@ -541,6 +444,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 <tr class="memitem:a32eecb76c89988c140a19707949395de"><td class="memItemLeft" align="right" valign="top"><a id="a32eecb76c89988c140a19707949395de"></a>
 volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_event_sensors_reading</b></td></tr>
 <tr class="separator:a32eecb76c89988c140a19707949395de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac688d9e294df7bc6f85018cc1442a73"><td class="memItemLeft" align="right" valign="top"><a id="aac688d9e294df7bc6f85018cc1442a73"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#aac688d9e294df7bc6f85018cc1442a73">is_event_sensors_reading_rpc</a></td></tr>
+<tr class="memdesc:aac688d9e294df7bc6f85018cc1442a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Sensors reading task from RPC. <br /></td></tr>
+<tr class="separator:aac688d9e294df7bc6f85018cc1442a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37ffdd300f5bc8929b3bd03080029340"><td class="memItemLeft" align="right" valign="top"><a id="a37ffdd300f5bc8929b3bd03080029340"></a>
 volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a37ffdd300f5bc8929b3bd03080029340">is_event_rtc</a></td></tr>
 <tr class="memdesc:a37ffdd300f5bc8929b3bd03080029340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Real Time Clock task. <br /></td></tr>
@@ -553,60 +460,12 @@ volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a43e1012e1a33c368bc1c476d910b6455">is_event_ethernet</a></td></tr>
 <tr class="memdesc:a43e1012e1a33c368bc1c476d910b6455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Ethernet task. <br /></td></tr>
 <tr class="separator:a43e1012e1a33c368bc1c476d910b6455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a973a9acc01359d869d45e68da61f19b6"><td class="memItemLeft" align="right" valign="top"><a id="a973a9acc01359d869d45e68da61f19b6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a973a9acc01359d869d45e68da61f19b6">is_event_data_saving</a></td></tr>
-<tr class="memdesc:a973a9acc01359d869d45e68da61f19b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Data saving task. <br /></td></tr>
-<tr class="separator:a973a9acc01359d869d45e68da61f19b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2c65544c215ff98873ea71757eb6e36"><td class="memItemLeft" align="right" valign="top"><a id="ae2c65544c215ff98873ea71757eb6e36"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#ae2c65544c215ff98873ea71757eb6e36">is_event_mqtt</a></td></tr>
-<tr class="memdesc:ae2c65544c215ff98873ea71757eb6e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the MQTT task. <br /></td></tr>
-<tr class="separator:ae2c65544c215ff98873ea71757eb6e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc27aa8a22a1aea610c2e638f3fd5c0b"><td class="memItemLeft" align="right" valign="top"><a id="afc27aa8a22a1aea610c2e638f3fd5c0b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#afc27aa8a22a1aea610c2e638f3fd5c0b">is_event_mqtt_paused</a></td></tr>
-<tr class="memdesc:afc27aa8a22a1aea610c2e638f3fd5c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the MQTT task is in pause (need resume). <br /></td></tr>
-<tr class="separator:afc27aa8a22a1aea610c2e638f3fd5c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a034de205ba53a6d1258c468492e784cd"><td class="memItemLeft" align="right" valign="top"><a id="a034de205ba53a6d1258c468492e784cd"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a034de205ba53a6d1258c468492e784cd">is_event_stream</a></td></tr>
-<tr class="memdesc:a034de205ba53a6d1258c468492e784cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the Strem task. <br /></td></tr>
-<tr class="separator:a034de205ba53a6d1258c468492e784cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75cb403d59879276f208267d068ae03f"><td class="memItemLeft" align="right" valign="top"><a id="a75cb403d59879276f208267d068ae03f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap_8h.html#a75cb403d59879276f208267d068ae03f">is_event_rpc</a></td></tr>
+<tr class="memdesc:a75cb403d59879276f208267d068ae03f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if RPC is active or not. <br /></td></tr>
+<tr class="separator:a75cb403d59879276f208267d068ae03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a890f00ea5c43b52d0acd0d2dbc67e188"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a890f00ea5c43b52d0acd0d2dbc67e188">&#9670;&nbsp;</a></span>data_saving_state_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="rmap_8h.html#a890f00ea5c43b52d0acd0d2dbc67e188">data_saving_state_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data saving task finite state machine. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188a9676cb6137dc982a78008b74d04c4129"></a>DATA_SAVING_INIT&#160;</td><td class="fielddoc"><p>init task variables </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188ae39f03e395bf182e7f92cc16b98fc2de"></a>DATA_SAVING_OPEN_SDCARD&#160;</td><td class="fielddoc"><p>if not already open </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188aac704d8a92ae0c74182d5c208969abe3"></a>DATA_SAVING_OPEN_FILE&#160;</td><td class="fielddoc"><p>open sdcard file for saving new data </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188ae6689e6f9a0f334a0bd0ab41dae53fd7"></a>DATA_SAVING_SENSORS_LOOP&#160;</td><td class="fielddoc"><p>loop on the sensors </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188aaf8488faff968be1f0fdfaedefea746b"></a>DATA_SAVING_DATA_LOOP&#160;</td><td class="fielddoc"><p>loop on the sensors data </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188afd990e9f452cde112bd60e50df97be33"></a>DATA_SAVING_WRITE_FILE&#160;</td><td class="fielddoc"><p>write data on sdcard file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188a97fa8a54ea5583f9c4b2e58040f57dfd"></a>DATA_SAVING_CLOSE_FILE&#160;</td><td class="fielddoc"><p>close sdcard file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188ac860ad4ac8467961fc82620e5cfb7c5b"></a>DATA_SAVING_END&#160;</td><td class="fielddoc"><p>performs end operations and deactivate task </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a890f00ea5c43b52d0acd0d2dbc67e188ac5e868c6debf468cb0d0831df2c616ef"></a>DATA_SAVING_WAIT_STATE&#160;</td><td class="fielddoc"><p>non-blocking waiting time </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 <a id="a41694caa7c2afa9fa0f9b3eae96246e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41694caa7c2afa9fa0f9b3eae96246e5">&#9670;&nbsp;</a></span>ethernet_state_t</h2>
 
@@ -635,69 +494,25 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="a9eecd1044ddb5510b71716eedfd15f2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eecd1044ddb5510b71716eedfd15f2a">&#9670;&nbsp;</a></span>mqtt_state_t</h2>
+<a id="a65962b43a96f28b0441699f3317f5b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65962b43a96f28b0441699f3317f5b99">&#9670;&nbsp;</a></span>rpc_state_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="rmap_8h.html#a9eecd1044ddb5510b71716eedfd15f2a">mqtt_state_t</a></td>
+          <td class="memname">enum <a class="el" href="rmap_8h.html#a65962b43a96f28b0441699f3317f5b99">rpc_state_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>MQTT task finite state machine. </p>
+<p>RPC task finite state machine. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aab78e0d91fcdd4c3b9fa2a8daf8da61ee"></a>MQTT_INIT&#160;</td><td class="fielddoc"><p>init task variables </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a65962b43a96f28b0441699f3317f5b99a9efcbbc0fa36777e19bb25599e2cd126"></a>RPC_INIT&#160;</td><td class="fielddoc"><p>init task variables </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa6f072da1e81e5ddb573f53214aef5c29"></a>MQTT_OPEN_SDCARD&#160;</td><td class="fielddoc"><p>if not already open </p>
+<tr><td class="fieldname"><a id="a65962b43a96f28b0441699f3317f5b99a05ecd73c3f49002a3965dc300490bc44"></a>RPC_EXECUTE&#160;</td><td class="fielddoc"><p>execute function loop </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa333fe1685d303726beaf4ab7f79675dc"></a>MQTT_OPEN_PTR_FILE&#160;</td><td class="fielddoc"><p>open mqtt data pointer sdcard file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa88ef6d59236afb176577d29232ac2dbe"></a>MQTT_PTR_READ&#160;</td><td class="fielddoc"><p>read mqtt data pointer </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa4c14dda1eb0b6815720a8825c51a972f"></a>MQTT_PTR_FIND&#160;</td><td class="fielddoc"><p>if not exists, find mqtt data pointer </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aafb016951f241118473fa441f9e255716"></a>MQTT_PTR_FOUND&#160;</td><td class="fielddoc"><p>check if there is data to be send over mqtt </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa976c127fbaa0c71ff67c039a6ead4270"></a>MQTT_PTR_END&#160;</td><td class="fielddoc"><p>performs end operations with mqtt data pointer </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aafc9e8686794d1ce791b2d50be3e0b718"></a>MQTT_OPEN&#160;</td><td class="fielddoc"><p>check mqtt client status </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aab8bd5fe2df05cf458706f4746031101f"></a>MQTT_CHECK&#160;</td><td class="fielddoc"><p>check what kind of data to send: sdcard o current (sdcard fallback) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa1f01f8e725b363e6b107d3d8cfc8586b"></a>MQTT_CONNECT&#160;</td><td class="fielddoc"><p>connect to mqtt server </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa5d00f1aedfa96cebd92f9ee837c3a615"></a>MQTT_ON_CONNECT&#160;</td><td class="fielddoc"><p>doing on connect event routine </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa7dd20d5d68728190c8c1050599b562f7"></a>MQTT_SUBSCRIBE&#160;</td><td class="fielddoc"><p>subscribe to mqtt topic </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa559395ca103488b50d5cb1bebd24a539"></a>MQTT_OPEN_DATA_FILE&#160;</td><td class="fielddoc"><p>open sdcard read data file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aab8529974dafdcc57ae96953df84c4d23"></a>MQTT_SENSORS_LOOP&#160;</td><td class="fielddoc"><p>loop on the sensors </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aabfd381e8944cbb38db3ae9e26be8e5fa"></a>MQTT_DATA_LOOP&#160;</td><td class="fielddoc"><p>loop on the sensors data </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aaa374bf000fce299ee44a155c315be872"></a>MQTT_SD_LOOP&#160;</td><td class="fielddoc"><p>loop from first row to last row of read data file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa18f5c91ee58e3c7af217a99d06bce38a"></a>MQTT_PUBLISH&#160;</td><td class="fielddoc"><p>mqtt publish data </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aadd96b9c4ec8178e82fbbaea103f0af4c"></a>MQTT_CLOSE_DATA_FILE&#160;</td><td class="fielddoc"><p>close sdcard read data file </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa247d31e0fa0c828dfc7e7d2d22ca18b2"></a>MQTT_DISCONNECT&#160;</td><td class="fielddoc"><p>disconnect from mqtt server </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aaf72d33e5f5a66855c0f30a1b1184d948"></a>MQTT_ON_DISCONNECT&#160;</td><td class="fielddoc"><p>doing on disconnect event routine </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa373d63f35bc88e697f24d68c1685a0b2"></a>MQTT_PTR_UPDATE&#160;</td><td class="fielddoc"><p>update mqtt data file pointer </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa87cbbb025c198e8a13e05e43090b1012"></a>MQTT_CLOSE_PTR_FILE&#160;</td><td class="fielddoc"><p>close mqtt data file pointer </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa45ee7f65a13484d4aa294bc91c0bc452"></a>MQTT_CLOSE_SDCARD&#160;</td><td class="fielddoc"><p>close sdcard </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa1c2b0cefef6f30ebcfa09ac728a41aa5"></a>MQTT_END&#160;</td><td class="fielddoc"><p>performs end operations and deactivate task </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a9eecd1044ddb5510b71716eedfd15f2aa690eaf72810b51357bbf8ae62e62cfb6"></a>MQTT_WAIT_STATE&#160;</td><td class="fielddoc"><p>non-blocking waiting time </p>
+<tr><td class="fieldname"><a id="a65962b43a96f28b0441699f3317f5b99ab92c339a5231732ab282e5b2ab4c2463"></a>RPC_END&#160;</td><td class="fielddoc"><p>performs end operations </p>
 </td></tr>
 </table>
 
@@ -789,32 +604,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="a94235530fc35d5e307de374cfca8b7ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94235530fc35d5e307de374cfca8b7ab">&#9670;&nbsp;</a></span>stream_state_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="rmap_8h.html#a94235530fc35d5e307de374cfca8b7ab">stream_state_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stream task finite state machine. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a94235530fc35d5e307de374cfca8b7aba541f21a61fd4ffca270456e725781f7a"></a>STREAM_INIT&#160;</td><td class="fielddoc"><p>init task variables </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a94235530fc35d5e307de374cfca8b7abab5d8bf74432bd63537b006e770df3fed"></a>STREAM_AVAILABLE&#160;</td><td class="fielddoc"><p>check if there are data available in the stream </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a94235530fc35d5e307de374cfca8b7abab9b72ed53e734c811d2de663ac42d0cd"></a>STREAM_PROCESS&#160;</td><td class="fielddoc"><p>process data </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a94235530fc35d5e307de374cfca8b7aba53fa1bd490c433482f76aa289f43b487"></a>STREAM_END&#160;</td><td class="fielddoc"><p>performs end operations and deactivate task </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 <a id="a3a75eeb98a0ff1f3689694fa76711296"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a75eeb98a0ff1f3689694fa76711296">&#9670;&nbsp;</a></span>supervisor_state_t</h2>
 
@@ -880,24 +669,41 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ae49b822b37337a0744225c3bdd43c79c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae49b822b37337a0744225c3bdd43c79c">&#9670;&nbsp;</a></span>data_saving_task()</h2>
+<a id="a9fb2065f7e6ad6d83a345ec3ad9fc53e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb2065f7e6ad6d83a345ec3ad9fc53e">&#9670;&nbsp;</a></span>configure()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void data_saving_task </td>
+          <td class="memname">int configure </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Data Saving Task. Save acquired sensors data on SD-Card. </p>
-<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<p>RPC configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramname">&amp;result</td><td>json's response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
 
 </div>
 </div>
@@ -919,6 +725,103 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 <p>Ethernet task. Manage Ethernet operation. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="a21a955687ef33653678f682fb8db28c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21a955687ef33653678f682fb8db28c1">&#9670;&nbsp;</a></span>extractSensorsParams()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool extractSensorsParams </td>
+          <td>(</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>driver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract sensor's parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*driver</td><td>driver </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>type </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*address</td><td>address </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*node</td><td>node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
+
+</div>
+</div>
+<a id="ac1661a06a4ffded64245eec994df77e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1661a06a4ffded64245eec994df77e1">&#9670;&nbsp;</a></span>getjson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getjson </td>
+          <td>(</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RPC get json. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramname">&amp;result</td><td>json's response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
 
 </div>
 </div>
@@ -1003,6 +906,27 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 <p>turn off brown-out</p>
 <p>turn off brown-out </p>
+
+</div>
+</div>
+<a id="ae2639477a4b745feda94c3f464a9647d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2639477a4b745feda94c3f464a9647d">&#9670;&nbsp;</a></span>init_rpc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_rpc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register RPC. </p>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 
 </div>
 </div>
@@ -1169,23 +1093,23 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="a447e41b96c37bcba88cba66f6ebb7878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a447e41b96c37bcba88cba66f6ebb7878">&#9670;&nbsp;</a></span>ipstack()</h2>
+<a id="a69af2f624c0d4a3a78c49e7b2d45f9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69af2f624c0d4a3a78c49e7b2d45f9e7">&#9670;&nbsp;</a></span>interrupt_task_1s()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">IPStack ipstack </td>
+          <td class="memname">void interrupt_task_1s </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="rmap_8h.html#abdcb198b5489995a350bc73d1d5f4f6d">eth_tcp_client</a>&#160;</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ethernet IPStack MQTTClient structure. </p>
+<p>1 seconds task. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 
 </div>
@@ -1250,44 +1174,23 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="ad0a96c657cfe5d9ec637fbe1731a7bd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0a96c657cfe5d9ec637fbe1731a7bd6">&#9670;&nbsp;</a></span>mqtt_task()</h2>
+<a id="a39bd6d58305e9595c94d31dbe7a5c554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39bd6d58305e9595c94d31dbe7a5c554">&#9670;&nbsp;</a></span>prepandget()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mqtt_task </td>
+          <td class="memname">int prepandget </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>MQTT Task. </p>
-<dl class="section return"><dt>Returns</dt><dd>void. Read data stored on SD-Card and send it over MQTT. </dd></dl>
-
-</div>
-</div>
-<a id="a9f5e5ca8c47d4536dd1805e89fbb7db2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f5e5ca8c47d4536dd1805e89fbb7db2">&#9670;&nbsp;</a></span>mqttConnect()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mqttConnect </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>username</em>, </td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>password</em>&#160;</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1297,41 +1200,35 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
       </table>
 </div><div class="memdoc">
 
-<p>Use a open tcp socket to connect to the mqtt server. </p>
+<p>RPC prepare and get json. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*username</td><td>Username of mqtt server </td></tr>
-    <tr><td class="paramname">*password</td><td>Password of mqtt server </td></tr>
+    <tr><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramname">&amp;result</td><td>json's response </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if connection was succesful, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
 
 </div>
 </div>
-<a id="a7f6838e898c168812aed181d700f2366"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f6838e898c168812aed181d700f2366">&#9670;&nbsp;</a></span>mqttPublish()</h2>
+<a id="a7ca40c474f67d9c156516a794724ad27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ca40c474f67d9c156516a794724ad27">&#9670;&nbsp;</a></span>prepare()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool mqttPublish </td>
+          <td class="memname">int prepare </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>topic</em>, </td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_retained</em> = <code>false</code>&#160;</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1341,43 +1238,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
       </table>
 </div><div class="memdoc">
 
-<p>Publish message on topic. </p>
+<p>RPC prepare. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*topic</td><td>Topic for mqtt publish </td></tr>
-    <tr><td class="paramname">*message</td><td>Message to be publish </td></tr>
-    <tr><td class="paramname">is_retained</td><td>retained message if true </td></tr>
+    <tr><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramname">&amp;result</td><td>json's response </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if publish was succesful, false otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="a4fe2f970295d296f7f6725fe9e946933"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fe2f970295d296f7f6725fe9e946933">&#9670;&nbsp;</a></span>mqttRxCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void mqttRxCallback </td>
-          <td>(</td>
-          <td class="paramtype">MQTT::MessageData &amp;&#160;</td>
-          <td class="paramname"><em>md</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Register a receive callback for incoming mqtt message. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">&amp;md</td><td>Received data structure </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
 
 </div>
 </div>
@@ -1402,30 +1271,41 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="afba6e70a8bee4b42785eaeca4fd566d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afba6e70a8bee4b42785eaeca4fd566d3">&#9670;&nbsp;</a></span>rpc_process()</h2>
+<a id="a70472d004eec8b9283bc04c6c2dfdd8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70472d004eec8b9283bc04c6c2dfdd8a">&#9670;&nbsp;</a></span>reboot()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char * rpc_process </td>
+          <td class="memname">int reboot </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>json</em></td><td>)</td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">JsonObject &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Process and execute a received Remote Procedure Call (RPC). Useful for configuration. </p>
+<p>RPC reboot. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*json</td><td>message in json text format </td></tr>
+    <tr><td class="paramname">*params</td><td>json's params </td></tr>
+    <tr><td class="paramname">&amp;result</td><td>json's response </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to RPC response. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. </dd></dl>
 
 </div>
 </div>
@@ -1500,8 +1380,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
 
 </div>
 </div>
-<a id="af0e8965583b124096972fe3a9e0e7954"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0e8965583b124096972fe3a9e0e7954">&#9670;&nbsp;</a></span>sensors_reading_task()</h2>
+<a id="a90d236ea13ff80b6932620388be661f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d236ea13ff80b6932620388be661f2">&#9670;&nbsp;</a></span>sensors_reading_task()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1509,51 +1389,74 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
         <tr>
           <td class="memname">void sensors_reading_task </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>do_prepare</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>do_get</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>driver</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>address</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>node</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>sensor_index</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>wait_time</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Sensors reading Task. Read data from sensors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">do_prepare</td><td>if true, execute the prepare sensor's procedure </td></tr>
+    <tr><td class="paramname">do_get</td><td>if true, execute the get sensor's procedure </td></tr>
+    <tr><td class="paramname">*driver</td><td>sensor's driver </td></tr>
+    <tr><td class="paramname">*type</td><td>sensor's type </td></tr>
+    <tr><td class="paramname">*address</td><td>sensor's address </td></tr>
+    <tr><td class="paramname">*node</td><td>sensor's node </td></tr>
+    <tr><td class="paramname">*sensor_index</td><td>sensor's index </td></tr>
+    <tr><td class="paramname">*wait_time</td><td>sensor's wait time </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
-<p>reset internal state of all sensors to default</p>
-<p>prepare sensor and get delay for complete operation</p>
-<p>if there is any delay, wait it. Otherwise go to next.</p>
-<p>success</p>
-<p>retry</p>
-<p>fail</p>
-<p>get VALUES_TO_READ_FROM_SENSOR_COUNT values from sensor and store it in values_readed_from_sensor.</p>
-<p>end of internal sensor state (finished read)</p>
-<p>success</p>
-<p>retry</p>
-<p>fail</p>
-<p>mark error</p>
-<p>go to next sensor</p>
-<p>process other internal sensor state</p>
-<p>read sensor value</p>
-<p>go to next sensor</p>
-<p>end (there are no other sensors to read)</p>
-<p>if it is in continuous mode, do samples processing</p>
-<p>reset internal state of all sensors to default</p>
-<p>prepare sensor and get delay for complete operation</p>
-<p>if there is any delay, wait it. Otherwise go to next.</p>
-<p>success</p>
-<p>retry</p>
-<p>fail</p>
-<p>get VALUES_TO_READ_FROM_SENSOR_COUNT values from sensor and store it in values_readed_from_sensor.</p>
-<p>end of internal sensor state (finished read)</p>
-<p>success</p>
-<p>retry</p>
-<p>fail</p>
-<p>mark error</p>
-<p>go to next sensor</p>
-<p>process other internal sensor state</p>
-<p>read sensor value</p>
-<p>go to next sensor</p>
-<p>end (there are no other sensors to read)</p>
-<p>if it is in continuous mode, do samples processing </p>
 
 </div>
 </div>
@@ -1602,51 +1505,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmap
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
-
-</div>
-</div>
-<a id="a21575354e8ec54fa31f581ed1838be79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21575354e8ec54fa31f581ed1838be79">&#9670;&nbsp;</a></span>stream_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool stream_task </td>
-          <td>(</td>
-          <td class="paramtype">Stream *&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>stream_timeout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>end_task_timeout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stream Task. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">*stream</td><td>Pointer to stream </td></tr>
-    <tr><td class="paramname">stream_timeout</td><td>Timeout for stream </td></tr>
-    <tr><td class="paramname">end_task_timeout</td><td>Timeout for deactivate task after last received bytes Read a stream and process Remote Procedure Call data. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if end_task_timeout was elapsed, false otherwise. </dd></dl>
 
 </div>
 </div>

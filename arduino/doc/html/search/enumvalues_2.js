@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['init',['INIT',['../i2c-rain_8h.html#aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36',1,'INIT():&#160;i2c-rain.h'],['../i2c-th_8h.html#aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36',1,'INIT():&#160;i2c-th.h'],['../rmap_8h.html#aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36',1,'INIT():&#160;rmap.h']]]
+  ['rpc_5fend',['RPC_END',['../rmap_8h.html#a65962b43a96f28b0441699f3317f5b99ab92c339a5231732ab282e5b2ab4c2463',1,'rmap.h']]],
+  ['rpc_5fexecute',['RPC_EXECUTE',['../rmap_8h.html#a65962b43a96f28b0441699f3317f5b99a05ecd73c3f49002a3965dc300490bc44',1,'rmap.h']]],
+  ['rpc_5finit',['RPC_INIT',['../rmap_8h.html#a65962b43a96f28b0441699f3317f5b99a9efcbbc0fa36777e19bb25599e2cd126',1,'rmap.h']]]
 ];

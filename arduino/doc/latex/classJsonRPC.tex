@@ -1,0 +1,32 @@
+\hypertarget{classJsonRPC}{}\section{Json\+R\+PC Class Reference}
+\label{classJsonRPC}\index{Json\+R\+PC@{Json\+R\+PC}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classJsonRPC_a617c430786b5dbce52a312ef80c3957b}\label{classJsonRPC_a617c430786b5dbce52a312ef80c3957b}} 
+{\bfseries Json\+R\+PC} (bool my\+\_\+radio=false)
+\item 
+\mbox{\Hypertarget{classJsonRPC_aae0b81ab3de6cf64c72e0330291555b9}\label{classJsonRPC_aae0b81ab3de6cf64c72e0330291555b9}} 
+int {\bfseries parse\+Stream} (bool $\ast$is\+\_\+active, Stream $\ast$stream, uint32\+\_\+t timeout=J\+R\+P\+C\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+MS)
+\item 
+\mbox{\Hypertarget{classJsonRPC_a011e5dec59c8ef72a3ffe08442afa98c}\label{classJsonRPC_a011e5dec59c8ef72a3ffe08442afa98c}} 
+int {\bfseries callback} (Stream $\ast$stream)
+\item 
+\mbox{\Hypertarget{classJsonRPC_a2d24ec53b8142bb542a3ab89bf56dd22}\label{classJsonRPC_a2d24ec53b8142bb542a3ab89bf56dd22}} 
+void {\bfseries register\+Method} (const char $\ast$method\+Name, int($\ast$callback)(Json\+Object \&, Json\+Object \&))
+\item 
+\mbox{\Hypertarget{classJsonRPC_a6ce8b0716779077a3decf3a0e928308c}\label{classJsonRPC_a6ce8b0716779077a3decf3a0e928308c}} 
+int {\bfseries process\+Message} (Json\+Object \&msg)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classJsonRPC_a7dee13a51ff802762e2130d19c5ed3b9}\label{classJsonRPC_a7dee13a51ff802762e2130d19c5ed3b9}} 
+char {\bfseries input\+\_\+buffer} \mbox{[}J\+R\+P\+C\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+L\+E\+N\+G\+TH\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+sketchbook/libraries/arduino\+Json\+R\+P\+C/arduino\+Json\+R\+P\+C.\+h\item 
+sketchbook/libraries/arduino\+Json\+R\+P\+C/arduino\+Json\+R\+P\+C.\+cpp\end{DoxyCompactItemize}

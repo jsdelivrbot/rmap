@@ -15,7 +15,6 @@ var searchData=
   ['ntp_5freceive_5ftimestamp_5foffset',['NTP_RECEIVE_TIMESTAMP_OFFSET',['../ntp_8h.html#ace39986119607151c9b16cecf698abe1',1,'ntp.h']]],
   ['ntp_5fretry_5fcount_5fmax',['NTP_RETRY_COUNT_MAX',['../rmap-config_8h.html#a5042473c874b6f184bd4dc197feadca9',1,'rmap-config.h']]],
   ['ntp_5fretry_5fdelay_5fms',['NTP_RETRY_DELAY_MS',['../rmap-config_8h.html#aee0934e91270bda3cc3fcaa9082fadc8',1,'rmap-config.h']]],
-  ['ntp_5fserver',['ntp_server',['../structconfiguration__t.html#a8de58dc10dfc6b369f34bae82426be5d',1,'configuration_t']]],
   ['ntp_5fserver_5flength',['NTP_SERVER_LENGTH',['../ntp__config_8h.html#a54153a6aa87c606f585ab167661b1be2',1,'ntp_config.h']]],
   ['ntp_5fserver_5fport',['NTP_SERVER_PORT',['../ntp_8h.html#a57df452a6d54697643631ce3039623d4',1,'ntp.h']]],
   ['ntp_5ftime_5ffor_5fresync_5fs',['NTP_TIME_FOR_RESYNC_S',['../rmap-config_8h.html#ac26c9e27fc41a5f7c43968b47b2d8cfc',1,'rmap-config.h']]],
