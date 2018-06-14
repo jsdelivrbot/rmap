@@ -30,6 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MQTT_ROOT_TOPIC_LENGTH         (50)
 
 /*!
+\def MQTT_MAINT_TOPIC_LENGTH
+\brief Length in bytes for mqtt maint topic.
+*/
+#define MQTT_MAINT_TOPIC_LENGTH        (MQTT_ROOT_TOPIC_LENGTH)
+
+/*!
 \def MQTT_SUBSCRIBE_TOPIC_LENGTH
 \brief Length in bytes for mqtt subscibe topic.
 */
@@ -94,6 +100,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief Default MQTT root topic.
 */
 #define MQTT_DEFAULT_ROOT_TOPIC        ("")
+
+/*!
+\def MQTT_DEFAULT_MAINT_TOPIC
+\brief Default MQTT maint topic.
+*/
+#define MQTT_DEFAULT_MAINT_TOPIC       ("")
 
 /*!
 \def MQTT_DEFAULT_SUBSCRIBE_TOPIC
