@@ -288,7 +288,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <p>read rx_data_length bytes of data from i2c bus</p>
 <p>it is a registers read?</p>
 <p>offset in readable_data_read_ptr buffer</p>
-<p>length (in butes) of data to be read in readable_data_read_ptr</p>
+<p>length (in bytes) of data to be read in readable_data_read_ptr</p>
 <p>it is a command?</p>
 <p>enable Command task</p>
 <p>it is a registers write? </p>
@@ -707,11 +707,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <p>good observation counter</p>
 <p>error observation counter</p>
 <p>standard deviation</p>
+<p>reset value to default</p>
 <p>counter of the number of observation in memory</p>
 <p>if true, you can calculate the value for report (there are at least STATISTICAL_DATA_COUNT observations)</p>
 <p>initialize write ptr</p>
 <p>calculate write_ptr: if the end is reached, reset to the first address, else increment by one</p>
-<p>reset value to default</p>
 <p>loop until I have finished processing the last STATISTICAL_DATA_COUNT observations</p>
 <p>if it is a good observation, calculate sum, minimum and maximum value. Otherwise increment error counter.</p>
 <p>assign minimum to report value</p>

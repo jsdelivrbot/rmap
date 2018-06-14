@@ -223,7 +223,6 @@ var searchData=
   ['state',['state',['../classSIM800.html#a825f975081ae033934dca5404895246d',1,'SIM800::state()'],['../i2c-rain_8h.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'state():&#160;i2c-rain.h']]],
   ['state_5ft',['state_t',['../i2c-rain_8h.html#aa0aafed44fec19806d8f9ad834be1248',1,'state_t():&#160;i2c-rain.h'],['../i2c-th_8h.html#aa0aafed44fec19806d8f9ad834be1248',1,'state_t():&#160;i2c-th.h'],['../rmap_8h.html#aa0aafed44fec19806d8f9ad834be1248',1,'state_t():&#160;rmap.h']]],
   ['statistical_5fdata_5fcount',['STATISTICAL_DATA_COUNT',['../sensors__config_8h.html#a8c9d131a88fa3910b344007003f0f417',1,'sensors_config.h']]],
-  ['status_5ft',['status_t',['../structstatus__t.html',1,'']]],
   ['stima_5fmodule_2eh',['stima_module.h',['../stima__module_8h.html',1,'']]],
   ['stima_5fmodule_5fname_5fpassive',['STIMA_MODULE_NAME_PASSIVE',['../stima__module_8h.html#af387d996d53adbab5b6564b1f77a14bf',1,'stima_module.h']]],
   ['stima_5fmodule_5fname_5fpassive_5feth',['STIMA_MODULE_NAME_PASSIVE_ETH',['../stima__module_8h.html#a891c1fd6e60c47ddf7f8dff2bd3c6997',1,'stima_module.h']]],

@@ -71,9 +71,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a240a988351da007adac832e7ffb851c9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHyt2X1.html#a240a988351da007adac832e7ffb851c9">hyt_initRead</a> (uint8_t address)</td></tr>
-<tr class="memdesc:a240a988351da007adac832e7ffb851c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init sensor read.  <a href="#a240a988351da007adac832e7ffb851c9">More...</a><br /></td></tr>
-<tr class="separator:a240a988351da007adac832e7ffb851c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c47620fc3a7b6573620f84f26d33ab5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHyt2X1.html#a5c47620fc3a7b6573620f84f26d33ab5">hyt_initRead</a> (uint8_t address)</td></tr>
+<tr class="memdesc:a5c47620fc3a7b6573620f84f26d33ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init sensor read.  <a href="#a5c47620fc3a7b6573620f84f26d33ab5">More...</a><br /></td></tr>
+<tr class="separator:a5c47620fc3a7b6573620f84f26d33ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69220922c024c6ab149fee8ad4080a5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHyt2X1.html#a69220922c024c6ab149fee8ad4080a5d">hyt_read</a> (int8_t address, float *humidity, float *temperature)</td></tr>
 <tr class="memdesc:a69220922c024c6ab149fee8ad4080a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the humidty and temperature from hyt2X1 sensor at specified address.  <a href="#a69220922c024c6ab149fee8ad4080a5d">More...</a><br /></td></tr>
 <tr class="separator:a69220922c024c6ab149fee8ad4080a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,14 +168,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a240a988351da007adac832e7ffb851c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a240a988351da007adac832e7ffb851c9">&#9670;&nbsp;</a></span>hyt_initRead()</h2>
+<a id="a5c47620fc3a7b6573620f84f26d33ab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c47620fc3a7b6573620f84f26d33ab5">&#9670;&nbsp;</a></span>hyt_initRead()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t Hyt2X1::hyt_initRead </td>
+          <td class="memname">bool Hyt2X1::hyt_initRead </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>address</em></td><td>)</td>
@@ -191,7 +191,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint32_t sensors conversion time. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if success. </dd></dl>
 
 </div>
 </div>

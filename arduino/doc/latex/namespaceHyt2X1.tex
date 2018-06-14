@@ -8,7 +8,7 @@ H\+Y\+T2\+X1 namespace.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-uint32\+\_\+t \hyperlink{namespaceHyt2X1_a240a988351da007adac832e7ffb851c9}{hyt\+\_\+init\+Read} (uint8\+\_\+t address)
+bool \hyperlink{namespaceHyt2X1_a5c47620fc3a7b6573620f84f26d33ab5}{hyt\+\_\+init\+Read} (uint8\+\_\+t address)
 \begin{DoxyCompactList}\small\item\em Init sensor read. \end{DoxyCompactList}\item 
 bool \hyperlink{namespaceHyt2X1_a69220922c024c6ab149fee8ad4080a5d}{hyt\+\_\+read} (int8\+\_\+t address, float $\ast$humidity, float $\ast$temperature)
 \begin{DoxyCompactList}\small\item\em Returns the humidty and temperature from hyt2\+X1 sensor at specified address. \end{DoxyCompactList}\item 
@@ -68,11 +68,11 @@ Init sensor.
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespaceHyt2X1_a240a988351da007adac832e7ffb851c9}\label{namespaceHyt2X1_a240a988351da007adac832e7ffb851c9}} 
+\mbox{\Hypertarget{namespaceHyt2X1_a5c47620fc3a7b6573620f84f26d33ab5}\label{namespaceHyt2X1_a5c47620fc3a7b6573620f84f26d33ab5}} 
 \index{Hyt2\+X1@{Hyt2\+X1}!hyt\+\_\+init\+Read@{hyt\+\_\+init\+Read}}
 \index{hyt\+\_\+init\+Read@{hyt\+\_\+init\+Read}!Hyt2\+X1@{Hyt2\+X1}}
 \subsubsection{\texorpdfstring{hyt\+\_\+init\+Read()}{hyt\_initRead()}}
-{\footnotesize\ttfamily uint32\+\_\+t Hyt2\+X1\+::hyt\+\_\+init\+Read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Hyt2\+X1\+::hyt\+\_\+init\+Read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address }\end{DoxyParamCaption})}
 
 
 
@@ -84,7 +84,7 @@ Init sensor read.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-uint32\+\_\+t sensors conversion time. 
+true if success. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{namespaceHyt2X1_a950d46e4e993f893d99139d0443d7ca3}\label{namespaceHyt2X1_a950d46e4e993f893d99139d0443d7ca3}} 
 \index{Hyt2\+X1@{Hyt2\+X1}!hyt\+\_\+off@{hyt\+\_\+off}}

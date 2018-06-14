@@ -154,7 +154,7 @@ it is a registers read?
 
 offset in readable\+\_\+data\+\_\+read\+\_\+ptr buffer
 
-length (in butes) of data to be read in readable\+\_\+data\+\_\+read\+\_\+ptr
+length (in bytes) of data to be read in readable\+\_\+data\+\_\+read\+\_\+ptr
 
 it is a command?
 
@@ -425,6 +425,8 @@ error observation counter
 
 standard deviation
 
+reset value to default
+
 counter of the number of observation in memory
 
 if true, you can calculate the value for report (there are at least S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations)
@@ -432,8 +434,6 @@ if true, you can calculate the value for report (there are at least S\+T\+A\+T\+
 initialize write ptr
 
 calculate write\+\_\+ptr\+: if the end is reached, reset to the first address, else increment by one
-
-reset value to default
 
 loop until I have finished processing the last S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations
 
