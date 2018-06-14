@@ -1,11 +1,11 @@
-/**********************************************************************
+/*****************************************************************//**
 Copyright (C) 2017  Marco Baldinetti <m.baldinetti@digiteco.it>
 authors:
 Marco Baldinetti <m.baldinetti@digiteco.it>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
-published by the Free Software Foundation; either version 2 of 
+published by the Free Software Foundation; either version 2 of
 the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
@@ -17,24 +17,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include <Wire.h>
-#include <hyt271.h>
+#include <hyt2x1.h>
 
-void test_read_ht() {
+#define POWER_PIN  (13)
+
+void test_read_ht(int8_t address) {
   float humidity;
   float temperature;
 
-  Wire.beginTransmission(I2C_HYT271_DEFAULT_ADDRESS);
+  Serial.print("Sensor HYT2X1 on 0x");
+  Serial.print(address,HEX);
+  Serial.println("");
 
-  // Request 4 bytes at default address 0x28: 2 bytes for Humidity and 2 bytes for Temperature
-  Wire.requestFrom(I2C_HYT271_DEFAULT_ADDRESS, I2C_HYT271_READ_HT_DATA_LENGTH);
-
-  if (Wire.available() == I2C_HYT271_READ_HT_DATA_LENGTH) {
-    HYT271_getHT((unsigned long) Wire.read() << 24 | (unsigned long) Wire.read() << 16 | (unsigned long) Wire.read() << 8 | (unsigned long) Wire.read(), &humidity, &temperature);    
-    Serial.print("Sensor HYT271 on 0x");
-    Serial.print(I2C_HYT271_DEFAULT_ADDRESS,HEX);
-    Serial.println("");
-    
+  if (Hyt2X1::hyt_read(address, &humidity, &temperature)) {
     Serial.print("---> Humidity: ");
     Serial.print(humidity);
     Serial.print(" % \t\tB13003: ");
@@ -49,20 +44,27 @@ void test_read_ht() {
     Serial.println("");
     Serial.println("");
   }
+  else {
+    Serial.println("---> Not Found !!!");
+    Serial.println("");
+  }
 
-  Wire.endTransmission();
-
-  humidity = 0;
-  temperature = 0;
+  humidity = 0xFFFF;
+  temperature = 0xFFFF;
 }
 
 void setup() {
+  // Hyt2X1::init(POWER_PIN);
+  Hyt2X1::hyt_initRead(0x28);
   Serial.begin(115200);
   Wire.begin();
   Wire.setClock(50000L);
+  //Hyt2X1::changeAddress(POWER_PIN, 0x29, 0x28);
 }
 
 void loop() {
-  test_read_ht();
-  delay(5000);
+  test_read_ht(0x28);
+  delay(1000);
+  // test_read_ht(0x29);
+  // delay(1000);
 }
