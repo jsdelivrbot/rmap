@@ -47,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define SENSOR_DRIVER_C_TO_K      (27315l)
 
+#define isValid(v)                ((uint16_t) v != UINT16_MAX)
+
 #if (USE_JSON)
 #include <json_config.h>
 #include <ArduinoJson.h>
@@ -286,8 +288,6 @@ protected:
 };
 
 #if (USE_SENSOR_ADT)
-#define SENSOR_DRIVER_ADT_TEMPERATURE_MIN       (SENSOR_DRIVER_C_TO_K + (-40 * 100))
-#define SENSOR_DRIVER_ADT_TEMPERATURE_MAX       (SENSOR_DRIVER_C_TO_K + (120 * 100))
 class SensorDriverAdt7420 : public SensorDriver {
 public:
    SensorDriverAdt7420(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -325,10 +325,6 @@ protected:
 #endif
 
 #if (USE_SENSOR_HIH)
-#define SENSOR_DRIVER_HIH_HUMIDITY_MIN          (0)
-#define SENSOR_DRIVER_HIH_HUMIDITY_MAX          (100)
-#define SENSOR_DRIVER_HIH_TEMPERATURE_MIN       (SENSOR_DRIVER_C_TO_K + (-25 * 100))
-#define SENSOR_DRIVER_HIH_TEMPERATURE_MAX       (SENSOR_DRIVER_C_TO_K + (85 * 100))
 class SensorDriverHih6100 : public SensorDriver {
 public:
    SensorDriverHih6100(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -367,10 +363,6 @@ protected:
 
 #if (USE_SENSOR_HYT)
 #include <hyt2x1.h>
-#define SENSOR_DRIVER_HYT2X1_HUMIDITY_MIN       (HYT2X1_HUMIDITY_MIN)
-#define SENSOR_DRIVER_HYT2X1_HUMIDITY_MAX       (HYT2X1_HUMIDITY_MAX)
-#define SENSOR_DRIVER_HYT2X1_TEMPERATURE_MIN    (SENSOR_DRIVER_C_TO_K + (HYT2X1_TEMPERATURE_MIN * 100))
-#define SENSOR_DRIVER_HYT2X1_TEMPERATURE_MAX    (SENSOR_DRIVER_C_TO_K + (HYT2X1_TEMPERATURE_MAX * 100))
 class SensorDriverHyt2X1 : public SensorDriver {
 public:
    SensorDriverHyt2X1(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -408,11 +400,8 @@ protected:
 #endif
 
 #if (USE_SENSOR_DW1)
-#include "registers-wind.h"
-#define SENSOR_DRIVER_DD_MIN           (0)
-#define SENSOR_DRIVER_DD_MAX           (360)
-#define SENSOR_DRIVER_FF_MIN           (0)
-#define SENSOR_DRIVER_FF_MAX           (200)
+#include <math.h>
+#include "registers-windsonic.h"
 class SensorDriverDw1 : public SensorDriver {
 public:
    SensorDriverDw1(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -428,6 +417,7 @@ public:
    void setup(const uint8_t address, const uint8_t node = 0);
    void prepare();
    void get(int32_t *values, uint8_t length);
+   void getSDfromUV(int32_t u, int32_t v, double *speed, double *direction);
 
    #if (USE_JSON)
    void getJson(int32_t *values, uint8_t length, char *json_buffer, size_t json_buffer_length = JSON_BUFFER_LENGTH);
@@ -443,10 +433,11 @@ protected:
 
    enum {
       INIT,
-      SET_DD_ADDRESS,
-      READ_DD,
-      SET_FF_ADDRESS,
-      READ_FF,
+      SET_MEANU_ADDRESS,
+      READ_MEANU,
+      SET_MEANV_ADDRESS,
+      READ_MEANV,
+      ELABORATE,
       END
    } _get_state;
 };
@@ -454,8 +445,6 @@ protected:
 
 #if (USE_SENSOR_TBS || USE_SENSOR_TBR)
 #include "registers-rain.h"
-#define SENSOR_DRIVER_RAIN_MIN      (0)
-#define SENSOR_DRIVER_RAIN_MAX      (300)
 class SensorDriverRain : public SensorDriver {
 public:
    SensorDriverRain(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -495,10 +484,6 @@ protected:
 
 #if (USE_SENSOR_STH || USE_SENSOR_ITH || USE_SENSOR_MTH || USE_SENSOR_NTH || USE_SENSOR_XTH)
 #include "registers-th.h"
-#define SENSOR_DRIVER_TEMPERATURE_MIN       (SENSOR_DRIVER_C_TO_K + (-50 * 100))
-#define SENSOR_DRIVER_TEMPERATURE_MAX       (SENSOR_DRIVER_C_TO_K + (130 * 100))
-#define SENSOR_DRIVER_HUMIDITY_MIN          (0)
-#define SENSOR_DRIVER_HUMIDITY_MAX          (100)
 class SensorDriverTh : public SensorDriver {
 public:
    SensorDriverTh(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
@@ -540,19 +525,6 @@ protected:
 
 #if (USE_SENSOR_DEP)
 #include "digiteco_power.h"
-#define SENSOR_DRIVER_INPUT_VOLTAGE_MIN_V       (0 * 10)
-#define SENSOR_DRIVER_INPUT_VOLTAGE_MAX_V       (30 * 10)
-#define SENSOR_DRIVER_INPUT_CURRENT_MIN_mA      (0)
-#define SENSOR_DRIVER_INPUT_CURRENT_MAX_mA      (5000)
-#define SENSOR_DRIVER_BATTERY_VOLTAGE_MIN_V     (0 * 10)
-#define SENSOR_DRIVER_BATTERY_VOLTAGE_MAX_V     (16 * 10)
-#define SENSOR_DRIVER_BATTERY_CURRENT_MIN_mA    (-5000)
-#define SENSOR_DRIVER_BATTERY_CURRENT_MAX_mA    (5000)
-#define SENSOR_DRIVER_BATTERY_CHARGE_MIN        (0)
-#define SENSOR_DRIVER_BATTERY_CHARGE_MAX        (100)
-#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MIN_V      (0 * 10)
-#define SENSOR_DRIVER_OUTPUT_VOLTAGE_MAX_V      (6 * 10)
-
 class SensorDriverDigitecoPower : public SensorDriver {
 public:
    SensorDriverDigitecoPower(const char* driver, const char* type, bool *is_setted, bool *is_prepared) : SensorDriver(driver, type) {
