@@ -30,10 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * MODULE
 *********************************************************************/
 /*!
-\def MODULE_VERSION
-\brief Module version.
+\def MODULE_MAIN_VERSION
+\brief Module main version.
 */
-#define MODULE_VERSION                                (3)
+#define MODULE_MAIN_VERSION                           (3)
+
+/*!
+\def MODULE_MINOR_VERSION
+\brief Module minor version.
+*/
+#define MODULE_MINOR_VERSION                          (1)
 
 /*!
 \def MODULE_TYPE
@@ -156,6 +162,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief Default mqtt root topic.
 */
 #define CONFIGURATION_DEFAULT_MQTT_ROOT_TOPIC         (MQTT_DEFAULT_ROOT_TOPIC)
+
+/*!
+\def CONFIGURATION_DEFAULT_MQTT_MAINT_TOPIC
+\brief Default mqtt maint topic.
+*/
+#define CONFIGURATION_DEFAULT_MQTT_MAINT_TOPIC         (MQTT_DEFAULT_MAINT_TOPIC)
 
 /*!
 \def CONFIGURATION_DEFAULT_MQTT_SUBSCRIBE_TOPIC
@@ -347,7 +359,7 @@ WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S
 \def USE_SENSORS_COUNT
 \brief Sensors count.
 */
-#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DEP + USE_SENSOR_ADT + USE_SENSOR_HIH + USE_SENSOR_HYT)
+#define USE_SENSORS_COUNT                             (USE_SENSOR_ITH + USE_SENSOR_MTH + USE_SENSOR_NTH + USE_SENSOR_XTH + USE_SENSOR_TBS + USE_SENSOR_TBR + USE_SENSOR_DW1 + USE_SENSOR_DEP + USE_SENSOR_ADT + USE_SENSOR_HIH + USE_SENSOR_HYT)
 
 #if (USE_SENSORS_COUNT == 0)
 #error No sensor used. Are you sure? If not, enable it in RmapConfig/sensors_config.h

@@ -155,13 +155,13 @@ void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
 	if (millis() - *time_ms > debouncing_ms) {
 		*time_ms = millis();
 
-		power_adc_disable();
-		power_spi_disable();
-      power_timer0_disable();
-      #if (USE_TIMER_1 == false)
-      power_timer1_disable();
-      #endif
-		power_timer2_disable();
+    power_adc_disable();
+    power_spi_disable();
+    power_timer0_disable();
+    #if (USE_TIMER_1 == false)
+    power_timer1_disable();
+    #endif
+    power_timer2_disable();
 
 		noInterrupts ();
 		sleep_enable();
@@ -175,12 +175,12 @@ void init_power_down(uint32_t *time_ms, uint32_t debouncing_ms) {
 		sleep_disable();
 
 		power_adc_enable();
-		power_spi_enable();
-		power_timer0_enable();
-      #if (USE_TIMER_1 == false)
-      power_timer1_enable();
-      #endif
-		power_timer2_enable();
+    power_spi_enable();
+    power_timer0_enable();
+    #if (USE_TIMER_1 == false)
+    power_timer1_enable();
+    #endif
+    power_timer2_enable();
 	}
 }
 
@@ -386,10 +386,9 @@ void init_sensors () {
    uint8_t sensors_count = 0;
 
    LCD_INFO(&lcd, false, true, F("--- www.rmap.cc ---"));
-   LCD_INFO(&lcd, false, true, F("%s v. %u"), stima_name, readable_configuration.module_version);
+   LCD_INFO(&lcd, false, true, F("%s v. %u.%u"), stima_name, readable_configuration.module_main_version, readable_configuration.module_minor_version);
 
-   SERIAL_INFO(F("Sensors... [ %s ]\r\n"), readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
-   LCD_INFO(&lcd, false, true, F("Sensors %s"), readable_configuration.sensors_count ? OK_STRING : ERROR_STRING);
+   LCD_INFO(&lcd, false, true, F("Sensors count %u"), readable_configuration.sensors_count);
 
    if (readable_configuration.sensors_count) {
       // read sensors configuration, create and setup
@@ -411,7 +410,7 @@ void setNextTimeForSensorReading (time_t *next_time) {
 bool mqttConnect(char *username, char *password) {
    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
    data.MQTTVersion = 3;
-   // data.will.topicName.cstring = will_topic;
+   // data.will.topicName.cstring = maint_topic;
    // data.will.message.cstring = MQTT_ON_ERROR_MESSAGE;
    // data.will.retained = true;
    // data.will.qos = MQTT::QOS1;
@@ -452,7 +451,7 @@ void mqttRxCallback(MQTT::MessageData &md) {
 void print_configuration() {
    getStimaNameByType(stima_name, readable_configuration.module_type);
    SERIAL_INFO(F("--> type: %s\r\n"), stima_name);
-   SERIAL_INFO(F("--> version: %d\r\n"), readable_configuration.module_version);
+   SERIAL_INFO(F("--> version: %d.%d\r\n"), readable_configuration.module_main_version, readable_configuration.module_minor_version);
    SERIAL_INFO(F("--> sensors: %d\r\n"), readable_configuration.sensors_count);
 
    #if (MODULE_TYPE == STIMA_MODULE_TYPE_SAMPLE_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_REPORT_ETH || MODULE_TYPE == STIMA_MODULE_TYPE_PASSIVE_ETH)
@@ -474,6 +473,7 @@ void print_configuration() {
    SERIAL_INFO(F("--> mqtt server: %s\r\n"), readable_configuration.mqtt_server);
    SERIAL_INFO(F("--> mqtt port: %u\r\n"), readable_configuration.mqtt_port);
    SERIAL_INFO(F("--> mqtt root topic: %s\r\n"), readable_configuration.mqtt_root_topic);
+   SERIAL_INFO(F("--> mqtt maint topic: %s\r\n"), readable_configuration.mqtt_maint_topic);
    SERIAL_INFO(F("--> mqtt subscribe topic: %s\r\n"), readable_configuration.mqtt_subscribe_topic);
    SERIAL_INFO(F("--> mqtt username: %s\r\n"), readable_configuration.mqtt_username);
    SERIAL_INFO(F("--> mqtt password: %s\r\n\r\n"), readable_configuration.mqtt_password);
@@ -482,7 +482,8 @@ void print_configuration() {
 
 void set_default_configuration() {
    writable_configuration.module_type = MODULE_TYPE;
-   writable_configuration.module_version = MODULE_VERSION;
+   writable_configuration.module_main_version = MODULE_MAIN_VERSION;
+   writable_configuration.module_minor_version = MODULE_MINOR_VERSION;
 
    writable_configuration.report_seconds = 0;
 
@@ -518,6 +519,7 @@ void set_default_configuration() {
    writable_configuration.mqtt_port = CONFIGURATION_DEFAULT_MQTT_PORT;
    strcpy(writable_configuration.mqtt_server, CONFIGURATION_DEFAULT_MQTT_SERVER);
    strcpy(writable_configuration.mqtt_root_topic, CONFIGURATION_DEFAULT_MQTT_ROOT_TOPIC);
+   strcpy(writable_configuration.mqtt_maint_topic, CONFIGURATION_DEFAULT_MQTT_MAINT_TOPIC);
    strcpy(writable_configuration.mqtt_subscribe_topic, CONFIGURATION_DEFAULT_MQTT_SUBSCRIBE_TOPIC);
    strcpy(writable_configuration.mqtt_username, CONFIGURATION_DEFAULT_MQTT_USERNAME);
    strcpy(writable_configuration.mqtt_password, CONFIGURATION_DEFAULT_MQTT_PASSWORD);
@@ -557,15 +559,15 @@ void load_configuration() {
       SERIAL_INFO(F("Configuration received... [ %s ]\r\n"), OK_STRING);
    }
 
-   if (writable_configuration.module_type != MODULE_TYPE || writable_configuration.module_version != MODULE_VERSION) {
+   if (writable_configuration.module_type != MODULE_TYPE || writable_configuration.module_main_version != MODULE_MAIN_VERSION || writable_configuration.module_minor_version != MODULE_MINOR_VERSION) {
       save_configuration(CONFIGURATION_DEFAULT);
    }
 
    ee_read(&readable_configuration, CONFIGURATION_EEPROM_ADDRESS, sizeof(configuration_t));
 
    #if (USE_MQTT)
-   getMqttClientIdFromMqttTopic(readable_configuration.mqtt_root_topic, client_id);
-   getFullTopic(will_topic, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+   getMqttClientIdFromMqttTopic(readable_configuration.mqtt_maint_topic, client_id);
+   getFullTopic(maint_topic, readable_configuration.mqtt_maint_topic, MQTT_STATUS_TOPIC);
    #endif
 
    SERIAL_INFO(F("Load configuration... [ %s ]\r\n"), OK_STRING);
@@ -625,6 +627,9 @@ int configure(JsonObject &params, JsonObject &result) {
          strncpy(writable_configuration.mqtt_subscribe_topic, it->value.as<char*>(), MQTT_SUBSCRIBE_TOPIC_LENGTH);
          uint8_t mqtt_subscribe_topic_len = strlen(writable_configuration.mqtt_subscribe_topic);
          strncpy(writable_configuration.mqtt_subscribe_topic+mqtt_subscribe_topic_len, "rx", MQTT_SUBSCRIBE_TOPIC_LENGTH-mqtt_subscribe_topic_len);
+      }
+      else if (strcmp(it->key, "mqttmaintpath") == 0) {
+         strncpy(writable_configuration.mqtt_maint_topic, it->value.as<char*>(), MQTT_MAINT_TOPIC_LENGTH);
       }
       else if (strcmp(it->key, "mqttsampletime") == 0) {
          writable_configuration.report_seconds = it->value.as<unsigned int>();
@@ -1701,8 +1706,8 @@ void sensors_reading_task (bool do_prepare, bool do_get, char *driver, char *typ
    static uint32_t start_time_ms;
    static bool is_sensor_found;
    #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
-   static char lcd_buffer[20];
-   static int lcd_count;
+   static char lcd_buffer[LCD_ROWS][LCD_COLUMNS];
+   static int lcd_count[LCD_ROWS];
    #endif
 
    switch (sensors_reading_state) {
@@ -1866,80 +1871,100 @@ void sensors_reading_task (bool do_prepare, bool do_get, char *driver, char *typ
       break;
 
       case SENSORS_READING_NEXT:
-         // next sensor
-         if ((++i) < readable_configuration.sensors_count) {
-            retry = 0;
-            sensors_reading_state = SENSORS_READING_PREPARE;
-            SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_PREPARE\r\n"));
-         }
-         // success: all sensors readed
-         else {
-            // first time: read ptr data from sdcard
-            if (is_first_run) {
-               is_first_run = false;
+      // next sensor
+      if ((++i) < readable_configuration.sensors_count) {
+        retry = 0;
+        sensors_reading_state = SENSORS_READING_PREPARE;
+        SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_PREPARE\r\n"));
+      }
+      // success: all sensors readed
+      else {
+        // first time: read ptr data from sdcard
+        if (is_first_run) {
+          is_first_run = false;
 
-               #if (USE_MQTT)
-               noInterrupts();
-               if (!is_event_supervisor && is_event_mqtt_paused) {
-                  is_event_supervisor = true;
-                  ready_tasks_count++;
-               }
-               interrupts();
-               #endif
+          #if (USE_MQTT)
+          noInterrupts();
+          if (!is_event_supervisor && is_event_mqtt_paused) {
+            is_event_supervisor = true;
+            ready_tasks_count++;
+          }
+          interrupts();
+          #endif
+        }
+        // other time: save data to sdcard
+        else {
+          #if (USE_SDCARD)
+          noInterrupts();
+          if (!is_event_data_saving) {
+            is_event_data_saving = true;
+            ready_tasks_count++;
+          }
+          interrupts();
+          #endif
+
+          #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
+          for (i = 0; i < LCD_ROWS; i++) {
+            lcd_count[i] = 0;
+          }
+
+          for (i = 0; i < readable_configuration.sensors_count; i++) {
+            if (strcmp(sensors[i]->getType(), "ITH") == 0) {
+              if (isValid(values_readed_from_sensor[i][0])) {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0], LCD_COLUMNS, "%.1fC ", ((values_readed_from_sensor[i][0] - SENSOR_DRIVER_C_TO_K) / 100.0));
+              }
+              else {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0], LCD_COLUMNS, "--.-C ");
+              }
+
+              if (isValid(values_readed_from_sensor[i][1])) {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0]+lcd_count[0], LCD_COLUMNS-lcd_count[0], "%ld%% ", values_readed_from_sensor[i][1]);
+              }
+              else {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0]+lcd_count[0], LCD_COLUMNS-lcd_count[0], "---%% ");
+              }
             }
-            // other time: save data to sdcard
-            else {
-               #if (USE_SDCARD)
-               noInterrupts();
-               if (!is_event_data_saving) {
-                  is_event_data_saving = true;
-                  ready_tasks_count++;
-               }
-               interrupts();
-               #endif
-
-               #if (LCD_TRACE_LEVEL >= LCD_TRACE_LEVEL_INFO)
-               for (i = 0; i < readable_configuration.sensors_count; i++) {
-                  if (strcmp(sensors[i]->getType(), "ITH") == 0) {
-                     if (values_readed_from_sensor[i][0] != UINT16_MAX) {
-                        lcd_count = snprintf(lcd_buffer, 20, "Tp %.1f C   ", ((values_readed_from_sensor[i][0] - SENSOR_DRIVER_C_TO_K) / 100.0));
-                     }
-                     else {
-                        lcd_count = snprintf(lcd_buffer, 20, "Tp --.- C   ");
-                     }
-
-                     if (values_readed_from_sensor[i][1] != UINT16_MAX) {
-                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Hm %ld %%", values_readed_from_sensor[i][1]);
-                     }
-                     else {
-                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Hm --- %%");
-                     }
-                     LCD_INFO(&lcd, false, true, F("%s"), lcd_buffer);
-                  }
-                  else if (strcmp(sensors[i]->getType(), "TBR") == 0) {
-                    if (values_readed_from_sensor[i][0] != UINT16_MAX) {
-                        lcd_count = snprintf(lcd_buffer, 20, "R %.1f mm ", (values_readed_from_sensor[i][0]/10.0));
-                     }
-                     else {
-                        lcd_count = snprintf(lcd_buffer, 20, "R --.- mm ");
-                     }
-                  }
-                  else if (strcmp(sensors[i]->getType(), "DEP") == 0) {
-                    if (values_readed_from_sensor[i][0] != UINT16_MAX) {
-                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Vb %.1f V", (values_readed_from_sensor[i][1]/ 10.0));
-                     }
-                     else {
-                        lcd_count = snprintf(lcd_buffer+lcd_count, 20-lcd_count, "Vb --.- V");
-                     }
-                     LCD_INFO(&lcd, false, true, F("%s"), lcd_buffer);
-                  }
-               }
-               #endif
+            else if (strcmp(sensors[i]->getType(), "TBR") == 0) {
+              if (isValid(values_readed_from_sensor[i][0])) {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "%.1fmm ", (values_readed_from_sensor[i][0]/10.0));
+              }
+              else {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "--.-mm ");
+              }
             }
+            else if (strcmp(sensors[i]->getType(), "DW1") == 0) {
+              if (isValid(values_readed_from_sensor[i][1])) {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "%.1fm/s ", (values_readed_from_sensor[i][1]/10.0));
+              }
+              else {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "--.-m/s ");
+              }
 
-            sensors_reading_state = SENSORS_READING_END;
-            SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_END\r\n"));
-         }
+              if (isValid(values_readed_from_sensor[i][0])) {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "%ld%c", values_readed_from_sensor[i][0], 0b11011111);
+              }
+              else {
+                lcd_count[1] += snprintf(&lcd_buffer[1][0]+lcd_count[1], LCD_COLUMNS-lcd_count[1], "---%c", 0b11011111);
+              }
+            }
+            else if (strcmp(sensors[i]->getType(), "DEP") == 0) {
+              if (isValid(values_readed_from_sensor[i][0])) {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0]+lcd_count[0], LCD_COLUMNS-lcd_count[0], "%.1fV", (values_readed_from_sensor[i][1]/10.0));
+              }
+              else {
+                lcd_count[0] += snprintf(&lcd_buffer[0][0]+lcd_count[0], LCD_COLUMNS-lcd_count[0], "--.-V");
+              }
+            }
+          }
+          for (i = 0; i < 2; i++) {
+            LCD_INFO(&lcd, (i == 0), true, F("%s"), lcd_buffer[i]);
+          }
+          #endif
+        }
+
+        sensors_reading_state = SENSORS_READING_END;
+        SERIAL_TRACE(F("SENSORS_READING_NEXT ---> SENSORS_READING_END\r\n"));
+      }
       break;
 
       case SENSORS_READING_END:
@@ -2413,7 +2438,7 @@ void mqtt_task() {
       break;
 
       case MQTT_ON_CONNECT:
-         getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+         getFullTopic(full_topic_buffer, readable_configuration.mqtt_maint_topic, MQTT_STATUS_TOPIC);
          snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, MQTT_ON_CONNECT_MESSAGE);
 
          if (mqttPublish(full_topic_buffer, &message_buffer[0][0]), true) {
@@ -2619,7 +2644,7 @@ void mqtt_task() {
          if (is_mqtt_error) {
          #endif
 
-            getFullTopic(full_topic_buffer, readable_configuration.mqtt_root_topic, MQTT_STATUS_TOPIC);
+            getFullTopic(full_topic_buffer, readable_configuration.mqtt_maint_topic, MQTT_STATUS_TOPIC);
             snprintf(&message_buffer[0][0], MQTT_MESSAGE_LENGTH, MQTT_ON_DISCONNECT_MESSAGE);
 
             if (mqttPublish(full_topic_buffer, &message_buffer[0][0]), true) {

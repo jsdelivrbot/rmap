@@ -82,13 +82,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \brief EEPROM saved configuration.
 */
 typedef struct {
-   uint8_t module_version;                                  //!< module version
+   uint8_t module_main_version;                             //!< module main version
+   uint8_t module_minor_version;                            //!< module minor version
    uint8_t module_type;                                     //!< module type
 
    #if (USE_MQTT)
    uint16_t mqtt_port;                                      //!< mqtt server port
    char mqtt_server[MQTT_SERVER_LENGTH];                    //!< mqtt server
    char mqtt_root_topic[MQTT_ROOT_TOPIC_LENGTH];            //!< mqtt root path
+   char mqtt_maint_topic[MQTT_MAINT_TOPIC_LENGTH];          //!< mqtt maint path
    char mqtt_subscribe_topic[MQTT_SUBSCRIBE_TOPIC_LENGTH];  //!< mqtt subscribe topic
    char mqtt_username[MQTT_USERNAME_LENGTH];                //!< mqtt username
    char mqtt_password[MQTT_PASSWORD_LENGTH];                //!< mqtt password
@@ -494,10 +496,10 @@ bool is_mqtt_subscribed;
 char client_id[MQTT_CLIENT_ID_LENGTH];
 
 /*!
-\var will_topic
+\var maint_topic
 \brief MQTT topic for publish will message.
 */
-char will_topic[MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH];
+char maint_topic[MQTT_ROOT_TOPIC_LENGTH + MQTT_SENSOR_TOPIC_LENGTH];
 #endif
 
 /*!
