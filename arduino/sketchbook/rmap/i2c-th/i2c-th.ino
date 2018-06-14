@@ -374,56 +374,56 @@ void i2c_request_interrupt_handler() {
 }
 
 void i2c_receive_interrupt_handler(int rx_data_length) {
-   bool is_i2c_data_ok = false;
+  bool is_i2c_data_ok = false;
 
-   //! read rx_data_length bytes of data from i2c bus
-   for (uint8_t i=0; i<rx_data_length; i++) {
-      i2c_rx_data[i] = Wire.read();
-   }
+  //! read rx_data_length bytes of data from i2c bus
+  for (uint8_t i=0; i<rx_data_length; i++) {
+    i2c_rx_data[i] = Wire.read();
+  }
 
-   //! it is a registers read?
-   if (rx_data_length == 2 && is_readable_register(i2c_rx_data[0])) {
-      //! offset in readable_data_read_ptr buffer
-      readable_data_address = i2c_rx_data[0];
+  //! it is a registers read?
+  if (rx_data_length == 2 && is_readable_register(i2c_rx_data[0])) {
+    //! offset in readable_data_read_ptr buffer
+    readable_data_address = i2c_rx_data[0];
 
-      //! length (in butes) of data to be read in readable_data_read_ptr
-      readable_data_length = i2c_rx_data[1];
-   }
-   //! it is a command?
-   else if (rx_data_length == 2 && is_command(i2c_rx_data[0])) {
-      noInterrupts();
-      //! enable Command task
-      if (!is_event_command_task) {
-         is_event_command_task = true;
-         ready_tasks_count++;
-      }
-      interrupts();
-   }
-   //! it is a registers write?
-   else if (is_writable_register(i2c_rx_data[0])) {
+    //! length (in bytes) of data to be read in readable_data_read_ptr
+    readable_data_length = i2c_rx_data[1];
+  }
+  //! it is a command?
+  else if (rx_data_length == 2 && is_command(i2c_rx_data[0])) {
+    noInterrupts();
+    //! enable Command task
+    if (!is_event_command_task) {
+      is_event_command_task = true;
+      ready_tasks_count++;
+    }
+    interrupts();
+  }
+  //! it is a registers write?
+  else if (is_writable_register(i2c_rx_data[0])) {
     if (i2c_rx_data[0] == I2C_TH_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_ADDRESS_LENGTH+2)) {
-         is_i2c_data_ok = true;
-      }
-      else if (i2c_rx_data[0] == I2C_TH_ONESHOT_ADDRESS && rx_data_length == (I2C_TH_ONESHOT_LENGTH+2)) {
-         is_i2c_data_ok = true;
-      }
-      else if (i2c_rx_data[0] == I2C_TH_CONTINUOUS_ADDRESS && rx_data_length == (I2C_TH_CONTINUOUS_LENGTH+2)) {
-         is_i2c_data_ok = true;
-      }
-      else if (i2c_rx_data[0] == I2C_TH_TEMPERATURE_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_TEMPERATURE_ADDRESS_LENGTH+2)) {
-         is_i2c_data_ok = true;
-      }
-      else if (i2c_rx_data[0] == I2C_TH_HUMIDITY_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_HUMIDITY_ADDRESS_LENGTH+2)) {
-         is_i2c_data_ok = true;
-      }
+      is_i2c_data_ok = true;
+    }
+    else if (i2c_rx_data[0] == I2C_TH_ONESHOT_ADDRESS && rx_data_length == (I2C_TH_ONESHOT_LENGTH+2)) {
+      is_i2c_data_ok = true;
+    }
+    else if (i2c_rx_data[0] == I2C_TH_CONTINUOUS_ADDRESS && rx_data_length == (I2C_TH_CONTINUOUS_LENGTH+2)) {
+      is_i2c_data_ok = true;
+    }
+    else if (i2c_rx_data[0] == I2C_TH_TEMPERATURE_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_TEMPERATURE_ADDRESS_LENGTH+2)) {
+      is_i2c_data_ok = true;
+    }
+    else if (i2c_rx_data[0] == I2C_TH_HUMIDITY_ADDRESS_ADDRESS && rx_data_length == (I2C_TH_HUMIDITY_ADDRESS_LENGTH+2)) {
+      is_i2c_data_ok = true;
+    }
 
-      if (is_i2c_data_ok) {
-         for (uint8_t i=2; i<rx_data_length; i++) {
-            // write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
-            ((uint8_t *)writable_data_ptr)[i2c_rx_data[0] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
-         }
+    if (is_i2c_data_ok) {
+      for (uint8_t i=2; i<rx_data_length; i++) {
+        // write rx_data_length bytes in writable_data_ptr (base) at (i2c_rx_data[i] - I2C_WRITE_REGISTER_START_ADDRESS) (position in buffer)
+        ((uint8_t *)writable_data_ptr)[i2c_rx_data[0] - I2C_WRITE_REGISTER_START_ADDRESS] = i2c_rx_data[i];
       }
-   }
+    }
+  }
 }
 
 bool make_observation_from_samples(bool is_force_processing, sample_t *sample, observation_t *observation) {
@@ -502,7 +502,7 @@ bool make_value_from_samples_and_observations(sample_t *sample, observation_t *o
    uint16_t *write_ptr_temp;
 
    //! temporary value
-   uint32_t value_temp = UINT16_MAX;
+   uint32_t value_temp = (uint16_t) (UINT16_MAX);
 
    //! good observation counter
    uint16_t value_count = 0;
@@ -512,6 +512,9 @@ bool make_value_from_samples_and_observations(sample_t *sample, observation_t *o
 
    //! standard deviation
    float sigma = 0;
+
+   //! reset value to default
+   memset((void *) value, UINT16_MAX, sizeof(value_t));
 
    //! counter of the number of observation in memory
    if (observation->count <= OBSERVATION_COUNT) {
@@ -531,15 +534,18 @@ bool make_value_from_samples_and_observations(sample_t *sample, observation_t *o
    else observation->write_ptr++;
 
    if (is_processing) {
-      //! reset value to default
-      memset((void *) value, UINT16_MAX, sizeof(value_t));
-      value->max = 0;
-      value_temp = 0;
-
       //! loop until I have finished processing the last STATISTICAL_DATA_COUNT observations
       while ((observation->read_ptr - observation->med) != (observation->write_ptr - observation->med)) {
          //! if it is a good observation, calculate sum, minimum and maximum value. Otherwise increment error counter.
          if (*observation->read_ptr != UINT16_MAX) {
+           if (!isValid(value->max)) {
+             value->max = 0;
+           }
+
+           if (!isValid(value_temp)) {
+             value_temp = 0;
+           }
+
             value_temp += *observation->read_ptr;
 
             //! assign minimum to report value

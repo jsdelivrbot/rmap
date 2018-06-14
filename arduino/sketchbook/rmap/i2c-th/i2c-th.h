@@ -62,7 +62,6 @@ typedef struct {
 typedef struct {
    uint8_t module_type;                //!< module version
    uint8_t module_version;             //!< module type
-   rain_t rain;                        //!< rain data
    value_t temperature;                //!< temperature data for report
    value_t humidity;                   //!< humidity data for report
 } readable_data_t;
