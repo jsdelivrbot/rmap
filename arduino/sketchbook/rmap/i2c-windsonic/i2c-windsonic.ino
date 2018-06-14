@@ -5,7 +5,7 @@ Paolo Paruno <p.patruno@iperbole.bologna.it>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
-published by the Free Software Foundation; either version 2 of 
+published by the Free Software Foundation; either version 2 of
 the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * This program implements elaboration of wind speed and direction for
  * Gill Windsonic exported to i2c interface.
- * 
+ *
 **********************************************************************/
 /*
 buffer scrivibili da i2c
@@ -47,6 +47,8 @@ i puntatori a buffer1 e buffer2 vengono scambiati in una operazione atomica al c
 #include "FloatBuffer.h"
 
 #include "EEPROMAnything.h"
+
+#include "hardware_config.h"
 
 #define REG_MAP_SIZE            sizeof(I2C_REGISTERS)       //size of register map
 #define REG_WIND_SIZE           sizeof(wind_t)                  //size of register map for wind
@@ -114,7 +116,7 @@ typedef struct {
     *p+=EEPROM_writeAnything(*p, oneshot);
     *p+=EEPROM_writeAnything(*p, i2c_address);
   }
-  
+
   void load (int* p) volatile {                            // load from eeprom
     *p+=EEPROM_readAnything(*p, oneshot);
     *p+=EEPROM_readAnything(*p, i2c_address);
@@ -218,14 +220,14 @@ void receiveEvent( int bytesReceived)
      //IF_SDEBUG(Serial.println("data for write: "));
      //IF_SDEBUG(Serial.println(receivedCommands[0]));
      //IF_SDEBUG(Serial.println(receivedCommands[1]));
-     
-     if ((receivedCommands[0]>=I2C_WINDSONIC_MAP_WRITABLE) && (receivedCommands[0] < (I2C_WINDSONIC_MAP_WRITABLE+REG_WRITABLE_MAP_SIZE))) {    
+
+     if ((receivedCommands[0]>=I2C_WINDSONIC_MAP_WRITABLE) && (receivedCommands[0] < (I2C_WINDSONIC_MAP_WRITABLE+REG_WRITABLE_MAP_SIZE))) {
        if ((receivedCommands[0]+(unsigned int)(bytesReceived-1)) <= (I2C_WINDSONIC_MAP_WRITABLE+REG_WRITABLE_MAP_SIZE)) {
 	 //Writeable registers
 	 // the two buffer should be in sync
 	 ptr1 = (uint8_t *)i2c_writabledataset1+receivedCommands[0]-I2C_WINDSONIC_MAP_WRITABLE;
 	 ptr2 = (uint8_t *)i2c_writabledataset2+receivedCommands[0]-I2C_WINDSONIC_MAP_WRITABLE;
-	 for (int a = 1; a < bytesReceived; a++) { 
+	 for (int a = 1; a < bytesReceived; a++) {
 	   //IF_SDEBUG(Serial.print("write in writable buffer:"));IF_SDEBUG(Serial.println(a));IF_SDEBUG(Serial.println(receivedCommands[a]));
 	   *ptr1++ = receivedCommands[a];
 	   *ptr2++ = receivedCommands[a];
@@ -359,7 +361,7 @@ Q
   *rec = 0;
 
   timeIsOut = millis() + 3000;
-  while (timeIsOut > millis() && count < (BUF_LENGTH - 1) && !ok) {  
+  while (timeIsOut > millis() && count < (BUF_LENGTH - 1) && !ok) {
     wdt_reset();
 
     if (SERIALWIND.available())
@@ -437,8 +439,8 @@ bool readPolledMessage(String& myString)
 {
 
   /*
-    When in the Polled mode, an output is only generated when the host system sends a Poll 
-    signal to the WindSonic consisting of the WindSonic Unit Identifier that is, the relevant 
+    When in the Polled mode, an output is only generated when the host system sends a Poll
+    signal to the WindSonic consisting of the WindSonic Unit Identifier that is, the relevant
     letter A - Z.
     The commands available in this mode are:
     Description                       Command            WindSonic response
@@ -448,16 +450,16 @@ bool readPolledMessage(String& myString)
     Request WindSonic Unit Identifier ?&                 A ..... Z (as configured)
     Enter Configuration mode          *<N>               CONFIGURATION MODE
 
-    Where <N> is the unit identifier, if used in a multidrop system then it is recommended that 
+    Where <N> is the unit identifier, if used in a multidrop system then it is recommended that
     ID's A to F and KMNP are not used as these characters can be present in the data string.
- 
-    It is suggested that in polled mode the following sequence is used for every poll for 
+
+    It is suggested that in polled mode the following sequence is used for every poll for
     information.
     ? Ensures that the Sensor is enabled to cover the event that a power down has occurred.
     A-Z Appropriate unit designator sent to retrieve a line of data.
     ! Sent to disable poll mode and reduce possibility of erroneous poll generation.
 
-    When in polled mode the system will respond to the data command within 130mS with the 
+    When in polled mode the system will respond to the data command within 130mS with the
     last valid data sample as calculated by the Output rate (P Mode Setting).
   */
 
@@ -475,10 +477,10 @@ bool readPolledMessage(String& myString)
   return status;
 }
 
-  
+
 bool decodeValue(const String& myString,  unsigned int& dd, unsigned int& ff)
 {
-    
+
   String strmychecksum;
 
   //TODO parse periodic windsonic serial messages
@@ -490,12 +492,12 @@ bool decodeValue(const String& myString,  unsigned int& dd, unsigned int& ff)
      Q,349,000.05,M,00,15
      Q,031,000.06,M,00,1A
      Q,103,000.06,M,00,1A
-     
+
 
      Gill format Polar, Continuous (Default format)
-     
+
      <STX>Q, 229, 002.74, M, 00, <ETX>16
-     
+
      Where:
      <STX> = Start of string character (ASCII value 2)
      WindSonic node address = Unit identifier
@@ -507,8 +509,8 @@ bool decodeValue(const String& myString,  unsigned int& dd, unsigned int& ff)
      Checksum = This is the EXCLUSIVE OR of the bytes between (and not including) the <STX> and <ETX> characters.
      <CR> ASCII character
      <LF> ASCII characte
-     
-     The Status code is sent as part of each wind measurement message 
+
+     The Status code is sent as part of each wind measurement message
      Code  Status                 Condition
      00    OK                     Sufficient samples in average period
      01    Axis 1 failed          Insufficient samples in average period on U axis
@@ -516,7 +518,7 @@ bool decodeValue(const String& myString,  unsigned int& dd, unsigned int& ff)
      04    Axis 1 and 2 failed    Insufficient samples in average period on both axes
      08    NVM error              NVM checksum failed
      09    ROM error              ROM checksum failed
-     
+
   */
 
   int firstDelimiter = myString.indexOf(',');
@@ -524,7 +526,7 @@ bool decodeValue(const String& myString,  unsigned int& dd, unsigned int& ff)
     IF_SDEBUG(Serial.println(F("1 , not found in windsonic message")));
     return false;
   }
-    
+
   String value = myString.substring(0, firstDelimiter);
 
   /*
@@ -791,7 +793,7 @@ void setup() {
 
 
   pinMode(FORCEDEFAULTPIN, INPUT_PULLUP);
-  pinMode(LEDPIN, OUTPUT); 
+  pinMode(LEDPIN, OUTPUT);
 
   if (digitalRead(FORCEDEFAULTPIN) == LOW) {
     digitalWrite(LEDPIN, HIGH);
@@ -834,6 +836,7 @@ void setup() {
 
   //Start I2C communication routines
   Wire.begin(i2c_writabledataset1->i2c_address);
+  Wire.setClock(I2C_BUS_CLOCK);
 
   //The Wire library enables the internal pullup resistors for SDA and SCL.
   //You can turn them off after Wire.begin()
@@ -901,7 +904,7 @@ void loop() {
   float mean;
 
   unsigned int sector;
-  
+
   uint8_t i;
 
   wdt_reset();
@@ -919,12 +922,12 @@ void loop() {
   if (new_command!=0) {
     _command = new_command;                                                   //save command byte for processing
     new_command = 0;                                                          //clear it
-    //_command = _command & 0x0F;                                               //empty 4MSB bits   
+    //_command = _command & 0x0F;                                               //empty 4MSB bits
     switch (_command) {
     case I2C_WINDSONIC_COMMAND_ONESHOT_START:
       IF_SDEBUG(Serial.println(F("COMMAND: oneshot start")));
       start=true;
-      break;          
+      break;
     case I2C_WINDSONIC_COMMAND_ONESHOT_STOP:
       IF_SDEBUG(Serial.println(F("COMMAND: oneshot stop")));
       stop=true;
@@ -946,7 +949,7 @@ void loop() {
       i2c_writabledataset2->save(&p);
 
       break;
-    } //switch  
+    } //switch
   }
 
   //IF_SDEBUG(Serial.print(F("oneshot status: ")));IF_SDEBUG(Serial.println(oneshot));
@@ -974,7 +977,7 @@ void loop() {
 
     stop=false;
   }
-  
+
   if (oneshot) {
     if (start)
       {
@@ -1006,7 +1009,7 @@ void loop() {
     return;
   }
   else {
-    if (timetowait < -10) IF_SDEBUG(Serial.print("WARNIG: timing error , I am late"));    
+    if (timetowait < -10) IF_SDEBUG(Serial.print("WARNIG: timing error , I am late"));
   }
 
   starttime = millis()+timetowait;
@@ -1020,12 +1023,12 @@ void loop() {
   if (! readPolledMessage(myString)) return;
     //}else{
     //if (! readMessage(myString)) return;
-    //}    
+    //}
 
   if (! decodeValue(myString, dd, ff)) return;
 
   wdt_reset();
-  
+
   i2c_dataset1->wind.ff=ff;
   i2c_dataset1->wind.dd=dd;
 
@@ -1051,7 +1054,7 @@ void loop() {
   if (oneshot) {
     //if one shot we have finish
     IF_SDEBUG(Serial.println(F("oneshot end")));
-    start=false;    
+    start=false;
     return;
   }
 
@@ -1135,9 +1138,9 @@ void loop() {
     for (i=0 ; i < cbsum.getCapacity() ; i++){
       sum60 += cbsum.peek(i);
     }
-	
+
     i2c_dataset1->wind.sigma=round(sqrt((sum260-(sum60*sum60)/(SAMPLE1*SAMPLE2))/(SAMPLE1*SAMPLE2)));
-      
+
   }else{
     i2c_dataset1->wind.sigma=MISSINTVALUE;
   }
@@ -1252,7 +1255,7 @@ void loop() {
 
       //IF_SDEBUG(Serial.println(cbu60m.peek(i)));
       //IF_SDEBUG(Serial.println(cbv60m.peek(i)));
-      
+
       float u = float(cbu60m.peek(i));
       float v = float(cbv60m.peek(i));
 
@@ -1288,4 +1291,4 @@ void loop() {
   // comment this if you manage continous mode
   // in this case timing is getted from windsonic that send valuer every SAMPLERATE us
 
-}  
+}
