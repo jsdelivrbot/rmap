@@ -395,6 +395,9 @@ void init_sensors () {
       for (uint8_t i=0; i<readable_configuration.sensors_count; i++) {
          SensorDriver::createAndSetup(readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].node, sensors, &sensors_count);
          SERIAL_INFO(F("--> %u: %s-%s [ 0x%x ]: %s\t [ %s ]\r\n"), sensors_count, readable_configuration.sensors[i].driver, readable_configuration.sensors[i].type, readable_configuration.sensors[i].address, readable_configuration.sensors[i].mqtt_topic, sensors[i]->isSetted() ? OK_STRING : FAIL_STRING);
+         if (!sensors[i]->isSetted()) {
+           LCD_INFO(&lcd, false, true, F("%s %s"), readable_configuration.sensors[i].type, FAIL_STRING);
+         }
       }
 
       SERIAL_INFO(F("\r\n"));
