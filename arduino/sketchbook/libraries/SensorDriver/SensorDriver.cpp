@@ -296,7 +296,7 @@ void SensorDriverAdt7420::get(int32_t *values, uint8_t length) {
   switch (_get_state) {
     case INIT:
     temperature = 0;
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
 
     _is_success = true;
     _is_readed = false;
@@ -468,7 +468,7 @@ void SensorDriverHih6100::get(int32_t *values, uint8_t length) {
     case INIT:
     temperature = 0;
     humidity = 0;
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
 
     _is_success = true;
     _is_readed = false;
@@ -663,7 +663,7 @@ void SensorDriverHyt2X1::get(int32_t *values, uint8_t length) {
     case INIT:
     humidity = UINT16_MAX;
     temperature = UINT16_MAX;
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
 
     _is_readed = false;
     _is_end = false;
@@ -700,7 +700,7 @@ void SensorDriverHyt2X1::get(int32_t *values, uint8_t length) {
 
     if (length >= 2) {
       if (_is_success) {
-        values[1] = SENSOR_DRIVER_C_TO_K + temperature * 100;
+        values[1] = SENSOR_DRIVER_C_TO_K + (int32_t)(temperature * 100.0);
       }
       else {
         values[1] = UINT16_MAX;
@@ -836,7 +836,7 @@ void SensorDriverDw1::get(int32_t *values, uint8_t length) {
 
   switch (_get_state) {
     case INIT:
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
 
     _is_readed = false;
     _is_end = false;
@@ -1096,7 +1096,7 @@ void SensorDriverRain::get(int32_t *values, uint8_t length) {
 
   switch (_get_state) {
     case INIT:
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
     memset(rain_data, UINT8_MAX, I2C_RAIN_TIPS_LENGTH);
 
     _is_readed = false;
@@ -1315,7 +1315,7 @@ void SensorDriverTh::get(int32_t *values, uint8_t length) {
 
   switch (_get_state) {
     case INIT:
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
     memset(temperature_data, UINT8_MAX, I2C_TH_TEMPERATURE_DATA_MAX_LENGTH);
     memset(humidity_data, UINT8_MAX, I2C_TH_HUMIDITY_DATA_MAX_LENGTH);
 
@@ -1613,7 +1613,7 @@ void SensorDriverDigitecoPower::get(int32_t *values, uint8_t length) {
 
   switch (_get_state) {
     case INIT:
-    memset(values, UINT16_MAX, length * sizeof(int32_t));
+    memset(values, UINT8_MAX, length * sizeof(int32_t));
 
     _is_readed = false;
     _is_end = false;
