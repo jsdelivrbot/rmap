@@ -400,7 +400,7 @@ void exchange_buffers() {
 }
 
 void reset_buffers() {
-   memset((void *) &readable_data_write_ptr->rain, UINT16_MAX, sizeof(rain_t));
+   memset((void *) &readable_data_write_ptr->rain, UINT8_MAX, sizeof(rain_t));
    rain.tips_count = 0;
 }
 
