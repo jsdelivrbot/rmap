@@ -84,8 +84,7 @@ typedef struct {
 */
 typedef struct {
    uint16_t values[SENSORS_SAMPLE_COUNT_MAX];   //!< buffer containing the measured samples
-   uint8_t count;                               //!< number of correct samples
-   uint8_t error_count;                         //!< number of wrong samples
+   uint8_t count;                               //!< number of samples
 } sample_t;
 
 /*!
@@ -450,6 +449,11 @@ void reset_observations_buffer(void);
 \return void.
 */
 void exchange_buffers(void);
+
+void resetObservation(observation_t *buffer, uint16_t length);
+void resetBackObservation(observation_t *buffer, uint16_t length);
+void addObservation(observation_t *buffer, uint16_t length, uint16_t value);
+uint16_t readBackObservation(observation_t *buffer, uint16_t length);
 
 /*!
 \fn void samples_processing(bool is_force_processing)
