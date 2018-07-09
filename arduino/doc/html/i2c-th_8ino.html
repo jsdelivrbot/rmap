@@ -183,6 +183,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="memitem:adfc6b4ac31f79cb1c99dd2409f05f32d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-th_8ino.html#adfc6b4ac31f79cb1c99dd2409f05f32d">reset_observations_buffer</a> ()</td></tr>
 <tr class="memdesc:adfc6b4ac31f79cb1c99dd2409f05f32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset observations buffers to default value.  <a href="#adfc6b4ac31f79cb1c99dd2409f05f32d">More...</a><br /></td></tr>
 <tr class="separator:adfc6b4ac31f79cb1c99dd2409f05f32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a014425844c50f85e0b7ca9f57555e296"><td class="memItemLeft" align="right" valign="top"><a id="a014425844c50f85e0b7ca9f57555e296"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetObservation</b> (<a class="el" href="structobservation__t.html">observation_t</a> *buffer, uint16_t length)</td></tr>
+<tr class="separator:a014425844c50f85e0b7ca9f57555e296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e09f7bf8972ceef3d6f48804032c112"><td class="memItemLeft" align="right" valign="top"><a id="a6e09f7bf8972ceef3d6f48804032c112"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetBackObservation</b> (<a class="el" href="structobservation__t.html">observation_t</a> *buffer, uint16_t length)</td></tr>
+<tr class="separator:a6e09f7bf8972ceef3d6f48804032c112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a761ce284eb4fbee12a181a69d70964e8"><td class="memItemLeft" align="right" valign="top"><a id="a761ce284eb4fbee12a181a69d70964e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addObservation</b> (<a class="el" href="structobservation__t.html">observation_t</a> *buffer, uint16_t length, uint16_t value)</td></tr>
+<tr class="separator:a761ce284eb4fbee12a181a69d70964e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5da0ba3301abafd74a1a68310b2d779e"><td class="memItemLeft" align="right" valign="top"><a id="a5da0ba3301abafd74a1a68310b2d779e"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>readBackObservation</b> (<a class="el" href="structobservation__t.html">observation_t</a> *buffer, uint16_t length)</td></tr>
+<tr class="separator:a5da0ba3301abafd74a1a68310b2d779e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42389aceb96a84573eb67e6d141cb594"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i2c-th_8ino.html#a42389aceb96a84573eb67e6d141cb594">command_task</a> ()</td></tr>
 <tr class="memdesc:a42389aceb96a84573eb67e6d141cb594"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the command received on i2c bus by reading i2c received data buffer.  <a href="#a42389aceb96a84573eb67e6d141cb594">More...</a><br /></td></tr>
 <tr class="separator:a42389aceb96a84573eb67e6d141cb594"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -647,15 +659,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 <p>default value for observation</p>
-<p>when true, indicates that sufficient samples have been acquired for the calculation of an observation (except for samples errors)</p>
+<p>when true, indicates that sufficient samples have been acquired for the calculation of an observation</p>
 <p>force processing when samples_count = SENSORS_SAMPLE_COUNT_MAX</p>
 <p>force processing when samples_count = SENSORS_SAMPLE_COUNT_MIN</p>
 <p>normal behavior: processing when correct measure sample count + error measure sample count == samples_count</p>
-<p>if true, indicates that there are good enough samples for the calculation of observation</p>
-<p>if true, you can calculate the observation</p>
 <p>sum all good samples</p>
-<p>calculate average of all good samples</p>
-<p>assign a observation buffer with current value </p>
+<p>samples average calculation only if there are good enough good samples</p>
+<p>average calculation</p>
+<p>add new calculted observation to observations buffer </p>
 
 </div>
 </div>
@@ -701,34 +712,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
-<p>new read pointer in circular observation buffer</p>
-<p>temporary write pointer in circular observation buffer</p>
-<p>temporary value</p>
+<p>reset value to default</p>
+<p>if true, you can calculate the value for report (there are at least STATISTICAL_DATA_COUNT observations)</p>
 <p>good observation counter</p>
 <p>error observation counter</p>
-<p>standard deviation</p>
-<p>reset value to default</p>
-<p>counter of the number of observation in memory</p>
-<p>if true, you can calculate the value for report (there are at least STATISTICAL_DATA_COUNT observations)</p>
-<p>initialize write ptr</p>
-<p>calculate write_ptr: if the end is reached, reset to the first address, else increment by one</p>
-<p>loop until I have finished processing the last STATISTICAL_DATA_COUNT observations</p>
+<p>current observation's value</p>
+<p>minimum value</p>
+<p>average value</p>
+<p>maximum value</p>
+<p>loop backwards in last STATISTICAL_DATA_COUNT observations array</p>
 <p>if it is a good observation, calculate sum, minimum and maximum value. Otherwise increment error counter.</p>
-<p>assign minimum to report value</p>
-<p>assign maximum to report value</p>
-<p>calculate read_ptr: if the end is reached, reset to the first address, else increment by one</p>
-<p>calculate next read_ptr (observation-&gt;write_ptr + 1 for pre-calculate next processing)</p>
-<p>assign read_ptr to new next value</p>
+<p>check and assing minimum value</p>
+<p>check and assing maximum value</p>
+<p>sum value for average calculation</p>
+<p>calculate report value only if there are enough good observations</p>
 <p>assign last sample to report value</p>
 <p>assign last observation to report value</p>
-<p>calculate observations average only if there are enough good observations</p>
-<p>calculate standard deviation</p>
-<p>loop until I have finished processing the last STATISTICAL_DATA_COUNT observations</p>
-<p>if it is a good observation, calculate variance</p>
-<p>calculate read_ptr: if the end is reached, reset to the first address, else increment by one</p>
-<p>calculate standard deviation only if there are enough good observations</p>
-<p>calculate next read_ptr (observation-&gt;write_ptr + 1 for pre-calculate next processing)</p>
-<p>assign read_ptr to new next value </p>
+<p>calculate average</p>
+<p>assign maximum observation to report value</p>
+<p>assign minimum observation to report value </p>
 
 </div>
 </div>
@@ -751,8 +753,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <p>Main routine for processing the observations to calculate a value for report. </p>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 <p>if true, a new temperature report was calculated</p>
-<p>if true, a new humidty report was calculated</p>
-<p>reset buffer of samples value </p>
+<p>if true, a new humidty report was calculated </p>
 
 </div>
 </div>
@@ -845,7 +846,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 <p>if true, a new temperature observation was calculated</p>
 <p>if true, a new humidity observation was calculated</p>
-<p>assign new value for samples_count </p>
+<p>assign new value for samples_count</p>
+<p>reset samples's value buffer </p>
 
 </div>
 </div>
@@ -906,8 +908,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <p>success</p>
 <p>retry</p>
 <p>fail</p>
-<p>mark error</p>
-<p>go to next sensor</p>
 <p>process other internal sensor state</p>
 <p>read sensor value</p>
 <p>go to next sensor</p>

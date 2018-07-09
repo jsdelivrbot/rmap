@@ -120,6 +120,18 @@ void \hyperlink{i2c-th_8h_a49fdbb850fac1a3832e7852a24c31c72}{reset\+\_\+observat
 \begin{DoxyCompactList}\small\item\em Reset observations buffers to default value. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-th_8h_aafa3d59a1bde3085849eee08f110612f}{exchange\+\_\+buffers} (void)
 \begin{DoxyCompactList}\small\item\em Exchange reader and writer pointer to buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{i2c-th_8h_a014425844c50f85e0b7ca9f57555e296}\label{i2c-th_8h_a014425844c50f85e0b7ca9f57555e296}} 
+void {\bfseries reset\+Observation} (\hyperlink{structobservation__t}{observation\+\_\+t} $\ast$buffer, uint16\+\_\+t length)
+\item 
+\mbox{\Hypertarget{i2c-th_8h_a6e09f7bf8972ceef3d6f48804032c112}\label{i2c-th_8h_a6e09f7bf8972ceef3d6f48804032c112}} 
+void {\bfseries reset\+Back\+Observation} (\hyperlink{structobservation__t}{observation\+\_\+t} $\ast$buffer, uint16\+\_\+t length)
+\item 
+\mbox{\Hypertarget{i2c-th_8h_a761ce284eb4fbee12a181a69d70964e8}\label{i2c-th_8h_a761ce284eb4fbee12a181a69d70964e8}} 
+void {\bfseries add\+Observation} (\hyperlink{structobservation__t}{observation\+\_\+t} $\ast$buffer, uint16\+\_\+t length, uint16\+\_\+t value)
+\item 
+\mbox{\Hypertarget{i2c-th_8h_a5da0ba3301abafd74a1a68310b2d779e}\label{i2c-th_8h_a5da0ba3301abafd74a1a68310b2d779e}} 
+uint16\+\_\+t {\bfseries read\+Back\+Observation} (\hyperlink{structobservation__t}{observation\+\_\+t} $\ast$buffer, uint16\+\_\+t length)
+\item 
 void \hyperlink{i2c-th_8h_aba0fc91d6c2829df00a9d5fe2b921c90}{samples\+\_\+processing} (bool is\+\_\+force\+\_\+processing)
 \begin{DoxyCompactList}\small\item\em Main routine for processing the samples to calculate an observation. \end{DoxyCompactList}\item 
 void \hyperlink{i2c-th_8h_a8b67eda853f3e8cca0c729267b492861}{observations\+\_\+processing} (void)
@@ -637,7 +649,7 @@ void.
 \end{DoxyReturn}
 default value for observation
 
-when true, indicates that sufficient samples have been acquired for the calculation of an observation (except for samples errors)
+when true, indicates that sufficient samples have been acquired for the calculation of an observation
 
 force processing when samples\+\_\+count = S\+E\+N\+S\+O\+R\+S\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+C\+O\+U\+N\+T\+\_\+\+M\+AX
 
@@ -645,15 +657,13 @@ force processing when samples\+\_\+count = S\+E\+N\+S\+O\+R\+S\+\_\+\+S\+A\+M\+P
 
 normal behavior\+: processing when correct measure sample count + error measure sample count == samples\+\_\+count
 
-if true, indicates that there are good enough samples for the calculation of observation
-
-if true, you can calculate the observation
-
 sum all good samples
 
-calculate average of all good samples
+samples average calculation only if there are good enough good samples
 
-assign a observation buffer with current value \mbox{\Hypertarget{i2c-th_8h_ab301e4d552826ef91458f52963949a1d}\label{i2c-th_8h_ab301e4d552826ef91458f52963949a1d}} 
+average calculation
+
+add new calculted observation to observations buffer \mbox{\Hypertarget{i2c-th_8h_ab301e4d552826ef91458f52963949a1d}\label{i2c-th_8h_ab301e4d552826ef91458f52963949a1d}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!make\+\_\+value\+\_\+from\+\_\+samples\+\_\+and\+\_\+observations@{make\+\_\+value\+\_\+from\+\_\+samples\+\_\+and\+\_\+observations}}
 \index{make\+\_\+value\+\_\+from\+\_\+samples\+\_\+and\+\_\+observations@{make\+\_\+value\+\_\+from\+\_\+samples\+\_\+and\+\_\+observations}!i2c-\/th.\+h@{i2c-\/th.\+h}}
 \subsubsection{\texorpdfstring{make\+\_\+value\+\_\+from\+\_\+samples\+\_\+and\+\_\+observations()}{make\_value\_from\_samples\_and\_observations()}}
@@ -675,61 +685,43 @@ Processing the observations to calculate a value for report when the number of t
 \begin{DoxyReturn}{Returns}
 void. 
 \end{DoxyReturn}
-new read pointer in circular observation buffer
+reset value to default
 
-temporary write pointer in circular observation buffer
-
-temporary value
+if true, you can calculate the value for report (there are at least S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations)
 
 good observation counter
 
 error observation counter
 
-standard deviation
+current observation\textquotesingle{}s value
 
-reset value to default
+minimum value
 
-counter of the number of observation in memory
+average value
 
-if true, you can calculate the value for report (there are at least S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations)
+maximum value
 
-initialize write ptr
-
-calculate write\+\_\+ptr\+: if the end is reached, reset to the first address, else increment by one
-
-loop until I have finished processing the last S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations
+loop backwards in last S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations array
 
 if it is a good observation, calculate sum, minimum and maximum value. Otherwise increment error counter.
 
-assign minimum to report value
+check and assing minimum value
 
-assign maximum to report value
+check and assing maximum value
 
-calculate read\+\_\+ptr\+: if the end is reached, reset to the first address, else increment by one
+sum value for average calculation
 
-calculate next read\+\_\+ptr (observation-\/$>$write\+\_\+ptr + 1 for pre-\/calculate next processing)
-
-assign read\+\_\+ptr to new next value
+calculate report value only if there are enough good observations
 
 assign last sample to report value
 
 assign last observation to report value
 
-calculate observations average only if there are enough good observations
+calculate average
 
-calculate standard deviation
+assign maximum observation to report value
 
-loop until I have finished processing the last S\+T\+A\+T\+I\+S\+T\+I\+C\+A\+L\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+U\+NT observations
-
-if it is a good observation, calculate variance
-
-calculate read\+\_\+ptr\+: if the end is reached, reset to the first address, else increment by one
-
-calculate standard deviation only if there are enough good observations
-
-calculate next read\+\_\+ptr (observation-\/$>$write\+\_\+ptr + 1 for pre-\/calculate next processing)
-
-assign read\+\_\+ptr to new next value \mbox{\Hypertarget{i2c-th_8h_a8b67eda853f3e8cca0c729267b492861}\label{i2c-th_8h_a8b67eda853f3e8cca0c729267b492861}} 
+assign minimum observation to report value \mbox{\Hypertarget{i2c-th_8h_a8b67eda853f3e8cca0c729267b492861}\label{i2c-th_8h_a8b67eda853f3e8cca0c729267b492861}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!observations\+\_\+processing@{observations\+\_\+processing}}
 \index{observations\+\_\+processing@{observations\+\_\+processing}!i2c-\/th.\+h@{i2c-\/th.\+h}}
 \subsubsection{\texorpdfstring{observations\+\_\+processing()}{observations\_processing()}}
@@ -744,9 +736,7 @@ void.
 \end{DoxyReturn}
 if true, a new temperature report was calculated
 
-if true, a new humidty report was calculated
-
-reset buffer of samples value \mbox{\Hypertarget{i2c-th_8h_ab08b9047f47849f399950705e769be2e}\label{i2c-th_8h_ab08b9047f47849f399950705e769be2e}} 
+if true, a new humidty report was calculated \mbox{\Hypertarget{i2c-th_8h_ab08b9047f47849f399950705e769be2e}\label{i2c-th_8h_ab08b9047f47849f399950705e769be2e}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!print\+\_\+configuration@{print\+\_\+configuration}}
 \index{print\+\_\+configuration@{print\+\_\+configuration}!i2c-\/th.\+h@{i2c-\/th.\+h}}
 \subsubsection{\texorpdfstring{print\+\_\+configuration()}{print\_configuration()}}
@@ -807,7 +797,9 @@ if true, a new temperature observation was calculated
 
 if true, a new humidity observation was calculated
 
-assign new value for samples\+\_\+count \mbox{\Hypertarget{i2c-th_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}\label{i2c-th_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}} 
+assign new value for samples\+\_\+count
+
+reset samples\textquotesingle{}s value buffer \mbox{\Hypertarget{i2c-th_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}\label{i2c-th_8h_a8801fa7c9f323c5b8b9b2bb5b1c438ff}} 
 \index{i2c-\/th.\+h@{i2c-\/th.\+h}!save\+\_\+configuration@{save\+\_\+configuration}}
 \index{save\+\_\+configuration@{save\+\_\+configuration}!i2c-\/th.\+h@{i2c-\/th.\+h}}
 \subsubsection{\texorpdfstring{save\+\_\+configuration()}{save\_configuration()}}
@@ -861,10 +853,6 @@ success
 retry
 
 fail
-
-mark error
-
-go to next sensor
 
 process other internal sensor state
 

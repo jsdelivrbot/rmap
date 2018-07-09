@@ -8,7 +8,6 @@ var searchData=
   ['enableclockout',['enableClockout',['../namespacePcf8563.html#a03e4ea0f00fd48664537788ba491fa60',1,'Pcf8563']]],
   ['enabletimer',['enableTimer',['../namespacePcf8563.html#af4cc94d1ea73bbff5d44e1b716111cdb',1,'Pcf8563']]],
   ['end',['END',['../i2c-rain_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;i2c-rain.h'],['../i2c-th_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;i2c-th.h'],['../rmap_8h.html#aa0aafed44fec19806d8f9ad834be1248adc6f24fd6915a3f2786a1b7045406924',1,'END():&#160;rmap.h']]],
-  ['error_5fcount',['error_count',['../structsample__t.html#abcd5ae40e49c9c7bbfed40552ba44e72',1,'sample_t']]],
   ['error_5fstring',['ERROR_STRING',['../debug__config_8h.html#aafb785ddac3a16af13fc903fc54643e6',1,'debug_config.h']]],
   ['eth_5ftcp_5fclient',['eth_tcp_client',['../rmap_8h.html#abdcb198b5489995a350bc73d1d5f4f6d',1,'rmap.h']]],
   ['eth_5fudp_5fclient',['eth_udp_client',['../rmap_8h.html#a2765db5c6ff0cd5266f528c32d9e1377',1,'rmap.h']]],
