@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def USE_JSON
 \brief Enable if you want use json library for json response (getJson function in SensorDriver).
 */
-#define USE_JSON                    (true)
+#define USE_JSON                    (false)
 
 /*!
 \def USE_SENSOR_ADT
@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def USE_SENSOR_DEP
 \brief Enable if you want use DigitEco Power sensor.
 */
-#define USE_SENSOR_DEP              (true)
+#define USE_SENSOR_DEP              (false)
 
 /*!
 \def USE_SENSOR_HI7
@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def USE_SENSOR_TBR
 \brief Enable if you want use Tipping bucket rain gauge sensor.
 */
-#define USE_SENSOR_TBR              (true)
+#define USE_SENSOR_TBR              (false)
 
 /*!
 \def USE_SENSOR_STH
@@ -93,25 +93,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 \def USE_SENSOR_ITH
 \brief Enable if you want use Temperature and humidity continuous istantaneous sensor.
 */
-#define USE_SENSOR_ITH              (true)
+#define USE_SENSOR_ITH              (false)
 
 /*!
 \def USE_SENSOR_NTH
 \brief Enable if you want use Temperature and humidity continuous minium sensor.
 */
-#define USE_SENSOR_NTH              (true)
+#define USE_SENSOR_NTH              (false)
 
 /*!
 \def USE_SENSOR_MTH
 \brief Enable if you want use Temperature and humidity continuous average sensor.
 */
-#define USE_SENSOR_MTH              (true)
+#define USE_SENSOR_MTH              (false)
 
 /*!
 \def USE_SENSOR_XTH
 \brief Enable if you want use Temperature and humidity continuous maximum sensor.
 */
-#define USE_SENSOR_XTH              (true)
+#define USE_SENSOR_XTH              (false)
 
 /*!
 \def USE_SENSOR_SSD
@@ -213,9 +213,9 @@ Maximum number of values to be read by the sensors.
 
 /*!
 \def OBSERVATION_COUNT
-\brief How much observations were stored in ram.
+\brief Observations buffer length.
 */
-#define OBSERVATION_COUNT                    (60)
+#define OBSERVATION_COUNT                    (STATISTICAL_DATA_COUNT * 2)
 
 /*!
 \def OBSERVATION_COUNT_TOLLERANCE
